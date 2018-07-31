@@ -1,6 +1,14 @@
 package datatypes;
 
 public enum Days {
+	/*
+	 * A java enum is a special type used to define collections
+	 * of constants. can have specific functionality for a list
+	 * of constants.
+	 * 
+	 * it's like a deck of cards. enumeration of suites. enumerations
+	 * of color
+	 */
 	MONDAY {
 		public void live() {
 			System.out.println("Mondays are long days");
