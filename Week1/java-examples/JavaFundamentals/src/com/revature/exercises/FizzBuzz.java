@@ -1,4 +1,4 @@
-package com.ex.exercises;
+package com.revature.exercises;
 
 public class FizzBuzz {
 	public static void main(String[] args){
