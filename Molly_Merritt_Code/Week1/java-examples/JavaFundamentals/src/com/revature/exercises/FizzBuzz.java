@@ -1,4 +1,4 @@
-package com.ex.exercises;
+package com.revature.exercises;
 
 // import java.util.Scanner;
 
