@@ -1,0 +1,41 @@
+switch case
+types it can take
+- int - Integer
+- short - Short
+- byte	- Byte
+- char - Character
+- enum
+
+scanners
+wrapper classes
+strings
+arrays
+if/else if/else
+operators 
+exceptions
+
+
+intance variable needs an object inorder to access a method
+
+scanners
+wrapper classes
+strings
+arrays
+if/else if/else
+operators 
+exceptions
+
+final 
+-class-cannot be extended
+-method-cannot be overriden -CAN BE OVERLOADED
+-variables-cannot be changed once initalized
+
+strings are mutable (final)
+
+stringbuilder -faster- is not thread safe
+stringbuffer is thread safe
+
+
+fizzbuzz
+loops
+demenostrate oop principles 
