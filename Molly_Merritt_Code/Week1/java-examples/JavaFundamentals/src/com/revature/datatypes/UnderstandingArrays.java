@@ -2,7 +2,7 @@ package com.revature.datatypes;
 
 import java.util.Arrays;
 
-public class understandingArrays {
+public class UnderstandingArrays {
 	
 	/* An array is a group of variables
 	 * Elements of an array must be the same type
