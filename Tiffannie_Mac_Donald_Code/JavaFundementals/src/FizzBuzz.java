@@ -1,5 +1,3 @@
-package com.revature.exercises;
-
 import java.util.Scanner;
 
 public class FizzBuzz {
@@ -33,3 +31,4 @@ public class FizzBuzz {
 	}
 
 }
+
