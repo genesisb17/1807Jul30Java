@@ -20,6 +20,7 @@ public class Scopes {
 		int x = Integer.parseInt("1");
 		// or
 		Integer y = new Integer(2);
+		@SuppressWarnings("static-access")
 		int z = y.parseInt("3"); // Note the warning; not good practice.
 		// or
 		test(); // Use from within the same class.
