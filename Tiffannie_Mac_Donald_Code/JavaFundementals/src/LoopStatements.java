@@ -23,6 +23,12 @@ public class LoopStatements {
 		//	this
 		//}
 		//while(condition);
+		int stop = 0;
+		do {
+			System.out.println("This will only print once");
+		} while(stop > 1);
+		
+		//demonstrating a while loop
 		int count = 0;
 		while(count != 11) {
 			//if statement is like a road block
@@ -35,9 +41,12 @@ public class LoopStatements {
 			}
 			//else is a backup. in case the initial
 			//if condition is false
+			//but i do not think this will run because each number can only
+			//be even or odd.... hehe whoops
 			else {
 				System.out.println(count);
 			}
+			count++;
 		}
 		
 		//switch statements are not really looking for
@@ -48,12 +57,14 @@ public class LoopStatements {
 		//as soon as one case is met it will execute the remaining cases
 		//unless there is a break statement.
 		//use a break or return statement. you need either or
-		//
+		
+		//this is a poor example. had I the opportunity, better to use
+		//enums probably.
 		int primaryColor = 3;
 		int color = 0;
 		switch(primaryColor) {
 			case 1: color = 1; //red
-				break;
+				return;
 			case 2: color = 2; //yellow
 				break;
 			case 3: color = 3; //blue
