@@ -1,6 +1,6 @@
 package Exercises;
 
-public class FundamentalsOfOOP1 {
+public abstract class FundamentalsOfOOP1 {
 
 	private int age = 22;
 
@@ -16,5 +16,5 @@ public class FundamentalsOfOOP1 {
 		System.out.println("My name is definitely not " + b);
 	}
 	
-	public static void runAway() {}
+	abstract public static void runAway();
 }
