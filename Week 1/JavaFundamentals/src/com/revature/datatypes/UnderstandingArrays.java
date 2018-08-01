@@ -42,7 +42,7 @@ public class UnderstandingArrays {
 	}
 	
 	//var args
-	//can only have one per param limt. and must be last param in list
+	//can only have one per param list. and must be last param in list
 	static int add(int... nums) {
 		int sum = 0;
 		for (int n:nums) {
