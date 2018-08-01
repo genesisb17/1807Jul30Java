@@ -1,5 +1,6 @@
 package com.iantimothyjohnson.notes;
 
+@SuppressWarnings("unused")
 public class Constructors {
 	String name;
 	int age;
