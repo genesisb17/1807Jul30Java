@@ -1,6 +1,6 @@
 package com.revature.oopprinciples;
 
-public abstract class ClothingTop {
+public abstract class ClothingTop implements Garment{
 	static int articleCount = 0;
 	private int articleId;
 	private boolean isClean;
@@ -36,7 +36,8 @@ public abstract class ClothingTop {
 	}
 
 	public void Wash() {
-		//Washing the garment
+		//Washing the clothing top
+		System.out.print("Shirt top " + articleId + ":\n\t");
 		this.isClean = true;
 	}
 	
