@@ -35,7 +35,9 @@ strings are mutable (final)
 stringbuilder -faster- is not thread safe
 stringbuffer is thread safe
 
+abstraction hides implementation
+whereas
+encapsilation is data restriction
 
-fizzbuzz
-loops
-demenostrate oop principles 
+POJO - plain old java object
+
