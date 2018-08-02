@@ -6,7 +6,6 @@ public class Palindrome {
 	
 	public static void main(String[] args) {
 		
-		
 		ArrayList<String> listOfString = new ArrayList<String>();
 		
 		//ArrayList to hold all palindromes
@@ -33,17 +32,22 @@ public class Palindrome {
 			int strSize = name.length();
 			int forward = 0;
 			int backward = strSize - 1;
+			boolean isPalindrome = true; 
 			
 			// Checks value-by-value in a string to ensure that they are the same
 			while (backward > forward) {
 				char forwardChar = name.charAt(forward++);
 				char backwardChar = name.charAt(backward--);
-				if (forwardChar != backwardChar)
+				if (forwardChar != backwardChar) {
 					//Needs to break and head back to the original for loop
-					return;
+					isPalindrome = false;
+					break;
+				}	
 			}
 			// Only does this if it does passes the if loop
-			Palindromes.add(listOfString.get(i));
+			if (isPalindrome) {
+				Palindromes.add(listOfString.get(i));
+			}
 		}
 		// To show what got written to the new ArrayList
 		System.out.println(Palindromes);
