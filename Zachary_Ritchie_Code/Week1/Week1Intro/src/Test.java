@@ -7,6 +7,9 @@ public class Test {
 		d.consume();
 		d.stayinAlive();
 		d.consume();
+
 	}
 
 }
+
+
