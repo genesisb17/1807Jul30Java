@@ -1,4 +1,4 @@
-package com.revature.classbasics;
+package com.revature.defaultstuff;
 
 public class ControlStructures {
 	
