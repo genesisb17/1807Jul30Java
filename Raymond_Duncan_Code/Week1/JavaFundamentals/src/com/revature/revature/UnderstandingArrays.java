@@ -17,7 +17,7 @@ public class UnderstandingArrays {
 //		n[10] = 7;
 		/* 
 		 * int [] wrong = new int[] // in order to initialize
-		 * an array we myst either explicitly add it's values or specify the size we want to allocate to it
+		 * an array we must either explicitly add it's values or specify the size we want to allocate to it
 		 */
 		
 		int length = nums.length;
@@ -37,6 +37,13 @@ public class UnderstandingArrays {
 		Arrays.sort(nums);
 		System.out.println(Arrays.toString(nums));
 		System.out.println(add(1,2,3,4,5,66));
+		
+		n[0] = 1;
+		n[1] = 4;
+		n[2] = 3;
+		n[3] = 2;
+		n[4] = 5;
+		System.out.println(n);
 	}
 	
 	//var args
