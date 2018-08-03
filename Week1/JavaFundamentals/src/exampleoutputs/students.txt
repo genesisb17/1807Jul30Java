@@ -1,0 +1,2 @@
+Sammy;seang@widener.edu;99.99
+Warbler;warblerboy@harvard.edu;80.0
