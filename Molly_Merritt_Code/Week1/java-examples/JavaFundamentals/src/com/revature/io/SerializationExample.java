@@ -21,5 +21,9 @@ public class SerializationExample {
 	public static void main(String[] args) {
 		
 	}
+	
+	static void serializeObject(Object o) {
+		
+	}
 
 }
