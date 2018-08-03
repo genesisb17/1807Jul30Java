@@ -68,7 +68,8 @@ public class Primitives {
 		int hex = 0X3F19d2b;
 		System.out.println("hex: " + hex);
 		
-		
+		System.out.println(Boolean.parseBoolean("false"));
+		Long testing = Long.parseLong("90194019L");
 		
 		
 		
