@@ -37,7 +37,7 @@ public class Substring {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-        String s = sc.next();,
+        String s = sc.next();
         String sub = sc.next();
         int x = sc.nextInt();
 		String newString = getString(s, sub, x);
