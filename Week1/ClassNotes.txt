@@ -1,0 +1,84 @@
+NOTES		
+
+	TUESDAY
+		
+switch case
+types it can take
+- int - Integer
+- short - Short
+- byte	- Byte
+- char - Character
+- enum
+
+scanners
+wrapper classes
+strings
+arrays
+if/else if/else
+operators 
+exceptions
+
+intance variable needs an object inorder to access a method
+
+scanners
+wrapper classes
+strings
+arrays
+if/else if/else
+operators 
+exceptions
+
+FINAL
+-class-cannot be extended
+-method- CANNOT be overriden -CAN BE OVERLOADED
+-variables-cannot be changed once initalized
+
+strings are mutable (final)
+
+stringbuilder -faster- is not thread safe
+stringbuffer is thread safe
+
+	WEDNESDAY
+
+abstraction hides implementation
+whereas
+encapsilation is data restriction
+
+POJO - plain old java object
+
+ABSTRACT
+abstract is not access modifier
+abstract method - method without implementation
+
+serializable - marker interface
+functional interface - has one and only one abstract method
+
+INHERITANCE
+-Extend - classes
+Cannot extend more than one class
+-Implement - interfaces
+Can implent more than one interface
+-Java does NOT support multiple inheritance (but can do above)
+
+Overriding - same method signature
+Overloading - different method signature
+
+POLYMORPHISM
+ability of an object to act in different mannars 
+based on its reference type or inheiritance stream
+
+OPERATOR
+performs operations on operands
+
+Tertiary operands - look up
+
+errors that you make happen on runtime (exception)
+
+
+
+
+
+
+
+
+
