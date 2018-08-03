@@ -25,6 +25,15 @@ public class Question17 {
 			Double principal = promptNonNegativeDouble(br, "Please enter the principal, in dollars:");
 			Double rate = promptNonNegativeDouble(br, "Please enter the rate, per year:");
 			Double time = promptNonNegativeDouble(br, "Please enter the amount of time, in years:");
+
+			if (principal == null || rate == null || time == null) {
+				// Got end-of-file, so we don't have enough information to
+				// continue.
+				System.err.println("Not enough information to calculate interest.");
+				// Exit the main method early.
+				return;
+			}
+			System.out.printf("Total interest = $%.2f\n", principal * rate * time);
 		} catch (IOException e) {
 			System.err.println("A problem occurred when reading from the console:");
 			e.printStackTrace();
@@ -54,15 +63,16 @@ public class Question17 {
 		// when valid input has been provided, so that we can exit the loop.
 		while (!gotNum) {
 			System.out.print(prompt + " ");
-			// We trim leading and trailing whitespace from the input so
-			// that the double parser doesn't get confused (it is very
-			// strict in what it accepts).
-			String input = br.readLine().trim();
+			String input = br.readLine();
 			if (input == null) {
 				// We return null if we reach end-of-file, as per the
 				// documentation on the method.
 				return null;
 			}
+			// We trim leading and trailing whitespace from the input so
+			// that the double parser doesn't get confused (it is very
+			// strict in what it accepts).
+			input = input.trim();
 			try {
 				num = Double.parseDouble(input);
 			} catch (NumberFormatException e) {

@@ -12,10 +12,8 @@ public class Question16 {
 		// (we require precisely one argument).
 		if (args.length != 1) {
 			System.err.println("Usage: Question16 input");
-			// It's conventional to exit with an error code when the program
-			// terminates due to an error; in this case, the error is the user's
-			// fault.
-			System.exit(1);
+			// Exit the main method early.
+			return;
 		}
 
 		// Now, we can just display the number of characters in the string. The

@@ -9,13 +9,6 @@ package com.iantimothyjohnson.homework.question5;
  * @author Ian Johnson
  */
 public class Question5 {
-	public static void main(String[] args) {
-		System.out.println("substring(\"Hello\", 2) = " + substring("Hello", 2));
-		System.out.println("substring(\"substring\", 5) = " + substring("substring", 5));
-		System.out.println("substring(\"Hi\", 2) = " + substring("Hi", 2));
-		System.out.println("substring(\"very long\", 0) = " + substring("very long", 0));
-	}
-
 	/**
 	 * Retrieve the substring of str between indices 0 and idx - 1, inclusive.
 	 * 

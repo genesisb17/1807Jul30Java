@@ -6,12 +6,6 @@ package com.iantimothyjohnson.homework.question10;
  * @author Ian Johnson
  */
 public class Question10 {
-	public static void main(String[] args) {
-		System.out.println("min(4, 5) = " + min(4, 5));
-		System.out.println("min(-1, -3) = " + min(-1, -3));
-		System.out.println("min(1, 1) = " + min(1, 1));
-	}
-
 	/**
 	 * Return the minimum of the two given numbers using a ternary operator.
 	 * 

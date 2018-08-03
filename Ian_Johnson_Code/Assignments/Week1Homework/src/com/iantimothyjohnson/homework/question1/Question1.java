@@ -8,13 +8,6 @@ import java.util.Arrays;
  * @author Ian Johnson
  */
 public class Question1 {
-	public static void main(String[] args) {
-		int[] toSort = {1,0,5,6,3,2,3,7,9,8,4};
-		System.out.println("Before sorting: " + Arrays.toString(toSort));
-		bubbleSort(toSort);
-		System.out.println("After sorting: " + Arrays.toString(toSort));
-	}
-	
 	/**
 	 * Sort the given int array using bubble sort
 	 * (https://en.wikipedia.org/wiki/Bubble_sort).

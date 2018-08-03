@@ -3,8 +3,8 @@ package com.iantimothyjohnson.homework.question14;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Write a program that demonstrates the switch case. Implement the following
@@ -104,8 +104,7 @@ public class Question14 {
 			}
 
 			// Get the current date.
-			Date date = new Date();
-			System.out.println(date);
+			System.out.println(LocalDate.now());
 			break;
 		case "str_array":
 			if (args.length != 0) {

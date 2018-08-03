@@ -7,11 +7,6 @@ package com.iantimothyjohnson.homework.question3;
  * @author Ian Johnson
  */
 public class Question3 {
-	public static void main(String[] args) {
-		System.out.println("reverse(\"Hello, world!\") = " + reverse("Hello, world!"));
-		System.out.println("reverseAlternate(\"Hello, world!\") = " + reverseAlternate("Hello, world!"));
-	}
-
 	/**
 	 * Reverse the given String without using a temporary variable.
 	 * 

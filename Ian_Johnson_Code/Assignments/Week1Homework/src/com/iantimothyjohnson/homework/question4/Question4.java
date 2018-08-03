@@ -6,12 +6,6 @@ package com.iantimothyjohnson.homework.question4;
  * @author Ian Johnson
  */
 public class Question4 {
-	public static void main(String[] args) {
-		System.out.println("0! = " + factorial(0));
-		System.out.println("3! = " + factorial(3));
-		System.out.println("10! = " + factorial(10));
-	}
-
 	/**
 	 * Compute n factorial using recursion. Please note that large values of n will
 	 * not return the expected results if the resulting factorial could not fit in a

@@ -7,14 +7,6 @@ package com.iantimothyjohnson.homework.question6;
  * @author Ian Johnson
  */
 public class Question6 {
-	public static void main(String[] args) {
-		System.out.println("Is 2 even? " + isEven(2));
-		System.out.println("Is 3 even? " + isEven(3));
-		System.out.println("Is -1 even? " + isEven(-1));
-		System.out.println("Is -16 even? " + isEven(-16));
-		System.out.println("Is 0 even? " + isEven(0));
-	}
-
 	/**
 	 * Determines whether the given integer is even, without using the modulus
 	 * operator.
