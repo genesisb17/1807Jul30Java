@@ -4,7 +4,6 @@ import java.util.Scanner;
 // We can use 'in' without the 'System.' qualification by doing this:
 // import static java.lang.System.in;
 
-@SuppressWarnings("unused")
 public class FileIOScanner {
 	public static void main(String[] args) {
 		// Here's an example of how to use a Scanner on the console:
