@@ -1,8 +1,10 @@
 package com.iantimothyjohnson.homework.question14;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Scanner;
 
 /**
  * Write a program that demonstrates the switch case. Implement the following
@@ -36,31 +38,35 @@ public class Question14 {
 				"Welcome to the example shell! This is just like your normal shell, but it only does three things.");
 		System.out.println(USAGE);
 
-		// We'll use a scanner to get input from the user.
-		Scanner input = new Scanner(System.in);
-		System.out.print(PS1);
-		while (input.hasNextLine()) {
-			String line = input.nextLine();
-			// Get rid of surrounding whitespace.
-			line = line.trim();
-			// Split the line into the command and arguments (split around
-			// whitespace; the regex \s+ matches one or more whitespace
-			// characters).
-			String[] splitLine = line.split("\\s+");
-			// Ignore empty lines.
-			if (splitLine.length == 0) {
-				continue;
-			}
-			// For cleanliness, we delegate the actual execution to another
-			// function.
-			if (execCommand(splitLine[0], Arrays.copyOfRange(splitLine, 1, splitLine.length))) {
-				break;
-			}
-
-			// Output the prompt for the next iteration.
+		// We'll use a BufferedReader to get input from the user. An alternative
+		// would be to use a Scanner.
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+			String line;
 			System.out.print(PS1);
+			while ((line = br.readLine()) != null) {
+				// Get rid of surrounding whitespace.
+				line = line.trim();
+				// Split the line into the command and arguments (split around
+				// whitespace; the regex \s+ matches one or more whitespace
+				// characters).
+				String[] splitLine = line.split("\\s+");
+				// Ignore empty lines.
+				if (splitLine.length == 0) {
+					continue;
+				}
+				// For cleanliness, we delegate the actual execution to another
+				// function.
+				if (execCommand(splitLine[0], Arrays.copyOfRange(splitLine, 1, splitLine.length))) {
+					break;
+				}
+
+				// Output the prompt for the next iteration.
+				System.out.print(PS1);
+			}
+		} catch (IOException e) {
+			System.err.println("A problem occurred when reading from the console:");
+			e.printStackTrace();
 		}
-		input.close();
 	}
 
 	/**
