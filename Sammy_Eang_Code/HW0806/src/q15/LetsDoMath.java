@@ -2,6 +2,7 @@ package q15;
 
 public class LetsDoMath implements canDoMath{
 	
+	//Gives functionality to methods it implemented
 	public static void addition(int a, int b) {
 		int c = a + b;
 		System.out.println(c);
