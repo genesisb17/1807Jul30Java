@@ -1,30 +1,25 @@
+// Created by Darius Moomivand @ 04Aug18
 package com.revature.hw;
 
 public class revString {
 	
+	// Method to reverse string
 	public static void rev(String s) {
-		int counter = 0;
-		Boolean check = true;
-		for(int i = s.length()-1; i > 0; i--) {
-			if(s.charAt(i) != s.charAt(counter)) {
-				System.out.println("Not a palidrome!!!");
-				check = false;
-				break;
-			} else
-				counter++;
+		System.out.print("The reverse is: ");
+		
+		//For loop that prints out characters starting 
+		//from the back of the string
+		
+		for(int i = s.length()-1; i >= 0; i--) {
+			System.out.print(s.charAt(i));
 		}
-		if(check)
-			System.out.println("Its a palindrome");
 	}
-	
 
 	public static void main(String[] args) {
-
+		String reverse;
 		String string = "elephant";
+		System.out.println("The string to reverse is: " + string + "\n");
 		revString.rev(string);
-		String string2 = "racecar";
-		revString.rev(string2);
-		
 		
 	}
 
