@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.revature</groupId>
+  <artifactId>firstmavenproject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>HelloMaven</name>
+  <description>Intro to Maven</description>
+  
+  <!-- POM.xml
+   The POM, or Project Object Model, is the fundamental
+   unit of work in maven. It is an XML file that contains information
+   about the project and configuration details used by Maven to 
+   build the project. 
+   
+   Build means to take your source code and compile it into the object
+   or whatever form us used for actually running.
+   
+   XML - eXstensible Markup Language. It is markup language that is typically
+   used to define a set of rules for documents and frameworks. It has elements
+   denoted in <tags>, and between opening and opening tags, holds the values of
+   the elements.
+   	Related topics: valud vs well formed, DTD, XMLNS, schemas, XML parsing
+   	
+   Markup language - a system for annotating a doc in a way that is 
+   syntacticially distinguishable from a text.
+   -->
+   
+   <properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+	</dependencies>
+  
+</project>
