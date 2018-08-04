@@ -1,7 +1,5 @@
 package com.iantimothyjohnson.homework.question1;
 
-import java.util.Arrays;
-
 /**
  * Perform a bubble sort on the following integer array: 1,0,5,6,3,2,3,7,9,8,4.
  * 
