@@ -67,10 +67,7 @@ public class Nineteen {
 	        {
 	        	return true;
 	        }	            
-	    }
-		
-		
+	    }		
 		return false;
 	}
-
 }
