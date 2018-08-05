@@ -1,7 +1,6 @@
 # Project 0
-To be presenting during QC on 8/15/18
+To be presented during QC on 8/15/18
 
-```
 
 ### Requirements
 
