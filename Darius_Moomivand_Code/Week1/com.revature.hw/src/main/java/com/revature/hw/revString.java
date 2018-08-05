@@ -16,7 +16,6 @@ public class revString {
 	}
 
 	public static void main(String[] args) {
-		String reverse;
 		String string = "elephant";
 		System.out.println("The string to reverse is: " + string + "\n");
 		revString.rev(string);
