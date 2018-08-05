@@ -2,9 +2,9 @@ package com.revature.designpatterns;
 
 public class LazySingleton {
 	
-	// Only declaration not instantiation
+	//ONLY declaration NOT instantiation 
 	private static LazySingleton instance;
-
+	
 	private LazySingleton() {
 		System.out.println("instantiating singleton");
 	}
@@ -16,8 +16,9 @@ public class LazySingleton {
 		
 		return instance;
 	}
-	
-	public void test() {
-		System.out.println(this.getClass());
+	public static void test() {
+		System.out.println("in lazy class");
 	}
+	
+
 }
