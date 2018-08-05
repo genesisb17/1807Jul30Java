@@ -25,7 +25,6 @@ public class Switch {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String x = "X";
 		
 		System.out.println("Make a selection: \n");
 		System.out.println("Input '1' to find the square root of a number");
@@ -33,7 +32,7 @@ public class Switch {
 		System.out.println("Input '3' to split a string\n");
 		
 		int select = sc.nextInt();
-		x = sc.nextLine();
+		String x = sc.nextLine();
 
 		if(select == 1) {
 			System.out.println("\nEnter a number.");
