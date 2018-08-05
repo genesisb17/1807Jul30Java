@@ -34,7 +34,7 @@ class Employee{
 }
 
 class sortName implements Comparator<Employee>{
-
+	//Method used to compare two employee objects by their name
 	public int compare(Employee o1, Employee o2) {
 		// TODO Auto-generated method stub
 		return o1.name.compareTo(o2.name);
