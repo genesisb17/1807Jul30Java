@@ -24,8 +24,11 @@ public class SerializationExample {
 	 */
 
 	public static void main(String[] args) {
-		Student s = new Student("Gen", "gab12@duke.edu", 100);
-		serializeObject(s);
+//		Student s = new Student("Gen", "gab12@duke.edu", 100);
+//		serializeObject(s);
+		
+		Student fromFile = (Student) deserializeObject();
+		System.out.println(fromFile);
 	}
 	
 	static void serializeObject(Object o) {
@@ -37,6 +40,11 @@ public class SerializationExample {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	static Object deserializeObject() {
+		Object obj = null;
+		
 	}
 
 }

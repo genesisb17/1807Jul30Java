@@ -1,10 +1,10 @@
 package com.revature.io;
 
-public class Student {
+public class Student implements Serializable{
 	
 	private String name;
 	private String email;
-	private double grade;
+	private transient double grade;	// cannot be serialized (b/c transient)
 	
 	// Student s = new Student();
 	public Student() {}

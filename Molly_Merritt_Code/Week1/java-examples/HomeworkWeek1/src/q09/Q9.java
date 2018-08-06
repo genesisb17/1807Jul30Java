@@ -24,7 +24,7 @@ public class Q9 {
 			if (n%i == 0) {
 				return false;
 			}
-		} return true;
+		} return (n > 1);	// n isn't a prime number
 	}
 
 }
