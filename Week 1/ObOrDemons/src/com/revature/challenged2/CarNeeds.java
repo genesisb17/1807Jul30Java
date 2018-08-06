@@ -5,4 +5,5 @@ interface CarNeeds{
 	
 	public void movingSpeed();
 	public void inflatedWheels();
+	
 }

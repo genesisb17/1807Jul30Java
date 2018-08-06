@@ -1,0 +1,4 @@
+Ken;skennethchea@uml.edu;99.90
+Johnay;jk@uml.edu;39.20
+Johnay;jk@uml.edu;99.9
+Benny;bjs@uml.edu;80.2

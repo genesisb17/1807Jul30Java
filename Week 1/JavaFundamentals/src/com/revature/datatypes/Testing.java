@@ -3,6 +3,7 @@ package com.revature.datatypes;
 public class Testing {
 
 	public static void main(String[] args) {
+		
 		Days.MONDAY.live(); //is Days an object?? 
 		
 		Days day = Days.FRIDAY;

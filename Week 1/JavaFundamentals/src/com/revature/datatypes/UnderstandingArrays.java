@@ -10,8 +10,10 @@ public class UnderstandingArrays {
 	 * find an array's size with arrayName.length
 	 */
 	public static void main(String[] args) {
-		int [] nums= {9, 5, 2, 10};
+		
+		int [] nums = {9, 5, 2, 10};
 		int [] n = new int[5];
+		
 		//n[10] = 7;
 		//int [] wrong = new int[]; in order to initialize 
 		//an array, we must either explicitly add its value
@@ -23,8 +25,6 @@ public class UnderstandingArrays {
 		twoD[0][0] = 0;
 		twoD[0][1] = 1;
 		twoD[1][0] = 1;
-		
-		
 		
 		for(int i = 0; i < twoD.length; i++) {
 			for(int j = 0; j < twoD[i].length; j++) {

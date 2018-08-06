@@ -1,7 +1,8 @@
 package com.revature.challenged2;
 
+//Inheritance example
 class Honda extends Cars {
-
+	
 	public String logo;
 	
 	public Honda(String interior, String color, String logo) {

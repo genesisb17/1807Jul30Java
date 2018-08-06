@@ -73,13 +73,15 @@ public class Scopes {
 	public static void main(String[] args) {
 		System.out.println("Integer default: " + count);
 		System.out.println("boolean: "+ b);
+		test();
 	}
 	
 	static void doThings() {
 		//test();
+		System.out.println("testintgingaingia");
 	}
 	
-	void test() {
+	static void test() {
 		doThings(); //Don't need an instance to access a static method
 	}
 	//static entities can access other static properties and methods

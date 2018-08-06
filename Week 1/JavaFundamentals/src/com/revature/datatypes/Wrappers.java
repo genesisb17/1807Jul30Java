@@ -13,11 +13,14 @@ public class Wrappers {
 	       char	16 bits
 		 */
 		
-		System.out.println(Integer.MAX_VALUE);
-		System.out.println(Long.MAX_VALUE);
+		//System.out.println(Integer.MAX_VALUE);
+		//System.out.println(Long.MAX_VALUE);
 		
 		int five = Integer.parseInt("5");
-		int willCauseException = Integer.parseInt("one hundred");
+		int willCauseException = Integer.parseInt("100");
+		
+		System.out.println(five);
+		System.out.println(willCauseException);
 		
 		Integer i = new Integer(80);
 		int eighty = i; //unboxing
