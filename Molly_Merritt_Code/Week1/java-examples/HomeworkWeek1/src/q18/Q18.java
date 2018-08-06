@@ -16,5 +16,30 @@ package q18;
  */
 
 public class Q18 {
+	
+	public boolean upperCase(String str) {
+		for (int i=0; i<str.length(); i++) {
+			if (Character.isUpperCase((Character) str.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public String lowerToUpper(String str) {
+		int l = str.length();
+		char[] ch = new char[l];
+		for (int i=0; i<str.length(); i++) {
+			ch[i] = Character.toUpperCase(str.charAt(i));
+		}
+		return String.valueOf(ch);
+	}
+	public void convertInput(String str) {
+		Integer[] integer = new Integer[str.length()];
+		for (int i=0; i<str.length(); i++) {
+			integer[i] = Integer.parseInt(str);
+			integer[i] += 10;
+			System.out.print(integer[i]);
+		}
+	}
 
 }
