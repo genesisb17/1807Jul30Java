@@ -1,4 +1,4 @@
-package com.revature.q5;
+package com.revature.q05;
 
 public class QuestionFive {
 	

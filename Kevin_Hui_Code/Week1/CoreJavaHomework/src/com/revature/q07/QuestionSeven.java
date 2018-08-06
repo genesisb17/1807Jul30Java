@@ -1,4 +1,4 @@
-package com.revature.q7;
+package com.revature.q07;
 
 import java.util.ArrayList;
 import java.util.Comparator;

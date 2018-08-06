@@ -1,4 +1,4 @@
-package com.revature.q8;
+package com.revature.q08;
 
 import java.util.ArrayList;
 

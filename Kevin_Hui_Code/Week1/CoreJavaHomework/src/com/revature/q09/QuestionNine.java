@@ -1,4 +1,4 @@
-package com.revature.q9;
+package com.revature.q09;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public class QuestionNine {
 	public static ArrayList<Integer> listPrimes(int n) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 
-		// Populate list from 0 to n (the initial 0 will get removed toward the end, for simplicity)
+		// Populate list from 0 to n (the initial 0 will get removed towards the end, for simplicity)
 		for (int i = 0; i <= n; i++) {
 			list.add(i);
 		}
@@ -32,7 +32,7 @@ public class QuestionNine {
 			}
 		}
 
-		// Remove all zeroes set from before
+		// Remove all zeroes
 		while (list.remove(new Integer(0))) {
 		}
 
