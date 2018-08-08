@@ -1,0 +1,22 @@
+select il.invoicelineid
+from invoiceline il
+join invoice in
+on in.invoiceid = il.invoicelineid
+join customer c
+on in.customerid = c.customerid
+join employee e
+on c.supportredid = e.employeeid
+join track t
+on il.trackid = t.trackid
+join genre g
+on t.genreid = g.genreid
+join mediatype mt
+on t.genreid = mt.genreid
+join album al
+on t.albumid = al.albumid
+join artist ar
+on al.artistid = ar.artistid
+join playlisttrack plt
+on t.trackid = plt.trackid
+join playlist pl
+on plt.playlistid = playlistid;
