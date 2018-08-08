@@ -110,6 +110,12 @@ select * from artist natural join album;
 
 select * from genre;
 
+-- JOIN ALL 11 TABLES IN CHINOOK DB
+ ---- select 1 col from each table
+
+
+
+
 ----------------- FUN QUERIES
 -- find # of tracks of each genre. alphabetize by genre
 select g.name ,  g.genreid, count(t.trackid)
@@ -140,3 +146,22 @@ from
   group by name
   having count(albumid) > 1
   order by "# of Albums";
+  
+  --VIEWS - virtual tables
+  -- essentially saved queries. cannot update table via views
+  create view Al_Art_View as
+   select album.albumid as album , artist.artistid as artist, artist.name 
+      from album 
+      join artist 
+      on album.artistid = artist.artistid;
+      
+select count(album) as "# of Albums", name
+from al_art_view
+  where artist > 5
+  group by name
+  having count(album) > 1
+  order by "# of Albums";
+
+
+  select * from al_art_view;
+  drop view al_art_view;
