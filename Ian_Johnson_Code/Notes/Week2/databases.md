@@ -78,10 +78,12 @@ has a name, type and constraints.
 
 Some constraints:
 
-- NN: Not Null
-- U: Unique
+- NOT NULL
+- UNIQUE
 - CHECK: check if a particular expression is true for attempted data input.
 - DEFAULT: give a default value.
+- PRIMARY KEY: specify that the column is a primary key (NOT NULL and UNIQUE).
+- FOREIGN KEY: specify that the column is a foreign key.
 
 You should always check that these constraints are satisfied _before_
 changing the database; don't rely on them to alert you of errors.
@@ -113,3 +115,60 @@ changing the database; don't rely on them to alert you of errors.
   - You can use SAVEPOINT to mark a good state, to which you can ROLLBACK
     later. Only DML commands can be rolled back; e.g. you cannot roll back a
     DROP or TRUNCATE.
+
+## Subqueries
+
+Queries nested inside of another to further narrow the result set. They can
+be correlated or non-correlated. A non-correlated subquery can execute
+independently of the outer query:
+
+```sql
+SELECT S.ID, S.NAME
+FROM STUDENT_DETAILS
+WHERE S.NAME IN (
+  SELECT S.NAME
+  FROM STUDENT_DETAILS
+  WHERE S.MAJOR = 'History'
+);
+```
+
+A correlated query cannot execute independently:
+
+```sql
+SELECT P.NAME
+FROM PRODUCT P
+WHERE P.ID = (
+  SELECT O.PRODUCT
+  FROM ORDER O
+  WHERE O.PRODUCT = P.ID
+);
+```
+
+## DDL (Data Definition Language)
+
+- `CREATE`: creates tables, sequences, triggers, procedures, functions,
+  indexes, etc.
+- `ALTER`: updates the table schema. Adding a column with column-level
+  constraints will throw an error because all entries in the new column will be
+  null, thereby violating the constraint.
+- `TRUNCATE TABLE`: deletes all rows from a table; unlike `DELETE FROM`, it
+  cannot be rolled back and will not fire a trigger.
+- `DROP`: removes structural elements (table, constraint, sequence, etc.),
+  and cannot be rolled back.
+- Sequence: good for P.K. (primary key) management. It is an object in Oracle
+  that is used to generate a number sequence.
+- Triggers: a block of code that is automatically executed when events
+  happen. Can specify DML statements to respond to.
+  - We will use these to increment and grab the value of a sequence for
+    automatic insertion of a PK when attempting to insert a row in a table.
+- Indexes: a schema object that contains an entry for each value that appears
+  in the indexed column(s) of the table or cluster and provides direct, fast
+  access to rows.
+  - Oracle automatically creates indexes for PKs.
+  - While indexes are useful for traversal of data, they make adding and
+    removing data slower and should be created sparingly.
+
+# JDBC (Java Database Connectivity)
+
+JDBC is the basic, low-level API used to interact with a database, contained
+in the `java.sql` package.
