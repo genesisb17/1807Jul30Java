@@ -1,15 +1,15 @@
 package com.revature.threadexercises;
 
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ThreadExercises {
 	//Explore the following common thread problems: deadlock, starvation, producer-consumer problem
 	
 	private static int[] input = new int[10000];
 	private static int[] output = new int[10000];
-	private static AtomicInteger inputFree;
-	private static AtomicInteger outputFree;
+	private static AtomicBoolean inputFree;
+	private static AtomicBoolean outputFree;
 	
 	public ThreadExercises() {
 		for(int i = 0; i < 10000; i++) {
@@ -39,13 +39,30 @@ public class ThreadExercises {
 				@Override
 				public void run() {
 					//Wait to acquire resource
-					while(!inputFree.compareAndSet(1, 0)) {
+					while(!inputFree.compareAndSet(true, false)) {
 						try {
 							Thread.sleep(100);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
+				}
+				
+			});
+			
+			consumers[i] = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					// Wait to acquire resource
+					while(!inputFree.compareAndSet(true, false)) {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					
 				}
 				
 			});
