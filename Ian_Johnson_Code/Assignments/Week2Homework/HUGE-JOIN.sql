@@ -10,6 +10,9 @@
  * You can pretend that this is some sort of "music friend finder" application,
  * for people who listen to the same tracks and want to meet up :)
  *
+ * EDIT: I found SUPPORTREPID in the CUSTOMER table, linking EMPLOYEE into the
+ * rest of the tables, but I'll keep the join the way it is :)
+ *
  * Also, I included only tracks less than $1 and in the classical genre, just
  * for fun.
  */
