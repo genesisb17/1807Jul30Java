@@ -32,3 +32,6 @@ commit;
 commit;
 -- always commit upon successful db transactions 
 ----- meaning, insert update delete
+
+
+
