@@ -10,6 +10,7 @@ public class UnderstandingStrings {
 		
 		System.out.println(c==d);
 		System.out.println(a == b);
+		System.out.println(a.equals(b));
 		System.out.println(c == null);
 		System.out.println(d.equals(""));
 		System.out.println(c.equals(new String("")));

@@ -40,11 +40,13 @@ public class UnderstandingArrays {
 		System.out.println(add());
 		System.out.println(add(1, 20958029, 34, 15));
 		System.out.println(add(10, 10, 3, 5, 7, 9));
+		int[] example = {1, 5,2,5, 2};
+		System.out.println(example);
 	}
 	
 	//var args
 	//can only have one per param list. and must be last param in list
-	static int add(int... nums) {
+	static int add( int... nums) { //int[] nums
 		int sum = 0;
 		for(int n:nums) {
 			sum+=n;
