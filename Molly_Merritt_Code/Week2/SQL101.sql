@@ -143,3 +143,28 @@ inner join genre g
 on g.genreid = t.genreid
 group by g.name
 order by g.name;
+
+
+
+-- Select from a join
+-- ... (copy from verson on git)
+
+-- VIEWS - virtual tables
+-- essentially saved queries. cannot update table via views
+create view Al_Art_View as
+  select album.albumid as album, artist.artistid as artist, artist.name
+    from album
+    join artist
+    on album.artistid = artist.artistid;
+
+/*
+insert into al_art_view
+(album, artist, name)
+values(1000, 1000, 'test'); -- can't update views
+*/
+  
+  delete from al_art_view where album = 7;  -- we can't delete from view
+  
+  
+  select * from al_art_view;
+  drop view al_art_view;
