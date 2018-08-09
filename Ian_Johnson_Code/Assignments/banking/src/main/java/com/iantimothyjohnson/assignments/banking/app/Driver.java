@@ -1,6 +1,9 @@
 package com.iantimothyjohnson.assignments.banking.app;
 
-import com.iantimothyjohnson.assignments.banking.dao.DummyDAO;
+import java.io.EOFException;
+
+import com.iantimothyjohnson.assignments.banking.dao.AccountDAO;
+import com.iantimothyjohnson.assignments.banking.dao.UserDAO;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.banking.pojos.Account;
@@ -30,7 +33,7 @@ public class Driver {
 
 	public static void main(String[] args) {
 		// Set up the DAO and the session manager.
-		sessionManager = new SessionManager(new DummyDAO());
+		sessionManager = new SessionManager(new UserDAO(new AccountDAO()));
 		// Set up the TUI. In the future, we might try to detect terminal
 		// features and provide a nicer interface where the user's terminal can
 		// support it.
@@ -38,48 +41,39 @@ public class Driver {
 		tui.printLine(WELCOME);
 		// The program should just keep trying to log users in until one of them
 		// enters EOF.
-		boolean isRunning = true;
-		while (isRunning) {
-			String option = tui.selectValue("Please select an option", "Log in", "Create account");
-			if (option == null) {
-				break;
+		try {
+			while (true) {
+				String option = tui.selectValue("Please select an option", "Log in", "Create account");
+				switch (option) {
+				case "Log in":
+					login();
+					break;
+				case "Create account":
+					System.err.println("Unimplemented!");
+					break;
+				}
 			}
-			switch (option) {
-			case "Log in":
-				isRunning = login();
-				break;
-			case "Create account":
-				System.err.println("Unimplemented!");
-				break;
-			}
+		} catch (EOFException ee) {
+			tui.printLine("Goodbye!");
 		}
 	}
 
 	/**
 	 * Present the login menu.
-	 * 
-	 * @return Whether the program should continue running.
 	 */
-	private static boolean login() {
+	private static void login() throws EOFException {
 		// Keep trying to log the user in until successful.
 		while (true) {
 			tui.print("Username: ");
 			String username = tui.readLine();
-			if (username == null) {
-				return false;
-			}
 			tui.print("Password: ");
 			char[] password = tui.readPassword();
-			if (password == null) {
-				return false;
-			}
 
 			// Now, let's try to actually log the user in.
 			try {
 				User user = sessionManager.login(username, password);
 				userSession(user);
 				sessionManager.logout(user);
-				return true;
 			} catch (UserNotFoundException | AuthenticationFailureException e) {
 				tui.printLine(e.getMessage());
 			}
@@ -91,15 +85,12 @@ public class Driver {
 	 * 
 	 * @param user The user whose session to run.
 	 */
-	private static void userSession(User user) {
+	private static void userSession(User user) throws EOFException {
 		// Get an array of account names so the user can pick one.
 		String[] accountNames = user.getAccounts().stream().map(account -> account.getName()).toArray(String[]::new);
 		int index = tui.select("Choose an account", accountNames);
-		if (index < 0) {
-			return;
-		}
-
 		Account account = user.getAccounts().get(index);
+
 		tui.printLine("Account " + account.getName() + " has $" + account.getBalance());
 	}
 }

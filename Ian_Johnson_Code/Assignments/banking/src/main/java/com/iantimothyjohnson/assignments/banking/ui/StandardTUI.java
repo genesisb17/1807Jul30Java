@@ -1,6 +1,7 @@
 package com.iantimothyjohnson.assignments.banking.ui;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -17,14 +18,19 @@ public class StandardTUI extends AbstractTUI {
 	private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
 	@Override
-	public String readLine() {
+	public String readLine() throws EOFException {
+		String line = null;
 		try {
-			return input.readLine();
+			line = input.readLine();
 		} catch (IOException e) {
 			System.err.println("Could not read from standard input:");
 			e.printStackTrace();
 		}
-		return null;
+		if (line != null) {
+			return line;
+		} else {
+			throw new EOFException();
+		}
 	}
 
 	@Override

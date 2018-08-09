@@ -43,6 +43,17 @@ public class User implements Serializable {
 	 */
 	private List<Account> accounts;
 
+	public User(int id, String username, byte[] passwordSalt, byte[] hashedPassword, String firstName, String lastName,
+			List<Account> accounts) {
+		this.id = id;
+		this.username = username;
+		this.passwordSalt = passwordSalt;
+		this.hashedPassword = hashedPassword;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.accounts = accounts;
+	}
+
 	public int getId() {
 		return id;
 	}

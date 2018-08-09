@@ -1,8 +1,9 @@
 package com.iantimothyjohnson.assignments.banking.service;
 
 import java.util.Arrays;
+import java.util.Optional;
 
-import com.iantimothyjohnson.assignments.banking.dao.DAO;
+import com.iantimothyjohnson.assignments.banking.dao.UserDAO;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserAlreadyExistsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserNotFoundException;
@@ -12,15 +13,15 @@ public class SessionManager {
 	/**
 	 * The underlying DAO to use for data storage and retrieval.
 	 */
-	private DAO<User> userDao;
+	private UserDAO userDao;
 
 	/**
 	 * Constructs a SessionManager using the given underlying DAO.
 	 * 
 	 * @param dao The underlying DAO to be used for the low-level data operations.
 	 */
-	public SessionManager(DAO dao) {
-		this.dao = dao;
+	public SessionManager(UserDAO dao) {
+		this.userDao = dao;
 	}
 
 	/**
@@ -37,13 +38,19 @@ public class SessionManager {
 	 */
 	public User login(String username, char[] password)
 			throws UserNotFoundException, AuthenticationFailureException {
+		Optional<User> potentialUser = userDao.findByUsername(username);
+		if (!potentialUser.isPresent()) {
+			throw new UserNotFoundException(username);
+		}
+		User user = potentialUser.get();
+
 		// Compare hashed passwords.
-		byte[] hashedPassword = Passwords.hashPassword(password, dao.getPasswordSalt(username));
-		if (!Arrays.equals(hashedPassword, dao.getHashedPassword(username))) {
+		byte[] hashedPassword = Passwords.hashPassword(password, user.getPasswordSalt());
+		if (!Arrays.equals(hashedPassword, user.getHashedPassword())) {
 			throw new AuthenticationFailureException();
 		}
 
-		return dao.getUser(username);
+		return user;
 	}
 	
 	/**
@@ -52,7 +59,6 @@ public class SessionManager {
 	 * @param user The user to log out.
 	 */
 	public void logout(User user) {
-		dao.updateUser(user);
 	}
 
 	/**
@@ -67,6 +73,6 @@ public class SessionManager {
 		byte[] salt = Passwords.generateSalt();
 		byte[] hashedPassword = Passwords.hashPassword(password, salt);
 		// Now, we can create the user.
-		dao.createUser(user, hashedPassword, salt);
+		// dao.createUser(user, hashedPassword, salt);
 	}
 }

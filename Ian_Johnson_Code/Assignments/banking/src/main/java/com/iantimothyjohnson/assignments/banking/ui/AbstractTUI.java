@@ -1,5 +1,7 @@
 package com.iantimothyjohnson.assignments.banking.ui;
 
+import java.io.EOFException;
+
 /**
  * An abstract class that represents the basic functionality of a TUI (textual
  * user interface) for the banking app. It can be extended to provide different
@@ -11,21 +13,22 @@ public abstract class AbstractTUI {
 	/**
 	 * Reads a line of input from the user.
 	 * 
-	 * @return The user's input, without the trailing newline. If the end of file
-	 *         was reached before a line was input, this is null.
+	 * @return The user's input, without the trailing newline.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
 	 */
-	public abstract String readLine();
+	public abstract String readLine() throws EOFException;
 
 	/**
 	 * Reads a password from the user. On more advanced terminals, this may be done
 	 * in a more secure manner than simply reading a string using readLine.
 	 * 
-	 * @return The user's input, without the trailing newline. If the end of file
-	 *         was reached before a line was input, this is null.
+	 * @return The user's input, without the trailing newline.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
 	 */
-	public char[] readPassword() {
-		String password = readLine();
-		return password == null ? null : password.toCharArray();
+	public char[] readPassword() throws EOFException {
+		return readLine().toCharArray();
 	}
 
 	/**
@@ -63,11 +66,11 @@ public abstract class AbstractTUI {
 	 * @param prompt    The prompt to display (e.g. "Choose an account"). It should
 	 *                  not be terminated with a colon or any other punctuation.
 	 * @param menuItems The items to display in the menu.
-	 * @return The (0-based) index of the menu item that was selected. If nothing
-	 *         was selected (e.g. if the user sends EOF to their terminal), this is
-	 *         -1.
+	 * @return The (0-based) index of the menu item that was selected.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
 	 */
-	public int select(String prompt, String... menuItems) {
+	public int select(String prompt, String... menuItems) throws EOFException {
 		if (menuItems.length == 0) {
 			throw new IllegalArgumentException("Must provide at least one menu item to display a menu.");
 		}
@@ -82,11 +85,6 @@ public abstract class AbstractTUI {
 			String range = menuItems.length == 1 ? "1" : "1-" + menuItems.length;
 			print(prompt + " (" + range + "): ");
 			String input = readLine();
-			// Check if we got EOF; if so, we return -1 as per the method
-			// specification.
-			if (input == null) {
-				return -1;
-			}
 			// Trim whitespace, so that the user can input " 1 " and it will be
 			// understood.
 			input = input.trim();
@@ -125,13 +123,14 @@ public abstract class AbstractTUI {
 	 * Prompts the user to choose an item from a menu.
 	 * 
 	 * @param prompt    The prompt to display (e.g. "Choose an account"). It should
-	 *                  not be terminated with a colon or any other puncutation.
+	 *                  not be terminated with a colon or any other punctuation.
 	 * @param menuItems The items to display in the menu.
-	 * @return The menu item that was selected. If nothing was selected (e.g. if the
-	 *         user sends EOF to their terminal), this is null.
+	 * @return The menu item that was selected.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
 	 */
-	public String selectValue(String prompt, String... menuItems) {
+	public String selectValue(String prompt, String... menuItems) throws EOFException {
 		int index = select(prompt, menuItems);
-		return index < 0 ? null : menuItems[index];
+		return menuItems[index];
 	}
 }
