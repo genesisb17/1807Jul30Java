@@ -40,3 +40,8 @@ insert into account (account_id, balance, account_type_id) values(1,500,2);
 
 --delete from ACCOUNT where ACCOUNT_ID > 0;
 select * from account;
+
+insert into client (first_name, last_name, username, password) 
+  values('Sam', 'Smith', 'sam123', 'password');
+
+select * from client;
