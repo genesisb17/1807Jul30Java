@@ -11,22 +11,7 @@ import java.util.List;
 import com.ex.pojos.Genre;
 import com.ex.util.ConnectionFactory;
 
-public class GenreDAO {
-
-
-	public static void main(String[] args) {
-		//LETS SEE THIS WORK!
-		/*	List<Genre> genres = findAll();
-		for(Genre g : genres) {
-			System.out.println(g);
-		} */
-
-		//System.out.println(findOne(5));
-		
-		Genre temp = new Genre();
-		temp.setName("Classics");
-		save(temp);
-	}
+public class GenreDAO implements Dao<Genre, Integer>{
 
 	/*
 	 * STATEMENT
@@ -36,7 +21,7 @@ public class GenreDAO {
 	 * MUST, only use it for queries with no variables
 	 * 
 	 */
-	public static List<Genre> findAll(){
+	public List<Genre> findAll(){
 		List<Genre> genres = new ArrayList<Genre>();
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
@@ -64,7 +49,7 @@ public class GenreDAO {
 	 * - executes a pre-compiled SQL statement 
 	 * - efficient for statements that will execute multiple times
 	 */
-	public static Genre findOne(int id){
+	public Genre findOne(Integer id){
 		Genre g = null;
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
@@ -84,7 +69,7 @@ public class GenreDAO {
 		return g;
 	}
 	
-	public static Genre save(Genre g) {
+	public Genre save(Genre g) {
 		try(Connection conn = ConnectionFactory.getInstance()
 				.getConnection()){
 			/*
@@ -120,6 +105,19 @@ public class GenreDAO {
 		}
 		
 		return g;
+	}
+
+
+	@Override
+	public Genre update(Genre obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Genre obj) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
