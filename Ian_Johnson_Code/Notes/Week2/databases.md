@@ -172,3 +172,48 @@ WHERE P.ID = (
 
 JDBC is the basic, low-level API used to interact with a database, contained
 in the `java.sql` package.
+
+# PL/SQL (Procedural Language/SQL)
+
+Includes triggers, sequences, procedures and functions. The "king" of PL/SQL
+is procedure.
+
+## Procedures
+
+A (stored) procedure is a named block of code. For example, a sequence of
+INSERTs, UPDATEs and DELETEs could be made into a procedure for easy reuse.
+You can also have parameters to a procedure (e.g. a make_employee procedure
+that inserts a new employee into the employees table with the given name, age
+and salary but also generates some extra values like an employee ID and takes
+care of any other references that need to be set up), but parameters are not
+required. They also do not need to have any outputs, but they can.
+
+Procedures are compiled once in your database. They can do DML, allowing them
+to create/modify/delete entries in tables.
+
+## Functions
+
+A function is a mathematical operation. Functions always have at least one
+input and exactly one output. They _cannot_ change the tables (no DML). For
+example, if your company has a policy where nobody gets less that 50% the
+average salary, you might create a function that calculates the new salary
+for an employee when somebody gets a raise, and then use that function in a
+procedure that actually updates the salaries.
+
+Functions are compiled each time they are called, in contrast to procedures.
+
+## Sequences
+
+A sequence is used to make numbers in a sequence (e.g. for making unique user
+IDs).
+
+## Triggers
+
+A trigger is a section of code that is executed whenever certain DML
+operations are performed (e.g. when inserting a new row into a table).
+
+## Indexes
+
+An index is a schema object that makes lookups faster, although it makes
+adding and removing data slower. Oracle automatically provides an index for
+every column with the UNIQUE constraint.
