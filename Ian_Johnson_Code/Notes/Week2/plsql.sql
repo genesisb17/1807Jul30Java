@@ -42,5 +42,34 @@ END;
 /
 
 EXEC insert_player('Kobe', 1999, 400);
+EXEC insert_player('Michael Jordan', 1120, 764);
+
+-- To illustrate triggers, we will make a new table for retired players.
+
+CREATE TABLE retired_player (
+    player_id NUMBER(10) PRIMARY KEY,
+    name VARCHAR2(200) NOT NULL,
+    attempts NUMBER(10) NOT NULL,
+    made NUMBER(10) NOT NULL,
+    shooting_percentage NUMBER(10) NOT NULL
+);
+
+-- Instead of deleting a player from the player table, we will put that player in the retired_player table.
+CREATE OR REPLACE TRIGGER t_retire_player
+BEFORE DELETE ON player
+FOR EACH ROW
+BEGIN
+    INSERT INTO retired_player VALUES (
+        :old.player_id,
+        :old.name,
+        :old.attempts,
+        :old.made,
+        :old.shooting_percentage
+    );
+END;
+/
+
+DELETE FROM player WHERE name = 'Bugs Bunny'; -- Bugs Bunny is now retired.
 
 SELECT * FROM player;
+SELECT * FROM retired_player;

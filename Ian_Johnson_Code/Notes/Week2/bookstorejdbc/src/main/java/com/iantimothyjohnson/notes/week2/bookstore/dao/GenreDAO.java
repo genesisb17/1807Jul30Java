@@ -38,12 +38,33 @@ public class GenreDAO {
 		return genres;
 	}
 
+	public static Genre findOne(int id) {
+		Genre g = null;
+
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			// We don't include the semicolon in our query.
+			String query = "SELECT genre_id, name FROM genre";
+			// Statement interface:
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+
+			while (rs.next()) {
+				g = new Genre(rs.getInt("genre_id"), rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return g;
+	}
+
 	// Just for testing purposes.
 	public static void main(String[] args) {
 		List<Genre> genres = findAll();
 		for (Genre g : genres) {
 			System.out.println(g);
 		}
+		System.out.println(findOne(0));
 		BookDAO bdao = new BookDAO();
 		bdao.findAll().forEach(System.out::println);
 	}
