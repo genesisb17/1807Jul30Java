@@ -1,0 +1,248 @@
+DATABASE
+-Collection of data stored as a related entities (tables)
+each with a number of fileds  (columns) and rows representing 
+each entity
+
+-----------------------------------------------------------------------
+
+-Software for interacting with DB
+
+SQL - strictured query language
+
+RDBMS - Relational Database Managment System
+
+--------------------------------------------------------------------------
+
+Schema - everythings rules belonging to your DB
+
+ERD - Diagram showing fields of tables
+and relationships between them 
+
+Candidate Key - column that can uniquely identify
+each row in a table 
+
+-------------------------------------------------------------------------
+
+CONSTRAINTS
+
+NN - Not Null
+- Values in that column cannot be null
+
+U - Unique
+- Values in that column must be unique
+
+CHECK 
+- Qualifier for that column (check if exspression is true for 
+attempted data input
+
+DEFAULT - default value
+
+PRIMARY KEY - column which uniquely identifies each row of a table
+-> candidate key which is not sensitive and doesnt change
+Types  
+-natural - is a column that uniquely identifies a single record 
+in a table
+-surogate - is typically a numeric value - to define a column with an 
+identity property to help generate surrogate key
+
+FOREIGN KEY - a column in a table that refers to another table
+
+-----------------------------------------------------------------------
+
+Multiplicity - relationships between tables
+N-Many
+
+1:1
+
+1:N
+
+N:N - Junction table used to represent many to many relationship
+
+Composite Key - two columns that uniqely identify a row
+
+-----------------------------------------------------------------------
+
+Referential Integrity 
+- ensuring that the relationships between tables remain consistent
+-> Forbiding deletion of columns refrenced by foreign keys
+-> avoid "orphan" data -> rows in DB with foreign that is 
+non existant
+
+Domain Integrity
+- ensuring that all data is of the right type and size
+
+-----------------------------------------------------------------------
+
+Normalization 
+
+-> process of organizing data into related tables ato reduce 
+redundencies and increase efficiency
+
+-> many "normal forms" -> use aim to normalize our DB to 
+3rd normal form
+
+1NF : primary key, atomic data, no repeats
+
+2NF : 1NF, no partial dependencies
+
+3NF : 2NF, no transitive depedencies
+
+-----------------------------------------------------------------------
+
+SQL sublanguages
+
+
+DCL - Data Control Language
+-> credentials 
+Commands 
+-GRANT
+-REVOKE
+
+
+DDL - Data Definition Language
+-> create/update DB schema
+Commands
+-DROP
+-CREATE
+-ALTER
+-TRUNCATE
+
+
+DML - Data Manipulation Language
+-> add/remove/update table rows/ CRUD
+Commands
+-INSERT
+-SELECT
+-UPDATE
+-DELETE
+
+
+DQL - Date Query Language
+-> SELECT
+
+
+TCL - Transaction Control Language
+-> manage DB transaction
+Commands
+-COMMIT
+-ROLLBACK
+-SAVEPOINT
+
+-----------------------------------------------------------------------
+
+
+SUBQUERIES
+-queries nested inside of another to furthure narrow the result set
+
+NON-CORRELATED
+-inner query can execute independently of the other
+
+CORRELATED 
+-internal query cannot operate independantly 
+select p_name
+from product p
+where p_id =( select o.product from order o where o.product = p.p_id)
+
+-----------------------------------------------------------------------
+
+DDL - Data Definition 
+
+CREATE
+- can be used to create table sequences, triggers procedurs,
+functions, indexes etc
+
+ALTER
+- update table schema 
+- adding a clumn w/ column level contraints will throw an error 
+because all entries in new column will be null thereby voiloating the 
+constraint 
+
+TRUNCATE
+- truncate table [table name]
+- cannot be rolled back 
+- will not fire a trigger 
+- ! = delete from [table]
+
+DROP
+- removes strictural elements (table, constraint, sequence, etc)
+- cannot be rolled back
+
+SEQUENCE
+- good for p.k. management
+- it is an object in oracle that is used to generate a 
+number sequence
+
+TRIGGERS
+-block of code that is automatically execute when events happen can
+specify DML statement to respond to
+- we will use these to increment and grab the value of a sequence 
+for automatic insertion of a OPK when attempting to insert a row into
+a table 
+
+INDEXES
+- Schema object that contains an entity for each value that appears 
+in the indexed columns of the table or cluster and provides direct
+fast access to rows 
+- oracle automatically creates indexes for p.k.'s
+- while indexes are useful for traversal of data they make adding 
+remaining data slower and should be created sparingly  
+
+-----------------------------------------------------------------------
+
+JDBC - Java Database Connectivity
+- Java API used to interact with DB
+- java.sql package
+- major interfaces in JDBC API: connection statement, 
+prepared statement, callable statement, resultset
+
+-----------------------------------------------------------------------
+
+PL/SQL
+
+Procedural language/sql
+Procedure 
+- named block of code (similar to method)
+- do not need parameters
+- they dont need outputs (CAN have outputs)
+- they can have inputs
+- compiled once in your database
+- they perform DML (data manipulation language)
+
+Function - mathematical operation
+- always have an input or inputs
+- always have exactly one output
+- they CANNOT change the table
+- they are compiled each time they are called
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
