@@ -1,4 +1,4 @@
-package com.iantimothyjohnson.assignments.banking.dao;
+package com.iantimothyjohnson.assignments.banking.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Properties;
  * 
  * @author Ian Johnson
  */
-public class ConnectionManager {
+public class ConnectionFactory {
 	/**
 	 * The path to the application.properties file where the database connection
 	 * info is stored.
@@ -21,13 +21,13 @@ public class ConnectionManager {
 	/**
 	 * The single instance of this class, lazily instantiated.
 	 */
-	private static ConnectionManager instance;
+	private static ConnectionFactory instance;
 
 	private String url;
 	private String user;
 	private String password;
 
-	private ConnectionManager() {
+	private ConnectionFactory() {
 		try {
 			Properties props = new Properties();
 			props.load(new FileInputStream(PROPERTIES_PATH));
@@ -45,9 +45,9 @@ public class ConnectionManager {
 		}
 	}
 
-	public static synchronized ConnectionManager getInstance() {
+	public static synchronized ConnectionFactory getInstance() {
 		if (instance == null) {
-			instance = new ConnectionManager();
+			instance = new ConnectionFactory();
 		}
 		return instance;
 	}

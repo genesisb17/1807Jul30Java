@@ -1,8 +1,6 @@
 package com.iantimothyjohnson.assignments.banking.pojos;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * A class representing a user of the bank. Note that this is not the same as an
@@ -29,7 +27,7 @@ public class User implements Serializable {
 	/**
 	 * The user's hashed password.
 	 */
-	private byte[] hashedPassword;
+	private byte[] passwordHash;
 	/**
 	 * The user's first name.
 	 */
@@ -38,28 +36,33 @@ public class User implements Serializable {
 	 * The user's last name.
 	 */
 	private String lastName;
-	/**
-	 * The user's accounts.
-	 */
-	private List<Account> accounts;
 
-	public User(int id, String username, byte[] passwordSalt, byte[] hashedPassword, String firstName, String lastName,
-			List<Account> accounts) {
+	public User() {
+	}
+
+	public User(int id, String username, byte[] passwordSalt, byte[] passwordHash, String firstName, String lastName) {
 		this.id = id;
 		this.username = username;
 		this.passwordSalt = passwordSalt;
-		this.hashedPassword = hashedPassword;
+		this.passwordHash = passwordHash;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.accounts = accounts;
 	}
 
 	public int getId() {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public byte[] getPasswordSalt() {
@@ -70,12 +73,12 @@ public class User implements Serializable {
 		this.passwordSalt = passwordSalt;
 	}
 
-	public byte[] getHashedPassword() {
-		return hashedPassword;
+	public byte[] getPasswordHash() {
+		return passwordHash;
 	}
 
-	public void setHashedPassword(byte[] hashedPassword) {
-		this.hashedPassword = hashedPassword;
+	public void setPasswordHash(byte[] passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public String getFirstName() {
@@ -92,17 +95,5 @@ public class User implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	/**
-	 * Gets the user's accounts. This returns an unmodifiable view of the account
-	 * list, so that changes to the list do not affect the list stored in the user
-	 * data, but changes to individual accounts *will* be reflected in the
-	 * corresponding accounts of this user.
-	 * 
-	 * @return The user's accounts.
-	 */
-	public List<Account> getAccounts() {
-		return Collections.unmodifiableList(accounts);
 	}
 }

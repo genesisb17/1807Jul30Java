@@ -37,5 +37,24 @@ CREATE TABLE user_account (
     FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
-SELECT * FROM account WHERE account_id IN
-    (SELECT account_id FROM user_account WHERE user_id = 0);
+-- Let's create sequences for the account IDs and triggers to generate them automatically.
+CREATE SEQUENCE seq_user_id;
+CREATE SEQUENCE seq_account_id;
+
+CREATE OR REPLACE TRIGGER trig_user_id
+BEFORE INSERT ON bank_user
+FOR EACH ROW
+BEGIN
+    SELECT seq_user_id.NEXTVAL INTO :NEW.user_id FROM dual;
+END;
+/
+
+CREATE OR REPLACE TRIGGER trig_account_id
+BEFORE INSERT ON account
+FOR EACH ROW
+BEGIN
+    SELECT seq_account_id.NEXTVAL INTO :NEW.account_id FROM dual;
+END;
+/
+
+SELECT * FROM bank_user;

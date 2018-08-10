@@ -1,14 +1,16 @@
 package com.iantimothyjohnson.assignments.banking.app;
 
 import java.io.EOFException;
+import java.util.List;
 
-import com.iantimothyjohnson.assignments.banking.dao.AccountDAO;
-import com.iantimothyjohnson.assignments.banking.dao.UserDAO;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.banking.exceptions.UserAlreadyExistsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.banking.pojos.Account;
 import com.iantimothyjohnson.assignments.banking.pojos.User;
+import com.iantimothyjohnson.assignments.banking.service.AccountService;
 import com.iantimothyjohnson.assignments.banking.service.SessionManager;
+import com.iantimothyjohnson.assignments.banking.service.UserService;
 import com.iantimothyjohnson.assignments.banking.ui.AbstractTUI;
 import com.iantimothyjohnson.assignments.banking.ui.StandardTUI;
 
@@ -17,10 +19,6 @@ public class Driver {
 	 * The TUI to use to interact with the user.
 	 */
 	private static AbstractTUI tui;
-	/**
-	 * The session manager to use, which interacts with and abstracts the DAO.
-	 */
-	private static SessionManager sessionManager;
 	/**
 	 * The welcome message to show to the user when the program starts.
 	 */
@@ -32,8 +30,6 @@ public class Driver {
 	}
 
 	public static void main(String[] args) {
-		// Set up the DAO and the session manager.
-		sessionManager = new SessionManager(new UserDAO(new AccountDAO()));
 		// Set up the TUI. In the future, we might try to detect terminal
 		// features and provide a nicer interface where the user's terminal can
 		// support it.
@@ -43,18 +39,21 @@ public class Driver {
 		// enters EOF.
 		try {
 			while (true) {
-				String option = tui.selectValue("Please select an option", "Log in", "Create account");
+				String option = tui.selectValue("Please select an option", "Log in", "Create account", "Exit program");
 				switch (option) {
 				case "Log in":
 					login();
 					break;
 				case "Create account":
-					System.err.println("Unimplemented!");
+					createUserAccount();
 					break;
+				case "Exit program":
+					return;
 				}
 			}
 		} catch (EOFException ee) {
-			tui.printLine("Goodbye!");
+			// Just exit the program if we get EOF.
+			return;
 		}
 	}
 
@@ -64,16 +63,15 @@ public class Driver {
 	private static void login() throws EOFException {
 		// Keep trying to log the user in until successful.
 		while (true) {
-			tui.print("Username: ");
-			String username = tui.readLine();
-			tui.print("Password: ");
-			char[] password = tui.readPassword();
+			String username = tui.promptNonEmptyLine("Username");
+			char[] password = tui.promptPassword("Password");
 
 			// Now, let's try to actually log the user in.
 			try {
-				User user = sessionManager.login(username, password);
+				User user = SessionManager.getInstance().login(username, password);
 				userSession(user);
-				sessionManager.logout(user);
+				SessionManager.getInstance().logout(user);
+				return;
 			} catch (UserNotFoundException | AuthenticationFailureException e) {
 				tui.printLine(e.getMessage());
 			}
@@ -81,16 +79,84 @@ public class Driver {
 	}
 
 	/**
-	 * Run a session for the given (logged-in) user.
+	 * Presents the create account menu. After successfully creating a new user, the
+	 * user will be logged in.
+	 */
+	private static void createUserAccount() throws EOFException {
+		// Keep trying to create an account until successful.
+		while (true) {
+			User user = new User();
+			String username = tui.promptNonEmptyLine("Username");
+			if (!UserService.getInstance().isUsernameAvailable(username)) {
+				tui.printLine("Username already taken. Please choose another.");
+				continue;
+			}
+			user.setUsername(username);
+			char[] password = tui.promptPasswordWithConfirmation("Password");
+			user.setFirstName(tui.promptNonEmptyLine("First name"));
+			user.setLastName(tui.promptNonEmptyLine("Last name"));
+			try {
+				SessionManager.getInstance().createUser(user, password);
+			} catch (UserAlreadyExistsException e) {
+				System.err.println("User already exists despite previous check succeeding:");
+				e.printStackTrace();
+				continue;
+			}
+
+			// Now, we can run a session with the newly-created user.
+			userSession(user);
+			return;
+		}
+	}
+
+	/**
+	 * Runs a session for the given (logged-in) user.
 	 * 
 	 * @param user The user whose session to run.
 	 */
 	private static void userSession(User user) throws EOFException {
-		// Get an array of account names so the user can pick one.
-		String[] accountNames = user.getAccounts().stream().map(account -> account.getName()).toArray(String[]::new);
-		int index = tui.select("Choose an account", accountNames);
-		Account account = user.getAccounts().get(index);
+		while (true) {
+			String option = tui.selectValue("Please select an activity", "View/update existing account",
+					"Create new account", "Logout");
+			switch (option) {
+			case "View/update existing account":
+				chooseAccount(user);
+				break;
+			case "Create new account":
+				createBankAccount(user);
+				break;
+			case "Logout":
+				return;
+			}
+		}
+	}
 
-		tui.printLine("Account " + account.getName() + " has $" + account.getBalance());
+	private static void chooseAccount(User user) throws EOFException {
+		List<Account> accounts = AccountService.getInstance().findAllForUser(user);
+		if (accounts.isEmpty()) {
+			tui.printLine("You do not have any accounts yet.");
+			if (tui.promptYesOrNo("Would you like to create an account?")) {
+				createBankAccount(user);
+			}
+			// There are no accounts to display, so we return back to the
+			// previous menu.
+			return;
+		}
+		
+		// We can now display a list of accounts for the user to pick from.
+		String[] menuItems = accounts.stream().map(Account::getName).toArray(String[]::new);
+		int choice = tui.select("Please choose an account to view or update", menuItems);
+		Account selected = accounts.get(choice);
+		manipulateAccount(selected);
+	}
+
+	private static void createBankAccount(User user) throws EOFException {
+
+	}
+	
+	private static void manipulateAccount(Account account) throws EOFException {
+		// Print out some stats about the account.
+		tui.printLine("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
+		tui.printLine("Balance: $" + String.format("%.2d", account.getBalance()));
 	}
 }

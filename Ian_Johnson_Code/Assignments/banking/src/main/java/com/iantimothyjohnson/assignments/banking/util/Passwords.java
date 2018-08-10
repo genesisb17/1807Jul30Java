@@ -1,4 +1,4 @@
-package com.iantimothyjohnson.assignments.banking.service;
+package com.iantimothyjohnson.assignments.banking.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

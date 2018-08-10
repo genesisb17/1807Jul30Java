@@ -7,23 +7,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import com.iantimothyjohnson.assignments.banking.pojos.Account;
 import com.iantimothyjohnson.assignments.banking.pojos.User;
+import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 
-public class UserDAO extends SQLDAO<User> {
-	private AccountDAO accountDao;
-
-	public UserDAO(AccountDAO accountDao) {
-		this.accountDao = accountDao;
-	}
-
-	@Override
+public class UserDAO {
+	/**
+	 * Finds all users in the database.
+	 * 
+	 * @return A list of all users in the database (empty if there are no users).
+	 */
 	public List<User> findAll() {
 		final String query = "SELECT * FROM bank_user";
 
-		try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			return collectFromResultSet(rs);
@@ -31,21 +28,25 @@ public class UserDAO extends SQLDAO<User> {
 			System.err.println("Got SQLException:");
 			se.printStackTrace();
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
-	@Override
-	public Optional<User> findById(int id) {
+	/**
+	 * Finds the user with the given ID.
+	 * 
+	 * @param id The ID of the user to find.
+	 * @return The user that was found, or null if no user has the specified ID.
+	 */
+	public User findById(int id) {
 		final String query = "SELECT * FROM bank_user WHERE user_id = ?";
 
-		try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			List<User> users = collectFromResultSet(rs);
-			// The ID is unique, so our list has at most one element.
-			assert users.size() <= 1;
-			return users.size() == 0 ? Optional.empty() : Optional.of(users.get(0));
+			if (rs.next()) {
+				return parseResultSetRow(rs);
+			}
 		} catch (SQLException se) {
 			System.err.println("Got SQLException:");
 			se.printStackTrace();
@@ -53,17 +54,24 @@ public class UserDAO extends SQLDAO<User> {
 		return null;
 	}
 
-	public Optional<User> findByUsername(String username) {
+	/**
+	 * Finds the user with the given username.
+	 * 
+	 * @param username The username of the user to find.
+	 * @return The user that was found, or null if none was found.
+	 */
+	public User findByUsername(String username) {
 		final String query = "SELECT * FROM bank_user WHERE username = ?";
 
-		try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, username);
+			// Remember that usernames are not case-sensitive!
+			ps.setString(1, username.toLowerCase());
 			ResultSet rs = ps.executeQuery();
-			List<User> users = collectFromResultSet(rs);
-			// The username is unique, so our list has at most one element.
-			assert users.size() <= 1;
-			return users.size() == 0 ? Optional.empty() : Optional.of(users.get(0));
+			// Usernames are unique, so we only need to expect one result.
+			if (rs.next()) {
+				return parseResultSetRow(rs);
+			}
 		} catch (SQLException se) {
 			System.err.println("Got SQLException:");
 			se.printStackTrace();
@@ -71,15 +79,93 @@ public class UserDAO extends SQLDAO<User> {
 		return null;
 	}
 
-	@Override
-	protected List<User> collectFromResultSet(ResultSet rs) throws SQLException {
+	/**
+	 * Inserts a new user into the database.
+	 * 
+	 * @param user The user to insert. The ID of the user object will be updated to
+	 *             reflect its new ID after being inserted into the database.
+	 * @return Whether the user was actually inserted (this will be false if, e.g. a
+	 *         user with the given username already exists or some other database
+	 *         error occurred).
+	 */
+	public boolean insert(User user) {
+		final String query = "INSERT INTO bank_user " + "(username, password_salt, password_hash, first_name, last_name) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			// We want to retrive the auto-generated user_id key.
+			String[] keys = { "user_id" };
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			ps.setString(1, user.getUsername());
+			ps.setBytes(2, user.getPasswordSalt());
+			ps.setBytes(3, user.getPasswordHash());
+			ps.setString(4, user.getFirstName());
+			ps.setString(5, user.getLastName());
+
+			int inserted = ps.executeUpdate();
+			ResultSet generatedKeys = ps.getGeneratedKeys();
+			if (inserted > 0 && generatedKeys.next()) {
+				// We update the user's ID with the ID it now has in the
+				// database.
+				user.setId(generatedKeys.getInt(1));
+				return true;
+			}
+		} catch (SQLException se) {
+			System.err.println("Got SQLException:");
+			se.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * Updates the user data in the database corresponding to the given (existing)
+	 * user.
+	 * 
+	 * @param user The user to save to the database.
+	 * @return Whether the user was actually updated (that is, true if the user
+	 *         existed, false if there was no such user, as determined by the user's
+	 *         ID).
+	 */
+	public boolean update(User user) {
+		final String query = "UPDATE bank_user "
+				+ "SET username = ?, password_salt = ?, password_hash = ?, first_name = ?, last_name = ? "
+				+ "WHERE user_id = ?";
+
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, user.getUsername());
+			ps.setBytes(2, user.getPasswordSalt());
+			ps.setBytes(3, user.getPasswordHash());
+			ps.setString(4, user.getFirstName());
+			ps.setString(5, user.getLastName());
+			ps.setInt(6, user.getId());
+
+			// We check how many rows were affected to see if the user actually
+			// existed.
+			int affected = ps.executeUpdate();
+			return affected > 0;
+		} catch (SQLException se) {
+			System.err.println("Got SQLException:");
+			se.printStackTrace();
+		}
+		return false;
+	}
+
+	private User parseResultSetRow(ResultSet rs) throws SQLException {
+		User user = new User();
+		user.setId(rs.getInt("user_id"));
+		user.setUsername(rs.getString("username"));
+		user.setPasswordSalt(rs.getBytes("password_salt"));
+		user.setPasswordHash(rs.getBytes("password_hash"));
+		user.setFirstName(rs.getString("first_name"));
+		user.setLastName(rs.getString("last_name"));
+		return user;
+	}
+
+	private List<User> collectFromResultSet(ResultSet rs) throws SQLException {
 		List<User> users = new ArrayList<User>();
 		while (rs.next()) {
-			int userId = rs.getInt("user_id");
-			// First, let's get all the user's accounts.
-			List<Account> accounts = accountDao.findAllForUser(userId);
-			users.add(new User(userId, rs.getString("username"), rs.getBytes("password_salt"),
-					rs.getBytes("hashed_password"), rs.getString("first_name"), rs.getString("last_name"), accounts));
+			users.add(parseResultSetRow(rs));
 		}
 		return users;
 	}

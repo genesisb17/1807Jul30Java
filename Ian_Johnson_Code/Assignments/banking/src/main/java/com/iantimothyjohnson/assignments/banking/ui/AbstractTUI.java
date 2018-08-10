@@ -1,6 +1,7 @@
 package com.iantimothyjohnson.assignments.banking.ui;
 
 import java.io.EOFException;
+import java.util.Arrays;
 
 /**
  * An abstract class that represents the basic functionality of a TUI (textual
@@ -57,6 +58,110 @@ public abstract class AbstractTUI {
 	public void printNumberedList(String... items) {
 		for (int i = 0; i < items.length; i++) {
 			printLine((i + 1) + ". " + items[i]);
+		}
+	}
+
+	/**
+	 * Prompts the user to enter a line of text.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Username"). It should
+	 *               not be terminated with any punctuation or spaces.
+	 * @return The line that was input by the user, trimmed of any leading and
+	 *         trailing whitespace.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
+	 */
+	public String promptLine(String prompt) throws EOFException {
+		print(prompt + ": ");
+		return readLine().trim();
+	}
+
+	/**
+	 * Prompts the user to enter a non-empty line of text (not including leading and
+	 * trailing whitespace). The user will be prompted continually until a non-empty
+	 * line is input.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Username"). It should
+	 *               not be terminated with any punctuation or spaces.
+	 * @return The line that was input by the user, trimmed of any leading and
+	 *         trailing whitespace.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
+	 */
+	public String promptNonEmptyLine(String prompt) throws EOFException {
+		while (true) {
+			String line = promptLine(prompt);
+			if (!line.isEmpty()) {
+				return line;
+			}
+		}
+	}
+
+	/**
+	 * Prompts the user to enter a password. The password must be non-empty, so the
+	 * user will be prompted continually until something is entered.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Password"). It should
+	 *               not be terminated with any punctuation or spaces.
+	 * @return The password that was input by the user.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      line.
+	 */
+	public char[] promptPassword(String prompt) throws EOFException {
+		while (true) {
+			print(prompt + ": ");
+			char[] password = readPassword();
+			if (password.length > 0) {
+				return password;
+			}
+		}
+	}
+
+	/**
+	 * Prompts the user to enter a password and then once more to confirm it. The
+	 * prompts will repeat until the user successfully enters the same password
+	 * twice.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Password"). It should
+	 *               not be terminated with any punctuation or spaces.
+	 * @return The password that was input by the user.
+	 * @throws EOFException If the user sent EOF to the terminal without
+	 *                      successfully entering a password.
+	 */
+	public char[] promptPasswordWithConfirmation(String prompt) throws EOFException {
+		while (true) {
+			char[] password = promptPassword(prompt);
+			char[] confirm = promptPassword(prompt + " (confirm)");
+			if (Arrays.equals(password, confirm)) {
+				return password;
+			} else {
+				printLine("Given passwords do not match. Please try again.");
+			}
+		}
+	}
+
+	/**
+	 * Prompts the user to enter either "yes" or "no" (case-insensitive). The user
+	 * will be prompted until one of these two options is input.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Would you like to
+	 *               exit"). It should not be terminated with any punctuation or
+	 *               spaces; input hints and a question mark will be provided.
+	 * @return If the user input "yes", then true; if "no", then false.
+	 * @throws EOFException If the user sent EOF to the terminal without providing
+	 *                      an answer.
+	 */
+	public boolean promptYesOrNo(String prompt) throws EOFException {
+		// The loop will continue prompting the user until a valid input is
+		// given.
+		while (true) {
+			print(prompt + " (yes/no)? ");
+			switch (readLine().toLowerCase()) {
+			case "yes":
+				return true;
+			case "no":
+				return false;
+			}
 		}
 	}
 

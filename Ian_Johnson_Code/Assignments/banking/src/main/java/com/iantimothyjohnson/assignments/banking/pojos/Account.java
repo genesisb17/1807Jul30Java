@@ -33,40 +33,28 @@ public class Account implements Serializable {
 		this.balance = balance;
 	}
 
-	/**
-	 * Gets the account's account ID number.
-	 * 
-	 * @return The account's account ID number.
-	 */
 	public int getId() {
 		return id;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
-	/**
-	 * Gets the name of the account.
-	 * 
-	 * @return The name of the account.
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Sets the name of the account.
-	 * 
-	 * @param name The new name of the account.
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * Gets the account balance.
-	 * 
-	 * @return The account balance, in dollars.
-	 */
 	public BigDecimal getBalance() {
 		return balance;
+	}
+	
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 	/**

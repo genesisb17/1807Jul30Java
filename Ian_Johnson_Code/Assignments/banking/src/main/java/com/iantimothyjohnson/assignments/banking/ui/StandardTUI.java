@@ -19,18 +19,16 @@ public class StandardTUI extends AbstractTUI {
 
 	@Override
 	public String readLine() throws EOFException {
-		String line = null;
 		try {
-			line = input.readLine();
+			String line = input.readLine();
+			if (line != null) {
+				return line;
+			}
 		} catch (IOException e) {
 			System.err.println("Could not read from standard input:");
 			e.printStackTrace();
 		}
-		if (line != null) {
-			return line;
-		} else {
-			throw new EOFException();
-		}
+		throw new EOFException();
 	}
 
 	@Override
