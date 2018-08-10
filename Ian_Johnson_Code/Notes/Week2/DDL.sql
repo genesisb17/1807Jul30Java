@@ -116,3 +116,23 @@ FROM author
 JOIN book
 ON EXISTS
     (SELECT * FROM book_author WHERE book_author.author_id = author.author_id AND book_author.book_id = book.book_id);
+
+-- PL/SQL stuff
+
+-- Oracle creates a context area with all information necessary for processing an SQL statement.
+-- A cursor is a pointer to this context area.
+-- The "active set" is the row(s) returned by a statement and is held by the cursor.
+-- There are two types of cursor: implicit and explicit.
+-- Implicit cursors are created by Oracle whenever we execute a DML statement and no explicit cursor on the set exists.
+-- Explicit cursors are programmer-defined, and are used for obtaining more control over the context area.
+-- -- We must DECLARE a cursor to initialize the memory, OPEN cursor to allocate memory, FETCH cursor to retrive data and then CLOSE it.
+
+-- Create a procedure to return all books.
+CREATE OR REPLACE PROCEDURE get_all_books(
+    cursor_param OUT SYS_REFCURSOR -- We have a cursor as an output parameter.
+) IS
+BEGIN
+    OPEN cursor_param FOR
+    SELECT * FROM book;
+END;
+/

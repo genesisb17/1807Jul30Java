@@ -70,6 +70,3 @@ END;
 /
 
 DELETE FROM player WHERE name = 'Bugs Bunny'; -- Bugs Bunny is now retired.
-
-SELECT * FROM player;
-SELECT * FROM retired_player;
