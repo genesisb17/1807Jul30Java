@@ -25,7 +25,7 @@ public class GenreDAO implements Dao<Genre, Integer>{
 		List<Genre> genres = new ArrayList<Genre>();
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
-			String query = "select * from genre";
+			String query = "select * from genre order by name asc";
 
 			// STATEMENT INTERFACE
 			Statement statement = conn.createStatement();
@@ -62,6 +62,7 @@ public class GenreDAO implements Dao<Genre, Integer>{
 			g.setId(info.getInt(1));
 			g.setName(info.getString(2));
 			}
+			// more code
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
