@@ -1,0 +1,227 @@
+--Part I – Working with an existing database
+--1.0 Setting up Oracle Chinook
+--In this section you will begin the process of working with the Oracle Chinook database
+--Task – Open the Chinook_Oracle.sql file and execute the scripts within.
+--2.0 SQL Queries
+--In this section you will be performing various queries against the Oracle Chinook database.
+--2.1 SELECT
+--Task – Select all records from the Employee table.
+SELECT * FROM EMPLOYEE;
+--Task – Select all records from the Employee table where last name is King.
+SELECT * FROM EMPLOYEE WHERE LASTNAME = 'King';
+--Task – Select all records from the Employee table where first name is Andrew and REPORTSTO is NULL.
+SELECT * FROM EMPLOYEE WHERE FIRSTNAME = 'Andrew' AND REPORTSTO IS NULL;
+--2.2 ORDER BY
+--Task – Select all albums in Album table and sort result set in descending order by title.
+SELECT * FROM ALBUM ORDER BY TITLE DESC;
+--Task – Select first name from Customer and sort result set in ascending order by city
+SELECT FIRSTNAME FROM CUSTOMER ORDER BY CITY;
+--2.3 INSERT INTO
+--Task – Insert two new records into Genre table
+INSERT INTO GENRE(GENREID, NAME) VALUES (11101, 'Death Metal');
+INSERT INTO GENRE(GENREID, NAME) VALUES (11102, 'Heavy Metal');
+--Task – Insert two new records into Employee table
+INSERT INTO EMPLOYEE(EMPLOYEEID, LASTNAME, FIRSTNAME) VALUES (154, 'John', 'Doe');
+INSERT INTO EMPLOYEE(EMPLOYEEID, LASTNAME, FIRSTNAME) VALUES (321, 'Ben', 'Martin');
+--Task – Insert two new records into Customer table
+INSERT INTO CUSTOMER(CUSTOMERID, FIRSTNAME, LASTNAME, EMAIL) VALUES (10001, 'Billy', 'Bob', 'whylive@hotmail.com');
+INSERT INTO CUSTOMER(CUSTOMERID, FIRSTNAME, LASTNAME, EMAIL) VALUES (10002, 'Holly', 'Crabber', 'whydie@hotmail.com');
+--2.4 UPDATE
+--Task – Update Aaron Mitchell in Customer table to Robert Walter
+UPDATE CUSTOMER SET FIRSTNAME = 'Robert', LASTNAME = 'Walter' WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell';
+--Task – Update name of artist in the Artist table “Creedence Clearwater Revival” to “CCR”
+UPDATE ARIST SET NAME = 'CCR' WHERE NAME = 'Creedence Clearwater Revival';
+--2.5 LIKE
+--Task – Select all invoices with a billing address like “T%”
+SELECT * FROM INVOICE WHERE BILLINGADDRESS LIKE "T%";
+--2.6 BETWEEN
+--Task – Select all invoices that have a total between 15 and 50
+SELECT * FROM INVOICE WHERE TOTAL BETWEEN 15 AND 50;
+--Task – Select all employees hired between 1st of June 2003 and 1st of March 2004
+SELECT * FROM EMPLOYEE WHERE HIREDATE BETWEEN '01-MAR-03' AND '01-MAR-04';
+--2.7 DELETE
+--Task – Delete a record in Customer table where the name is Robert Walter (There may be constraints that rely on this, find out how to resolve them).
+DELETE FROM CUSTOMER WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter';
+--3.1 System Defined Functions
+--Task – Create a function that returns the current time.
+SELECT TO_CHAR(SYSDATE, 'HH12:MM:SS') FROM DUAL;
+--Task – create a function that returns the length of a mediatype from the mediatype table
+SELECT LENGTH(NAME) FROM MEDIATYPE;
+--3.2 System Defined Aggregate Functions
+--Task – Create a function that returns the average total of all invoices
+SELECT ROUND(AVG(TOTAL), 2) FROM INVOICE;
+--Task – Create a function that returns the most expensive track
+SELECT MAX(UNITPRICE) FROM TRACK;
+--3.3 User Defined Functions
+--Task – Create a function that returns the average price of invoiceline items in the invoiceline table
+--3.4 User Defined Table Valued Functions
+--Task – Create a function that returns all employees who are born after 1968.
+--4.0 Stored Procedures
+--In this section you will be creating and executing stored procedures. You will be creating various types of stored procedures that take input and output parameters.
+--4.1 Basic Stored Procedure
+--Task – Create a stored procedure that selects the first and last names of all the employees.
+CREATE OR REPLACE PROCEDURE first_last_names
+AS
+    c1 SYS_REFCURSOR;
+BEGIN
+    open c1 for
+        SELECT FIRSTNAME, LASTNAME FROM EMPLOYEE;
+    DBMS_SQL.RETURN_RESULT(c1);    
+END;
+/
+execute first_last_names();
+--4.2 Stored Procedure Input Parameters
+--Task – Create a stored procedure that updates the personal information of an employee.
+CREATE OR REPLACE PROCEDURE Update_City (city_input IN VARCHAR2, id_input IN NUMBER)
+AS
+BEGIN
+    UPDATE EMPLOYEE SET CITY = city_input WHERE EMPLOYEEID = id_input;
+END;
+/
+execute Update_City('Crappyville', 9);
+--Task – Create a stored procedure that returns the managers of an employee.
+CREATE OR REPLACE PROCEDURE Managers
+AS
+    c1 SYS_REFCURSOR;
+BEGIN
+    open c1 for
+        SELECT emp1.FIRSTNAME "Worker",man1.FIRSTNAME "Manager"
+        FROM EMPLOYEE emp1, EMPLOYEE man1
+        WHERE emp1.REPORTSTO = man1.EMPLOYEEID;
+    DBMS_SQL.RETURN_RESULT(c1);  
+END;
+/
+EXECUTE Managers();
+--4.3 Stored Procedure Output Parameters
+--Task – Create a stored procedure that returns the name and company of a customer.
+CREATE OR REPLACE PROCEDURE Customer_Info (cus_input IN NUMBER)
+AS
+    c1 SYS_REFCURSOR;
+BEGIN
+    open c1 for
+        SELECT FIRSTNAME, LASTNAME, COMPANY FROM CUSTOMER WHERE CUSTOMERID = cus_input;
+    DBMS_SQL.RETURN_RESULT(c1);
+END;
+/
+EXECUTE Customer_Info(3);
+--5.0 Transactions
+--In this section you will be working with transactions. Transactions are usually nested within a stored procedure.
+--Task – Create a transaction that given a invoiceId will delete that invoice (There may be constraints that rely on this, find out how to resolve them).
+--------Remove constaint either via SQL or manually by SQL Developer
+CREATE OR REPLACE PROCEDURE Delete_Invoice (inv_input IN NUMBER)
+AS
+BEGIN
+    DELETE FROM INVOICE WHERE INVOICEID = inv_input;
+END;
+/
+EXECUTE Delete_Invoice(2);
+--Task – Create a transaction nested within a stored procedure that inserts a new record in the Customer table
+CREATE OR REPLACE PROCEDURE Create_Customer (Cus_ID IN NUMBER, fname IN VARCHAR2, lname IN VARCHAR2, email IN VARCHAR2)
+AS
+BEGIN
+    INSERT INTO CUSTOMER(CUSTOMERID, FIRSTNAME, LASTNAME, EMAIL) VALUES (Cus_ID, fname, lname, email);
+END;
+/
+EXECUTE Create_Customer(3123, 'Benny', 'Bobby', 'Johnny@Bravo.com');
+--6.0 Triggers
+--In this section you will create various kinds of triggers that work when certain DML statements are executed on a table.
+--6.1 AFTER/FOR
+--Task - Create an after insert trigger on the employee table fired after a new record is inserted into the table.
+CREATE OR REPLACE TRIGGER orders_after_insert
+AFTER INSERT
+    ON EMPLOYEE
+    FOR EACH ROW
+DECLARE
+    EMP_ID NUMBER;
+BEGIN
+    SELECT EMPLOYEEID INTO EMP_ID
+    FROM DUAL; --IT IS IMPLIED THAT THERE IS A SET-UP FOR THE TRIGGER BUT BASICALLY TAKES THE INFO
+    -- OF WHOEVER IS LOGGED IN AND MAKING THE RECORD HAS AN AUDIT FILE ON 'EM
+    
+    INSERT INTO EMPLOYEE_AUDIT (EMPLOYEEID) VALUES (:new.EMPLOYEEID);
+END;    
+--Task – Create an after update trigger on the album table that fires after a row is inserted in the table
+CREATE OR REPLACE TRIGGER album_after_update
+AFTER UPDATE
+ON ALBUM
+FOR EACH ROW
+
+DECLARE
+    EMP_ID NUMBER;
+BEGIN
+    SELECT EMPLOYEEID INTO EMP_ID
+    FROM DUAL; --IT IS IMPLIED THAT THERE IS A SET-UP FOR THE TRIGGER BUT BASICALLY TAKES THE INFO
+    -- OF WHOEVER IS LOGGED IN AND MAKING THE RECORD HAS AN AUDIT FILE ON 'EM
+    
+    INSERT INTO EMPLOYEE_AUDIT (EMPLOYEEID) VALUES (:new.EMPLOYEEID);
+END; 
+--Task – Create an after delete trigger on the customer table that fires after a row is deleted from the table.
+CREATE OR REPLACE TRIGGER customer_after_delete
+AFTER DELETE
+ON ALBUM
+FOR EACH ROW
+
+DECLARE
+    EMP_ID NUMBER;
+BEGIN
+    SELECT EMPLOYEEID INTO EMP_ID
+    FROM DUAL; --IT IS IMPLIED THAT THERE IS A SET-UP FOR THE TRIGGER BUT BASICALLY TAKES THE INFO
+    -- OF WHOEVER IS LOGGED IN AND MAKING THE RECORD HAS AN AUDIT FILE ON 'EM
+    
+    INSERT INTO EMPLOYEE_AUDIT (EMPLOYEEID) VALUES (:new.EMPLOYEEID);
+END;    
+--7.0 JOINS
+--In this section you will be working with combing various tables through the use of joins. You will work with outer, inner, right, left, cross, and self joins.
+--7.1 INNER
+--Task – Create an inner join that joins customers and orders and specifies the name of the customer and the invoiceId.
+SELECT c.FIRSTNAME, c.LASTNAME, o.INVOICEID
+FROM CUSTOMER c
+INNER JOIN INVOICE o
+ON c.CUSTOMERID = o.CUSTOMERID;
+--7.2 OUTER
+--Task – Create an outer join that joins the customer and invoice table, specifying the CustomerId, firstname, lastname, invoiceId, and total.
+SELECT c.CUSTOMERID, c.FIRSTNAME, c.LASTNAME, i.INVOICEID, i.TOTAL
+FROM CUSTOMER c
+LEFT JOIN INVOICE i
+ON c.CUSTOMERID = i.INVOICEID;
+--7.3 RIGHT
+--Task – Create a right join that joins album and artist specifying artist name and title.
+SELECT al.TITLE, ar.NAME
+FROM ALBUM al
+RIGHT JOIN ARTIST ar
+ON al.ARTISTID = ar.ARTISTID;
+--7.4 CROSS
+--Task – Create a cross join that joins album and artist and sorts by artist name in ascending order.
+SELECT * FROM ALBUM CROSS JOIN ARTIST ORDER BY ARTIST.NAME ASC;
+--7.5 SELF
+--Task – Perform a self-join on the employee table, joining on the reportsto column.
+SELECT emp1.FIRSTNAME "Worker",man1.FIRSTNAME "Manager"
+FROM EMPLOYEE emp1, EMPLOYEE man1
+WHERE emp1.REPORTSTO = man1.EMPLOYEEID;
+--7.6 Complicated Join assignment
+--Create an inner join between all tables in the chinook database.
+select *
+from invoiceline il
+join invoice inv
+on inv.invoiceid = il.invoicelineid
+join customer c
+on inv.customerid = c.customerid
+join employee e
+on c.supportrepid = e.employeeid
+join track t
+on il.trackid = t.trackid
+join genre g
+on t.genreid = g.genreid
+join mediatype mt
+on t.mediatypeid = mt.mediatypeid
+join album al
+on t.albumid = al.albumid
+join artist ar
+on al.artistid = ar.artistid
+join playlisttrack plt
+on t.trackid = plt.trackid
+join playlist pl
+on plt.playlistid = pl.playlistid;
+--9.0 Administration
+--In this section you will be creating backup files of your database. After you create the backup file you will also restore the database.
+--Task – Create a .bak file for the Chinook database
