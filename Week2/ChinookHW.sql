@@ -126,4 +126,217 @@ on playlist.PLAYLISTID = playlisttrack.PLAYLISTID
 inner join artist
 on artist.ARTISTID = album.ARTISTID;
 
+--3.1 System defined functions
+--create a function that returns the current time
+create or replace function current_time_func
+return time
+is thyme time;
+begin
+SELECT current_time() into thyme from dual;
+return thyme;
+end;
+/
+
+--create a function that returns the length of a mediatype from the
+--mediatype table
+create or replace function length_mediatype(type_id number, mt_name varchar2) -------------------------------------
+return number is len_mediatype number(10);
+
+begin
+select 
+return percentage;
+end;
+/
+
+--3.2
+--Create a function that returns the average total of all invoices
+create or replace function avg_invoices
+return number
+is 
+avg_inv number;
+
+begin
+
+select avg(total) into avg_inv from invoice;
+return avg_inv;
+end;
+/
+--create function tat returns most expensive track--------------------------------
+create or replace function exponsive
+return number
+is 
+max_track number;
+
+begin
+select MAX(unitprice) into max_track from invoiceline;
+return max_track;
+end;
+/
+
+--3.3
+--create a function tat returns te average price of 
+--invoiceline items in the invoiceline tab
+create or replace function avg_price
+return number
+is 
+avg_sale number;
+
+begin
+
+select avg(unitprice) into avg_sale from invoiceline;
+return avg_sale;
+end;
+/
+
+--3.4
+--create a funciton that returns all employees who are born after
+--1968
+create or replace function born -- -------------------------------------------------
+return number
+is 
+born_after number;
+
+begin
+
+select * where birthdate > '31-DEC-1968' into born_after from employee;
+return born_after;
+end;
+/
+select * from employee;
+
+--4.1
+--create a stored procedure that selects the first and last names
+--of all the employees
+/*
+
+*/
+create or replace procedure fName_lName
+is 
+--create a dummy table
+employee_temp EMPLOYEE.FirstName%TYPE;
+--create cursor
+CURSOR emp_cursor
+is
+--bring first name with space and then add first name with space to last name
+  select concat(concat(FirstName,' '), LastName) FROM EMPLOYEE;
+begin  
+open emp_cursor;
+  LOOP
+    fetch emp_cursor into employee_temp;
+    exit when emp_cursor%notfound;
+    dbms_output.put_line(employee_temp);
+  end loop;
+close emp_cursor;
+end;
+/
+execute fname_lname;
+--4.2
+--create a stored procedure that updates the personal info of an
+--employee
+CREATE OR REPLACE PROCEDURE UPDATE_EMPLOYEE 
+(
+  THE_EMPLOYEEID IN NUMBER,
+  NEW_LASTNAME IN VARCHAR2,
+  NEW_FIRSTNAME IN VARCHAR2,
+  NEW_TITLE IN VARCHAR2,
+  NEW_REPORTSTO IN NUMBER,
+  NEW_BIRTHDATE IN DATE,
+  NEW_HIREDATE IN DATE,
+  NEW_ADDRESS IN VARCHAR2,
+  NEW_CITY IN VARCHAR2,
+  NEW_STATE IN VARCHAR2,
+  NEW_COUNTRY VARCHAR2,
+  NEW_POSTALCODE VARCHAR2,
+  NEW_PHONE VARCHAR2,
+  NEW_FAX VARCHAR2,
+  NEW_EMAIL VARCHAR2
+)
+AS 
+BEGIN
+  UPDATE EMPLOYEE
+  SET LASTNAME = 
+        CASE when NEW_LASTNAME is null
+        THEN 
+          LASTNAME
+        ELSE NEW_LASTNAME
+        END,
+      FIRSTNAME =
+        CASE when NEW_FIRSTNAME is null 
+        THEN 
+          FIRSTNAME
+        ELSE NEW_FIRSTNAME
+        END,
+      TITLE = NEW_TITLE,
+      REPORTSTO = NEW_REPORTSTO,
+      BIRTHDATE = NEW_BIRTHDATE,
+      HIREDATE = NEW_HIREDATE,
+      ADDRESS = NEW_ADDRESS,
+      CITY = NEW_CITY,
+      STATE = NEW_STATE,
+      COUNTRY = NEW_COUNTRY,
+      POSTALCODE = NEW_POSTALCODE,
+      PHONE = NEW_PHONE,
+      FAX = NEW_FAX,
+      EMAIL = NEW_EMAIL
+    WHERE EMPLOYEEID = THE_EMPLOYEEID;
+END UPDATE_EMPLOYEE;
+/
+--create a stored procedure that returns the managers of an
+--employee
+create or replace PROCEDURE MANAGER_OF_EMPLOYEE 
+(
+  THE_EMPLOYEEID IN NUMBER
+)
+AS 
+  TEMP VARCHAR2(20);
+  TEMP2 VARCHAR2(20);
+  TEMP3 VARCHAR2(20);
+  TEMP4 VARCHAR2(20);
+BEGIN
+  SELECT MGR.FIRSTNAME, MGR.LASTNAME, EMP.FIRSTNAME, EMP.LASTNAME INTO TEMP, TEMP2, TEMP3, TEMP4
+  FROM EMPLOYEE EMP
+  left outer JOIN EMPLOYEE MGR 
+  ON mgr.EMPLOYEEID = emp.REPORTSTO
+  WHERE EMP.EMPLOYEEID = THE_EMPLOYEEID;
+  DBMS_OUTPUT.PUT_LINE(TEMP || ' ' || TEMP2 || ' IS THE MANAGER OF ' || TEMP3 || ' ' || TEMP4);
+END MANAGER_OF_EMPLOYEE;
+/
+--4.3
+--create a stored procedure that returns the name and company
+--of a customer
+create or replace PROCEDURE name_and_company 
+(
+  THE_EMPLOYEEID IN NUMBER
+)
+AS 
+  TEMP VARCHAR2(20);
+  TEMP2 VARCHAR2(20);
+  TEMP3 VARCHAR2(20);
+BEGIN
+  SELECT EMP.FIRSTNAME, EMP.LASTNAME, emp.COMPANY INTO TEMP, TEMP2, TEMP3
+  FROM Customer EMP
+  DBMS_OUTPUT.PUT_LINE(TEMP || ' ' || TEMP2 || ' works at ' || TEMP3);
+END name_and_company;
+/
+
+--5.0
+--create a transaction that given an invoiceid will delete that
+--invoice (there may be constraints that rely on this, find out 
+--how to resolve them)
+
+
+--create a transaction nested within a stored procedure that 
+--inserts a new record in the customer table
+
+
+--6.1
+--create an after insert trigger on the employee table fired after
+--a new record is inserted into the table
+
+--create an after update trigger on the album table that fires after
+--a row is inserted in the table
+
+--create an after delete trigger on the customer table that fires after
+--a row is deleted from the table.
+
 

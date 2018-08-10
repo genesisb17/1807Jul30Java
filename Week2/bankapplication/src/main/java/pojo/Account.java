@@ -2,66 +2,49 @@ package pojo;
 
 public class Account {
 
-	private String id;
-	private String userId;
-	private String accountName;
+	private int id;
+	private Double Balance;
 	private int accountTypeId;
 	
 	public Account() {}
-	
-	public Account(String id, String userId, String accountName, int accountTypeId) {
+
+	public Account(int id, Double balance, int accountTypeId) {
 		super();
 		this.id = id;
-		this.userId = userId;
-		this.accountName = accountName;
+		Balance = balance;
 		this.accountTypeId = accountTypeId;
 	}
 
-
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-
-	public void setId(String id) {
-		this.id = id;
+	public void setId(int i) {
+		this.id = i;
 	}
 
-
-	public String getUserId() {
-		return userId;
+	public Double getBalance() {
+		return Balance;
 	}
 
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setBalance(Double balance) {
+		Balance = balance;
 	}
 
-
-	public String getAccountName() {
-		return accountName;
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", Balance=" + Balance + ", accountTypeId=" + accountTypeId + "]";
 	}
-
-
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
-
 
 	public int getAccountTypeId() {
 		return accountTypeId;
 	}
-
 
 	public void setAccountTypeId(int accountTypeId) {
 		this.accountTypeId = accountTypeId;
 	}
 
 
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", userId=" + userId + ", accountName=" + accountName + ", accountTypeId="
-				+ accountTypeId + "]";
-	}
+	
 	
 }

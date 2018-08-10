@@ -1,30 +1,24 @@
 package pojo;
 
-import java.util.ArrayList;
-
-public class User {
+public class Client {
 	
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String password;
-	private ArrayList<Integer> accountIds = new ArrayList<Integer>();
 	
-	public User() {}
-
-	public User(int id, String firstName, String lastName, String username, String password,
-			ArrayList<Integer> accountIds) {
+	
+	public Client() {}
+	
+	public Client(int id, String firstName, String lastName, String username, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
-		this.accountIds = accountIds;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -65,22 +59,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
-	public ArrayList<Integer> getAccountid() {
-		return accountIds;
-	}
-
-	public void setAccountid(ArrayList<Integer> accountids) {
-		this.accountIds = accountids;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", accountIds=" + accountIds + "]";
-	}
-
-
 	
 }
