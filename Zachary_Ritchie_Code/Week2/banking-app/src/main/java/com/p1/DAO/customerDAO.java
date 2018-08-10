@@ -71,6 +71,9 @@ public class customerDAO implements DAO<customer, Integer>
 			ps.setString(1, name);
 			ResultSet info =  ps.executeQuery();
 			info.next();
+			cus.setUserId(info.getInt(1));
+			cus.setFirstName(info.getString(2));
+			cus.setLastName(info.getString(3));
 			cus.setUser_Username(info.getString(4));
 			cus.setUser_Password(info.getString(5));
 			

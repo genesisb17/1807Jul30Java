@@ -50,9 +50,10 @@ public class BookDAO implements DAO<Books, Integer>
 	{
 		List<Books> books = new ArrayList<Books>();
 		
+		String sql = "{call get_all_books(?)";
+		
 		try(Connection c = ConnectionFactory.getInstance().getConnection())
 		{
-			String sql = "{call get_all_books(?)";
 			
 			CallableStatement cs = c.prepareCall(sql);
 			cs.registerOutParameter(1, OracleTypes.CURSOR);

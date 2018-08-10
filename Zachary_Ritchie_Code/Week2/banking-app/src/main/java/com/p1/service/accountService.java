@@ -5,6 +5,7 @@ import java.util.List;
 import com.p1.DAO.DAO;
 import com.p1.DAO.accountDAO;
 import com.p1.pojo.account;
+import com.p1.pojo.customer;
 
 public class accountService 
 {
@@ -13,5 +14,10 @@ public class accountService
 	public List<account> getAll()
 	{
 		return aDao.getAll();
+	}
+	
+	public account save(account obj)
+	{
+		return aDao.save(obj);
 	}
 }

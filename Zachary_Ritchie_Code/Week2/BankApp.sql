@@ -20,8 +20,6 @@ create table accounts
 );
 
 
-
-
 -------------Sequence--------------
 
 create sequence customer_seq;
@@ -51,6 +49,13 @@ create or replace procedure get_all_customers(cursorParam out sys_refcursor)
 is 
 begin
 open cursorParam for select * from customer;
+end;
+/
+
+create or replace procedure get_all_accounts(cursorParam out sys_refcursor)
+is 
+begin
+open cursorParam for select * from accounts;
 end;
 /
 
