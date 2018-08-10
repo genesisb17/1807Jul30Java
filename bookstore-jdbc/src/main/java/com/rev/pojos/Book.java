@@ -5,12 +5,12 @@ public class Book {
 	private int id;
 	private String ISBN;
 	private String title;
-	private String price;
+	private Double price;
 	private String genre_id;
 	
 	public Book() {}
 	
-	public Book(int id, String iSBN, String title, String price, String genre_id) {
+	public Book(int id, String iSBN, String title, Double price, String genre_id) {
 		super();
 		this.id = id;
 		ISBN = iSBN;
@@ -43,11 +43,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

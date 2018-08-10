@@ -3,6 +3,9 @@ package com.rev.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.rev.pojos.Author;
+import com.rev.pojos.Genre;
+
 public interface Dao<T, I extends Serializable> {
 	List<T> getAll();
 	T findOne(I id);
@@ -12,4 +15,5 @@ public interface Dao<T, I extends Serializable> {
 	default boolean isUnique(T obj) {
 		return true;
 	}
+	List<Author> findAll();
 }

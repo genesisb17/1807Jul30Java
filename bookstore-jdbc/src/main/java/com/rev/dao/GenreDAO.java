@@ -11,51 +11,13 @@ import java.util.List;
 import com.rev.pojos.Genre;
 import com.rev.util.ConnectionFactory;
 
-public class GenreDAO implements Dao<Genre, Integer> {
-	
-//	public static void main(String[] args) {
-//		// Lets see this work!
-////		List<Genre> genres = findAll();
-////		for (Genre g : genres) {
-////			System.out.println(g);
-////		}
-//		
-//		Genre temp = new Genre();
-//		temp.setName("Classics");
-//		save(temp);
-//	}
-	
-	/*
-	 * 
-	 * If we just wanted it to execute with a statement already in here with no input
-	 */
-//	public static List<Genre> findAll() {
-//		List<Genre> genres = new ArrayList<Genre>();
-//		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-//			String query = "select * from genre where genre_id = 1";
-//			
-//			// STATEMENT INTERFACE
-//			Statement statement = conn.createStatement();
-//			ResultSet rs = statement.executeQuery(query);
-//			
-//			while(rs.next()) {
-//				//iterate through each row of result set
-//				Genre temp = new Genre();
-//				temp.setId(rs.getInt(1));
-//				temp.setName(rs.getString(2));
-//				genres.add(temp);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return genres;
-//	}
-	
+public class GenreDAO implements Dao<Genre, Integer>{
+
 	/*
 	 * STATEMENT
-	 * - takes an SQL statement as a string, executes it, 
+	 * - takes an SQL statement as a string, executes it,
 	 * and returns the result
-	 * - allows SQL injection so is bad to use. if you 
+	 * - allows SQL injection so is bad to use. if you
 	 * MUST, only use it for queries with no variables
 	 * 
 	 */
@@ -63,7 +25,7 @@ public class GenreDAO implements Dao<Genre, Integer> {
 		List<Genre> genres = new ArrayList<Genre>();
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
-			String query = "select * from genre";
+			String query = "select * from genre order by name asc";
 
 			// STATEMENT INTERFACE
 			Statement statement = conn.createStatement();
@@ -82,13 +44,12 @@ public class GenreDAO implements Dao<Genre, Integer> {
 		}
 		return genres;
 	}
-	
 	/*
 	 * PREPARED STATEMENT
 	 * - executes a pre-compiled SQL statement 
 	 * - efficient for statements that will execute multiple times
 	 */
-	public static Genre findOne(int id){
+	public Genre findOne(Integer id){
 		Genre g = null;
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
@@ -101,6 +62,7 @@ public class GenreDAO implements Dao<Genre, Integer> {
 			g.setId(info.getInt(1));
 			g.setName(info.getString(2));
 			}
+			// more code
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -135,29 +97,13 @@ public class GenreDAO implements Dao<Genre, Integer> {
 					System.out.println(pk.toString());
 					g.setId(pk.getInt(1));
 				}
-				
 				conn.commit();
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return g;
 	}
-
-	@Override
-	public List<Genre> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Genre findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	@Override
 	public Genre update(Genre obj) {
@@ -169,6 +115,11 @@ public class GenreDAO implements Dao<Genre, Integer> {
 	public void delete(Genre obj) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public List<Genre> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
