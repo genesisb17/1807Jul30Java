@@ -125,3 +125,30 @@ drop view al_art_view;
 
 -- JOIN ALL 11 TABLES IN CHINOOK DB
 ---- select 1 col
+
+select employee.firstname as Emp_FN, employee.lastname as Emp_LN, customer.firstname as Cus_FN, 
+customer.lastname as Cus_LN, invoice.invoiceid, invoiceline.invoicelineid, track.name as track_name, 
+mediatype.name as media_type, artist.name as artist, album.title as album, genre.name as genre, 
+playlist.name as playlist
+from employee
+  join customer
+  on employee.employeeid = customer.supportrepid
+  join invoice
+  on invoice.customerid = customer.customerid
+  join invoiceline 
+  on invoice.invoiceid = invoiceline.invoiceid
+  join track
+    join mediatype
+    on track.mediatypeid = track.mediatypeid
+    join album
+      join artist
+      on album.artistid = artist.artistid
+    on album.albumid = track.albumid
+    join genre
+    on genre.genreid = track.genreid
+    join playlisttrack
+      join playlist
+      on playlist.playlistid = playlisttrack.playlistid
+    on playlisttrack.trackid = track.trackid
+  on invoiceline.trackid = track.trackid;
+
