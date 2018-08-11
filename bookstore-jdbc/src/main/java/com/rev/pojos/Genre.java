@@ -1,7 +1,7 @@
 package com.rev.pojos;
 
 public class Genre {
-
+	
 	private int id;
 	private String name;
 	
@@ -28,10 +28,9 @@ public class Genre {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Genre [id=" + id + ", name=" + name + "]";
 	}
-	
 }

@@ -1,22 +1,29 @@
 package com.rev.pojos;
 
 public class Book {
-	
 	private int id;
-	private String ISBN;
+	private String isbn;
 	private String title;
-	private String price;
-	private String genre_id;
+	private double price;
+	private int genreId;
 	
 	public Book() {}
 	
-	public Book(int id, String iSBN, String title, String price, String genre_id) {
+	public Book(String isbn, String title, double price, int genreId) {
 		super();
-		this.id = id;
-		ISBN = iSBN;
+		this.isbn = isbn;
 		this.title = title;
 		this.price = price;
-		this.genre_id = genre_id;
+		this.genreId = genreId;
+	}
+
+	public Book(int id, String isbn, String title, double price, int genreId) {
+		super();
+		this.id = id;
+		this.isbn = isbn;
+		this.title = title;
+		this.price = price;
+		this.genreId = genreId;
 	}
 
 	public int getId() {
@@ -27,12 +34,12 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getISBN() {
-		return ISBN;
+	public String getIsbn() {
+		return isbn;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getTitle() {
@@ -43,30 +50,26 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
-	public String getGenre_id() {
-		return genre_id;
+	public int getGenreId() {
+		return genreId;
 	}
 
-	public void setGenre_id(String genre_id) {
-		this.genre_id = genre_id;
+	public void setGenreId(int genreId) {
+		this.genreId = genreId;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", ISBN=" + ISBN + ", title="
-				+ title + ", price=" + price + ", genre_id=" + genre_id
+		return "Book [id=" + id + ", isbn=" + isbn + ", title=" + title + ", price=" + price + ", genreId=" + genreId
 				+ "]";
 	}
-
 	
-	
-
 }
