@@ -8,9 +8,10 @@ public class Account {
 	
 	public Account() {}
 
-	public Account(double balance) {
+	public Account(double balance, int account_type_id) {
 		super();
 		this.balance = balance;
+		this.account_type_id = account_type_id;
 	}
 	
 	public Account(int account_id, double balance, int account_type_id) {

@@ -59,5 +59,6 @@ public class AccountTypeDAO implements DAO<AccountType, Integer>{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

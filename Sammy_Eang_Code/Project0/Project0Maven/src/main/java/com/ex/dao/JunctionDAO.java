@@ -1,6 +1,7 @@
 package com.ex.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,14 +19,14 @@ public class JunctionDAO implements DAO<Client_Account_Junction, Integer>{
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String query = "select * from client order by client_id";
+			String query = "select * from client_account";
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
 				Client_Account_Junction temp = new Client_Account_Junction();
-				temp.setClient_id(rs.getInt(1));;
-				temp.setAccount_id(2);
+				temp.setClient_id(rs.getInt(1));
+				temp.setAccount_id(rs.getInt(2));
 				junctions.add(temp);
 			}
 			
@@ -43,8 +44,28 @@ public class JunctionDAO implements DAO<Client_Account_Junction, Integer>{
 
 	@Override
 	public Client_Account_Junction save(Client_Account_Junction obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Client_Account_Junction caj = new Client_Account_Junction();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			conn.setAutoCommit(false);
+			String query = "insert into client_account(client_id, account_id) values(?, ?)";
+			
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setDouble(1, obj.getClient_id());
+			ps.setInt(2, obj.getAccount_id());
+			
+			int rows = ps.executeUpdate();
+			
+			if(rows != 0) {			
+				conn.commit();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return caj;
 	}
 
 	@Override

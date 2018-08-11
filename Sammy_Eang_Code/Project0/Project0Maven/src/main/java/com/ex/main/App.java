@@ -1,12 +1,16 @@
 package com.ex.main;
+import com.ex.pojo.Account;
 import com.ex.servicepackage.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
 	static Scanner scanner = new Scanner(System.in);
 	static ClientService cService = new ClientService();
+	static AccountService aService = new AccountService();
+	public static int loggedInId;
 	
 	public static void main(String[] args) {
 		
@@ -33,8 +37,9 @@ public class App {
 		
 		switch(option) {
 		case 1:
-			Boolean successfulLogin = cService.login();
-			if(successfulLogin) {
+			int loginid = cService.login();
+			if(loginid > -1) {
+				loggedInId = loginid;
 				System.out.println("Login successful!");
 				menu2();
 			} else {
@@ -68,27 +73,47 @@ public class App {
 			option = Integer.parseInt(scanner.nextLine());
 		}
 		catch(NumberFormatException e) {
-			System.out.println("Sorry, you can only choose '1' or '2'");
-			menu();
+			System.out.println("Sorry, you may only enter values from '1' through '5'.");
+			return2menu();
 		}
 		
 		switch(option) {
-		case 1:
+		case 1: //View all accounts
+			//aService.viewAll(loggedInId);
+			aService.chooseFromOwn(loggedInId);
+			return2menu();
 			break;
-		case 2:
+		case 2: //Add account
+			aService.addAccount(loggedInId);
+			return2menu();
 			break;
-		case 3:
+		case 3: // Deposit
+			List<Account> ad = aService.chooseFromOwn(loggedInId);
+			aService.deposit(ad);
+			return2menu();
 			break;
-		case 4:
+		case 4: // Withdraw
+			List<Account> aw = aService.chooseFromOwn(loggedInId);
+			aService.withdraw(aw);
+			return2menu();
 			break;
-		case 5:
+		case 5: // Logout
 			System.out.println("Signed out! Now returning to login menu...");
 			menu();
 			break;
 		default:
 			System.out.println("Sorry, you may only enter values from '1' through '5'.");
-			menu2();
+			return2menu();
 			break;
+		}
+	}
+	
+	static void return2menu() {
+		System.out.println("Enter any key to return to menu...");
+		String anykey = scanner.nextLine();
+		if(anykey != null) {
+			System.out.println("Now returning to menu...");
+			menu2();
 		}
 	}
 

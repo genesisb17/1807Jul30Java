@@ -79,6 +79,7 @@ public class ClientDAO implements DAO<Client, Integer>{
 			ps.setString(2, obj.getClient_last_name());
 			ps.setString(3, obj.getUsername());
 			ps.setString(4, obj.getPw());
+
 			
 			int rows = ps.executeUpdate();
 			

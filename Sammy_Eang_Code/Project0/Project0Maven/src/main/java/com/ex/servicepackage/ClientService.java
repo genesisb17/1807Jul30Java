@@ -9,17 +9,17 @@ public class ClientService {
 	
 	static ClientDAO cdao = new ClientDAO();
 	static Scanner scanner = new Scanner(System.in);
-	public static int loggedInId;
 	
-	public Boolean login() {
+	public int login() {
 		
 		System.out.println("Enter your username: ");
 		String username = scanner.nextLine();
 		System.out.println("Enter your password: ");
 		String password = scanner.nextLine();
 		
-		Boolean successfulLogin = usernameAndPasswordMatch(username, password);
-		return successfulLogin;
+
+		int loginid = usernameAndPasswordMatch(username, password);
+		return loginid;
 		
 	}
 	
@@ -57,20 +57,19 @@ public boolean isUnique(String username) {
 		return true;
 	}
 	
-	public boolean usernameAndPasswordMatch(String username, String password) {
+	public int usernameAndPasswordMatch(String username, String password) {
 		
 		List<Client> usernames = cdao.findAll();
 		
 		for(Client c: usernames) {
 			if(c.getUsername().equals(username)) {
 				if(c.getPw().equals(password)) {
-					loggedInId = c.getClient_id();
-					return true;
+					return c.getClient_id();
 				}
 			}
 		}
 		
-		return false;
+		return -1;
 	}
 	
 }
