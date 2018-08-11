@@ -89,13 +89,13 @@ public class UserDAO {
 	 *         error occurred).
 	 */
 	public boolean insert(User user) {
-		final String query = "INSERT INTO bank_user " + "(username, password_salt, password_hash, first_name, last_name) "
+		final String sql = "INSERT INTO bank_user " + "(username, password_salt, password_hash, first_name, last_name) "
 				+ "VALUES (?, ?, ?, ?, ?)";
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			// We want to retrive the auto-generated user_id key.
 			String[] keys = { "user_id" };
-			PreparedStatement ps = conn.prepareStatement(query, keys);
+			PreparedStatement ps = conn.prepareStatement(sql, keys);
 			ps.setString(1, user.getUsername());
 			ps.setBytes(2, user.getPasswordSalt());
 			ps.setBytes(3, user.getPasswordHash());
@@ -127,12 +127,12 @@ public class UserDAO {
 	 *         ID).
 	 */
 	public boolean update(User user) {
-		final String query = "UPDATE bank_user "
+		final String sql = "UPDATE bank_user "
 				+ "SET username = ?, password_salt = ?, password_hash = ?, first_name = ?, last_name = ? "
 				+ "WHERE user_id = ?";
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getUsername());
 			ps.setBytes(2, user.getPasswordSalt());
 			ps.setBytes(3, user.getPasswordHash());

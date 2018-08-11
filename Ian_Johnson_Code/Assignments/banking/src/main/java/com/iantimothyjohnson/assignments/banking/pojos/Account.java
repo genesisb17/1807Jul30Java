@@ -2,6 +2,7 @@ package com.iantimothyjohnson.assignments.banking.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.InsufficientFundsException;
 
@@ -27,6 +28,10 @@ public class Account implements Serializable {
 	 */
 	private BigDecimal balance;
 
+	public Account() {
+		this(0, null, BigDecimal.ZERO);
+	}
+
 	public Account(int id, String name, BigDecimal balance) {
 		this.id = id;
 		this.name = name;
@@ -36,7 +41,7 @@ public class Account implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -52,9 +57,19 @@ public class Account implements Serializable {
 	public BigDecimal getBalance() {
 		return balance;
 	}
-	
+
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+
+	/**
+	 * Gets the account balance formatted as a currency string.
+	 * 
+	 * @return The account balance in a nice format, e.g. "$4,502.50".
+	 */
+	public String getBalanceString() {
+		DecimalFormat balanceFormat = new DecimalFormat("$#,##0.00");
+		return balanceFormat.format(balance);
 	}
 
 	/**
@@ -82,7 +97,7 @@ public class Account implements Serializable {
 		if (amount.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException("Cannot withdraw a negative amount.");
 		}
-		if (amount.compareTo(balance) < 0) {
+		if (amount.compareTo(balance) > 0) {
 			throw new InsufficientFundsException(amount, balance);
 		}
 		balance = balance.subtract(amount);

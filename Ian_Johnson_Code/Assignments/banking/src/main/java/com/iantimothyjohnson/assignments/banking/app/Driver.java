@@ -1,9 +1,13 @@
 package com.iantimothyjohnson.assignments.banking.app;
 
 import java.io.EOFException;
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.iantimothyjohnson.assignments.banking.exceptions.AccountAlreadyOwnedByUserException;
+import com.iantimothyjohnson.assignments.banking.exceptions.AccountNotFoundException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.banking.exceptions.InsufficientFundsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserAlreadyExistsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.banking.pojos.Account;
@@ -105,6 +109,7 @@ public class Driver {
 
 			// Now, we can run a session with the newly-created user.
 			userSession(user);
+			SessionManager.getInstance().logout(user);
 			return;
 		}
 	}
@@ -142,21 +147,67 @@ public class Driver {
 			// previous menu.
 			return;
 		}
-		
+
 		// We can now display a list of accounts for the user to pick from.
 		String[] menuItems = accounts.stream().map(Account::getName).toArray(String[]::new);
 		int choice = tui.select("Please choose an account to view or update", menuItems);
 		Account selected = accounts.get(choice);
 		manipulateAccount(selected);
+		// Save account changes to the database.
+		try {
+			AccountService.getInstance().update(selected);
+		} catch (AccountNotFoundException e) {
+			System.err.println("Selected account doesn't exist somehow:");
+			e.printStackTrace();
+		}
 	}
 
 	private static void createBankAccount(User user) throws EOFException {
-
+		Account account = new Account();
+		account.setName(tui.promptNonEmptyLine("Account name"));
+		try {
+			AccountService.getInstance().insert(account, user);
+		} catch (UserNotFoundException e) {
+			System.err.println("Logged-in user could not be found in the database:");
+			e.printStackTrace();
+		}
 	}
-	
+
 	private static void manipulateAccount(Account account) throws EOFException {
 		// Print out some stats about the account.
 		tui.printLine("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
-		tui.printLine("Balance: $" + String.format("%.2d", account.getBalance()));
+		tui.printLine("Balance: " + account.getBalanceString());
+
+		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Add owner",
+				"Return to activity selection");
+		switch (option) {
+		case "Deposit":
+			BigDecimal depositAmount = tui.promptDollarAmount("Amount to deposit (in dollars)");
+			account.deposit(depositAmount);
+			break;
+		case "Withdraw":
+			BigDecimal withdrawAmount = tui.promptDollarAmount("Amount to withdraw (in dollars)");
+			try {
+				account.withdraw(withdrawAmount);
+			} catch (InsufficientFundsException ife) {
+				tui.printLine(ife.getMessage());
+			}
+			break;
+		case "Add owner":
+			String username = tui.promptNonEmptyLine("Username of new account holder");
+			try {
+				AccountService.getInstance().addOwnerToAccount(account, username);
+			} catch (UserNotFoundException e) {
+				tui.printLine("User " + username + " does not exist; owner not added.");
+			} catch (AccountAlreadyOwnedByUserException e) {
+				tui.printLine("User " + username + " already owns this account.");
+			} catch (AccountNotFoundException e) {
+				System.err.println("Already selected account does not exist somehow:");
+				e.printStackTrace();
+			}
+			break;
+		case "Return to activity selection":
+			return;
+		}
 	}
 }

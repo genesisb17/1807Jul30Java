@@ -1,6 +1,9 @@
 package com.iantimothyjohnson.assignments.banking.ui;
 
 import java.io.EOFException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
 import java.util.Arrays;
 
 /**
@@ -58,6 +61,32 @@ public abstract class AbstractTUI {
 	public void printNumberedList(String... items) {
 		for (int i = 0; i < items.length; i++) {
 			printLine((i + 1) + ". " + items[i]);
+		}
+	}
+
+	/**
+	 * Prompts the user to enter a dollar amount. The user will be continually
+	 * prompted until a valid number is input.
+	 * 
+	 * The input format is flexible, and will accept numbers with or without a
+	 * leading dollar sign as well as commas within the number as thousands
+	 * separators.
+	 * 
+	 * @param prompt The prompt to display to the user (e.g. "Withdrawal amount").
+	 *               It should not be terminated with any punctuation or spaces.
+	 * @return The number input by the user.
+	 * @throws EOFException If the user sent EOF to the terminal without entering a
+	 *                      number.
+	 */
+	public BigDecimal promptDollarAmount(String prompt) throws EOFException {
+		while (true) {
+			String numberString = promptNonEmptyLine(prompt);
+			// Get rid of unnecessary but allowable characters in the input.
+			try {
+				return parseDollarString(numberString);
+			} catch (NumberFormatException nfe) {
+				printLine("Please enter a valid decimal number.");
+			}
 		}
 	}
 
@@ -162,6 +191,7 @@ public abstract class AbstractTUI {
 			case "no":
 				return false;
 			}
+			printLine("Please enter yes or no.");
 		}
 	}
 
@@ -237,5 +267,35 @@ public abstract class AbstractTUI {
 	public String selectValue(String prompt, String... menuItems) throws EOFException {
 		int index = select(prompt, menuItems);
 		return menuItems[index];
+	}
+
+	/**
+	 * Parses a dollar input string by stripping unnecessary but allowable
+	 * characters and then converting it to a BigInteger. Currently, these
+	 * characters are a leading dollar sign and commas as separators before the
+	 * decimal point.
+	 * 
+	 * @param input The input to normalize.
+	 * @return The normalized input.
+	 * @throws NumberFormatException If the given input, after stripping unnecessary
+	 *                               characters, is not a valid decimal number.
+	 */
+	protected BigDecimal parseDollarString(String input) {
+		if (input.charAt(0) == '$') {
+			input = input.substring(1);
+		}
+		DecimalFormat format = new DecimalFormat("#,##0.00");
+		format.setParseBigDecimal(true);
+		// The parse method of a DecimalFormat takes a String input as well as a
+		// ParsePosition; the ParsePosition is updated to point to the character
+		// after the last character parsed during the method. Since we want the
+		// entire string to match the format, we check to make sure it is past
+		// the end of the string before returning the result.
+		ParsePosition pos = new ParsePosition(0);
+		BigDecimal parsed = (BigDecimal) format.parse(input, pos);
+		if (parsed == null || pos.getIndex() != input.length()) {
+			throw new NumberFormatException();
+		}
+		return parsed;
 	}
 }
