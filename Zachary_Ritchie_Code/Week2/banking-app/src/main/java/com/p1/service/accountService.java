@@ -20,4 +20,14 @@ public class accountService
 	{
 		return aDao.save(obj);
 	}
+	
+	public account update(account obj)
+	{
+		return aDao.update(obj);
+	}
+	
+	public void delete(account obj)
+	{
+		aDao.delete(obj);
+	}
 }

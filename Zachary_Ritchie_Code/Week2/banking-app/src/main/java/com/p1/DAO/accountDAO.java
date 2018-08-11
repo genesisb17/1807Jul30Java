@@ -37,6 +37,7 @@ public class accountDAO implements DAO<account, Integer>
 				temp.setAccount_type(rs.getString("account_type"));
 				temp.setBalance(rs.getDouble("balance"));
 				temp.setAccount_Id(rs.getInt("account_id"));
+				temp.setCustomer_id(rs.getInt("user_id"));
 				acc.add(temp);
 			}
 		} catch (SQLException e) {
@@ -94,15 +95,46 @@ public class accountDAO implements DAO<account, Integer>
 	}
 
 	@Override
-	public account update(account obj) {
-		// TODO Auto-generated method stub
+	public account update(account obj) 
+	{
+		try(Connection conn = ConnectionFactory.getInstance().getConnection())
+		{
+			conn.setAutoCommit(false);
+			String sql = "update accounts set balance = ? where account_id = ?";
+			
+			String[] keys = {"account_id"};
+			
+			PreparedStatement ps = conn.prepareStatement(sql, keys);
+			ps.setDouble(1, obj.getBalance());
+			ps.setInt(2, obj.getAccount_Id());
+			ps.executeQuery();
+			conn.commit();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
-	public void delete(account obj) {
-		// TODO Auto-generated method stub
-		
+	public void delete(account obj)
+	{
+		try(Connection conn = ConnectionFactory.getInstance().getConnection())
+		{
+			conn.setAutoCommit(false);
+			String sql = "delete from accounts where account_id = ?";
+			
+			String[] keys = {"account_id"};
+			
+			PreparedStatement ps = conn.prepareStatement(sql, keys);
+			ps.setDouble(1, obj.getAccount_Id());
+			ps.executeQuery();
+			conn.commit();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}		
 	}
-
 }

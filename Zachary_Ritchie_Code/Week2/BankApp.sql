@@ -71,6 +71,11 @@ values('zack', 'ritchie', 'username', 'password');
 insert into accounts(account_name, account_type, balance, user_id) 
 values('zacsaccount', 'checking', 1.23, 1);
 
-delete from customer where first_name = 'zac';
+delete from customer where user_username = 'zritchie343';
 commit;
+
+delete from accounts where account_name = 'zchecking';
+commit;
+
+update accounts set balance = 5 where account_id = 7;
 

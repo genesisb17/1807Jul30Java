@@ -62,21 +62,29 @@ public class customerDAO implements DAO<customer, Integer>
 	
 	public customer findOne(String name) 
 	{
-		customer cus = new customer();
+		customer cus = null;
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection())
 		{
+			
 			String sql = "select * from customer where user_username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			ResultSet info =  ps.executeQuery();
-			info.next();
-			cus.setUserId(info.getInt(1));
-			cus.setFirstName(info.getString(2));
-			cus.setLastName(info.getString(3));
-			cus.setUser_Username(info.getString(4));
-			cus.setUser_Password(info.getString(5));
-			
+		
+			if(info.next())
+			{
+				cus = new customer();
+				cus.setUserId(info.getInt(1));
+				cus.setFirstName(info.getString(2));
+				cus.setLastName(info.getString(3));
+				cus.setUser_Username(info.getString(4));
+				cus.setUser_Password(info.getString(5));
+			}
+			else
+			{
+				//System.out.println("null");
+			} 
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

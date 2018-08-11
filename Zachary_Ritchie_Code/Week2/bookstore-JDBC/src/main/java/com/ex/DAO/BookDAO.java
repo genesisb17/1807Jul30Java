@@ -60,7 +60,8 @@ public class BookDAO implements DAO<Books, Integer>
 			cs.execute();
 			
 			ResultSet rs = (ResultSet)cs.getObject(1);
-			while(rs.next()) {
+			while(rs.next()) 
+			{
 				Books temp = new Books();
 				temp.setBook_id(rs.getInt("Book_id"));
 				temp.setIsb(rs.getString("isb"));

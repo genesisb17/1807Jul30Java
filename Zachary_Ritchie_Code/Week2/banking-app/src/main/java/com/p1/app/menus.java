@@ -1,6 +1,5 @@
 package com.p1.app;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +15,11 @@ public class menus
 	private static customerService cService = new customerService();
 	private static accountService aService = new accountService();
 	private static customer customerTemp = new customer();
-	private static account accountTemp = new account();
+	//private static account accountTemp = new account();
 	
 	public static void loginPrompt()
 	{
+		customerTemp = new customer();
 		System.out.println("----Login----\n"
 				+ "1. Login\n"
 				+ "2. Create account\n"
@@ -29,6 +29,11 @@ public class menus
 		try
 		{
 			option = Integer.parseInt(scanner.nextLine());
+			if ((option <= 0) || (option > 3))
+			{
+				System.out.println("Invalid input please type either options corresponding number");
+				loginPrompt();
+			}
 		}
 		catch (NumberFormatException e)
 		{
@@ -59,17 +64,26 @@ public class menus
 		String password = scanner.nextLine();
 		
 		//Add check against database
-		customer  c = cService.findOne(userName);
-		//System.out.println(c.getUser_Password());
-		if(c.getUser_Password().equals(password))
+		customer  c = new customer();
+		
+		if(cService.findOne(userName) != null)
 		{
-			customerTemp = c;
-			accountsScreen();
-		}
+			c = cService.findOne(userName);
+			if(c.getUser_Password().equals(password))
+			{
+				customerTemp = c;
+				accountsScreen();
+			}
+			else
+			{
+				System.out.println("Inncorrect username or password");
+				loginPrompt();
+			}
+		}	
 		else
 		{
 			System.out.println("Inncorrect username or password");
-			loginScreen();
+			loginPrompt();
 		}
 	}
 	
@@ -78,21 +92,21 @@ public class menus
 		if(!aService.getAll().contains(null))
 		{
 			LinkedList<account> temp = new LinkedList<account>();
-			int counter = 4;
+			int counter = 5;
 			int option = 0;
-			System.out.println("----Accounts----\n"
-					+ "-Select 1 or 2 or account type-\n"
+			System.out.print("----Accounts Menu----\n"
 					+ "1. Add account\n"
 					+ "2. Remove account\n"
-					+ "3. Exit\n");
+					+ "3. Logout\n"
+					+ "4. Exit\n");
 			
 			List<account> accountsList = aService.getAll();
 			
 			for(account acc : accountsList)
-			{
+			{			
 				if(customerTemp.getUserId() == acc.getCustomer_id())
 				{
-					System.out.println(counter + " " + acc.getAccount_type() + " account " + acc.getAccount_Name() +"\n");
+					System.out.print(counter + ". " + acc.getAccount_type() + " account " + acc.getAccount_Name() +"\n");
 					acc.setCounter(counter);
 					temp.add(acc);
 					counter++;
@@ -102,6 +116,11 @@ public class menus
 			try
 			{
 				option = Integer.parseInt(scanner.nextLine());
+				if ((option <= 0) || (option > counter))
+				{
+					System.out.println("Invalid input please type options corresponding number");
+					accountsScreen();
+				}
 			}
 			catch (NumberFormatException e)
 			{
@@ -109,16 +128,25 @@ public class menus
 				accountsScreen();
 			}
 			
-			if(option == 1)
+			if (option > counter)
+			{
+				System.out.println("Invalid input please type options corresponding number");
+				accountsScreen();
+			}
+			else if(option == 1)
 			{
 				createAccount();
 			}
 			else if(option == 2)
 			{
-				System.out.println("Not Yet Implemented");
+				temp = deleteAccount(temp);
 				accountsScreen();
 			}
 			else if(option == 3)
+			{
+				loginPrompt();
+			}
+			else if(option == 4)
 			{
 				System.exit(1);
 			}
@@ -129,6 +157,7 @@ public class menus
 					if(act.getCounter() == option)
 					{
 						accountOptions(act);
+						break;
 					}
 				}
 			}
@@ -139,21 +168,75 @@ public class menus
 		}
 	}
 	
+	static LinkedList<account> deleteAccount(LinkedList<account> obj)
+	{
+		int counter = 2;
+		int option = 0;
+		System.out.println("----Remove----\n"
+							+ "1. Back");
+		for(account acc : obj)
+		{
+			System.out.print(counter + ". " + acc.getAccount_type() + " account " + acc.getAccount_Name() +"\n");
+			acc.setCounter(counter);
+			counter++;
+		}
+		
+		try
+		{
+			option = Integer.parseInt(scanner.nextLine());
+			if ((option <= 0) || (option > counter))
+			{
+				System.out.println("Invalid input please type options corresponding number");
+				deleteAccount(obj);
+			}
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println("Invalid input please type options corresponding number");
+			deleteAccount(obj);
+		}
+		
+		
+		if(option == 1)
+		{
+			accountsScreen();
+		}
+		else
+		{
+			for(account act : obj)
+			{
+				if(act.getCounter() == option)
+				{
+					aService.delete(act);
+					break;
+				}
+			}
+		}
+		
+		
+		
+		return obj;
+	}
+	
 	static void accountOptions(account obj) 
 	{
-		System.out.println("----Options----\n"
+		System.out.println("----Menu----\n"
 				+ "1. Withdraw\n"
 				+ "2. Deposit\n"
 				+ "3. Balance\n"
-				+ "4. Add new account\n"
-				+ "5. Back to choose account\n"
-				+ "6. Back to login\n"
-				+ "7. Exit");
+				+ "4. Back accounts menu\n"
+				+ "5. Logout\n"
+				+ "6. Exit");
 		int option = 0;
 		
 		try
 		{
 			option = Integer.parseInt(scanner.nextLine());
+			if ((option <= 0) || (option > 6))
+			{
+				System.out.println("Invalid input please type options corresponding number\n");
+				accountOptions(obj);
+			}
 		}
 		catch (NumberFormatException e)
 		{
@@ -161,103 +244,121 @@ public class menus
 			accountOptions(obj);
 		}
 		
-		double amount = 0;
-		switch(option)
+		if(option <= 6)
 		{
-		case 1: 
-			System.out.println("Please enter amount (format 0.00)");
-			try
+			double amount = 0;
+			switch(option)
 			{
-				amount = Double.parseDouble(scanner.nextLine());
-			}
-			catch (NumberFormatException e)
-			{
-				System.out.println("Invalid input\n");
+			case 1: 
+				System.out.println("Please enter amount");
+				try
+				{
+					amount = Double.parseDouble(scanner.nextLine());
+				}
+				catch (NumberFormatException e)
+				{
+					System.out.println("Invalid input\n");
+					accountOptions(obj);
+				}
+				
+				if(amount < obj.getBalance())
+				{
+					obj.setBalance(obj.getBalance() - amount);
+					//System.out.println("Balance " + obj.getBalance());
+				}
+				else if (amount > obj.getBalance())
+				{
+					System.out.println("amount is greater than account total");
+					accountOptions(obj);
+				}
+				else 
+				{
+					obj.setBalance(obj.getBalance() - amount);
+					//System.out.println("Balance " + obj.getBalance());
+				}
+				
+				aService.update(obj);
+				
 				accountOptions(obj);
-			}
-			
-			if(amount < obj.getBalance())
-			{
-				obj.setBalance(obj.getBalance() - amount);
-				System.out.println("Balance " + obj.getBalance());
-			}
-			else if (amount > obj.getBalance())
-			{
-				System.out.println("amount is greater than account total");
+				
+				break;
+				
+				
+			case 2: 
+				System.out.println("Please enter amount");
+				try
+				{
+					amount = Double.parseDouble(scanner.nextLine());
+				}
+				catch (NumberFormatException e)
+				{
+					System.out.println("Invalid input\n");
+					accountOptions(obj);
+				}
+				obj.setBalance(obj.getBalance() + amount);
+				
+				aService.update(obj);
+				
 				accountOptions(obj);
-			}
-			else
-			{
-				obj.setBalance(obj.getBalance() - amount);
-				System.out.println("Balance " + obj.getBalance());
-			}
-			
-			aService.save(obj);
-			
-			accountOptions(obj);
-			
-			break;
-			
-			
-		case 2: 
-			System.out.println("Please enter amount");
-			try
-			{
-				amount = Double.parseDouble(scanner.nextLine());
-			}
-			catch (NumberFormatException e)
-			{
-				System.out.println("Invalid input\n");
+				break;
+				
+			case 3:
+				System.out.println(obj.getBalance() + "\n");
 				accountOptions(obj);
+				break;
+			case 4:
+				accountsScreen();
+				break;
+			case 5:
+				customerTemp = null;
+				loginPrompt();
+				break;
+			case 6:
+				System.exit(1);
+				break;
 			}
-			obj.setBalance(obj.getBalance() + amount);
-			
-			aService.save(obj);
-			
-			accountOptions(obj);
-			break;
-			
-		case 3:
-			System.out.println(obj.getBalance() + "\n");
-			accountOptions(obj);
-			break;
-		case 4:
-			createAccount();
-			break;
-		case 5:
-			accountsScreen();
-			break;
-		case 6:
-			customerTemp = null;
-			loginPrompt();
-			break;
-		case 7:
-			System.exit(1);
-			break;
 		}
+		else
+		{
+			System.out.println("Invalid input please type options corresponding number");
+		}
+		
 	}
 	
 	static void createUser()	
 	{
 		customer cus = new customer();
-		
-		System.out.println("Create First Name:");
-		String firstname = scanner.nextLine();
-		cus.setFirstName(firstname);
+		Boolean check = true;
+		System.out.println("Create First Name:");		
+		String firstname = scanner.nextLine();			
+		cus.setFirstName(firstname);		
 		
 		System.out.println("Create Last Name:");
 		String lastname = scanner.nextLine();
 		cus.setLastName(lastname);
-		
-		System.out.println("Create Username");
-		String username = scanner.nextLine();
-		cus.setUser_Username(username);
+				
+		do
+		{
+			System.out.println("Create Username");
+			String username = scanner.nextLine();
+			if(cService.findOne(username) == null)
+			{
+				cus.setUser_Username(username);
+				check = false;
+			}
+			else
+			{
+				System.out.println("Not unique, please try again");
+			}
+		}while(check == true);
+				
 		
 		System.out.println("Create Password");
 		String password = scanner.nextLine();
 		cus.setUser_Password(password);
 		
 		cService.save(cus);
+		customerTemp = cus;
 		accountsScreen();
 	}
 	
@@ -279,6 +380,11 @@ public class menus
 		try
 		{
 			option = Integer.parseInt(scanner.nextLine());
+			if ((option <= 0) || (option > 3))
+			{
+				System.out.println("Invalid input please type options corresponding number");
+				createAccount();
+			}
 		}
 		catch (NumberFormatException e)
 		{
