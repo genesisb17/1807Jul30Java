@@ -9,6 +9,7 @@ import pojo.Client;
 public class ClientService {
 
 	static DAO<Client, Integer> bDAO = new ClientDAO();
+	static ClientDAO c = new ClientDAO();
 	
 	public List<Client> getAll() {
 		return bDAO.getAll();
@@ -17,9 +18,19 @@ public class ClientService {
 	public Client save(Client b) {
 		return bDAO.save(b);
 	}
-//	-	-	-	-	-	-	-	-	-	-	-	-	-	- todo
+//	-	-	-	-	-	-	-	-	-	-	-	-	-	-TODO
 	public Client findOne(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return c.findOne(username);
+	}
+	
+	public boolean isUsernameUnique(String usr) {
+		List<Client> demo = getAll();
+		
+		for(Client c : demo) {
+			if(c.getUsername().equals(usr)) {
+				return false;
+			}
+		}
+		return true;	
 	}
 }

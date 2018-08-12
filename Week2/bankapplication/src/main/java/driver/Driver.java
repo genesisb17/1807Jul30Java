@@ -1,34 +1,32 @@
 package driver;
-import java.awt.print.Book;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import pojo.Account;
 import pojo.Client;
 import service.AccountService;
-import service.AccountTypeService;
-import service.ClientAccountService;
 import service.ClientService;
-
 
 public class Driver {
 	static Scanner scan = new Scanner(System.in);
 	static AccountService aService = new AccountService();
-	static AccountTypeService atService = new AccountTypeService();
-	static ClientAccountService caService = new ClientAccountService();
 	static ClientService cService = new ClientService();
-	
+
+	static Client ca = new Client();
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to the Bank!\n");
+		System.out.println("* * * * * Welcome to the Bank! * * * * * \n");
 		loginPrompt();
 	}
-	
+
 	public static void loginPrompt() {
-		System.out.println("Please, login or create an account\n"+
-							"1. Login\n" + "2. Create Account\n" + "3. Test\n");
+		System.out.println("* * * * * Please, login or create an account * * * * *\n"
+				+ "1. Login\n" 
+				+ "2. Create Account\n" 
+				+ "3. Exit\n");
 		int option = 0;
-		
+
 		try
 		{
 			option = Integer.parseInt(scan.nextLine());
@@ -38,7 +36,7 @@ public class Driver {
 			System.out.println("Invalid input please type an option's corresponding number");
 			loginScreen();
 		}
-		
+
 		switch(option)
 		{
 		case 1:
@@ -48,129 +46,354 @@ public class Driver {
 			createClient();
 			break;
 		case 3:
-			cService.getAll();
+			System.exit(1);;
 			break;
-			
 		}
-	
+
 	}
-	
+	//generating the screen users will see
 	static void loginScreen() {
+		//prompt for their name and password. save them into variables
 		System.out.println("Enter Username:\n");
 		String username = scan.nextLine();
-		
+
 		System.out.println("Enter Password:\n");
 		String password = scan.nextLine();
+
+		//check if username exists in database
+		Client c = new Client();
 		
-		Client c = cService.findOne(username);
-		System.out.println(c.getUsername());
-		if(c.getPassword().equals(password)) {
-			accountScreen();
+		if(cService.findOne(username) != null) {
+			
+			c = cService.findOne(username);
+			if(c.getPassword().equals(password)) {
+				ca = c;
+				//send user to make account
+				accountScreen();
+				 
+			} else {
+				
+				System.out.println("Incorrect Username or Password. Please, try again!\n");
+				loginScreen();
+			}			
 		} else {
-			System.out.println("Whoops! Incorrect Username or Password");
+			System.out.println("Incorrect Username or Password. Please, try again!\n");
+			loginScreen();
 		}
+		
+		//System.out.println(c.getUsername());
+
 	}
-	
+
 	static void accountScreen() {
-		System.out.println("Your Accounts\n");
 		
-		//TODO 
+		//System.out.println("");
+		if (!aService.getAll().contains(null)) {
+			
+			LinkedList<Account> temp = new LinkedList<Account>();
+			int counter = 5;
+			int option = 0;
+			System.out.println("* * * * * Your Accounts * * * * * *\n"
+					+ "1. Create an Account\n" 
+					+ "2. Remove an account\n"
+					+ "3. Logout\n"
+					+ "4. Exit\n"
+					+ "* * * * * Or the number to an account * * * * *\n");
+			
+			List<Account> listAccounts = aService.getAll();
+			
+			for(Account a: listAccounts) {
+				
+				if(ca.getId() == a.getClientId()) {
+					//System.out.println(a.getAccountTypeId());
+					if(a.getAccountTypeId() == 1) {
+						
+						System.out.println(counter + ". Savings Account\n");
+						a.setCounter(counter);
+						temp.add(a);
+						counter++;
+						
+					} else {
+						System.out.println(counter + ". Checking Account\n");
+						a.setCounter(counter);
+						temp.add(a);
+						counter++;
+					}	
+//					System.out.println(counter);
+//					System.out.println(option + " option");
+				}		
+			}
+			try {
+				option = Integer.parseInt(scan.nextLine());
+				if ((option <= 0) || (option > counter-1)) {
+					System.out.println("Invalid input! Please, input number corresponding to the option.\n");
+					accountScreen();
+				}
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Whoops! Invalid input! Please, input number corresponding to the account.\n");
+				accountScreen();
+			}
+			if(option > counter) {
+				System.out.println("Invalid input! Please, input number corresponding to the option");
+				accountScreen();
+			}
+			
+			else if(option == 1) {
+				
+				createAccount();
+			}
+			else if(option ==2) {
+				
+				System.out.println("Please, speak with your bank rep to remove an account");
+				accountScreen();
+			}
+			else if(option == 3) {
+				loginPrompt();
+			}
+			else if(option == 4) {
+				System.exit(1);
+			}
+			else {
+				
+				for(Account a: temp) {
+					if(a.getCounter() == option) {
+						accountOptions(a);
+						break;
+					}
+				}
+			}
+		} else {
+			createAccount();
+		}
+			
 	}
-	
-	static void accountOptions() {
-		System.out.println("Account Options\n" + "1. Withdraw Funds\n"
-							+ "2. Deposit Funds\n" + "Check Balance");
+
+	static void accountOptions(Account a) {
+		System.out.println("* * * * * Account Options * * * * * \n" 
+				+ "1. Withdraw Funds\n"
+				+ "2. Deposit Funds\n" 
+				+ "3. Check Balance\n" 
+//				+ "4. Add a New Account\n"
+				+ "4. Back to Accounts\n" 
+				+ "5. Back to Login\n"
+				+ "6. Exit\n");
 		int option =0;
-		
+
 		try
 		{
 			option = Integer.parseInt(scan.nextLine());
+			
 		}
 		catch(NumberFormatException e) {
 			System.out.println("Please, enter the corresponding number to an option");
-			accountOptions();
+			accountOptions(a);
 		}
-		
-		double amount = 0;
+
+		double amount = 0.0;
 		switch(option)
 		{
 		case 1:
 			System.out.println("Enter an amount\n");
 			try {
 				amount = Double.parseDouble(scan.nextLine());
+				if(amount < 0) {
+					System.out.println("Please, enter positive numbers only.");
+					accountOptions(a);
+				}
 			} catch(NumberFormatException e) {
-				System.out.println("Invalid Input");
-				accountOptions();
+				System.out.println("Invalid Input.");
+				accountOptions(a);
 			}
-			//add to remove from account
-			break;
-		case 2: 
-			System.out.println("Enter an amount\n");
-			try {
-				amount = Double.parseDouble(scan.nextLine());
+			if (amount < a.getBalance()) {
+				
+				a.setBalance(a.getBalance()-amount);
+				aService.update(a);
+				System.out.println("Your Balance is: " + a.getBalance());
+				
+				accountOptions(a);
+				
+			} else if(amount > a.getBalance()) {
+				
+				System.out.println("You do not have enough funds");
+				accountOptions(a);
+				
 			} 
-			catch(NumberFormatException e) {
-				System.out.println("Invalid Input");
-				accountOptions();
-			}
-			//add to add to account
-			break;
-		case 3:
-			System.out.println("This should print your balance");
-			accountOptions();
+//			else
+//			{
+//				a.setBalance(a.getBalance() - amount);
+//				System.out.println("Your Balance is: " + a.getBalance());
+//				aService.update(a);
+//				accountOptions(a);
+//			}
+			aService.update(a);
+			accountOptions(a);
 			break;
 			
+		case 2: 
+			System.out.println("Please, Enter an Amount\n");
+			try {
+				amount = Double.parseDouble(scan.nextLine());
+				if(amount < 0) {
+					System.out.println("Please, enter positive numbers only.");
+					accountOptions(a);
+				}
+			} 
+			catch(NumberFormatException e) {
+				
+				System.out.println("Invalid Input");
+				accountOptions(a);
+			}
+			
+			a.setBalance(a.getBalance() + amount);
+			System.out.println("Your Balance is: " + a.getBalance());
+			aService.update(a);
+			accountOptions(a);
+			break;
+			
+		case 3:
+			
+			System.out.println("Your Balance is: " + a.getBalance()+"\n");
+			//aService.update(a);
+			accountOptions(a);
+			break;
+		case 4:
+			accountScreen();
+			break;
+		case 5:
+			ca = null;
+			loginPrompt();
+			break;
+		case 6:
+			System.exit(1);
+			break;
+			
+		default: 
+			System.out.println("Invalid input! Please, input number corresponding to the option");
+			accountOptions(a);
 		}
+		
 	}
-	
+
 	static void createClient() {
 		Client c = new Client();
-		
+
 		System.out.println("Please, enter your first name: \n");
 		String firstName = scan.nextLine();
 		c.setFirstName(firstName);
-		
+
 		System.out.println("Please, enter your last name: \n");
 		String lastName = scan.nextLine();
 		c.setLastName(lastName);
-		
+
 		System.out.println("Please, enter a username: \n");
 		String username = scan.nextLine();
-		c.setUsername(username);
 		
-		System.out.println("Please, enter a password to access your accounts: \n");
-		String password = scan.nextLine();
-		c.setPassword(password);
 		
-		//Client cc = new Client(firstName,lastName,username,password);
-		cService.save(c);
-	}
-	
-	static void createAccount() {
-		System.out.println("Please, choose an account type:\n" 
-							+ "1. Savings\n" + "2. Checking\n");
-		int option = 0;
-		
-		try {
-			option = Integer.parseInt(scan.nextLine());
-		} catch(NumberFormatException e) {
-			System.out.println("Whoops! Invalid input! Please, enter number of your "
-					+ "desired account type. \n");
-			createAccount();
+		//check if username exists and is unique
+		while(username == null || !cService.isUsernameUnique(username) || username.isEmpty()) 
+		{
+			System.out.println("Please, enter a username or enter a different username");
+			username= scan.nextLine();
 		}
 		
-		String accountType;
+		c.setUsername(username);
+
+		System.out.println("Please, enter a password: \n");
+		String password = scan.nextLine();
+		
+		while(password == null || password.isEmpty()) 
+		{
+			System.out.println("Please, enter a password. Do not leave blank!\n");
+			password= scan.nextLine();
+		}		
+		
+		c.setPassword(password);
+
+		cService.save(c);
+		ca = c;
+		createAccount();
+		
+	}
+
+	static void createAccount() {
+		
+		int option = 0;
+		Account a = new Account();
+		
+		
+		if (!aService.getAll().contains(null)) {
+			
+			System.out.println("Please, choose an account type:\n" 
+					+ "1. Savings\n" 
+					+ "2. Checking\n"
+					+ "3. Logout\n");
+			
+			try {
+				option = Integer.parseInt(scan.nextLine());
+			} 
+			catch(NumberFormatException e) {
+				
+				System.out.println("Whoops! Invalid input! Please, enter number of your "
+						+ "desired account type. \n");
+				createAccount();
+			
+			}
+		} else {
+			System.out.println("Please, choose an account type:\n" 
+					+ "1. Savings\n" 
+					+ "2. Checking\n"
+					+ "3. Logout\n"
+					+ "4. View Account Options\n");
+			try {
+				option = Integer.parseInt(scan.nextLine());
+			} 
+			catch(NumberFormatException e) {
+				
+				System.out.println("Whoops! Invalid input! Please, enter number of your "
+						+ "desired account type. \n");
+				createAccount();
+			}
+		}
+
 		switch(option)
 		{
 		case 1:
-			accountType = "Savings";
-			System.out.println("Congratulations! You have a new savings account!");
+	
+			a.setAccountTypeId(option);
+			a.setBalance(0.0);
+			a.setClientId(ca.getId());
+			//aService.save(a);
+			System.out.println("Congratulations! You have a new savings account!\n");
+
+			accountOptions(a);
 			break;
 		case 2:
-			accountType = "Checking";
-			System.out.println("Congratulations! You have a new checking account!");
+			a.setAccountTypeId(option);
+			a.setBalance(0.0);
+			a.setClientId(ca.getId());
+			//aService.save(a);
+			System.out.println("Congratulations! You have a new checking account!\n");
+
+			accountOptions(a);
 			break;
+		case 3:
+			loginPrompt();			
+			break;
+		case 4:
+			accountOptions(a);
+			break;			
+		default:
+			System.out.println("Please, enter one of the options provided\n");
+			createAccount();
+			break;			
 		}
+		a.setClientId(ca.getId());
+		aService.save(a);
+		
+		
+		accountOptions(a);
+		
 	}
-	
+
 }

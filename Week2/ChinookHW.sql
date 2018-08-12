@@ -207,9 +207,6 @@ select * from employee;
 --4.1
 --create a stored procedure that selects the first and last names
 --of all the employees
-/*
-
-*/
 create or replace procedure fName_lName
 is 
 --create a dummy table
@@ -315,7 +312,8 @@ AS
 BEGIN
   SELECT EMP.FIRSTNAME, EMP.LASTNAME, emp.COMPANY INTO TEMP, TEMP2, TEMP3
   FROM Customer EMP
-  DBMS_OUTPUT.PUT_LINE(TEMP || ' ' || TEMP2 || ' works at ' || TEMP3);
+  DBMS_OUTPUT.PUT_LINE(TEMP || '
+  ' || TEMP2 || ' works at ' || TEMP3);
 END name_and_company;
 /
 
@@ -323,7 +321,11 @@ END name_and_company;
 --create a transaction that given an invoiceid will delete that
 --invoice (there may be constraints that rely on this, find out 
 --how to resolve them)
+set transaction;
+delete from INVOICE where 
 
+DELETE FROM INVOICE WHERE INVOICEID = 'invoiceid'; 
+COMMIT;
 
 --create a transaction nested within a stored procedure that 
 --inserts a new record in the customer table

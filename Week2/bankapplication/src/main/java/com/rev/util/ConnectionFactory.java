@@ -37,8 +37,7 @@ public class ConnectionFactory {
 		Connection conn = null; //we will instantiate in a try block making it block scope so we have to declare
 		//it outside of the scope
 		Properties prop = new Properties();
-		String path = "C:/Users/tmacd/Documents/_repos/"+
-				"1807Jul30Java/Week2/bookstore-jdbc/src/main/resources/application.properties";
+		String path = "C:\\Users\\tmacd\\Documents\\_repos\\1807Jul30Java\\Week2\\bankapplication\\src\\main\\resources\\application.properties";
 		try {
 			prop.load(new FileReader(path));
 			Class.forName(prop.getProperty("driver"));

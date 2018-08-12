@@ -5,14 +5,19 @@ public class Account {
 	private int id;
 	private Double Balance;
 	private int accountTypeId;
+	private int clientId;
+	private int counter;
 	
+
+
 	public Account() {}
 
-	public Account(int id, Double balance, int accountTypeId) {
+	public Account(int id, Double balance, int accountTypeId, int clientId) {
 		super();
 		this.id = id;
 		Balance = balance;
 		this.accountTypeId = accountTypeId;
+		this.clientId = clientId;
 	}
 
 	public int getId() {
@@ -44,7 +49,20 @@ public class Account {
 		this.accountTypeId = accountTypeId;
 	}
 
+	public int getClientId() {
+		return clientId;
+	}
 
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+	public int getCounter() {
+		return counter;
+	}
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+	
 	
 	
 }

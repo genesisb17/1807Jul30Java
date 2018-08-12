@@ -17,4 +17,9 @@ public class AccountService {
 	public Account save(Account b) {
 		return aDAO.save(b);
 	}
+	
+	public Account update(Account b) {
+		return aDAO.update(b);
+	}
+	
 }
