@@ -5,7 +5,7 @@ import com.revature.pojo.Accounts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountsDAO implements Dao<Accounts, Integer>{
+public class AccountsDao implements Dao<Accounts, Integer>{
 
 	@Override
 	public List<Accounts> findAll() {
@@ -38,13 +38,7 @@ public class AccountsDAO implements Dao<Accounts, Integer>{
 	public void delete(Accounts obj) {
 		// TODO Auto-generated method stub
 		
-	}
-
-
-		
-		
-		return null;
-		
+	
 	}
 	
 	

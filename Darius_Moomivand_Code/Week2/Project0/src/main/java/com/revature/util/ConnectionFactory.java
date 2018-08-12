@@ -22,7 +22,7 @@ public class ConnectionFactory {
 		return cf;
 	}
 	
-	public Connection getConnections() {
+	public Connection getConnection() {
 		Connection conn = null;
 		Properties prop = new Properties();
 		String path = "C://Users//Darius//my_git_repos//1807Jul30Java//Darius_Moomivand_Code//Week2//Project0//src//main//resources//application.properties";

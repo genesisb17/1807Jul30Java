@@ -7,24 +7,17 @@ public class Client {
 	private String lastName;
 	private String userName;
 	private String password;
+	private int id;
 	
 	public Client() {}
 	
-	public Client(int clientId, String firstName, String lastName, String userName, String password) {
+	public Client(String firstName, String lastName, String userName, String password) {
 		super();
-		this.clientId = clientId;
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
-	}
-
-	public int getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
 	}
 
 	public String getFirstName() {
@@ -63,6 +56,10 @@ public class Client {
 	public String toString() {
 		return "Client [clientId=" + clientId + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
 				+ userName + ", password=" + password + "]";
+	}
+
+	public void setId(int int1) {
+		this.id = int1;
 	}
 	
 	
