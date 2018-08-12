@@ -2,25 +2,25 @@ package com.rev.pojos;
 
 public class Users {
 	
-	private int id;
+	private int userid;
 	private String username;
 	private String password;
 	
 	public Users() {}
-	
-	public Users(int id, String username, String password) {
+
+	public Users(int userid, String username, String password) {
 		super();
-		this.id = id;
+		this.userid = userid;
 		this.username = username;
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserid() {
+		return userid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 
 	public String getUsername() {
@@ -38,9 +38,9 @@ public class Users {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + "]";
+		return "Users [userid=" + userid + ", username=" + username + ", password=" + password + "]";
 	}
 }

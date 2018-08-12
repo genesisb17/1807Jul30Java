@@ -1,14 +1,14 @@
 package com.rev.pojos;
 
-public class Checking {
+public class Checkings {
 	
 	private int checkingsid;
 	private int userid;
 	private double total;
 	
-	public Checking() {}
+	public Checkings() {}
 	
-	public Checking(int checkingsid, int userid, double total) {
+	public Checkings(int checkingsid, int userid, double total) {
 		super();
 		this.checkingsid = checkingsid;
 		this.userid = userid;

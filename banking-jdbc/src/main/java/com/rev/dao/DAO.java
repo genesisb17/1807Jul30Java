@@ -1,5 +1,7 @@
 package com.rev.dao;
 
-public class DAO {
-
+public interface DAO {
+	
+	void total();
+	
 }
