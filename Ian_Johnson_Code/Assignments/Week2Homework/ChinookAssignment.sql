@@ -192,6 +192,116 @@ DELETE FROM RW_INVOICES;
 -- Finally, we can delete Robert Walter, since everything depending on him has been deleted.
 DELETE FROM CUSTOMER WHERE FIRSTNAME = 'Robert' AND LASTNAME = 'Walter';
 
+-- 3.0 SQL Functions
+-- 3.1 System Defined Functions
+-- Create a function that returns the current time.
+CREATE OR REPLACE FUNCTION current_time RETURN VARCHAR2 AS
+BEGIN
+    -- Relevant Oracle docs that I looked up in order to make this:
+    -- https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions079.htm (LOCALTIMESTAMP)
+    -- https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions180.htm (TO_CHAR)
+    RETURN TO_CHAR(LOCALTIMESTAMP, 'HH24:MI:SS');
+END;
+/
+SELECT current_time FROM dual;
+
+-- Create a function that returns the length of a mediatype from the mediatype table.
+CREATE OR REPLACE FUNCTION mediatype_length(mediatype_id NUMBER) RETURN NUMBER AS
+    len NUMBER;
+BEGIN
+    SELECT LENGTH(name) INTO len FROM mediatype WHERE mediatypeid = mediatype_id;
+    RETURN len;
+END;
+/
+SELECT mediatype_length(1) FROM dual;
+
+-- 3.2 System Defined Aggregate Functions
+-- Create a function that returns the average total of all invoices.
+CREATE OR REPLACE FUNCTION avg_invoice_total RETURN NUMBER AS
+    avg_total NUMBER(10, 2);
+BEGIN
+    SELECT AVG(total) INTO avg_total FROM invoice;
+    RETURN avg_total;
+END;
+/
+SELECT avg_invoice_total FROM dual;
+
+-- Create a function that returns the most expensive track.
+CREATE OR REPLACE FUNCTION most_expensive_track RETURN NUMBER AS
+    ret_track_id NUMBER(10);
+    top_price NUMBER(10, 2);
+BEGIN
+    -- First, we find the maximum price, and then we find the track ID corresponding to that price.
+    SELECT MAX(unitprice) INTO top_price FROM track;
+    SELECT trackid INTO ret_track_id FROM track
+    WHERE unitprice = top_price AND ROWNUM = 1; -- In the event that there is more than one track with that price, choose the first.
+    RETURN ret_track_id;
+END;
+/
+SELECT * FROM track WHERE trackid = most_expensive_track;
+
+-- 3.3 User Defined Functions
+-- Create a function that returns the average price of invoiceline items in the invoiceline table.
+CREATE OR REPLACE FUNCTION avg_invoiceline_price RETURN NUMBER AS
+    avg_price NUMBER(10, 2);
+BEGIN
+    SELECT AVG(unitprice) INTO avg_price FROM invoiceline;
+    RETURN avg_price;
+END;
+/
+SELECT avg_invoiceline_price FROM dual;
+
+-- 3.4 User Defined Table Valued Functions
+-- Create a function that returns all employees who are born after 1968.
+
+-- 4.0 Stored Procedures
+-- 4.1 Basic Stored Procedure
+-- Create a stored procedure that selects the first and last names of all the employees.
+
+
+-- 4.2 Stored Procedure Input Parameters
+-- Create a stored procedure that updates the personal information of an employee.
+-- Create a stored procedure that returns the managers of an employee.
+-- 4.3 Stored Procedure Output Parameters
+-- Create a stored procedure that returns the name and company of a customer.
+
+-- 6.0 Triggers
+-- 6.1 AFTER/FOR
+-- Create an after insert trigger on the employee table fired after a new record is inserted into the table.
+CREATE OR REPLACE TRIGGER trig_employee_insert
+AFTER INSERT ON employee
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.put_line('A new employee was inserted, named ' || :NEW.firstname || ' ' || :NEW.lastname);
+END;
+/
+
+INSERT INTO employee(employeeid, lastname, firstname) VALUES(1001, 'Smith', 'John'); -- Let's test it out.
+
+-- Create an after update trigger on the album table that fires after a row is inserted in the table.
+CREATE OR REPLACE TRIGGER trig_album_update
+AFTER UPDATE ON album
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.put_line('An album (ID ' || :NEW.albumid || ') was updated.');
+END;
+/
+
+UPDATE album SET TITLE = 'An album was updated!' WHERE albumid = 1;
+
+-- Create an after delete trigger on the customer table that fires after a row is deleted from the table.
+CREATE OR REPLACE TRIGGER trig_customer_delete
+AFTER DELETE ON customer
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.put_line('Customer ' || :OLD.firstname || ' ' || :OLD.lastname || ' is no longer with us :(');
+END;
+/
+
+DELETE FROM customer WHERE customerid = 1;
+-- NOTE: it is interesting that the trigger fires even though the deletion was unsuccessful (because foreign key
+-- references still existed).
+
 -- 7.0 JOINS
 -- 7.1 INNER
 -- Create an inner join that joins customers and orders and specifies the name of the customer and the invoiceId.

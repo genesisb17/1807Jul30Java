@@ -19,6 +19,6 @@ public class InsufficientFundsException extends Exception {
 	 * @param have How much money (in dollars) the account actually has.
 	 */
 	public InsufficientFundsException(BigDecimal need, BigDecimal have) {
-		super("Insufficient funds; need $" + need + ", have $" + have);
+		super("Insufficient funds; need $" + need + ", have $" + have + ".");
 	}
 }

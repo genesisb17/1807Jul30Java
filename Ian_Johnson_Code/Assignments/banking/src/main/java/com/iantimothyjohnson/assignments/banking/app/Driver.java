@@ -55,7 +55,7 @@ public class Driver {
 					return;
 				}
 			}
-		} catch (EOFException ee) {
+		} catch (EOFException e) {
 			// Just exit the program if we get EOF.
 			return;
 		}
@@ -152,14 +152,7 @@ public class Driver {
 		String[] menuItems = accounts.stream().map(Account::getName).toArray(String[]::new);
 		int choice = tui.select("Please choose an account to view or update", menuItems);
 		Account selected = accounts.get(choice);
-		manipulateAccount(selected);
-		// Save account changes to the database.
-		try {
-			AccountService.getInstance().update(selected);
-		} catch (AccountNotFoundException e) {
-			System.err.println("Selected account doesn't exist somehow:");
-			e.printStackTrace();
-		}
+		manipulateAccount(user, selected);
 	}
 
 	private static void createBankAccount(User user) throws EOFException {
@@ -173,25 +166,38 @@ public class Driver {
 		}
 	}
 
-	private static void manipulateAccount(Account account) throws EOFException {
+	private static void manipulateAccount(User user, Account account) throws EOFException {
 		// Print out some stats about the account.
 		tui.printLine("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
 		tui.printLine("Balance: " + account.getBalanceString());
 
-		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Add owner",
+		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Transfer", "Add owner",
 				"Return to activity selection");
 		switch (option) {
 		case "Deposit":
 			BigDecimal depositAmount = tui.promptDollarAmount("Amount to deposit (in dollars)");
 			account.deposit(depositAmount);
+			try {
+				AccountService.getInstance().update(account);
+			} catch (AccountNotFoundException e) {
+				System.err.println("The account that the user selected could not be found:");
+				e.printStackTrace();
+			}
 			break;
 		case "Withdraw":
 			BigDecimal withdrawAmount = tui.promptDollarAmount("Amount to withdraw (in dollars)");
 			try {
 				account.withdraw(withdrawAmount);
-			} catch (InsufficientFundsException ife) {
-				tui.printLine(ife.getMessage());
+				AccountService.getInstance().update(account);
+			} catch (InsufficientFundsException e) {
+				tui.printLine(e.getMessage());
+			} catch (AccountNotFoundException e) {
+				System.err.println("The account that the user selected could not be found:");
+				e.printStackTrace();
 			}
+			break;
+		case "Transfer":
+			transfer(user, account);
 			break;
 		case "Add owner":
 			String username = tui.promptNonEmptyLine("Username of new account holder");
@@ -208,6 +214,42 @@ public class Driver {
 			break;
 		case "Return to activity selection":
 			return;
+		}
+	}
+
+	private static void transfer(User user, Account from) throws EOFException {
+		// First, let's get the account we want to transfer to.
+		List<Account> accounts = AccountService.getInstance().findAllForUser(user);
+		String[] menuItems = accounts.stream().map(account -> account.getName()).toArray(String[]::new);
+		int selectedIndex = tui.select("Please choose an account to which to transfer", menuItems);
+		Account to = accounts.get(selectedIndex);
+		// Make sure that the two accounts involved are actually different; if
+		// not, unexpected results will ensue, because the two account objects
+		// will *not* be the same (resulting in inconsistent results when one is
+		// saved and then the other).
+		if (from.getId() == to.getId()) {
+			tui.printLine("Money can only be transferred between distinct accounts.");
+			return;
+		}
+
+		// Now, we get the amount of money to transfer.
+		BigDecimal amount = tui.promptDollarAmount("Amount to transfer (in dollars)");
+		// Perform the withdrawal and then deposit to the other account.
+		try {
+			from.withdraw(amount);
+		} catch (InsufficientFundsException e) {
+			tui.printLine(e.getMessage());
+			return;
+		}
+		to.deposit(amount);
+
+		// We now have to be sure to save the changes to the accounts.
+		try {
+			AccountService.getInstance().update(to);
+			AccountService.getInstance().update(from);
+		} catch (AccountNotFoundException anfe) {
+			System.err.println("The account which the user chose somehow did not exist:");
+			anfe.printStackTrace();
 		}
 	}
 }
