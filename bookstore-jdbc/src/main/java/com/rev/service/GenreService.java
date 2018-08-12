@@ -1,11 +1,21 @@
 package com.rev.service;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import com.rev.dao.Dao;
 import com.rev.dao.GenreDAO;
 import com.rev.pojos.Genre;
 
+=======
+import com.rev.dao.GenreDAO;
+
+import java.util.List;
+
+import com.rev.dao.Dao;
+import com.rev.pojos.Genre;
+
+>>>>>>> 832b3e4fc4cf405de2df146fa3e42788f2589489
 public class GenreService {
 	/*
 	 * SERVICE LAYER IS BUSINESS LOGIC
@@ -19,5 +29,10 @@ public class GenreService {
 	
 	public List<Genre> getAll(){
 		return gDao.findAll();
+<<<<<<< HEAD
 	}
 }
+=======
+	}	
+}
+>>>>>>> 832b3e4fc4cf405de2df146fa3e42788f2589489

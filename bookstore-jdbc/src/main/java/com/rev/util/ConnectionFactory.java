@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionFactory {
+public class ConnectionFactory { ////This is fine as-is for use in other apps just change String path part
 	/*
 	 * Class used to establish a connection with DB
 	 * Uses singleton design pattern as to return

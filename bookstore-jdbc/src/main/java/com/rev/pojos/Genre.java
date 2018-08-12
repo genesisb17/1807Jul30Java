@@ -33,4 +33,12 @@ public class Genre {
 	public String toString() {
 		return "Genre [id=" + id + ", name=" + name + "]";
 	}
+<<<<<<< HEAD
 }
+=======
+	
+	
+	
+
+}
+>>>>>>> 832b3e4fc4cf405de2df146fa3e42788f2589489

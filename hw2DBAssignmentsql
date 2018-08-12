@@ -1,9 +1,7 @@
 --Part I – Working with an existing database
 --1.0 Setting up Oracle Chinook
---In this section you will begin the process of working with the Oracle Chinook database
 --Task – Open the Chinook_Oracle.sql file and execute the scripts within.
 --2.0 SQL Queries
---In this section you will be performing various queries against the Oracle Chinook database.
 --2.1 SELECT
 --Task – Select all records from the Employee table.
 SELECT * FROM EMPLOYEE;
@@ -29,10 +27,10 @@ INSERT INTO CUSTOMER(CUSTOMERID, FIRSTNAME, LASTNAME, EMAIL) VALUES (10002, 'Hol
 --2.4 UPDATE
 --Task – Update Aaron Mitchell in Customer table to Robert Walter
 UPDATE CUSTOMER SET FIRSTNAME = 'Robert', LASTNAME = 'Walter' WHERE FIRSTNAME = 'Aaron' AND LASTNAME = 'Mitchell';
---Task – Update name of artist in the Artist table “Creedence Clearwater Revival” to “CCR”
+--Task – Update name of artist in the Artist table “Creedence Clearwater Revival�? to “CCR�?
 UPDATE ARIST SET NAME = 'CCR' WHERE NAME = 'Creedence Clearwater Revival';
 --2.5 LIKE
---Task – Select all invoices with a billing address like “T%”
+--Task – Select all invoices with a billing address like “T%�?
 SELECT * FROM INVOICE WHERE BILLINGADDRESS LIKE "T%";
 --2.6 BETWEEN
 --Task – Select all invoices that have a total between 15 and 50
@@ -54,10 +52,26 @@ SELECT ROUND(AVG(TOTAL), 2) FROM INVOICE;
 SELECT MAX(UNITPRICE) FROM TRACK;
 --3.3 User Defined Functions
 --Task – Create a function that returns the average price of invoiceline items in the invoiceline table
+CREATE OR REPLACE FUNCTION avg_price_inv
+RETURN NUMBER
+AS
+   output NUMBER(3,2);
+BEGIN
+SELECT AVG(UNITPRICE) into output FROM INVOICELINE;
+END;
 --3.4 User Defined Table Valued Functions
 --Task – Create a function that returns all employees who are born after 1968.
+CREATE OR REPLACE FUNCTION old_emp
+RETURN NUMBER
+AS
+   c1 SYS_REFCURSOR;
+BEGIN
+    open c1 for
+    SELECT * FROM EMPLOYEE WHERE BIRTHDATE > '31-DEC-68';
+    DBMS_SQL.RETURN_RESULT(c1);
+RETURN NULL;
+END;
 --4.0 Stored Procedures
---In this section you will be creating and executing stored procedures. You will be creating various types of stored procedures that take input and output parameters.
 --4.1 Basic Stored Procedure
 --Task – Create a stored procedure that selects the first and last names of all the employees.
 CREATE OR REPLACE PROCEDURE first_last_names
@@ -105,7 +119,6 @@ END;
 /
 EXECUTE Customer_Info(3);
 --5.0 Transactions
---In this section you will be working with transactions. Transactions are usually nested within a stored procedure.
 --Task – Create a transaction that given a invoiceId will delete that invoice (There may be constraints that rely on this, find out how to resolve them).
 --------Remove constaint either via SQL or manually by SQL Developer
 CREATE OR REPLACE PROCEDURE Delete_Invoice (inv_input IN NUMBER)
@@ -124,7 +137,6 @@ END;
 /
 EXECUTE Create_Customer(3123, 'Benny', 'Bobby', 'Johnny@Bravo.com');
 --6.0 Triggers
---In this section you will create various kinds of triggers that work when certain DML statements are executed on a table.
 --6.1 AFTER/FOR
 --Task - Create an after insert trigger on the employee table fired after a new record is inserted into the table.
 CREATE OR REPLACE TRIGGER orders_after_insert

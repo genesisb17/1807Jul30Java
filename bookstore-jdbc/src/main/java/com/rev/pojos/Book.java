@@ -4,6 +4,7 @@ public class Book {
 	private int id;
 	private String isbn;
 	private String title;
+<<<<<<< HEAD
 	private double price;
 	private int genreId;
 	
@@ -18,6 +19,14 @@ public class Book {
 	}
 
 	public Book(int id, String isbn, String title, double price, int genreId) {
+=======
+	private Double price;
+	private String genre_id;
+	
+	public Book() {}
+	
+	public Book(int id, String iSBN, String title, Double price, String genre_id) {
+>>>>>>> 832b3e4fc4cf405de2df146fa3e42788f2589489
 		super();
 		this.id = id;
 		this.isbn = isbn;
@@ -50,11 +59,19 @@ public class Book {
 		this.title = title;
 	}
 
+<<<<<<< HEAD
 	public double getPrice() {
 		return price;
 	}
 
 	public void setPrice(double price) {
+=======
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+>>>>>>> 832b3e4fc4cf405de2df146fa3e42788f2589489
 		this.price = price;
 	}
 
