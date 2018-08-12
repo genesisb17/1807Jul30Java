@@ -6,6 +6,8 @@ public class Savings {
 	private int userid;
 	private double total;
 	
+	public Savings() {}
+	
 	public Savings(int savingsid, int userid, double total) {
 		super();
 		this.savingsid = savingsid;

@@ -11,29 +11,27 @@ import com.rev.util.ConnectionFactory;
 
 public class UsersDAO {
 
-	public Users isUsernameUnique(String username) {
-		Users u = null;
+	public boolean isUsernameUnique(String username) {
+		boolean notUnique = true;
 		
 		// Uses Statement
+		// Should be a PreparedStatement but required by project
 		try ( Connection conn = ConnectionFactory.getInstance().getConnection()){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM USERS WHERE USERNAME = '" + username + "'");
 			
+			// Doesn't need to return anything from the query itself. Just needs to tell us whether a match was found or not
+			// Sorry for the odd variable name...
 			while(rs.next()) {
-				u = new Users();
-				u.setUsername(rs.getString(1));
+				notUnique = false;
+				return notUnique;
 			}
 		}	catch (SQLException ex) {
             ex.printStackTrace();
         }
 		
-		// Should return null if unique
-		if (u == null) {
-			return null;
-		}
-		
-		// Only returns anything except null if username is not unique
-		return u;
+		// Returning true means a match was found
+		return notUnique;
 	}
 
 	// Uses PreparedStatement
