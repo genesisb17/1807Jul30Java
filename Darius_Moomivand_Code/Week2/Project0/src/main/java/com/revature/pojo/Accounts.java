@@ -1,31 +1,43 @@
 package com.revature.pojo;
 
 public class Accounts {
-	private int accountType;
-	private String type;
+	private int accountTypeId;
+	private double balance;
+	private int accId;
 	
 	public Accounts() {}
-	
-	public Accounts(int accountType, String type) {
+	public Accounts(int accountTypeId) {
+		this.accountTypeId = accountTypeId;
+		this.balance = 100;
+	}
+	public Accounts(int accountTypeId, double balance) {
 		super();
-		this.accountType = accountType;
-		this.type = type;
+		this.accountTypeId = accountTypeId;
+		this.balance = balance;
 	}
-	public int getAccountType() {
-		return accountType;
+	public int getAccountTypeId() {
+		return accountTypeId;
 	}
-	public void setAccountType(int accountType) {
-		this.accountType = accountType;
+	public void setAccountTypeId(int accountTypeId) {
+		this.accountTypeId = accountTypeId;
 	}
-	public String getType() {
-		return type;
+	public double getBalance() {
+		return balance;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 	@Override
 	public String toString() {
-		return "Accounts [accountType=" + accountType + ", type=" + type + "]";
+		return "Accounts [accountTypeId=" + accountTypeId + ", balance=" + balance + "]";
+	}
+
+	public int getAccId() {
+		return accId;
+	}
+
+	public void setAccId(int accId) {
+		this.accId = accId;
 	}
 	
 	

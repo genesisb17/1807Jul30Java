@@ -59,7 +59,7 @@ public class ClientDAO implements Dao<Client, Integer>{
 			String query = "INSERT INTO client(first_name, last_name, user_name, password) "
 					+ "values(?,?, ?, ?)";
 			
-			String[] keys = new String[1];   //not sure what this does
+			String[] keys = new String[1];   //Double check this
 			keys[0] = "client_id";
 			
 			PreparedStatement ps = conn.prepareStatement(query, keys);

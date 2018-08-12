@@ -11,7 +11,9 @@ public class AccountsService {
 	static Dao<Accounts, Integer> aDao = new AccountsDao();
 
 	
-	
+	public void saveNew(Accounts obj) {
+		aDao.save(obj);
+	}
 	
 	public List<Accounts> getAll(){
 		return aDao.findAll();

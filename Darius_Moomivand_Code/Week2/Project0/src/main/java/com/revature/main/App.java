@@ -1,12 +1,18 @@
 package com.revature.main;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.revature.pojo.Accounts;
 import com.revature.pojo.Client;
+import com.revature.service.AccountsService;
 import com.revature.service.ClientService;
 
 public class App {
+	
+	ArrayList<Accounts> allAccounts = new <Accounts> ArrayList();
+	ArrayList<Client> allClients = new <Client> ArrayList();
 	
 	static Scanner scanner = new Scanner(System.in);
 	static int option;
@@ -70,7 +76,7 @@ public class App {
 				System.out.println("Please enter your password");
 				pw = scanner.nextLine();
 				
-				// enter function to see accounts
+				
 				
 				check = false;
 
@@ -85,6 +91,8 @@ public class App {
 	}
 	
 	static void addClient() {
+		System.out.println("All new accounts require an initial $100.00 deposit.\nLets create your account.\n");
+
 		System.out.println("Enter your first name:\n");
 		String firstName = scanner.nextLine();
 		System.out.println("Enter your last name:\n");
@@ -93,18 +101,25 @@ public class App {
 		String userName = scanner.nextLine(); 
 		System.out.println("Enter a password");
 		String password = scanner.nextLine(); 
-		
-		System.out.println("What type of account would you like to create?\n"
-				+ "1. Checking.\n2. Savings.\n");
 
 		Client newClient = new Client(firstName, lastName, userName, password);
 		ClientService cs = new ClientService();
 		cs.enterClient(newClient);		
-		
-		Integer accountType = Integer.parseInt(scanner.nextLine());
-		
+
+		System.out.println("What type of account would you like to create?\n"
+				+ "1. Checking.\n2. Savings.\n");
+		Integer accSelect = Integer.parseInt(scanner.nextLine());
+		Accounts newAccount = new Accounts(accSelect);
+		AccountsService ac = new AccountsService();
+		ac.saveNew(newAccount);
+		System.out.println("Congradulations! You have created a new account!\n Press Enter to Continue.");
+		String confirm = scanner.nextLine();
 	}
 	
+	
+	static getAccounts() {
+		
+	}
 	
 }
 
