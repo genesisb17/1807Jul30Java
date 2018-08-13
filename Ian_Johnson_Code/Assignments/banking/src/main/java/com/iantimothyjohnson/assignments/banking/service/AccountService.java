@@ -1,6 +1,8 @@
 package com.iantimothyjohnson.assignments.banking.service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.iantimothyjohnson.assignments.banking.dao.AccountDAO;
@@ -19,6 +21,8 @@ import com.iantimothyjohnson.assignments.banking.pojos.User;
  * @author Ian Johnson
  */
 public final class AccountService {
+	private static final Logger LOGGER = Logger.getLogger(AccountService.class.getName());
+
 	private static AccountService instance;
 
 	private UserAccountDAO userAccountDao;
@@ -92,8 +96,7 @@ public final class AccountService {
 		try {
 			addOwnerToAccount(account, owner);
 		} catch (AccountNotFoundException | AccountAlreadyOwnedByUserException e) {
-			System.err.println("Inconsistent database state:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Could not add owner to new account.", e);
 		}
 	}
 

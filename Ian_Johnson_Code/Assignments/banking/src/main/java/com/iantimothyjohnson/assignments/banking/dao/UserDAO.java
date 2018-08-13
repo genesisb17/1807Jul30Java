@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.pojos.User;
 import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 
 public class UserDAO {
+	private static final Logger LOGGER = Logger.getLogger(UserDAO.class.getName());
+
 	/**
 	 * Finds all users in the database.
 	 * 
@@ -24,9 +28,8 @@ public class UserDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			return collectFromResultSet(rs);
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query all users.", e);
 		}
 		return new ArrayList<>();
 	}
@@ -47,9 +50,8 @@ public class UserDAO {
 			if (rs.next()) {
 				return parseResultSetRow(rs);
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query users by ID.", e);
 		}
 		return null;
 	}
@@ -72,9 +74,8 @@ public class UserDAO {
 			if (rs.next()) {
 				return parseResultSetRow(rs);
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query users by username.", e);
 		}
 		return null;
 	}
@@ -96,7 +97,7 @@ public class UserDAO {
 			// We want to retrive the auto-generated user_id key.
 			String[] keys = { "user_id" };
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
-			ps.setString(1, user.getUsername());
+			ps.setString(1, user.getUsername().toLowerCase());
 			ps.setBytes(2, user.getPasswordSalt());
 			ps.setBytes(3, user.getPasswordHash());
 			ps.setString(4, user.getFirstName());
@@ -110,9 +111,8 @@ public class UserDAO {
 				user.setId(generatedKeys.getInt(1));
 				return true;
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to insert new user into database.", e);
 		}
 		return false;
 	}
@@ -133,7 +133,7 @@ public class UserDAO {
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, user.getUsername());
+			ps.setString(1, user.getUsername().toLowerCase());
 			ps.setBytes(2, user.getPasswordSalt());
 			ps.setBytes(3, user.getPasswordHash());
 			ps.setString(4, user.getFirstName());
@@ -144,9 +144,8 @@ public class UserDAO {
 			// existed.
 			int affected = ps.executeUpdate();
 			return affected > 0;
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to update user in database.", e);
 		}
 		return false;
 	}

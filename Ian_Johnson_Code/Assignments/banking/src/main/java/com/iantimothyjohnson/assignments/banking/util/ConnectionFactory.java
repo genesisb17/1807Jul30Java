@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A lazy singleton class that manages connections to the bank database.
@@ -13,6 +15,8 @@ import java.util.Properties;
  * @author Ian Johnson
  */
 public class ConnectionFactory {
+	private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
+
 	/**
 	 * The path to the application.properties file where the database connection
 	 * info is stored.
@@ -37,11 +41,9 @@ public class ConnectionFactory {
 			user = props.getProperty("user");
 			password = props.getProperty("password");
 		} catch (IOException e) {
-			System.err.println("Could not access properties file:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Could not access application.properties file.", e);
 		} catch (ClassNotFoundException e) {
-			System.err.println("Could not load Oracle database driver:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Could not load Oracle JDBC driver.", e);
 		}
 	}
 
@@ -57,8 +59,7 @@ public class ConnectionFactory {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
-			System.err.println("Could not connect to database:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Could not connect to database.", e);
 		}
 		return conn;
 	}

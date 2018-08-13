@@ -11,9 +11,15 @@ import java.util.Arrays;
  * user interface) for the banking app. It can be extended to provide different
  * styles, or to use more advanced features on terminals that support them.
  * 
+ * The concrete implementations for the various methods in this class build on
+ * each other in a natural way, allowing subclasses to specify new behavior by
+ * overriding only a few methods. For example, coloring prompt strings could be
+ * accomplished by overriding the printPrompt method, which is called by all the
+ * prompt methods.
+ * 
  * @author Ian Johnson
  */
-public abstract class AbstractTUI {
+public abstract class TUI {
 	/**
 	 * Reads a line of input from the user.
 	 * 
@@ -51,6 +57,17 @@ public abstract class AbstractTUI {
 	 */
 	public void printLine(String text) {
 		print(text + System.lineSeparator());
+	}
+
+	/**
+	 * Displays a prompt to the user, without ending the current line. This method
+	 * is present to allow implementations to style their prompts differently than
+	 * other output.
+	 * 
+	 * @param text The prompt text to display.
+	 */
+	public void printPrompt(String text) {
+		print(text);
 	}
 
 	/**
@@ -101,7 +118,7 @@ public abstract class AbstractTUI {
 	 *                      line.
 	 */
 	public String promptLine(String prompt) throws EOFException {
-		print(prompt + ": ");
+		printPrompt(prompt + ": ");
 		return readLine().trim();
 	}
 
@@ -138,7 +155,7 @@ public abstract class AbstractTUI {
 	 */
 	public char[] promptPassword(String prompt) throws EOFException {
 		while (true) {
-			print(prompt + ": ");
+			printPrompt(prompt + ": ");
 			char[] password = readPassword();
 			if (password.length > 0) {
 				return password;
@@ -184,7 +201,7 @@ public abstract class AbstractTUI {
 		// The loop will continue prompting the user until a valid input is
 		// given.
 		while (true) {
-			print(prompt + " (yes/no)? ");
+			printPrompt(prompt + " (yes/no)? ");
 			switch (readLine().toLowerCase()) {
 			case "yes":
 				return true;
@@ -218,7 +235,7 @@ public abstract class AbstractTUI {
 			// We format the range string and add a special case when there is
 			// only one element (which looks nicer than '(1-1)').
 			String range = menuItems.length == 1 ? "1" : "1-" + menuItems.length;
-			print(prompt + " (" + range + "): ");
+			printPrompt(prompt + " (" + range + "): ");
 			String input = readLine();
 			// Trim whitespace, so that the user can input " 1 " and it will be
 			// understood.

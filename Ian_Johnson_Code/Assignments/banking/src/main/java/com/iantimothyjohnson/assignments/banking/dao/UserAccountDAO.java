@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountAlreadyOwnedByUserException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountNotFoundException;
@@ -16,6 +18,8 @@ import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 import oracle.jdbc.internal.OracleTypes;
 
 public class UserAccountDAO {
+	private static final Logger LOGGER = Logger.getLogger(UserAccountDAO.class.getName());
+
 	/**
 	 * Finds all the accounts associated with the user with the given ID.
 	 * 
@@ -33,9 +37,8 @@ public class UserAccountDAO {
 			while (rs.next()) {
 				accountIds.add(rs.getInt("account_id"));
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query database for accounts belonging to a user.", e);
 		}
 		return accountIds;
 	}
@@ -57,9 +60,8 @@ public class UserAccountDAO {
 			while (rs.next()) {
 				userIds.add(rs.getInt("account_id"));
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query database for owners of account.", e);
 		}
 		return userIds;
 	}
@@ -93,9 +95,8 @@ public class UserAccountDAO {
 			case 3:
 				throw new AccountAlreadyOwnedByUserException(accountId, userId);
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to associate user with account in database.", e);
 		}
 	}
 }

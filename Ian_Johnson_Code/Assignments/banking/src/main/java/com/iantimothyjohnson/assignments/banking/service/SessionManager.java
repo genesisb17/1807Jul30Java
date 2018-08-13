@@ -1,6 +1,8 @@
 package com.iantimothyjohnson.assignments.banking.service;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserAlreadyExistsException;
@@ -9,6 +11,8 @@ import com.iantimothyjohnson.assignments.banking.pojos.User;
 import com.iantimothyjohnson.assignments.banking.util.Passwords;
 
 public final class SessionManager {
+	private static final Logger LOGGER = Logger.getLogger(SessionManager.class.getName());
+
 	private static SessionManager instance;
 
 	private SessionManager() {
@@ -54,8 +58,7 @@ public final class SessionManager {
 		try {
 			UserService.getInstance().update(user);
 		} catch (UserNotFoundException e) {
-			System.err.println("Attempted to log out a user that does not exist:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Attempted to log out a non-existent user.", e);
 		}
 	}
 
@@ -81,7 +84,7 @@ public final class SessionManager {
 		user.setPasswordSalt(salt);
 		user.setPasswordHash(passwordHash);
 		UserService.getInstance().insert(user);
-		
+
 		// The user object has been updated with all the relevant data at this
 		// point.
 		return user;

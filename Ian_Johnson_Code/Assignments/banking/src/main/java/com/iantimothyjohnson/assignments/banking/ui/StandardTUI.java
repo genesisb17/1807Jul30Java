@@ -4,13 +4,17 @@ import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A TUI that uses the standard System.{in,out} streams for I/O.
  * 
  * @author Ian Johnson
  */
-public class StandardTUI extends AbstractTUI {
+public class StandardTUI extends TUI {
+	private static final Logger LOGGER = Logger.getLogger(StandardTUI.class.getName());
+
 	/**
 	 * This is a nice reusable way to get lines from System.in (so that we don't
 	 * have to create a new BufferedReader each time).
@@ -25,8 +29,7 @@ public class StandardTUI extends AbstractTUI {
 				return line;
 			}
 		} catch (IOException e) {
-			System.err.println("Could not read from standard input:");
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "Could not read from standard input.", e);
 		}
 		throw new EOFException();
 	}
@@ -34,5 +37,6 @@ public class StandardTUI extends AbstractTUI {
 	@Override
 	public void print(String text) {
 		System.out.print(text);
+		System.out.flush();
 	}
 }

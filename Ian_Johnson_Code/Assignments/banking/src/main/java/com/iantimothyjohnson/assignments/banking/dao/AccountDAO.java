@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.pojos.Account;
 import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 
 public class AccountDAO {
+	private static final Logger LOGGER = Logger.getLogger(AccountDAO.class.getName());
+
 	public List<Account> findAll() {
 		final String query = "SELECT * FROM account";
 
@@ -19,9 +23,8 @@ public class AccountDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			return collectFromResultSet(rs);
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to query all accounts.", e);
 		}
 		return null;
 	}
@@ -37,9 +40,8 @@ public class AccountDAO {
 			// The ID is unique, so our list has at most one element.
 			assert accounts.size() <= 1;
 			return accounts.size() == 0 ? null : accounts.get(0);
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to find account by ID.", e);
 		}
 		return null;
 	}
@@ -70,9 +72,8 @@ public class AccountDAO {
 				account.setId(generatedKeys.getInt(1));
 				return true;
 			}
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to insert new account into database.", e);
 		}
 		return false;
 	}
@@ -99,9 +100,8 @@ public class AccountDAO {
 			// existed.
 			int affected = ps.executeUpdate();
 			return affected > 0;
-		} catch (SQLException se) {
-			System.err.println("Got SQLException:");
-			se.printStackTrace();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to update account in database.", e);
 		}
 		return false;
 	}

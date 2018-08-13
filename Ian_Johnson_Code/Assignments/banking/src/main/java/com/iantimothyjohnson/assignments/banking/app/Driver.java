@@ -3,10 +3,13 @@ package com.iantimothyjohnson.assignments.banking.app;
 import java.io.EOFException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountAlreadyOwnedByUserException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountNotFoundException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.banking.exceptions.ConsoleNotSupportedException;
 import com.iantimothyjohnson.assignments.banking.exceptions.InsufficientFundsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserAlreadyExistsException;
 import com.iantimothyjohnson.assignments.banking.exceptions.UserNotFoundException;
@@ -15,29 +18,36 @@ import com.iantimothyjohnson.assignments.banking.pojos.User;
 import com.iantimothyjohnson.assignments.banking.service.AccountService;
 import com.iantimothyjohnson.assignments.banking.service.SessionManager;
 import com.iantimothyjohnson.assignments.banking.service.UserService;
-import com.iantimothyjohnson.assignments.banking.ui.AbstractTUI;
+import com.iantimothyjohnson.assignments.banking.ui.ConsoleTUI;
 import com.iantimothyjohnson.assignments.banking.ui.StandardTUI;
+import com.iantimothyjohnson.assignments.banking.ui.TUI;
 
 public class Driver {
+	private static final Logger LOGGER = Logger.getLogger(Driver.class.getName());
+
 	/**
 	 * The TUI to use to interact with the user.
 	 */
-	private static AbstractTUI tui;
+	private static TUI tui;
 	/**
 	 * The welcome message to show to the user when the program starts.
 	 */
 	private static final String WELCOME = "Welcome to ITJBank!\n" + "The bank's interface is textual and menu-driven. "
-			+ "If you need any help understanding a prompt, just enter '?' (without the quotes) and further instructions will be provided.";
+			+ "If you would like to see the options for a particular menu again, enter '?' (without the quotes) and the menu options will be re-shown.";
 
 	// We wouldn't want anyone to actually construct one of these!
 	private Driver() {
 	}
 
 	public static void main(String[] args) {
-		// Set up the TUI. In the future, we might try to detect terminal
-		// features and provide a nicer interface where the user's terminal can
-		// support it.
-		tui = new StandardTUI();
+		// Set up the TUI. We try to use the fancier ConsoleTUI where supported,
+		// but fall back to StandardTUI if this cannot be done.
+		try {
+			tui = new ConsoleTUI();
+		} catch (ConsoleNotSupportedException e) {
+			LOGGER.fine("Console I/O is not supported on this terminal; falling back to standard streams.");
+			tui = new StandardTUI();
+		}
 		tui.printLine(WELCOME);
 		// The program should just keep trying to log users in until one of them
 		// enters EOF.
@@ -56,7 +66,7 @@ public class Driver {
 				}
 			}
 		} catch (EOFException e) {
-			// Just exit the program if we get EOF.
+			LOGGER.log(Level.FINEST, "User exited the program via EOF.", e);
 			return;
 		}
 	}
@@ -102,8 +112,7 @@ public class Driver {
 			try {
 				SessionManager.getInstance().createUser(user, password);
 			} catch (UserAlreadyExistsException e) {
-				System.err.println("User already exists despite previous check succeeding:");
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Attempted to create user with non-unique username.", e);
 				continue;
 			}
 
@@ -161,8 +170,7 @@ public class Driver {
 		try {
 			AccountService.getInstance().insert(account, user);
 		} catch (UserNotFoundException e) {
-			System.err.println("Logged-in user could not be found in the database:");
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Attempted to add new account to non-existent user.", e);
 		}
 	}
 
@@ -180,8 +188,7 @@ public class Driver {
 			try {
 				AccountService.getInstance().update(account);
 			} catch (AccountNotFoundException e) {
-				System.err.println("The account that the user selected could not be found:");
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Attempted to deposit to non-existent account.", e);
 			}
 			break;
 		case "Withdraw":
@@ -192,8 +199,7 @@ public class Driver {
 			} catch (InsufficientFundsException e) {
 				tui.printLine(e.getMessage());
 			} catch (AccountNotFoundException e) {
-				System.err.println("The account that the user selected could not be found:");
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Attempted to withdraw from non-existent account.", e);
 			}
 			break;
 		case "Transfer":
@@ -208,8 +214,7 @@ public class Driver {
 			} catch (AccountAlreadyOwnedByUserException e) {
 				tui.printLine("User " + username + " already owns this account.");
 			} catch (AccountNotFoundException e) {
-				System.err.println("Already selected account does not exist somehow:");
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Attempted to add new owner to non-existent account.", e);
 			}
 			break;
 		case "Return to activity selection":
@@ -247,9 +252,8 @@ public class Driver {
 		try {
 			AccountService.getInstance().update(to);
 			AccountService.getInstance().update(from);
-		} catch (AccountNotFoundException anfe) {
-			System.err.println("The account which the user chose somehow did not exist:");
-			anfe.printStackTrace();
+		} catch (AccountNotFoundException e) {
+			LOGGER.log(Level.SEVERE, "Attempted to transfer between non-existent accounts.", e);
 		}
 	}
 }
