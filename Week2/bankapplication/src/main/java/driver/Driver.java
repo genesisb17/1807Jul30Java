@@ -205,6 +205,7 @@ public class Driver {
 				System.out.println("Invalid Input.");
 				accountOptions(a);
 			}
+			
 			if (amount < a.getBalance()) {
 				
 				a.setBalance(a.getBalance()-amount);
@@ -226,7 +227,7 @@ public class Driver {
 //				aService.update(a);
 //				accountOptions(a);
 //			}
-			aService.update(a);
+			//aService.update(a);
 			accountOptions(a);
 			break;
 			
@@ -246,8 +247,9 @@ public class Driver {
 			}
 			
 			a.setBalance(a.getBalance() + amount);
-			System.out.println("Your Balance is: " + a.getBalance());
 			aService.update(a);
+			System.out.println("Your Balance is: " + a.getBalance());
+			
 			accountOptions(a);
 			break;
 			
@@ -282,13 +284,22 @@ public class Driver {
 		String firstName = scan.nextLine();
 		c.setFirstName(firstName);
 
+		try {
+			if(firstName.contains("*")) {
+				throw new MyException();
+			}
+		} catch(MyException e) {
+			System.out.println("You definitely are a star, but"
+							+" do not use an * in your name, please!");
+			createClient();
+		}
+		
 		System.out.println("Please, enter your last name: \n");
 		String lastName = scan.nextLine();
 		c.setLastName(lastName);
 
 		System.out.println("Please, enter a username: \n");
 		String username = scan.nextLine();
-		
 		
 		//check if username exists and is unique
 		while(username == null || !cService.isUsernameUnique(username) || username.isEmpty()) 
@@ -363,7 +374,7 @@ public class Driver {
 			a.setAccountTypeId(option);
 			a.setBalance(0.0);
 			a.setClientId(ca.getId());
-			//aService.save(a);
+			aService.save(a);
 			System.out.println("Congratulations! You have a new savings account!\n");
 
 			accountOptions(a);
@@ -372,7 +383,7 @@ public class Driver {
 			a.setAccountTypeId(option);
 			a.setBalance(0.0);
 			a.setClientId(ca.getId());
-			//aService.save(a);
+			aService.save(a);
 			System.out.println("Congratulations! You have a new checking account!\n");
 
 			accountOptions(a);
@@ -389,7 +400,7 @@ public class Driver {
 			break;			
 		}
 		a.setClientId(ca.getId());
-		aService.save(a);
+		//aService.save(a);
 		
 		
 		accountOptions(a);

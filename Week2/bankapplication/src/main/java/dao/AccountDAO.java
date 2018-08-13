@@ -19,7 +19,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 	public List<Account> getAll() {
 		List<Account> accounts = new ArrayList<Account>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "{call get_all_Accounts(?)}";
+			String sql = "{call get_all_accounts(?)}";
 			CallableStatement cs = conn.prepareCall(sql);
 	
 			cs.registerOutParameter(1, OracleTypes.CURSOR);
@@ -72,7 +72,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
-			String sql = "insert into Accounts(account_id, account_type_id,balance,client_id) values(?,?,?,?)";
+			String sql = "insert into accounts(account_id, account_type_id,balance,client_id) values(?,?,?,?)";
 			
 			String[] keys = {"account_id"};
 			
@@ -126,7 +126,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 	}
 	
 	public Account update(Account obj) {
-		//Account c = new Account();
+		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
@@ -138,7 +138,6 @@ public class AccountDAO implements DAO<Account, Integer> {
 			ps.setDouble(1, obj.getBalance());
 			ps.setInt(2, obj.getId());
 			
-			
 			ps.executeQuery();
 			conn.commit();			
 			
@@ -146,7 +145,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 			e.printStackTrace();
 		}
 		
-		return obj;
+		return null;
 	}
 
 	public void delete(Account obj) {

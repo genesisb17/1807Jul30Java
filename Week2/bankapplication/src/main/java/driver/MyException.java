@@ -1,5 +1,10 @@
 package driver;
 
-public class MyException {
-
+public class MyException extends Exception{
+	
+	public MyException() {}
+	
+	public MyException(String message) {
+		super(message);
+	}
 }
