@@ -4,6 +4,7 @@ import java.io.Console;
 import java.io.EOFException;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.ConsoleNotSupportedException;
+import com.iantimothyjohnson.assignments.banking.util.ANSIString;
 
 /**
  * A fancier TUI that uses System.console to get a Console object for more
@@ -48,5 +49,25 @@ public class ConsoleTUI extends TUI {
 	public void print(String text) {
 		console.writer().print(text);
 		console.flush();
+	}
+	
+	@Override
+	public void printError(String text) {
+		printLine(new ANSIString(text).foreground(ANSIString.Color.RED).bold().toString());
+	}
+	
+	@Override
+	public void printHeader(String text) {
+		printLine(new ANSIString(text).foreground(ANSIString.Color.YELLOW).bold().toString());
+	}
+	
+	@Override
+	public void printPrompt(String prompt) {
+		print(new ANSIString(prompt).bold().toString());
+	}
+	
+	@Override
+	public void printSuccess(String text) {
+		printLine(new ANSIString(text).foreground(ANSIString.Color.GREEN).bold().toString());
 	}
 }

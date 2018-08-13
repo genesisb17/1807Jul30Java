@@ -21,6 +21,7 @@ import com.iantimothyjohnson.assignments.banking.service.UserService;
 import com.iantimothyjohnson.assignments.banking.ui.ConsoleTUI;
 import com.iantimothyjohnson.assignments.banking.ui.StandardTUI;
 import com.iantimothyjohnson.assignments.banking.ui.TUI;
+import com.iantimothyjohnson.assignments.banking.util.StringUtils;
 
 public class Driver {
 	private static final Logger LOGGER = Logger.getLogger(Driver.class.getName());
@@ -30,9 +31,14 @@ public class Driver {
 	 */
 	private static TUI tui;
 	/**
-	 * The welcome message to show to the user when the program starts.
+	 * The header of the welcome message to show to the user when the program
+	 * starts.
 	 */
-	private static final String WELCOME = "Welcome to ITJBank!\n" + "The bank's interface is textual and menu-driven. "
+	private static final String WELCOME_HEADER = "Welcome to ITJBank!";
+	/**
+	 * The rest of the welcome message.
+	 */
+	private static final String WELCOME = "The bank's interface is textual and menu-driven. "
 			+ "If you would like to see the options for a particular menu again, enter '?' (without the quotes) and the menu options will be re-shown.";
 
 	// We wouldn't want anyone to actually construct one of these!
@@ -48,17 +54,19 @@ public class Driver {
 			LOGGER.fine("Console I/O is not supported on this terminal; falling back to standard streams.");
 			tui = new StandardTUI();
 		}
+		tui.printHeader(WELCOME_HEADER);
 		tui.printLine(WELCOME);
 		// The program should just keep trying to log users in until one of them
 		// enters EOF.
 		try {
 			while (true) {
-				String option = tui.selectValue("Please select an option", "Log in", "Create account", "Exit program");
+				String option = tui.selectValue("Please select an option", "Log in", "Create user account",
+						"Exit program");
 				switch (option) {
 				case "Log in":
 					login();
 					break;
-				case "Create account":
+				case "Create user account":
 					createUserAccount();
 					break;
 				case "Exit program":
@@ -87,7 +95,7 @@ public class Driver {
 				SessionManager.getInstance().logout(user);
 				return;
 			} catch (UserNotFoundException | AuthenticationFailureException e) {
-				tui.printLine(e.getMessage());
+				tui.printError(e.getMessage());
 			}
 		}
 	}
@@ -102,7 +110,7 @@ public class Driver {
 			User user = new User();
 			String username = tui.promptNonEmptyLine("Username");
 			if (!UserService.getInstance().isUsernameAvailable(username)) {
-				tui.printLine("Username already taken. Please choose another.");
+				tui.printError("Username already taken. Please choose another.");
 				continue;
 			}
 			user.setUsername(username);
@@ -111,6 +119,7 @@ public class Driver {
 			user.setLastName(tui.promptNonEmptyLine("Last name"));
 			try {
 				SessionManager.getInstance().createUser(user, password);
+				tui.printSuccess("Successfully created user " + user.getUsername() + ".");
 			} catch (UserAlreadyExistsException e) {
 				LOGGER.log(Level.SEVERE, "Attempted to create user with non-unique username.", e);
 				continue;
@@ -129,6 +138,7 @@ public class Driver {
 	 * @param user The user whose session to run.
 	 */
 	private static void userSession(User user) throws EOFException {
+		tui.printSuccess("Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
 		while (true) {
 			String option = tui.selectValue("Please select an activity", "View/update existing account",
 					"Create new account", "Logout");
@@ -148,7 +158,7 @@ public class Driver {
 	private static void chooseAccount(User user) throws EOFException {
 		List<Account> accounts = AccountService.getInstance().findAllForUser(user);
 		if (accounts.isEmpty()) {
-			tui.printLine("You do not have any accounts yet.");
+			tui.printError("You do not have any accounts yet.");
 			if (tui.promptYesOrNo("Would you like to create an account?")) {
 				createBankAccount(user);
 			}
@@ -169,6 +179,7 @@ public class Driver {
 		account.setName(tui.promptNonEmptyLine("Account name"));
 		try {
 			AccountService.getInstance().insert(account, user);
+			tui.printSuccess("Successfully created account " + account.getName() + ".");
 		} catch (UserNotFoundException e) {
 			LOGGER.log(Level.SEVERE, "Attempted to add new account to non-existent user.", e);
 		}
@@ -176,8 +187,8 @@ public class Driver {
 
 	private static void manipulateAccount(User user, Account account) throws EOFException {
 		// Print out some stats about the account.
-		tui.printLine("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
-		tui.printLine("Balance: " + account.getBalanceString());
+		tui.printHeader("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
+		tui.printHeader("Balance: " + account.getBalanceString());
 
 		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Transfer", "Add owner",
 				"Return to activity selection");
@@ -189,7 +200,9 @@ public class Driver {
 				AccountService.getInstance().update(account);
 			} catch (AccountNotFoundException e) {
 				LOGGER.log(Level.SEVERE, "Attempted to deposit to non-existent account.", e);
+				break;
 			}
+			tui.printSuccess("Successfully deposited " + StringUtils.formatDollarValue(depositAmount) + ".");
 			break;
 		case "Withdraw":
 			BigDecimal withdrawAmount = tui.promptDollarAmount("Amount to withdraw (in dollars)");
@@ -197,10 +210,13 @@ public class Driver {
 				account.withdraw(withdrawAmount);
 				AccountService.getInstance().update(account);
 			} catch (InsufficientFundsException e) {
-				tui.printLine(e.getMessage());
+				tui.printError(e.getMessage());
+				break;
 			} catch (AccountNotFoundException e) {
 				LOGGER.log(Level.SEVERE, "Attempted to withdraw from non-existent account.", e);
+				break;
 			}
+			tui.printSuccess("Successfully withdrew " + StringUtils.formatDollarValue(withdrawAmount) + ".");
 			break;
 		case "Transfer":
 			transfer(user, account);
@@ -210,12 +226,16 @@ public class Driver {
 			try {
 				AccountService.getInstance().addOwnerToAccount(account, username);
 			} catch (UserNotFoundException e) {
-				tui.printLine("User " + username + " does not exist; owner not added.");
+				tui.printError("User " + username + " does not exist; owner not added.");
+				break;
 			} catch (AccountAlreadyOwnedByUserException e) {
-				tui.printLine("User " + username + " already owns this account.");
+				tui.printError("User " + username + " already owns this account.");
+				break;
 			} catch (AccountNotFoundException e) {
 				LOGGER.log(Level.SEVERE, "Attempted to add new owner to non-existent account.", e);
+				break;
 			}
+			tui.printSuccess("Successfully added " + username + " as account holder for " + account.getName() + ".");
 			break;
 		case "Return to activity selection":
 			return;
@@ -233,7 +253,7 @@ public class Driver {
 		// will *not* be the same (resulting in inconsistent results when one is
 		// saved and then the other).
 		if (from.getId() == to.getId()) {
-			tui.printLine("Money can only be transferred between distinct accounts.");
+			tui.printError("Money can only be transferred between distinct accounts.");
 			return;
 		}
 
@@ -243,7 +263,7 @@ public class Driver {
 		try {
 			from.withdraw(amount);
 		} catch (InsufficientFundsException e) {
-			tui.printLine(e.getMessage());
+			tui.printError(e.getMessage());
 			return;
 		}
 		to.deposit(amount);
@@ -252,6 +272,8 @@ public class Driver {
 		try {
 			AccountService.getInstance().update(to);
 			AccountService.getInstance().update(from);
+			tui.printSuccess("Successfully transferred " + StringUtils.formatDollarValue(amount) + " from "
+					+ from.getName() + " to " + to.getName() + ".");
 		} catch (AccountNotFoundException e) {
 			LOGGER.log(Level.SEVERE, "Attempted to transfer between non-existent accounts.", e);
 		}

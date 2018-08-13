@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.util.Arrays;
 
+import com.iantimothyjohnson.assignments.banking.util.StringUtils;
+
 /**
  * An abstract class that represents the basic functionality of a TUI (textual
  * user interface) for the banking app. It can be extended to provide different
@@ -51,12 +53,43 @@ public abstract class TUI {
 	public abstract void print(String text);
 
 	/**
+	 * Displays an error message to the user.
+	 * 
+	 * @param text The text of the error. The text will be given a trailing newline.
+	 */
+	public void printError(String text) {
+		printLine(text);
+	}
+
+	/**
+	 * Displays some text to the user, formatted as a header.
+	 * 
+	 * @param text The text to display. The text will be given a trailing newline.
+	 */
+	public void printHeader(String text) {
+		printLine(text);
+	}
+
+	/**
 	 * Displays some text to the user and ends the line.
 	 * 
-	 * @param text The text to display.
+	 * @param text The text to display. The text will be word-wrapped to 80
+	 *             characters before printing to ensure that long lines are not
+	 *             ugly.
 	 */
 	public void printLine(String text) {
-		print(text + System.lineSeparator());
+		print(StringUtils.wordWrap(text, 80) + System.lineSeparator());
+	}
+
+	/**
+	 * Prints out a numbered list consisting of the given items.
+	 * 
+	 * @param items The items that make up the list.
+	 */
+	public void printNumberedList(String... items) {
+		for (int i = 0; i < items.length; i++) {
+			printLine((i + 1) + ". " + items[i]);
+		}
 	}
 
 	/**
@@ -71,14 +104,13 @@ public abstract class TUI {
 	}
 
 	/**
-	 * Prints out a numbered list consisting of the given items.
+	 * Displays a line of text indicating a success condition.
 	 * 
-	 * @param items The items that make up the list.
+	 * @param text The text to be displayed. The text will be given a trailing
+	 *             newline.
 	 */
-	public void printNumberedList(String... items) {
-		for (int i = 0; i < items.length; i++) {
-			printLine((i + 1) + ". " + items[i]);
-		}
+	public void printSuccess(String text) {
+		printLine(text);
 	}
 
 	/**
@@ -102,12 +134,12 @@ public abstract class TUI {
 			try {
 				BigDecimal result = parseDollarString(numberString);
 				if (result.compareTo(BigDecimal.ZERO) < 0) {
-					printLine("Please enter a non-negative amount.");
+					printError("Please enter a non-negative amount.");
 				} else {
 					return result;
 				}
 			} catch (NumberFormatException nfe) {
-				printLine("Please enter a valid monetary amount (no fractional cents).");
+				printError("Please enter a valid monetary amount (no fractional cents).");
 			}
 		}
 	}
@@ -186,7 +218,7 @@ public abstract class TUI {
 			if (Arrays.equals(password, confirm)) {
 				return password;
 			} else {
-				printLine("Given passwords do not match. Please try again.");
+				printError("Given passwords do not match. Please try again.");
 			}
 		}
 	}
@@ -213,7 +245,7 @@ public abstract class TUI {
 			case "no":
 				return false;
 			}
-			printLine("Please enter yes or no.");
+			printError("Please enter yes or no.");
 		}
 	}
 
@@ -256,18 +288,18 @@ public abstract class TUI {
 
 			// Try to parse the input.
 			if (input.isEmpty()) {
-				printLine("Please enter a number.");
+				printError("Please enter a number.");
 				continue;
 			}
 			int choice = 0;
 			try {
 				choice = Integer.parseInt(input);
 			} catch (NumberFormatException nfe) {
-				printLine("Invalid number.");
+				printError("Invalid number.");
 				continue;
 			}
 			if (choice < 1 || choice > menuItems.length) {
-				printLine("You must enter an option number between 1 and " + menuItems.length + ".");
+				printError("You must enter an option number between 1 and " + menuItems.length + ".");
 				continue;
 			}
 
