@@ -22,10 +22,12 @@ public class SavingsService {
 	}
 
 	public static boolean create(Users user, double amount) {
-		boolean status = SavingsDAO.createSavingsAccount(user, amount);
+		boolean status = SavingsDAO.createAccount(user, amount);
+		
+		String formattedAmount = String.format("%.2f", amount);
 		
 		if (status == true) {
-			System.out.println("You have successfully created a savings account and deposited $" + amount);
+			System.out.println("You have successfully created a savings account and deposited $" + formattedAmount);
 			System.out.println("You may now withdraw and deposit from this account.\n");
 			return true;
 		}
@@ -38,28 +40,38 @@ public class SavingsService {
 	public static void total(Users user) {
 		Savings s = SavingsDAO.total(user);
 		double total = s.getTotal();
-		System.out.println("The amount in your savings account is $" + total + "\n");
+		String formattedTotal = String.format("%.2f", total);
+		
+		System.out.println("The amount in your savings account is $" + formattedTotal + "\n");
+		
 		return;
 	}
 
 	public static boolean withdraw(Users user, double amount) {
 		Savings s = SavingsDAO.total(user);
+		String formattedAmount = String.format("%.2f", amount);
 		double total = s.getTotal();
 		if (total >= amount) {
 			total -= amount;
+			
+			String formattedTotal = String.format("%.2f", total);
+			
+			// In case the compiler becomes funny
 			boolean status = SavingsDAO.withdraw(user, total);
 			
 			if (status == true) {
-				System.out.println("Success! You now have $" + amount + " and your new total is $" + total);
+				System.out.println("Success! You now have $" + formattedAmount + " and your new total is $" + formattedTotal + ".\n");
 				return true;
 			}
 			else if (status == false) {
-				System.out.println("You were unable to withdraw " + amount + ". Please try again.");
+				System.out.println("You were unable to withdraw $" + formattedAmount + ". Please try again.");
 				return false;
 			}
 		}
 		else {
-			System.out.println("The amount entered " + amount + " is higher than your total balance " + total + ".\n"
+			String formattedTotal = String.format("%.2f", total);
+			
+			System.out.println("The amount entered " + formattedAmount + " is higher than your total balance " + formattedTotal + ".\n"
 				+ "Please enter a new amount.\n");
 		}
 		
@@ -71,13 +83,16 @@ public class SavingsService {
 		double current = s.getTotal();
 		double newTotal = current + amount;
 		
+		String formattedAmount = String.format("%.2f", amount);
+		String formattedNewTotal = String.format("%.2f", newTotal);
+		
 		boolean status = SavingsDAO.deposit(user, newTotal);
 		if (status == true) {
-			System.out.println("Success! Your deposit of $" + amount + " brings your new balance to $" + newTotal);
+			System.out.println("Success! Your deposit of $" + formattedAmount + " brings your new balance to $" + formattedNewTotal + ".\n");
 			return true;
 		}
 		else {
-			System.out.println("You were unable to deposit $" + amount + ". Please try again.");
+			System.out.println("You were unable to deposit $" + formattedAmount + ". Please try again.\n");
 			return false;
 		}
 	}

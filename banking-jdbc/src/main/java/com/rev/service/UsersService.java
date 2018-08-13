@@ -38,7 +38,7 @@ public class UsersService {
 	public static Users logIn(int userid, String username, String password) {
 		Users u = UsersDAO.logIn(userid, username, password);
 		
-		// Here  to kick a user out if they try to brute force login...
+		// Here to kick a user out if they try to brute force login...
 		if (u == null) {
 			counter += 1;
 			System.out.println(counter + " Failed login attempt(s).");
@@ -55,5 +55,20 @@ public class UsersService {
 		}
 		// will return u regardless.
 		return u;
+	}
+
+	public static void nuke(Users user, String name) {
+		if (user.getUsername().equals(name.toLowerCase())) {
+			int userid = user.getUserid();
+			UsersDAO.nukeAccounts(name, userid);
+			System.out.println("We think we nuked 'em! Try to log in and see!");
+			return;
+			
+		}
+		else {
+			System.out.println("The username entered did not match our records.\n"
+				+ "Going to toss you back to the landing page anyway. : ^)");
+			return;
+		}
 	}
 }

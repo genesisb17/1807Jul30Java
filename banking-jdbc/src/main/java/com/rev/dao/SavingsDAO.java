@@ -31,7 +31,7 @@ public class SavingsDAO {
 		return exists;
 	}
 
-	public static boolean createSavingsAccount(Users user, double amount) {
+	public static boolean createAccount(Users user, double amount) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "INSERT INTO SAVINGS (SAVINGSID, USERID, TOTAL) VALUES(SAVINGSID_SEQ.nextval, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);

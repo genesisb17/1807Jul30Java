@@ -1,5 +1,6 @@
 package com.rev.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,5 +85,20 @@ public class UsersDAO {
 		
 		// Will return either null or an object with creds
 		return u;
+	}
+
+	// Uses CallableStatement
+	// TODO: FIX THIS
+	public void nukeAccounts(String name, int userid) {		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "{call NUKE_ACCOUNTS_PROC(?, ?)}";
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, name);
+			cs.setInt(2,  userid);
+			cs.execute();
+		
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}		
 	}
 }

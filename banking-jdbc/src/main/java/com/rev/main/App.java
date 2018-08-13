@@ -19,11 +19,11 @@ public class App {
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Not Greedy Banking App!");
 		System.out.println("----------START----------\n");
-		Intro();
+		intro();
 	}
 	
 	// The portal for logging in and creating an account
-	static void Intro() {
+	static void intro() {
 		System.out.println("Please enter a number for one of the options:\n"
 				+ "1. Login\n"
 				+ "2. Create an Account\n"
@@ -38,7 +38,7 @@ public class App {
 			int checkForNumberInString = Integer.parseInt(option);
 		} catch (NumberFormatException e) {
 			System.out.println("Sorry, please enter a number.");
-			Intro();
+			intro();
 		}
 		
 		// Parses it into integer primitive
@@ -54,12 +54,11 @@ public class App {
 						break;
 						// Entered a number that wasn't an option.
 			default:	System.out.println("Please choose a valid response.");
-						Intro();
+						intro();
 						break;
 		}
 	}
 
-	// Method to create an account
 	private static void createBankingAccount() {
 	 	System.out.println("Please enter a username.");
 		String username = sc.nextLine().toLowerCase();
@@ -80,10 +79,9 @@ public class App {
 			createBankingAccount();
 		}
 		
-		Intro();
+		intro();
 	}
 	
-	// Method to Log In by checking the DB to the supplied creds
 	private static void logIn() {
 		// Needed for when object is sent to be initialized
 		int userid = 0;
@@ -108,10 +106,11 @@ public class App {
 	}
 
 	private static void fork(Users user) {
-		System.out.println("Would you like to access your checkings or savings account? Or would you like to exit?");
+		System.out.println("Select one of the following options:");
 		System.out.println("1. Checkings\n"
 				+ "2. Savings\n"
-				+ "3. Exit");
+				+ "3. Log Out\n"
+				+ "9. Nuke account(s)");
 		
 		option = sc.nextLine();
 		
@@ -129,75 +128,92 @@ public class App {
 		
 		// Determine whether to go checkings or savings
 		switch (choice) {
-			case 1: boolean checkingsExists = CheckingsService.doesAccountExist(user); // Will always check if they have an checkings account
-					// User will be prompted to do this until they create an account
-					if (checkingsExists == false) {
-						
-						String option = sc.nextLine();
-						
-						try {
-							@SuppressWarnings("unused")
-							int checkForNumberInString = Integer.parseInt(option);
-						} catch (NumberFormatException e) {
-							System.out.println("Sorry, please enter a number.");
-							fork(user);
-						}
-						
-						int create = Integer.parseInt(option);
-						
-						// Determine whether to create the account or send them back
-						switch (create) {
-							case 1: 	createCheckings(user);
-										break;
-							case 2: 	System.out.println("Sure.\n");
-										fork(user);
-										break;
-							default: 	System.out.println("Invalid Response.\n");
-										fork(user);
-										break;
-						}
-					}
-					checkings(user);
+			case 1: checkingsAccountExist(user);
 					break;
-					// Same as above
-			case 2: boolean savingsExist = SavingsService.doesAccountExist(user);
-					if (savingsExist == false) {
-						
-						String option = sc.nextLine();
-						
-						try {
-							@SuppressWarnings("unused")
-							int checkForNumberInString = Integer.parseInt(option);
-						} catch (NumberFormatException e) {
-							System.out.println("Sorry, please enter a number.");
-							fork(user);
-						}
-						
-						int create = Integer.parseInt(option);
-						
-						switch (create) {
-							case 1: 	createSavings(user);
-										break;
-							case 2: 	System.out.println("Sure.");
-										fork(user);
-										break;
-							default: 	System.out.println("Invalid Response.\n");
-										fork(user);
-										break;
-						}
-					}
-					savings(user);
+			case 2: savingsAccountExist(user);
 					break;
 					// If they wanna get out of here
-			case 3: System.out.println("Thank you for using the Not Greedy App.");
-					System.exit(0);
+			case 3: System.out.println("You are not logged out.");
+					intro();
+					break;	
+					// GOODBYE ACCOUNTS
+			case 9: System.out.println("Are you sure you wish to delete ALL accounts?\n"
+					+ "This includes your savings, checkings, and main account.\n"
+					+ "To delete your account(s), please enter your name.");
+					String name = sc.nextLine();
+					UsersService.nuke(user, name);
+					intro();
 					break;
+					
 					// If they entered an illegal argument
 			default: System.out.println("Please choose a valid response.");
 					fork(user);
 		}
 	}
 
+	private static void checkingsAccountExist(Users user) {
+		boolean status = CheckingsService.doesAccountExist(user); // Will always check if they have an checkings account
+		// User will be prompted to do this until they create an account
+		if (status == false) {
+			
+			String option = sc.nextLine();
+			
+			try {
+				@SuppressWarnings("unused")
+				int checkForNumberInString = Integer.parseInt(option);
+			} catch (NumberFormatException e) {
+				System.out.println("Sorry, please enter a number.");
+				fork(user);
+			}
+			
+			int create = Integer.parseInt(option);
+			
+			// Determine whether to create the account or send them back
+			switch (create) {
+				case 1: 	createCheckings(user);
+							break;
+				case 2: 	System.out.println("Sure.\n");
+							fork(user);
+							break;
+				default: 	System.out.println("Invalid Response.\n");
+							checkingsAccountExist(user);
+							break;
+			}
+		}
+		checkings(user);	
+	}
+	
+	private static void savingsAccountExist(Users user) {
+		boolean savingsExist = SavingsService.doesAccountExist(user);
+		
+		if (savingsExist == false) {
+			
+			String option = sc.nextLine();
+			
+			try {
+				@SuppressWarnings("unused")
+				int checkForNumberInString = Integer.parseInt(option);
+			} catch (NumberFormatException e) {
+				System.out.println("Sorry, please enter a number.");
+				fork(user);
+			}
+			
+			int create = Integer.parseInt(option);
+			
+			switch (create) {
+				case 1: 	createSavings(user);
+							break;
+				case 2: 	System.out.println("Sure.");
+							fork(user);
+							break;
+				default: 	System.out.println("Invalid Response.\n");
+							savingsAccountExist(user);
+							break;
+			}
+		}
+		savings(user);
+	}
+	
 	private static void createCheckings(Users user) {
 		System.out.println("How much would you like to put into your new account?");
 		String input = sc.nextLine();

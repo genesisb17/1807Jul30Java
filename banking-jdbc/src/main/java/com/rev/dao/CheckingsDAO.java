@@ -19,7 +19,6 @@ public class CheckingsDAO {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM CHECKINGS WHERE USERID = '" + user.getUserid() + "'");
 			
-			// Doesn't need to return anything except a verification that it was found
 			while (rs.next()) {
 				exists = true;
 				return exists;
@@ -32,7 +31,7 @@ public class CheckingsDAO {
 		return exists;
 	}
 
-	public boolean createCheckingsAccount(Users user, double amount) {
+	public boolean createAccount(Users user, double amount) {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "INSERT INTO CHECKINGS (CHECKINGSID, USERID, TOTAL) VALUES(CHECKINGSID_SEQ.nextval, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -78,7 +77,6 @@ public class CheckingsDAO {
 			ps.setInt(2, user.getUserid());
 			int i = ps.executeUpdate();
 			
-			// Means if 1 row was changed
 			if (i == 1) {
 				return true;
 			}
@@ -98,7 +96,6 @@ public class CheckingsDAO {
 			ps.setInt(2, user.getUserid());
 			int i = ps.executeUpdate();
 			
-			// Means if one row was changed
 			if (i == 1 ) {
 				return true;
 			}
