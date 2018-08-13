@@ -253,7 +253,27 @@ public class menus
 				System.out.println("Please enter amount");
 				try
 				{
-					amount = Double.parseDouble(scanner.nextLine());
+					String input = scanner.nextLine();
+					try
+					{
+						if(input.contains("+"))
+						{
+							throw new myException();
+						}
+					}
+					catch (myException e)
+					{
+						System.out.println("Invalid input\n");
+						accountOptions(obj);
+					}
+					
+					
+					amount = Double.parseDouble(input);
+					if(amount <= 0)
+					{
+						System.out.println("Invalid input\n");
+						accountOptions(obj);
+					}
 				}
 				catch (NumberFormatException e)
 				{
@@ -270,11 +290,6 @@ public class menus
 				{
 					System.out.println("amount is greater than account total");
 					accountOptions(obj);
-				}
-				else 
-				{
-					obj.setBalance(obj.getBalance() - amount);
-					//System.out.println("Balance " + obj.getBalance());
 				}
 				
 				aService.update(obj);

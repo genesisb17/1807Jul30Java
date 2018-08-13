@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +26,16 @@ public class accountDAO implements DAO<account, Integer>
 		
 		try(Connection c = ConnectionFactory.getInstance().getConnection())
 		{
+			
+			//String query = "select * fron accounts";
+			//Statement statement = c.createStatement();
+			//ResultSet rs = statement.executeQuery(query);
 			CallableStatement cs = c.prepareCall(sql);
 			cs.registerOutParameter(1, OracleTypes.CURSOR);
-			cs.execute();
-			
+			cs.execute();			
 			ResultSet rs = (ResultSet)cs.getObject(1);
+			
+			
 			while(rs.next())
 			{
 				account temp = new account();
