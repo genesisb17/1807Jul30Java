@@ -253,17 +253,120 @@ SELECT avg_invoiceline_price FROM dual;
 
 -- 3.4 User Defined Table Valued Functions
 -- Create a function that returns all employees who are born after 1968.
+CREATE OR REPLACE FUNCTION get_employees_after_1968 RETURN SYS_REFCURSOR AS
+    cur_employees SYS_REFCURSOR;
+BEGIN
+    OPEN cur_employees FOR SELECT * FROM employee WHERE birthdate >= '01-JAN-68';
+    RETURN cur_employees;
+END;
+/
+
+DECLARE
+    cur_employees SYS_REFCURSOR := get_employees_after_1968();
+    fetched employee%ROWTYPE;
+BEGIN
+    LOOP
+        FETCH cur_employees INTO fetched;
+        EXIT WHEN cur_employees%NOTFOUND;
+        DBMS_OUTPUT.put_line(fetched.firstname || ' ' || fetched.lastname);
+    END LOOP;
+END;
+/
 
 -- 4.0 Stored Procedures
 -- 4.1 Basic Stored Procedure
 -- Create a stored procedure that selects the first and last names of all the employees.
+CREATE OR REPLACE PROCEDURE get_employee_names(cur_names OUT SYS_REFCURSOR) AS
+BEGIN
+    -- A cursor should be fine for this, allowing us to iterate through the result set.
+    OPEN cur_names FOR SELECT firstname, lastname FROM employee;
+END;
+/
 
+DECLARE
+    cur_employee_names SYS_REFCURSOR;
+    first_name VARCHAR(20);
+    last_name VARCHAR(20);
+BEGIN
+    get_employee_names(cur_employee_names);
+    LOOP
+        FETCH cur_employee_names INTO first_name, last_name;
+        EXIT WHEN cur_employee_names%NOTFOUND;
+        DBMS_OUTPUT.put_line(first_name || ' ' || last_name);
+    END LOOP;
+    CLOSE cur_employee_names;
+END;
+/
 
 -- 4.2 Stored Procedure Input Parameters
 -- Create a stored procedure that updates the personal information of an employee.
+CREATE OR REPLACE PROCEDURE update_employee_name(employee_id IN NUMBER, first_name IN VARCHAR2, last_name IN VARCHAR2) AS
+BEGIN
+    UPDATE employee SET firstname = first_name, lastname = last_name WHERE employeeid = employee_id;
+END;
+/
+
+CALL update_employee_name(1, 'Test', 'Employee');
+SELECT * FROM employee WHERE employeeid = 1;
+
 -- Create a stored procedure that returns the managers of an employee.
+CREATE OR REPLACE TYPE EmployeeIDs IS TABLE OF NUMBER(10);
+/
+CREATE OR REPLACE PROCEDURE get_managers(employee_id_num IN NUMBER, cur_managers OUT SYS_REFCURSOR) AS
+    manager_ids EmployeeIDs := EmployeeIDs();
+    employee_id NUMBER(10) := employee_id_num;
+    manager_id NUMBER(10);
+BEGIN
+    LOOP
+        -- We collect the manager IDs of each higher-up into a table iteratively, moving on to the manager of
+        -- whoever we just inserted on the next iteration.
+        SELECT reportsto INTO manager_id FROM employee WHERE employeeid = employee_id;
+        EXIT WHEN manager_id IS NULL;
+        -- Of course you can't just INSERT INTO TABLE(manager_ids) VALUES (manager_id); that would be too simple.
+        manager_ids.EXTEND;
+        manager_ids(manager_ids.COUNT) := manager_id;
+        employee_id := manager_id;
+    END LOOP;
+    OPEN cur_managers FOR
+        -- You also can't use IN TABLE(manager_ids) :(
+        SELECT * FROM employee WHERE employeeid IN (SELECT * FROM TABLE(manager_ids));
+END;
+/
+
+DECLARE
+    cur_managers SYS_REFCURSOR;
+    fetched_employee employee%ROWTYPE;
+BEGIN
+    get_managers(10, cur_managers);
+    LOOP
+        FETCH cur_managers INTO fetched_employee;
+        EXIT WHEN cur_managers%NOTFOUND;
+        DBMS_OUTPUT.put_line(fetched_employee.firstname || ' ' || fetched_employee.lastname);
+    END LOOP;
+    CLOSE cur_managers;
+END;
+/
+
 -- 4.3 Stored Procedure Output Parameters
 -- Create a stored procedure that returns the name and company of a customer.
+CREATE OR REPLACE PROCEDURE get_customer_name_and_company(customer_id IN NUMBER, cname OUT VARCHAR2, ccompany OUT VARCHAR2) AS
+BEGIN
+    SELECT firstname || ' ' || lastname, company INTO cname, ccompany FROM customer WHERE customerid = customer_id;
+END;
+/
+
+DECLARE
+    cname VARCHAR2(100);
+    ccompany VARCHAR2(100);
+BEGIN
+    get_customer_name_and_company(1, cname, ccompany);
+    DBMS_OUTPUT.put_line('Name: ' || cname || ', Company: ' || ccompany);
+END;
+/
+
+-- 5.0 Transactions
+-- Create a transaction that given a invoiceId will delete that invoice (There may be constraints that rely on this, find out how to resolve them).
+-- Create a transaction nested within a stored procedure that inserts a new record in the Customer table.
 
 -- 6.0 Triggers
 -- 6.1 AFTER/FOR
@@ -365,3 +468,6 @@ JOIN INVOICELINE ON INVOICELINE.TRACKID = TRACK.TRACKID
 JOIN INVOICE ON INVOICE.INVOICEID = INVOICELINE.INVOICEID
 JOIN CUSTOMER ON CUSTOMER.CUSTOMERID = INVOICE.CUSTOMERID
 JOIN EMPLOYEE ON EMPLOYEE.EMPLOYEEID = CUSTOMER.SUPPORTREPID;
+
+-- 9.0 Administration
+-- Create a .bak file for the Chinook database.

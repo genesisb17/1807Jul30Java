@@ -100,9 +100,14 @@ public abstract class TUI {
 			String numberString = promptNonEmptyLine(prompt);
 			// Get rid of unnecessary but allowable characters in the input.
 			try {
-				return parseDollarString(numberString);
+				BigDecimal result = parseDollarString(numberString);
+				if (result.compareTo(BigDecimal.ZERO) < 0) {
+					printLine("Please enter a non-negative amount.");
+				} else {
+					return result;
+				}
 			} catch (NumberFormatException nfe) {
-				printLine("Please enter a valid decimal number.");
+				printLine("Please enter a valid monetary amount (no fractional cents).");
 			}
 		}
 	}
@@ -299,7 +304,7 @@ public abstract class TUI {
 	 */
 	protected BigDecimal parseDollarString(String input) {
 		if (input.charAt(0) == '$') {
-			input = input.substring(1);
+			input = input.substring(1).trim();
 		}
 		DecimalFormat format = new DecimalFormat("#,##0.00");
 		format.setParseBigDecimal(true);
@@ -310,7 +315,10 @@ public abstract class TUI {
 		// the end of the string before returning the result.
 		ParsePosition pos = new ParsePosition(0);
 		BigDecimal parsed = (BigDecimal) format.parse(input, pos);
-		if (parsed == null || pos.getIndex() != input.length()) {
+		if (parsed == null || pos.getIndex() != input.length() || parsed.scale() > 2) {
+			// The reason why we throw a NumberFormatException when the scale is
+			// greater than 2 is because we don't want the user to be able to
+			// make transactions involving fractions of a cent.
 			throw new NumberFormatException();
 		}
 		return parsed;
