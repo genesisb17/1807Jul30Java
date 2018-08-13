@@ -28,7 +28,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 			
 			while(rs.next()) {
 				Account temp = new Account();
-				temp.setId(rs.getInt("account_id"));
+				temp.setAccountId(rs.getInt("account_id"));
 				temp.setAccountTypeId(rs.getInt("account_type_id"));
 				temp.setBalance(rs.getDouble("balance"));
 				temp.setClientId(rs.getInt("client_id"));
@@ -53,7 +53,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 			
 			while(info.next()) {
 				a = new Account();
-				a.setId(info.getInt(1));
+				a.setAccountId(info.getInt(1));
 				a.setAccountTypeId(info.getInt(2));
 				a.setBalance(info.getDouble(3));
 				a.setClientId(info.getInt(4));
@@ -77,17 +77,21 @@ public class AccountDAO implements DAO<Account, Integer> {
 			String[] keys = {"account_id"};
 			
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
-			ps.setInt(1, a.getId());
+			ps.setInt(1, a.getAccountId());
 			ps.setInt(2,  a.getAccountTypeId());
 			ps.setDouble(3, a.getBalance());
 			ps.setInt(4,  a.getClientId());
+			//System.out.println(ps);
+			//System.out.println(keys + " keys");
 			
 			int rowsUpdated = ps.executeUpdate();
 			if(rowsUpdated != 0) {
 				ResultSet pk = ps.getGeneratedKeys();
 				while(pk.next()) {
-					//System.out.println(pk.getInt(1));
-					aa.setId(pk.getInt(1));
+					System.out.println(pk.getInt(1) + " the key");
+					a.setAccountId(pk.getInt(1));
+					a.setClientId(4);
+					
 				}
 				conn.commit();
 			}
@@ -96,8 +100,9 @@ public class AccountDAO implements DAO<Account, Integer> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return aa;
+		System.out.println(a.getClientId()+ " ACCOUNT PASSED");
+		System.out.println(aa.getClientId()+ " ACCOUNT RETURNED");
+		return a;
 	}
 	public List<Account> getAccounts(Client c) {
 		List<Account> accounts = new ArrayList<Account>();
@@ -111,7 +116,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 			
 			while(rs.next()) {
 				Account temp = new Account();
-				temp.setId(rs.getInt("account_type"));
+				temp.setAccountId(rs.getInt("account_type"));
 				temp.setBalance(rs.getDouble("balance"));
 				temp.setClientId(rs.getInt("client_id"));
 
@@ -130,13 +135,13 @@ public class AccountDAO implements DAO<Account, Integer> {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
-			String sql = "update accounts set balance = ? where account_id = ?";
+			String sql = "update accounts set balance = ? where client_id = ?";// changed from account_idi
 			
 			String[] keys = {"account_ID"};
 			
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
 			ps.setDouble(1, obj.getBalance());
-			ps.setInt(2, obj.getId());
+			ps.setInt(2, obj.getClientId());//			change from getId
 			
 			ps.executeQuery();
 			conn.commit();			

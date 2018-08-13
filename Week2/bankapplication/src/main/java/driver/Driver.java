@@ -21,6 +21,8 @@ public class Driver {
 	}
 
 	public static void loginPrompt() {
+		//clear the temp variable
+		ca = new Client();
 		System.out.println("* * * * * Please, login or create an account * * * * *\n"
 				+ "1. Login\n" 
 				+ "2. Create Account\n" 
@@ -57,28 +59,28 @@ public class Driver {
 		System.out.println("Enter Username:\n");
 		String username = scan.nextLine();
 
-		System.out.println("Enter Password:\n");
-		String password = scan.nextLine();
-
 		//check if username exists in database
-		Client c = new Client();
+		//Client c = new Client();
 		
 		if(cService.findOne(username) != null) {
 			
-			c = cService.findOne(username);
-			if(c.getPassword().equals(password)) {
-				ca = c;
+			System.out.println("Enter Password:\n");
+			String password = scan.nextLine();
+			
+			ca = cService.findOne(username);
+			if(ca.getPassword().equals(password)) {
+				//ca = c;
 				//send user to make account
 				accountScreen();
 				 
 			} else {
 				
 				System.out.println("Incorrect Username or Password. Please, try again!\n");
-				loginScreen();
+				loginPrompt();
 			}			
 		} else {
 			System.out.println("Incorrect Username or Password. Please, try again!\n");
-			loginScreen();
+			loginPrompt();
 		}
 		
 		//System.out.println(c.getUsername());
@@ -278,11 +280,11 @@ public class Driver {
 	}
 
 	static void createClient() {
-		Client c = new Client();
+		//Client c = new Client();
 
 		System.out.println("Please, enter your first name: \n");
 		String firstName = scan.nextLine();
-		c.setFirstName(firstName);
+		ca.setFirstName(firstName);
 
 		try {
 			if(firstName.contains("*")) {
@@ -290,13 +292,13 @@ public class Driver {
 			}
 		} catch(MyException e) {
 			System.out.println("You definitely are a star, but"
-							+" do not use an * in your name, please!");
+							+" do not use an * in your name, please!\n");
 			createClient();
 		}
 		
 		System.out.println("Please, enter your last name: \n");
 		String lastName = scan.nextLine();
-		c.setLastName(lastName);
+		ca.setLastName(lastName);
 
 		System.out.println("Please, enter a username: \n");
 		String username = scan.nextLine();
@@ -308,7 +310,7 @@ public class Driver {
 			username= scan.nextLine();
 		}
 		
-		c.setUsername(username);
+		ca.setUsername(username);
 
 		System.out.println("Please, enter a password: \n");
 		String password = scan.nextLine();
@@ -319,10 +321,12 @@ public class Driver {
 			password= scan.nextLine();
 		}		
 		
-		c.setPassword(password);
+		ca.setPassword(password);
 
-		cService.save(c);
-		ca = c;
+		cService.save(ca);
+		System.out.println(ca.getId() + "the key we're lookin for");
+		//ca = c;
+		System.out.println(ca.getId()+ "brrrrrrrroooooooooooooooooooooo it's not being set");
 		createAccount();
 		
 	}
@@ -374,7 +378,9 @@ public class Driver {
 			a.setAccountTypeId(option);
 			a.setBalance(0.0);
 			a.setClientId(ca.getId());
+			System.out.println(ca.getId() + " account ");
 			aService.save(a);
+			System.out.println(a.getClientId() + "the client ID of the account we just created");
 			System.out.println("Congratulations! You have a new savings account!\n");
 
 			accountOptions(a);

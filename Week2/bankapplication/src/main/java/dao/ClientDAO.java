@@ -78,7 +78,7 @@ public class ClientDAO implements DAO<Client, Integer> {
 	
 	@Override
 	public Client save(Client a) {
-		Client c = new Client();
+		//Client c = new Client();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
@@ -98,17 +98,17 @@ public class ClientDAO implements DAO<Client, Integer> {
 			if(rowsUpdated != 0) {
 				ResultSet pk = ps.getGeneratedKeys();
 				while(pk.next()) {
-					//System.out.println(pk.getInt(1));
-					c.setId(pk.getInt(1));
+					System.out.println(pk.getInt(1)+ " client id");
+					a.setId(pk.getInt(1));
 				}
-				conn.commit();
+				//conn.commit();
 			}			
-			
+			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return c;
+		return a;
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class ClientDAO implements DAO<Client, Integer> {
 				}
 				conn.commit();
 			}			
-			
+			conn.commit(); //					change I just made 1:49
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

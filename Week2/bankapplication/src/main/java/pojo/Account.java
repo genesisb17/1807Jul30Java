@@ -2,7 +2,7 @@ package pojo;
 
 public class Account {
 
-	private int id;
+	private int accountId;
 	private Double Balance;
 	private int accountTypeId;
 	private int clientId;
@@ -14,18 +14,18 @@ public class Account {
 
 	public Account(int id, Double balance, int accountTypeId, int clientId) {
 		super();
-		this.id = id;
+		this.accountId = id;
 		Balance = balance;
 		this.accountTypeId = accountTypeId;
 		this.clientId = clientId;
 	}
 
-	public int getId() {
-		return id;
+	public int getAccountId() {
+		return accountId;
 	}
 
-	public void setId(int i) {
-		this.id = i;
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
 
 	public Double getBalance() {
@@ -38,7 +38,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", Balance=" + Balance + ", accountTypeId=" + accountTypeId + "]";
+		return "Account [id=" + accountId + ", Balance=" + Balance + ", accountTypeId=" + accountTypeId + "]";
 	}
 
 	public int getAccountTypeId() {
