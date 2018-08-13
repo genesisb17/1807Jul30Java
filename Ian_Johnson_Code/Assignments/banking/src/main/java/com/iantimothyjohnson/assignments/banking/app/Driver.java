@@ -202,7 +202,7 @@ public class Driver {
 				LOGGER.log(Level.SEVERE, "Attempted to deposit to non-existent account.", e);
 				break;
 			}
-			tui.printSuccess("Successfully deposited " + StringUtils.formatDollarValue(depositAmount) + ".");
+			tui.printSuccess("Successfully deposited " + StringUtils.formatDollarString(depositAmount) + ".");
 			break;
 		case "Withdraw":
 			BigDecimal withdrawAmount = tui.promptDollarAmount("Amount to withdraw (in dollars)");
@@ -216,7 +216,7 @@ public class Driver {
 				LOGGER.log(Level.SEVERE, "Attempted to withdraw from non-existent account.", e);
 				break;
 			}
-			tui.printSuccess("Successfully withdrew " + StringUtils.formatDollarValue(withdrawAmount) + ".");
+			tui.printSuccess("Successfully withdrew " + StringUtils.formatDollarString(withdrawAmount) + ".");
 			break;
 		case "Transfer":
 			transfer(user, account);
@@ -272,7 +272,7 @@ public class Driver {
 		try {
 			AccountService.getInstance().update(to);
 			AccountService.getInstance().update(from);
-			tui.printSuccess("Successfully transferred " + StringUtils.formatDollarValue(amount) + " from "
+			tui.printSuccess("Successfully transferred " + StringUtils.formatDollarString(amount) + " from "
 					+ from.getName() + " to " + to.getName() + ".");
 		} catch (AccountNotFoundException e) {
 			LOGGER.log(Level.SEVERE, "Attempted to transfer between non-existent accounts.", e);

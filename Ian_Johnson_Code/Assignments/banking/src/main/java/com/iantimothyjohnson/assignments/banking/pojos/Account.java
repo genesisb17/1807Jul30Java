@@ -2,9 +2,9 @@ package com.iantimothyjohnson.assignments.banking.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.InsufficientFundsException;
+import com.iantimothyjohnson.assignments.banking.util.StringUtils;
 
 /**
  * A class representing a single bank account.
@@ -68,8 +68,7 @@ public class Account implements Serializable {
 	 * @return The account balance in a nice format, e.g. "$4,502.50".
 	 */
 	public String getBalanceString() {
-		DecimalFormat balanceFormat = new DecimalFormat("$#,##0.00");
-		return balanceFormat.format(balance);
+		return StringUtils.formatDollarString(balance);
 	}
 
 	/**

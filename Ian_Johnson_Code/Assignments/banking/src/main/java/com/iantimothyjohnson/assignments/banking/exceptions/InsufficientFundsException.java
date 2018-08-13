@@ -1,7 +1,8 @@
 package com.iantimothyjohnson.assignments.banking.exceptions;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+
+import com.iantimothyjohnson.assignments.banking.util.StringUtils;
 
 /**
  * An exception thrown when an account does not have sufficient funds to perform
@@ -11,7 +12,6 @@ import java.text.DecimalFormat;
  */
 public class InsufficientFundsException extends Exception {
 	private static final long serialVersionUID = 1L;
-	private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("$#,##0.00");
 
 	/**
 	 * Constructs a new InsufficientFundsException.
@@ -21,6 +21,7 @@ public class InsufficientFundsException extends Exception {
 	 * @param have How much money (in dollars) the account actually has.
 	 */
 	public InsufficientFundsException(BigDecimal need, BigDecimal have) {
-		super("Insufficient funds; need " + MONEY_FORMAT.format(need) + ", have " + MONEY_FORMAT.format(have) + ".");
+		super("Insufficient funds; need " + StringUtils.formatDollarString(need) + ", have "
+				+ StringUtils.formatDollarString(have) + ".");
 	}
 }

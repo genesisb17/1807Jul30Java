@@ -2,8 +2,6 @@ package com.iantimothyjohnson.assignments.banking.ui;
 
 import java.io.EOFException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
 import java.util.Arrays;
 
 import com.iantimothyjohnson.assignments.banking.util.StringUtils;
@@ -132,7 +130,7 @@ public abstract class TUI {
 			String numberString = promptNonEmptyLine(prompt);
 			// Get rid of unnecessary but allowable characters in the input.
 			try {
-				BigDecimal result = parseDollarString(numberString);
+				BigDecimal result = StringUtils.parseDollarString(numberString);
 				if (result.compareTo(BigDecimal.ZERO) < 0) {
 					printError("Please enter a non-negative amount.");
 				} else {
@@ -321,38 +319,5 @@ public abstract class TUI {
 	public String selectValue(String prompt, String... menuItems) throws EOFException {
 		int index = select(prompt, menuItems);
 		return menuItems[index];
-	}
-
-	/**
-	 * Parses a dollar input string by stripping unnecessary but allowable
-	 * characters and then converting it to a BigInteger. Currently, these
-	 * characters are a leading dollar sign and commas as separators before the
-	 * decimal point.
-	 * 
-	 * @param input The input to normalize.
-	 * @return The normalized input.
-	 * @throws NumberFormatException If the given input, after stripping unnecessary
-	 *                               characters, is not a valid decimal number.
-	 */
-	protected BigDecimal parseDollarString(String input) {
-		if (input.charAt(0) == '$') {
-			input = input.substring(1).trim();
-		}
-		DecimalFormat format = new DecimalFormat("#,##0.00");
-		format.setParseBigDecimal(true);
-		// The parse method of a DecimalFormat takes a String input as well as a
-		// ParsePosition; the ParsePosition is updated to point to the character
-		// after the last character parsed during the method. Since we want the
-		// entire string to match the format, we check to make sure it is past
-		// the end of the string before returning the result.
-		ParsePosition pos = new ParsePosition(0);
-		BigDecimal parsed = (BigDecimal) format.parse(input, pos);
-		if (parsed == null || pos.getIndex() != input.length() || parsed.scale() > 2) {
-			// The reason why we throw a NumberFormatException when the scale is
-			// greater than 2 is because we don't want the user to be able to
-			// make transactions involving fractions of a cent.
-			throw new NumberFormatException();
-		}
-		return parsed;
 	}
 }
