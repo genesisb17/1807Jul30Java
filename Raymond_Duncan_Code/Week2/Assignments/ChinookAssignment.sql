@@ -69,6 +69,10 @@ select * from employee where hiredate between to_date('01/06/2003', 'DD/MM/YYYY'
 
 -----------         2.7 DELETE         -----------
 --Task – Delete a record in Customer table where the name is Robert Walter (There may be constraints that rely on this, find out how to resolve them).
+select * from customer where firstname = 'Robert' and lastname = 'Walter';
+select * from invoice where customerid = 32;
+select * from invoiceline where invoiceid = 50;
+
 alter table invoice 
     drop CONSTRAINT "FK_INVOICECUSTOMERID";
 alter table invoice
@@ -80,7 +84,12 @@ alter table invoiceline
     
 delete from customer where firstname = 'Robert' and lastname = 'Walter';
 select * from customer where firstname = 'Robert' and lastname = 'Walter';
+select * from invoice where customerid = 32;
+select * from invoiceline where invoiceid = 50;
 
+insert into mediatype values(20,'Betamax');
+insert into track(trackid,name,mediatypeid,milliseconds,unitprice) values(9000,'Best track',20,50,10);
+delete from mediatype where name = 'Betamax' cascade;
 
 
 /************************************************************************
@@ -196,16 +205,69 @@ SELECT * FROM employee WHERE birthdate BETWEEN to_date('12-31-1968', 'MM-DD-YYYY
 
 -----------           4.1 Basic Stored Procedure           -----------
 --Task – Create a stored procedure that selects the first and last names of all the employees.
-CREATE OR REPLACE PROCEDURE all_employees
+CREATE OR REPLACE PROCEDURE employee_names(l_employees OUT SYS_REFCURSOR) AS
+--    l_employees SYS_REFCURSOR;
+    l_firstname employee.firstname%TYPE;
+    l_lastname employee.lastname%TYPE;
+BEGIN
+    OPEN l_employees for select firstname,lastname from employee;
+END;
+/
 
+DECLARE l_employees SYS_REFCURSOR;
+BEGIN
+    NULL;
+END;
+/
+
+VARIABLE l_employees REFCURSOR;
+EXECUTE employee_names(:l_employees);
+PRINT L_EMPLOYEES;
 
 -----------           4.2 Stored Procedure Input Parameters           -----------
 --Task – Create a stored procedure that updates the personal information of an employee.
+CREATE OR REPLACE PROCEDURE update_address(empl_id IN employee.employeeid%TYPE, new_addr IN employee.address%TYPE) AS
+BEGIN
+    UPDATE employee set address = new_addr;
+END;
+/
+
 --Task – Create a stored procedure that returns the managers of an employee.
+CREATE OR REPLACE PROCEDURE get_managers(empl_id IN employee.employeeid%TYPE) AS
+    eid employee.employeeid%TYPE := empl_id;
+    fname employee.firstname%TYPE;
+    lname employee.lastname%TYPE;
+BEGIN
+    --Print the employee's name
+    SELECT firstname,lastname INTO fname,lname FROM employee WHERE employeeid = eid;
+    dbms_output.put_line(fname || ' ' || lname || ' reports to:');
+    SELECT reportsto INTO eid FROM employee WHERE employeeid = eid;
+    
+    LOOP
+    IF eid >= 1 THEN
+        SELECT firstname,lastname INTO fname,lname FROM employee WHERE employeeid = eid;
+        dbms_output.put_line(fname || ' ' || lname);
+        SELECT reportsto INTO eid FROM employee WHERE employeeid = eid;
+    ELSE 
+        EXIT; 
+    END IF;
+    END LOOP;
+END;
+/
+EXECUTE get_managers(empl_id=>1/*number*/);
 
 -----------           4.3 Stored Procedure Output Parameters           -----------
 --Task – Create a stored procedure that returns the name and company of a customer.
-
+CREATE OR REPLACE PROCEDURE customer_info(cust_id IN customer.customerid%TYPE) AS
+    fname customer.firstname%TYPE;
+    lname customer.lastname%TYPE;
+    comp customer.company%TYPE;
+BEGIN
+    SELECT firstname,lastname,company INTO fname,lname,comp FROM customer WHERE customerid = cust_id;
+    dbms_output.put_line(fname || ' ' || lname || ' works for company ' || comp);
+END;
+/
+EXECUTE customer_info(3);
 
 /*************************************************************************
 **                         5.0 SQL Transactions                         **
@@ -213,7 +275,95 @@ CREATE OR REPLACE PROCEDURE all_employees
 -- In this section you will be working with transactions. Transactions are usually nested within a stored procedure.
 
 --Task – Create a transaction that given a invoiceId will delete that invoice (There may be constraints that rely on this, find out how to resolve them).
+CREATE OR REPLACE PROCEDURE delete_invoice(inv_id IN invoice.invoiceid%TYPE) AS
+BEGIN
+    SAVEPOINT pre_invoice_delete;
+    --Logic for deleting the invoice
+    DELETE FROM invoice WHERE invoiceid = inv_id;
+    
+    IF SQL%ROWCOUNT = 0 THEN
+        ROLLBACK TO pre_invoice_delete;
+    END IF;
+    COMMIT;
+END;
+/
+select * from invoice where invoiceid = 6;
+EXECUTE delete_invoice(6);
+select * from invoice where invoiceid = 6;
 --Task – Create a transaction nested within a stored procedure that inserts a new record in the Customer table
+CREATE OR REPLACE PROCEDURE new_customer(
+    cust_fname IN customer.firstname%TYPE,
+    cust_lname IN customer.lastname%TYPE,
+    cust_email IN customer.email%TYPE,
+    cust_id OUT NUMBER
+) AS
+BEGIN
+    SAVEPOINT pre_customer_insertion;
+    SELECT max(customerid)+1 INTO cust_id FROM customer;
+    dbms_output.put_line(cust_id);
+    INSERT INTO customer(customerid,firstname,lastname,email) VALUES(cust_id,cust_fname,cust_lname,cust_email);
+    IF SQL%ROWCOUNT = 0 THEN 
+        ROLLBACK TO pre_customer_insertion;
+        dbms_output.put_line('Rolling back customer insertion');
+    END IF;
+    COMMIT;
+END;
+/
+CREATE OR REPLACE PROCEDURE new_invoice(
+    cust_fname IN customer.firstname%TYPE,
+    cust_lname IN customer.lastname%TYPE,
+    cust_email IN customer.email%TYPE,
+    inv_total IN invoice.total%TYPE
+) AS
+    cust_id NUMBER;
+    inv_id NUMBER;
+    inv_date DATE;
+BEGIN
+    dbms_output.put_line('Starting procedure');
+    SELECT customerid INTO cust_id FROM customer WHERE firstname = cust_fname AND lastname = cust_lname AND email = cust_email;
+    <<invoice_insertion>>   
+    SELECT max(invoiceid)+1 INTO inv_id FROM invoice;
+    SELECT CURRENT_DATE INTO inv_date FROM DUAL;
+    dbms_output.put_line('Starting procedure 2');
+    ------------------- Atomic transaction 2 -------------------
+    SAVEPOINT pre_invoice_insertion;
+    INSERT INTO invoice(invoiceid,customerid,invoicedate,total)
+    VALUES(inv_id,cust_id,inv_date,inv_total);
+    IF SQL%ROWCOUNT = 0 THEN 
+        ROLLBACK TO pre_invoice_insertion;
+        dbms_output.put_line('Rolling back invoice insertion');
+    END IF;
+    COMMIT;
+    ------------------------------------------------------------
+    EXCEPTION WHEN OTHERS THEN
+        dbms_output.put_line('Entering exception');
+        --Nested procedure to create new customer profile
+        ------------------- Atomic transaction 1 -------------------
+        EXECUTE IMMEDIATE new_customer(cust_fname,cust_lname,cust_email,cust_id);
+        GOTO invoice_insertion;
+        ------------------------------------------------------------
+END;
+/
+
+select * from invoice;
+select * from invoiceline;
+select sum(unitprice) from invoiceline where invoiceid = 40;
+select * from invoiceline order by quantity desc;
+select max(invoiceid)+1 from invoice;
+VARIABLE date NUMBER;
+SELECT 1 INTO date FROM DUAL;
+IF SQL%ROWCOUNT = 0 THEN 
+SELECT * FROM DUAL; 
+END IF;
+
+SELECT 1 FROM DUAL;
+
+SELECT * FROM customer WHERE firstname = 'Ronald';
+EXECUTE new_invoice('Ronald','McDonald','ronald@mcdonald.com',9.99);
+EXECUTE new_invoice('Ronalds','MacDonald','ronald@mcdonald.com',9.99);
+SELECT * FROM customer WHERE firstname = 'Ronalds';
+SELECT * FROM invoice WHERE customerid = 62;
+
 
 
 /*************************************************************************
@@ -222,9 +372,47 @@ CREATE OR REPLACE PROCEDURE all_employees
 -- In this section you will create various kinds of triggers that work when certain DML statements are executed on a table.
 
 -----------           6.1 AFTER/FOR           -----------
---Task - Create an after insert trigger on the employee table fired after a new record is inserted into them table.
---Task – Create an after update trigger on the album table that fires after a row is inserted in the table
+--Task - Create an after insert trigger on the employee table fired after a new record is inserted into the table.
+SELECT max(employeeid) FROM employee;
+CREATE SEQUENCE emp_id_generator 
+MINVALUE 0
+START WITH 9
+INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER emp_insertion_success
+AFTER INSERT ON employee
+BEGIN
+    dbms_output.put_line('My Trigger: Successful employee insertion!');
+END;
+/
+INSERT INTO employee(employeeid,firstname,lastname,email)
+VALUES((SELECT max(employeeid)+1 FROM employee),'Ron','Swanson','rswanson@pawnee.gov');
+INSERT INTO employee(employeeid,firstname,lastname,email)
+VALUES((SELECT max(employeeid)+1 FROM employee),'Leslie','Knope','lknopw@pawnee.gov');
+INSERT INTO employee(employeeid,firstname,lastname,email)
+VALUES((SELECT max(employeeid)+1 FROM employee),'Tom','Haverford','thaverford@pawnee.gov');
+INSERT INTO employee(employeeid,firstname,lastname,email)
+VALUES((SELECT max(employeeid)+1 FROM employee),'Bill','Withers','bwithers@aol.com');
+--Task – Create an after update trigger on the album table that fires after a row is updated in the table
+CREATE OR REPLACE TRIGGER album_update_success
+AFTER UPDATE ON album
+BEGIN
+    dbms_output.put_line('My Trigger: Album update successful');
+END;
+/
+SELECT * FROM album;
+INSERT INTO album
+VALUES((SELECT max(albumid)+1 FROM album),'D A R N.',2);
+UPDATE album SET artistid = 3 WHERE title = 'D A R N.';
 --Task – Create an after delete trigger on the customer table that fires after a row is deleted from the table.
+CREATE OR REPLACE TRIGGER customer_delete_success
+AFTER DELETE ON customer
+BEGIN
+    dbms_output.put_line('My Trigger: Customer delete successful');
+END;
+/
+SELECT * FROM customer ORDER BY customerid DESC;
+DELETE FROM customer WHERE customerid = 62;
 
 
 /*************************************************************************
@@ -234,25 +422,95 @@ CREATE OR REPLACE PROCEDURE all_employees
 
 -----------           7.1 INNER           -----------
 --Task – Create an inner join that joins customers and orders and specifies the name of the customer and the invoiceId.
+SELECT c.firstname,c.lastname,i.invoiceid FROM customer c INNER JOIN invoice i ON c.customerid = i.customerid ORDER BY c.firstname,c.lastname,i.invoiceid;
 
 -----------           7.2 OUTER           -----------
 --Task – Create an outer join that joins the customer and invoice table, specifying the CustomerId, firstname, lastname, invoiceId, and total.
+SELECT c.customerid,c.firstname,c.lastname,i.invoiceid,i.total FROM customer c FULL OUTER JOIN invoice i ON c.customerid = i.customerid ORDER BY c.firstname,c.lastname,i.invoiceid;
 
 -----------           7.3 RIGHT           -----------
 --Task – Create a right join that joins album and artist specifying artist name and title.
+SELECT ar.artistid,ar.name,al.title FROM album al RIGHT JOIN artist ar ON al.artistid = ar.artistid ORDER BY ar.name; 
 
 -----------           7.4 CROSS           -----------
 --Task – Create a cross join that joins album and artist and sorts by artist name in ascending order.
+SELECT * FROM artist CROSS JOIN album;
 
 -----------           7.5 SELF           -----------
 --Task – Perform a self-join on the employee table, joining on the reportsto column.
+SELECT e.firstname AS "Employee Firstname", e.lastname AS "Employee Lastname", m.firstname AS "Manager Firstname", m.lastname AS "Manager Lastname"
+FROM employee e LEFT JOIN employee m ON e.reportsto = m.employeeid ORDER BY m.firstname,m.lastname,e.firstname,e.lastname;
 
 -----------           7.6 Complicated Join assignment           -----------
 -- Create an inner join between all tables in the chinook database.
+SELECT 
+    c.firstname as "Customer firstname",
+    c.lastname as "Customer lastname",
+    c.company as "Company",
+    c.address as "Customer address",
+    c.city as "Customer city",
+    c.state as "Customer state",
+    c.postalcode as "Customer postal code",
+    c.phone as "Customer phone",
+    c.fax as "Customer fax",
+    c.email as "Customer email",
+    e.firstname as "Customer firstname",
+    e.lastname as "Customer lastname",
+    e.title as "Support rep title",
+    m.firstname as "Support rep manager firstname",
+    m.lastname as "Support rep manager lastname",
+    e.birthdate as "Support rep birthdate",
+    e.hiredate as "Support rep hiredate",
+    e.address as "Support rep address",
+    e.city as "Support rep city",
+    e.state as "Support rep state",
+    e.postalcode as "Support rep postal code",
+    e.phone as "Support rep phone",
+    e.fax as "Support rep fax",
+    e.email as "Support rep email",
+    i.invoiceid as "Invoice ID",
+    i.invoicedate as "Invoice date",
+    i.billingaddress as "Invoice billing address",
+    i.billingstate as "Invoice billing state",
+    i.billingcountry as "Invoice billing country",
+    i.billingpostalcode as "Invoice billing postal code",
+    i.total as "Invoice total",
+    il.invoicelineid as "Invoice line id",
+    il.trackid as "Track ID",
+    il.unitprice as "Invoice line price",
+    il.quantity as "Invoice line quantity",
+    t.name as "Track name",
+    t.albumid as "Album ID",
+    al.title as "Album title",
+    al.artistid as "Artist ID",
+    ar.name as "Artist name",
+    t.mediatypeid as "Mediatype ID",
+    mt.name as "Media type",
+    t.genreid as "Genre ID",
+    g.name as "Genre",
+    t.composer as "Composer",
+    t.milliseconds as "Track length (ms)",
+    t.bytes as "Track size (B)",
+    t.unitprice as "Track price",
+    pl.playlistid as "Playlist ID",
+    pl.name as "Playlist name"    
+FROM customer c
+    FULL OUTER JOIN employee e ON c.supportrepid = e.employeeid
+    FULL OUTER JOIN employee m ON e.reportsto = m.employeeid
+    FULL OUTER JOIN invoice i ON c.customerid = i.customerid
+    FULL OUTER JOIN invoiceline il ON i.invoiceid = il.invoiceid
+    FULL OUTER JOIN track t ON il.trackid = t.trackid
+    FULL OUTER JOIN playlisttrack plt ON plt.trackid = t.trackid
+    FULL OUTER JOIN playlist pl ON pl.playlistid = plt.playlistid
+    FULL OUTER JOIN genre g ON t.genreid = g.genreid
+    FULL OUTER JOIN album al ON t.albumid = al.albumid
+    FULL OUTER JOIN artist ar ON al.artistid = ar.artistid
+    FULL OUTER JOIN mediatype mt ON t.mediatypeid = mt.mediatypeid;
 
 
 
 -----   DO NOT CONTINUE!!!
+-----   DON'T FORGET TO FIX 3.4 AND 5.0 TASK 3!!!
 
 /*************************************************************************
 **                          9.0 Administration                          **
