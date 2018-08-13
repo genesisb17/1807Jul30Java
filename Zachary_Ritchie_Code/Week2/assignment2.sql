@@ -96,7 +96,132 @@ drop constraint fk_invoicecustomerid;
 delete from customer 
 where firstname = 'Robert' and lastname = 'Walter';
 
+/*3.1 System define fucntions*/
+/*select Current_Timestamp;*/
 
+/*3.2 System define aggregate functions*/
+select avg(total) from invoice;
+select max(unitprice) from track;
+
+/*3.3 User define functions*/
+select avg(unitprice) from invoiceline;
+
+/*3.4 User define table valued functions*/
+/*create or replace function get_all_birthdates(cursorParam out sys_refcursor)
+is 
+begin
+open cursorParam for select * from employee where brithday > 01-JAN-1968;
+end;*/
+
+
+/*4.1 Basic stored procedures*/
+create or replace procedure get_employee(cursorr out sys_refcursor)
+as
+begin
+open cursorr
+for select firstname, lastname
+from employee;
+end;
+/
+variable rc refcursor;
+execute get_employee(:rc);
+print rc;
+/*4.2 Store procedure input parameters*/
+create or replace procedure update_employee(
+zemployeeid number,
+Zlastname varchar2,
+Zfirstname varchar2,
+Ztitle varchar2, 
+Zreportsto number,
+Zbirthdate date,
+Zhiredate date,
+Zaddress varchar2,
+Zcity varchar2,
+Zstate varchar2,
+Zcountry varchar2,
+Zpostalcode varchar2,
+Zphone varchar2,
+Zfax varchar2,
+Zemail varchar2) 
+as
+begin
+  update employee set
+  employeeid = Zemployeeid,
+  lastname = zlastname,
+  firstname = zfirstname,
+  title = ztitle,
+  reportsto = zreportsto,
+  birthdate = zbirthdate,
+  hiredate = zhiredate,
+  address = zaddress,
+  city = zcity,
+  state = zstate,
+  country = zcountry,
+  postalcode = zpostalcode,
+  phone = zphone,
+  fax = zfax,
+  email = zemail
+  where Zemployeeid = employeeid;
+end;
+/
+
+create or replace procedure get_company(zemployeeid number, 
+cursorr out sys_refcursor)
+as
+begin
+open cursorr for 
+select employeeid from employee where employeeid = (
+select firstname from employee where employeeid = zemployeeid); 
+end;
+/
+
+/*4.3 Store procedure output parameters*/
+create or replace procedure get_manager(
+zcustomerid number,
+cursorr out sys_refcursor)
+as
+begin
+open cursorr for
+select firstname, company from customer 
+where customerid = zcustomerid;
+end;
+/
+
+/*5.0 transactions*/
+create or replace procedure remove_invoice(
+Zinvoiceid number)
+as
+begin
+delete from invoice where invoiceid = Zinvoiceid;
+end;
+/
+
+
+/*6.1 After/for*/
+CREATE OR REPLACE TRIGGER c_trig
+after insert on employee
+for each row 
+begin 
+   DBMS_output.put_line('Employee inserted');
+end;
+/
+
+CREATE OR REPLACE TRIGGER u_trig
+after update on album
+for each row 
+begin 
+   DBMS_output.put_line('Album updated');
+end;
+/
+
+
+CREATE OR REPLACE TRIGGER u_trig
+after delete on customer
+for each row 
+begin 
+   DBMS_output.put_line('customer deleted');
+end;
+/
 /* 7.1 Joins */ 
 select customer.customerid, invoice.customerid, 
 customer.firstname, customer.lastname
