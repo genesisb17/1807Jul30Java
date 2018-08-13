@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +20,14 @@ public class ClientDAO implements Dao<Client, Integer>{
 	public List<Client> findAll() {
 		List<Client> clients = new ArrayList<Client>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "Select * From client(client_id, first_name, last_name, user_name, password)values(?, ?, ?, ?, ?)";
+			String query = "Select * From client";
 			
-			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, OracleTypes.CURSOR);
-			cs.execute();
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
 			
-			ResultSet rs = (ResultSet) cs.getObject(1);
 			while(rs.next()) {
 				Client temp = new Client();
-				temp.setId(rs.getInt("client_id"));
+				temp.setClientId(rs.getInt("client_id"));
 				temp.setFirstName(rs.getString("first_name"));
 				temp.setLastName(rs.getString("last_name"));
 				temp.setUserName(rs.getString("user_name"));
@@ -52,35 +51,41 @@ public class ClientDAO implements Dao<Client, Integer>{
 
 	@Override
 	public Client save(Client obj) {
-		Client client = new Client();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			conn.setAutoCommit(false);
 			String query = "INSERT INTO client(first_name, last_name, user_name, password) "
 					+ "values(?,?, ?, ?)";
 			
-			String[] keys = new String[1];   //Double check this
+			String[] keys = new String[1];   
 			keys[0] = "client_id";
 			
-			PreparedStatement ps = conn.prepareStatement(query, keys);
+			PreparedStatement ps = conn.prepareStatement(query, keys);	
 			ps.setString(1, obj.getFirstName());
 			ps.setString(2, obj.getLastName());
 			ps.setString(3, obj.getUserName());
-			ps.setString(4, obj.getPassword()) ;
+			ps.setString(4, obj.getPassword());
 			
 			int rows = ps.executeUpdate();
 			
+	
+
 			if(rows != 0) {
 				ResultSet pk = ps.getGeneratedKeys();
 				while(pk.next()) {
-					obj.setId(pk.getInt(1));
+					obj.setClientId(pk.getInt(1));
+					
 				}
 				
 				conn.commit();
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		
+		System.out.println(obj.toString());
 		return obj;		
 		
 	}
@@ -99,6 +104,24 @@ public class ClientDAO implements Dao<Client, Integer>{
 		
 	}
 
-	
+	public int getClientId(int id) {
+		int g = 0;
+		try(Connection conn = ConnectionFactory
+				.getInstance().getConnection()){
+			String sql = "select * from genre where genre_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet info = ps.executeQuery();
+			while(info.next()) {
+			g = info.getInt(1);
+
+			}
+			// more code
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return g;
+	}
 	
 }

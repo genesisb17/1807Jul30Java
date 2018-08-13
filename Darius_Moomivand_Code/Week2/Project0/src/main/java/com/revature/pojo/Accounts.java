@@ -1,9 +1,10 @@
 package com.revature.pojo;
 
 public class Accounts {
-	private int accountTypeId;
-	private double balance;
 	private int accId;
+	private double balance;
+	private int accountTypeId;
+
 	
 	public Accounts() {}
 	public Accounts(int accountTypeId) {
@@ -27,10 +28,7 @@ public class Accounts {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	@Override
-	public String toString() {
-		return "Accounts [accountTypeId=" + accountTypeId + ", balance=" + balance + "]";
-	}
+
 
 	public int getAccId() {
 		return accId;
@@ -40,6 +38,9 @@ public class Accounts {
 		this.accId = accId;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Accounts [accId=" + accId + ", balance=" + balance + ", accountTypeId=" + accountTypeId + "]";
+	}
 
 }

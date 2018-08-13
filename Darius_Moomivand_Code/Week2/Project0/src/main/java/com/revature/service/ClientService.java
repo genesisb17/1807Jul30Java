@@ -10,8 +10,13 @@ public class ClientService {
 	
 	static Dao<Client, Integer> cDao = new ClientDAO();
 	
-	public void enterClient(Client newClient) {
-		cDao.save(newClient);
+	public int enterClient(Client newClient) {
+		Client client = cDao.save(newClient);
+		int newId = client.getClientId();
+		return newId;
+	}
+	
+	public void getClientId(int id) {
 		
 	}
 

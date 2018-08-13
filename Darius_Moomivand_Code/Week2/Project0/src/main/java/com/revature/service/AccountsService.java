@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.dao.AccountsDao;
@@ -11,8 +12,10 @@ public class AccountsService {
 	static Dao<Accounts, Integer> aDao = new AccountsDao();
 
 	
-	public void saveNew(Accounts obj) {
-		aDao.save(obj);
+	public int saveNew(Accounts obj) {
+		Accounts account = aDao.save(obj);
+		int newId = account.getAccId();
+		return newId;
 	}
 	
 	public List<Accounts> getAll(){
