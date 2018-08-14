@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- This must be the first line of an HTML file. -->
+<html lang="en">
+<!-- This is the root element of the page. -->
+
+<head>
+  <!-- This is where all the page's metadata lives. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/css101.css">
+  <title>HTML 101</title>
+</head>
+
+<body>
+  <!-- This is where all content to display goes. Note: elements can be
+  hidden or removed. -->
+  Hello! This is our first HTML page!
+  <!-- It's better to put text inside an element, like a p (paragraph). -->
+  <p id="text1">Hello! This is text inside of a paragraph tag.</p>
+  <h1>h1</h1>
+  <h2>h2</h2>
+  <h3>h3</h3>
+  <h4>h4</h4>
+  <h5>h5</h5>
+  <h6>h6</h6>
+  <!-- This is a horizontal line: -->
+  <hr>
+
+  <h2>Lists</h2>
+  <p>
+    There are two types of lists: ordered (numbered) and unordered (bullets).
+  </p>
+  <ul>
+    <li>First</li>
+    <li>Second</li>
+    <li>More</li>
+    <li>More</li>
+    <li>More</li>
+  </ul>
+  <ol>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+    <li>Item</li>
+  </ol>
+  <div>
+    Divs are used for grouping things so they can be styled.
+  </div>
+  <hr>
+  <h2>Forms</h2>
+  <form method="GET" action="test">
+    <input name="username" type="text" placeholder="Username"><br>
+    <input type="number" max="100" min="0" name="age"><br>
+    <input type="password" name="password"><br>
+    <input type="radio" name="role" id="role1"><label for="role1">Associate</label><br>
+    <input type="radio" name="role" id="role2"><label for="role2">Trainer</label><br>
+    <input type="color" name="color"><br>
+    <input type="submit" value="Submit">
+    <!-- You need the name attribute for elements in a form. -->
+  </form>
+
+  <h6>More on forms... let's check out outputs!</h6>
+  <form oninput="y.value = a.value">
+    <input type="range" name="a" min="0" max="100">
+    <output name="y" for="a"></output>
+  </form>
+
+  <footer>This is a footer.</footer>
+</body>
+
+</html>
