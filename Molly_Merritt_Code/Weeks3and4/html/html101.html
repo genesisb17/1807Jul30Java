@@ -1,0 +1,100 @@
+<!DOCTYPE html> <!-- must be first line of HTML file. indicates that it is HTML5-->
+<html lang="en">    <!-- ROOT ELEMENT of html page -->
+<head>  <!-- where all metadata describing html page lives -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 101</title> <!-- what shows up on a tab in your browser -->
+    <link rel="stylesheet" href="../css/css101.css">
+
+    <style>
+        .first {
+            color: blue;    /* internal takes precedence unless you use !important */
+        }
+    </style>
+</head>
+<body>  <!-- Where all content to display goes. note* elements can be hidden/removed -->
+    Hello! This is our first HTML page! <!-- plain text outside of any element is just like a paragraph tag-->
+    <p id="text1">Hello! This is our first HTML page!</p>  <!-- it's ideal to put text in a paragraph tag -->
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+
+    <hr>    <!-- horizontal line -->
+        <br>
+    <hr>
+        <br>
+        <br>
+        <br>
+        <br>
+    <br>
+
+    <h3>Lists:</h3>
+    <h6>There are two types of lists: Ordered (numbered) and Unordered (bullets)</h6>
+    <ul>
+        <li class="first">first
+            <ul>
+                <li>indexed</li>
+            </ul>
+        </li>
+        <li>second</li>
+        <li>third</li>
+    </ul>
+
+    <ol>
+        <li class="first colorful">first</li>   <!-- class is always one word, so space here is ok -->
+        <li>second</li>
+    </ol>
+
+    <div class="jumbotron">
+    </div>
+
+    <hr>
+    <h2>Forms</h2>
+    <form method="GET" action="test">   <!-- this won't work b/c we don't have a server side application -->
+        <input type="text" placeholder="Username" name="username"> <br>
+        <input type="number" max="100" min="0" name="age"> <br>
+        <input type="password" placeholder="Password" name="password"> <br>
+        <br>
+        <input type="radio" name="role" value="Associate"> Associate <br>
+        <input type="radio" name="role" value="Trainer" checked> Trainer <br>
+        <br>
+        Countries Traveled: <br>
+        <input type="checkbox" name="Cuba" value="cuba"> Cuba <br>
+        <input type="checkbox" name="Mexico" value="mexico"> Mexico <br>
+        <input type="checkbox" name="Australia" value="australia"> Australia <br>
+        <input type="color" name="favcolor">
+
+        <input type="submit" value="Submit Button">
+
+    </form>
+    <!-- in a form, you need the name attribute in order to be able to submit the form -->
+
+    <!-- This is what shows up when we hit the "submit" button: -->
+    <!-- file:///Users/mollymerritt/my_git_repos/1807Jul30Java/Molly_Merritt_Code/Weeks3and4/html/test?
+        username=newUser
+        &age=75
+        &password=password
+        &role=Trainer
+        &Cuba=cuba
+        &Mexico=mexico
+        &favcolor=%234b913f -->
+    <br><br>
+    <h6>More on forms... Let's check out <i>outputs</i></h6>
+    <form oninput="y.value=a.value">
+        <input type="range" name="a" min="0" max="100">
+        <output name="y" for="a"></output>
+    </form>
+
+    <button>This is a button</button>
+
+    <br><br>
+    <footer>
+        this is a footer
+    </footer>
+
+</body>
+</html>

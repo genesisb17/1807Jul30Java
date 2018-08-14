@@ -115,7 +115,7 @@ create or replace function get_mediatype_length
   return mediatypeLength
   is mediatypeLength number;
 BEGIN
-  mediatypeLength := select LENGTH(name) from mediatype where mediatypeid = 1;
+  select LENGTH(name) into mediatypeLength from mediatype where mediatypeid = 1;
   return mediatypeLength;
 END;
 /

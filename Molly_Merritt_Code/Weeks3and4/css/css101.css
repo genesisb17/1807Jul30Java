@@ -1,0 +1,8 @@
+li {
+    color:#b41954  
+}
+
+.first {
+    color: green     !important;    /* usually next to just one styling property */
+    font-size: 25px;
+}
