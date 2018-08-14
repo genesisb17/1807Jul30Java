@@ -83,6 +83,20 @@ public final class AccountService {
 	}
 
 	/**
+	 * Deletes an account from the database.
+	 * 
+	 * @param account The account to delete.
+	 * @throws AccountNotFoundException If the given account was not already present
+	 *                                  in the database.
+	 */
+	public void delete(Account account) throws AccountNotFoundException {
+		userAccountDao.disassociateAllForAccount(account.getId());
+		if (!accountDao.delete(account.getId())) {
+			throw new AccountNotFoundException(account.getId());
+		}
+	}
+
+	/**
 	 * Inserts a new account into the database, initially belonging to the given
 	 * user.
 	 * 

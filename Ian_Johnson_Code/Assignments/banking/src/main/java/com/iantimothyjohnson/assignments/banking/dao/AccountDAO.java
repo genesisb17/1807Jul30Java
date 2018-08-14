@@ -16,6 +16,7 @@ import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 public class AccountDAO implements DAO<Account> {
 	private static final Logger LOGGER = Logger.getLogger(AccountDAO.class.getName());
 
+	@Override
 	public List<Account> findAll() {
 		final String query = "SELECT * FROM account";
 
@@ -29,6 +30,7 @@ public class AccountDAO implements DAO<Account> {
 		return null;
 	}
 
+	@Override
 	public Account findById(int id) {
 		final String query = "SELECT * FROM account WHERE account_id = ?";
 
@@ -45,15 +47,23 @@ public class AccountDAO implements DAO<Account> {
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean delete(int id) {
+		final String sql = "DELETE FROM account WHERE account_id = ?";
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			int affected = ps.executeUpdate();
+			return affected > 0;
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to delete account from database.", e);
+		}
+		return false;
+	}
 
-	/**
-	 * Inserts a new account into the database.
-	 * 
-	 * @param account The account to insert. The ID of the account object will be
-	 *                updated to reflect its new ID after being inserted into the
-	 *                database.
-	 * @return Whether the account was actually inserted.
-	 */
+	@Override
 	public boolean insert(Account account) {
 		final String sql = "INSERT INTO account (type, name, balance) VALUES (?, ?, ?)";
 
@@ -79,15 +89,7 @@ public class AccountDAO implements DAO<Account> {
 		return false;
 	}
 
-	/**
-	 * Updates the account data in the database corresponding to the given
-	 * (existing) account.
-	 * 
-	 * @param account The account to save to the database.
-	 * @return Whether the account was actually updated (that is, true if the
-	 *         account existed, false if there was no such account, as determined by
-	 *         the account's ID).
-	 */
+	@Override
 	public boolean update(Account account) {
 		final String sql = "UPDATE account SET type = ?, name = ?, balance = ? WHERE account_id = ?";
 

@@ -30,6 +30,15 @@ public interface DAO<T> {
 	 * @return The object found, or null if no object exists with the given ID.
 	 */
 	T findById(int id);
+	
+	/**
+	 * Deletes a single object from the database.
+	 * 
+	 * @param id The ID of the object to delete.
+	 * @return Whether the object was actually deleted (false if e.g. there was
+	 * no object with that ID or if constraints would have been violated).
+	 */
+	boolean delete(int id);
 
 	/**
 	 * Inserts a single new object in the database. Implementors of this interface

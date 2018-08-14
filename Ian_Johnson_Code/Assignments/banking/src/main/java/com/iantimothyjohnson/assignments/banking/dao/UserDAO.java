@@ -16,11 +16,7 @@ import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 public class UserDAO implements DAO<User> {
 	private static final Logger LOGGER = Logger.getLogger(UserDAO.class.getName());
 
-	/**
-	 * Finds all users in the database.
-	 * 
-	 * @return A list of all users in the database (empty if there are no users).
-	 */
+	@Override
 	public List<User> findAll() {
 		final String query = "SELECT * FROM bank_user";
 
@@ -34,12 +30,7 @@ public class UserDAO implements DAO<User> {
 		return new ArrayList<>();
 	}
 
-	/**
-	 * Finds the user with the given ID.
-	 * 
-	 * @param id The ID of the user to find.
-	 * @return The user that was found, or null if no user has the specified ID.
-	 */
+	@Override
 	public User findById(int id) {
 		final String query = "SELECT * FROM bank_user WHERE user_id = ?";
 
@@ -79,16 +70,23 @@ public class UserDAO implements DAO<User> {
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean delete(int id) {
+		final String sql = "DELETE FROM bank_user WHERE user_id = ?";
+		
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			int affected = ps.executeUpdate();
+			return affected > 0;
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to delete user from the database.", e);
+		}
+		return false;
+	}
 
-	/**
-	 * Inserts a new user into the database.
-	 * 
-	 * @param user The user to insert. The ID of the user object will be updated to
-	 *             reflect its new ID after being inserted into the database.
-	 * @return Whether the user was actually inserted (this will be false if, e.g. a
-	 *         user with the given username already exists or some other database
-	 *         error occurred).
-	 */
+	@Override
 	public boolean insert(User user) {
 		final String sql = "INSERT INTO bank_user " + "(username, password_salt, password_hash, first_name, last_name) "
 				+ "VALUES (?, ?, ?, ?, ?)";
@@ -117,15 +115,7 @@ public class UserDAO implements DAO<User> {
 		return false;
 	}
 
-	/**
-	 * Updates the user data in the database corresponding to the given (existing)
-	 * user.
-	 * 
-	 * @param user The user to save to the database.
-	 * @return Whether the user was actually updated (that is, true if the user
-	 *         existed, false if there was no such user, as determined by the user's
-	 *         ID).
-	 */
+	@Override
 	public boolean update(User user) {
 		final String sql = "UPDATE bank_user "
 				+ "SET username = ?, password_salt = ?, password_hash = ?, first_name = ?, last_name = ? "

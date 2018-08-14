@@ -63,6 +63,20 @@ public final class UserService {
 	}
 
 	/**
+	 * Deletes a user from the database.
+	 * 
+	 * @param user The user to delete.
+	 * @throws UserNotFoundException If the given user was not already present in
+	 *                               the database.
+	 */
+	public void delete(User user) throws UserNotFoundException {
+		userAccountDao.disassociateAllForUser(user.getId());
+		if (!userDao.delete(user.getId())) {
+			throw new UserNotFoundException(user.getId());
+		}
+	}
+
+	/**
 	 * Inserts a new user into the database.
 	 * 
 	 * @param user The user to insert.

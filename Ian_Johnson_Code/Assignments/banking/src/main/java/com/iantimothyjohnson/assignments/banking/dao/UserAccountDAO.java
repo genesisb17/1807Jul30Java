@@ -99,4 +99,38 @@ public class UserAccountDAO {
 			LOGGER.log(Level.SEVERE, "Unable to associate user with account in database.", e);
 		}
 	}
+
+	/**
+	 * Removes all owners from the given account.
+	 * 
+	 * @param userId The ID of the account whose owners to disassociate.
+	 */
+	public void disassociateAllForAccount(int accountId) {
+		final String sql = "DELETE FROM user_account WHERE account_id = ?";
+
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, accountId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to disassociate all of an account's owners.", e);
+		}
+	}
+
+	/**
+	 * Removes all account associations for the given user.
+	 * 
+	 * @param userId The ID of the user whose accounts to disassociate.
+	 */
+	public void disassociateAllForUser(int userId) {
+		final String sql = "DELETE FROM user_account WHERE user_id = ?";
+
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			LOGGER.log(Level.SEVERE, "Unable to disassociate all of a user's accounts.", e);
+		}
+	}
 }

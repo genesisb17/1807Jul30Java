@@ -221,7 +221,7 @@ public class Driver {
 		tui.printHeader("Balance: " + account.getBalanceString());
 
 		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Transfer", "Add owner",
-				"Return to activity selection");
+				"Delete account", "Return to activity selection");
 		switch (option) {
 		case "Deposit":
 			BigDecimal depositAmount = tui.promptDollarAmount("Amount to deposit (in dollars)");
@@ -270,8 +270,26 @@ public class Driver {
 			}
 			tui.printSuccess("Successfully added " + username + " as account holder for " + account.getName() + ".");
 			break;
+		case "Delete account":
+			if (!account.getBalance().equals(BigDecimal.ZERO)) {
+				tui.printError("This account has " + account.getBalanceString()
+						+ " remaining. Please transfer these funds to another account before deleting this one.");
+				break;
+			}
+			if (tui.promptYesOrNo("Are you sure you want to delete this account")) {
+				try {
+					AccountService.getInstance().delete(account);
+				} catch (AccountNotFoundException e) {
+					LOGGER.log(Level.SEVERE, "Unable to delete account that is known to exist.", e);
+					break;
+				}
+				tui.printSuccess("Account successfully deleted.");
+			} else {
+				tui.printError("Account deletion cancelled.");
+			}
+			break;
 		case "Return to activity selection":
-			return;
+			break;
 		}
 	}
 
