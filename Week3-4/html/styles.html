@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            max-width: 940px;
+            margin: 0 auto;
+            display: grid;
+            grid-gap: 10px;
+            grid-auto-rows: minmax(100px, auto);
+            grid-template-columns: repeat(3, 1fr);
+
+        }
+
+        .wrapper > div {
+            border: 2px solid green;
+            border-radius: 5px;
+            padding: 1em;
+            text-align: center;
+        }
+
+        #one {
+            grid-column: 1/4;
+            grid-row: 1/3;
+            background: repeating-linear-gradient(
+                45deg, transparent, yellow, green 10px, red 10px, black 20px
+            );
+        }
+
+        #two {
+            grid-column: 2/5;
+            grid-row: 3/4;
+            background: repeating-radial-gradient(
+                green, purple, orange
+            );
+        }
+
+        #three {
+            grid-column: 3/5;
+            grid-row: 2/4;
+        }
+
+        #four {
+            grid-column: 1/1;
+            grid-row: 2/4;
+        }
+
+        #five {
+            grid-column: 1/3;
+            grid-row: 2/2;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div><h1>Exploring CSS3</h1></div>
+
+    <div class="wrapper">
+        <div id="one">ONE</div>
+        <div id="two">TWO</div>
+        <div id="three">THREE</div>
+        <div id="four">FOUR</div>
+        <div id="five">FIVE</div>
+    </div>
+</body>
+</html>
