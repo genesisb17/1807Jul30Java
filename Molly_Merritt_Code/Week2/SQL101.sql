@@ -8,7 +8,7 @@ SELECT * FROM ARTIST;
 select name from artist;
 
 select * from artist where name like 'A%e';
-select * from artist where name upper(name) like 'A_a%';
+select * from artist where upper(name) like 'A_a%';
 
 /*
 System-defined functions
