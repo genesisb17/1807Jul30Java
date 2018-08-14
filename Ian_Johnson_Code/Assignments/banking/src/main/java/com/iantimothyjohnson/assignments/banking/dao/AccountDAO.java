@@ -55,14 +55,15 @@ public class AccountDAO implements DAO<Account> {
 	 * @return Whether the account was actually inserted.
 	 */
 	public boolean insert(Account account) {
-		final String sql = "INSERT INTO account (name, balance) VALUES (?, ?)";
+		final String sql = "INSERT INTO account (type, name, balance) VALUES (?, ?, ?)";
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			// We want to retrive the auto-generated account_id key.
 			String[] keys = { "account_id" };
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
-			ps.setString(1, account.getName());
-			ps.setBigDecimal(2, account.getBalance());
+			ps.setString(1, account.getType());
+			ps.setString(2, account.getName());
+			ps.setBigDecimal(3, account.getBalance());
 
 			int inserted = ps.executeUpdate();
 			ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -88,13 +89,14 @@ public class AccountDAO implements DAO<Account> {
 	 *         the account's ID).
 	 */
 	public boolean update(Account account) {
-		final String sql = "UPDATE account SET name = ?, balance = ? WHERE account_id = ?";
+		final String sql = "UPDATE account SET type = ?, name = ?, balance = ? WHERE account_id = ?";
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, account.getName());
-			ps.setBigDecimal(2, account.getBalance());
-			ps.setInt(3, account.getId());
+			ps.setString(1, account.getType());
+			ps.setString(2, account.getName());
+			ps.setBigDecimal(3, account.getBalance());
+			ps.setInt(4, account.getId());
 
 			// We check how many rows were affected to see if the user actually
 			// existed.
@@ -107,7 +109,7 @@ public class AccountDAO implements DAO<Account> {
 	}
 
 	private Account parseResultSetRow(ResultSet rs) throws SQLException {
-		return new Account(rs.getInt("account_id"), rs.getString("name"), rs.getBigDecimal("balance"));
+		return new Account(rs.getInt("account_id"), rs.getString("type"), rs.getString("name"), rs.getBigDecimal("balance"));
 	}
 
 	private List<Account> collectFromResultSet(ResultSet rs) throws SQLException {

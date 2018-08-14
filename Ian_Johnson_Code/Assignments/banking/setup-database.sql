@@ -24,6 +24,7 @@ CREATE TABLE bank_user (
 
 CREATE TABLE account (
     account_id NUMBER(6) PRIMARY KEY,
+    type VARCHAR2(32) NOT NULL CHECK (type = 'Savings' OR type = 'Checking'),
     name VARCHAR2(32) NOT NULL,
     balance NUMBER(16, 2) NOT NULL
 );
@@ -91,5 +92,3 @@ BEGIN
     END IF;
 END;
 /
-
-SELECT * FROM bank_user;

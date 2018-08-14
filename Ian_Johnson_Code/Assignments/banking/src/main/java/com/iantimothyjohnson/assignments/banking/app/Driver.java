@@ -178,6 +178,7 @@ public class Driver {
 
 	private static void createBankAccount(User user) throws EOFException {
 		Account account = new Account();
+		account.setType(tui.selectValue("Account type", Account.ACCOUNT_TYPES));
 		account.setName(tui.promptNonEmptyLine("Account name"));
 		try {
 			AccountService.getInstance().insert(account, user);
@@ -189,7 +190,8 @@ public class Driver {
 
 	private static void manipulateAccount(User user, Account account) throws EOFException {
 		// Print out some stats about the account.
-		tui.printHeader("Selected account: " + account.getName() + " (account ID " + account.getId() + ")");
+		tui.printHeader("Selected account: " + account.getName() + " (" + account.getType() + ", account ID "
+				+ account.getId() + ")");
 		tui.printHeader("Balance: " + account.getBalanceString());
 
 		String option = tui.selectValue("Please choose an action", "Deposit", "Withdraw", "Transfer", "Add owner",

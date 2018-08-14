@@ -1,6 +1,5 @@
 package com.iantimothyjohnson.assignments.banking.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,11 +17,6 @@ public class ConnectionFactory {
 	private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
 
 	/**
-	 * The path to the application.properties file where the database connection
-	 * info is stored.
-	 */
-	private static final String PROPERTIES_PATH = "src/main/resources/application.properties";
-	/**
 	 * The single instance of this class, lazily instantiated.
 	 */
 	private static ConnectionFactory instance;
@@ -34,7 +28,7 @@ public class ConnectionFactory {
 	private ConnectionFactory() {
 		try {
 			Properties props = new Properties();
-			props.load(new FileInputStream(PROPERTIES_PATH));
+			props.load(this.getClass().getResourceAsStream("/application.properties"));
 			// We need to load the driver class so it can be used.
 			Class.forName(props.getProperty("driver"));
 			url = props.getProperty("url");
