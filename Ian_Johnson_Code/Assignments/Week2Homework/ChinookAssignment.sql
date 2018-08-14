@@ -366,7 +366,72 @@ END;
 
 -- 5.0 Transactions
 -- Create a transaction that given a invoiceId will delete that invoice (There may be constraints that rely on this, find out how to resolve them).
+CREATE OR REPLACE PROCEDURE delete_invoice_transaction(invoice_id NUMBER) AS
+BEGIN
+    SET TRANSACTION NAME 'del_invoice';
+    -- First, we need to delete all the lines in the invoice.
+    DELETE FROM invoiceline WHERE invoiceid = invoice_id;
+    -- Now, we can delete the invoices themselves.
+    DELETE FROM invoice WHERE invoiceid = invoice_id;
+    COMMIT;
+END;
+/
+
+CALL delete_invoice_transaction(1);
+
 -- Create a transaction nested within a stored procedure that inserts a new record in the Customer table.
+CREATE OR REPLACE PROCEDURE insert_new_customer(
+    customerid NUMBER,
+    firstname VARCHAR2,
+    lastname VARCHAR2,
+    company VARCHAR2,
+    address VARCHAR2,
+    city VARCHAR2,
+    state VARCHAR2,
+    country VARCHAR2,
+    postalcode VARCHAR2,
+    phone VARCHAR2,
+    fax VARCHAR2,
+    email VARCHAR2,
+    supportrepid NUMBER
+) AS
+BEGIN
+    SET TRANSACTION NAME 'insert_customer';
+    -- Very large INSERT incoming...
+    INSERT INTO customer VALUES (
+        customerid,
+        firstname,
+        lastname,
+        company,
+        address,
+        city,
+        state,
+        country,
+        postalcode,
+        phone,
+        fax,
+        email,
+        supportrepid
+    );
+    COMMIT;
+END;
+/
+
+CALL insert_new_customer(
+    10000,
+    'Ian',
+    'Johnson',
+    'Revature',
+    '2925 Rensselaer Ct.',
+    'Vienna',
+    'VA',
+    'United States of America',
+    '22181',
+    '7038198495',
+    NULL,
+    'iantimothyjohnson@gmail.com',
+    NULL
+);
 
 -- 6.0 Triggers
 -- 6.1 AFTER/FOR
@@ -471,3 +536,5 @@ JOIN EMPLOYEE ON EMPLOYEE.EMPLOYEEID = CUSTOMER.SUPPORTREPID;
 
 -- 9.0 Administration
 -- Create a .bak file for the Chinook database.
+-- From what I can tell, you can go into the Tools menu of SQL Developer and use the "Database Export" feature to make
+-- a "backup" script that you can run to set up the database (very similar to the initial Chinook setup script).

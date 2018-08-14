@@ -55,7 +55,9 @@ public class Driver {
 			tui = new StandardTUI();
 		}
 		tui.printHeader(WELCOME_HEADER);
+		tui.printLine();
 		tui.printLine(WELCOME);
+		tui.printLine();
 		// The program should just keep trying to log users in until one of them
 		// enters EOF.
 		try {

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import com.iantimothyjohnson.assignments.banking.pojos.User;
 import com.iantimothyjohnson.assignments.banking.util.ConnectionFactory;
 
-public class UserDAO {
+public class UserDAO implements DAO<User> {
 	private static final Logger LOGGER = Logger.getLogger(UserDAO.class.getName());
 
 	/**

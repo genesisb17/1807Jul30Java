@@ -69,6 +69,13 @@ public abstract class TUI {
 	}
 
 	/**
+	 * Begins a new line.
+	 */
+	public void printLine() {
+		print(System.lineSeparator());
+	}
+
+	/**
 	 * Displays some text to the user and ends the line.
 	 * 
 	 * @param text The text to display. The text will be word-wrapped to 80
@@ -278,7 +285,7 @@ public abstract class TUI {
 
 			// We accept "?" as a request for help.
 			if (input.equals("?")) {
-				printLine("Please select a menu item by entering the corresponding number. "
+				printHeader("Please select a menu item by entering the corresponding number. "
 						+ "The menu items are as follows:");
 				printNumberedList(menuItems);
 				continue;

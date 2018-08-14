@@ -61,6 +61,18 @@ public final class StringUtils {
 	 * Word-wraps the given string so that it fits within the given number of
 	 * columns.
 	 * 
+	 * This method is not complicated, and is <em>not</em> a sufficient
+	 * implementation for all real-world use-cases. It is only sufficient for
+	 * wrapping a single line of text, since it does not take paragraph structure
+	 * into account (it replaces all whitespace, even newlines, with single spaces).
+	 * 
+	 * Also note that this method will produce somewhat unexpected results when
+	 * given a string that contains ANSI escape sequences, assuming you expect it to
+	 * wrap the string to fit in a given number of <em>terminal</em> columns. This
+	 * method ensures that lines are no longer than the given width, counting width
+	 * as the length of the line in characters, but does not do any special handling
+	 * for escape sequences.
+	 * 
 	 * @param s     The string to wrap.
 	 * @param width The number of columns into which to fit the string.
 	 * @return The wrapped string.
@@ -69,16 +81,19 @@ public final class StringUtils {
 		StringBuilder wrapped = new StringBuilder();
 		StringBuilder line = new StringBuilder();
 		for (String word : s.split("\\s")) {
-			if (line.length() + word.length() > width) {
+			// If we don't make sure line.length() != 0 here, then a very long
+			// word would cause this method to loop infinitely and keep trying
+			// to push the current line out to the wrapped text. With the test,
+			// we add a word into the line unconditionally as long as it is the
+			// first word in a line.
+			if (line.length() != 0 && line.length() + word.length() + 1 > width) {
 				line.append('\n');
 				wrapped.append(line);
 				line.setLength(0);
 			}
-			line.append(word);
-			// Don't append the space if we're at the end of a line.
-			if (line.length() != width) {
-				line.append(' ');
-			}
+			// We need to prepend a space unless we're at the beginning of the
+			// line.
+			line.append(line.length() == 0 ? word : ' ' + word);
 		}
 		// Make sure we get stuff from the last line in the buffer.
 		if (line.length() != 0) {
