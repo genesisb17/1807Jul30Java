@@ -3,6 +3,7 @@ package com.iantimothyjohnson.assignments.banking.app;
 import java.io.EOFException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import com.iantimothyjohnson.assignments.banking.service.UserService;
 import com.iantimothyjohnson.assignments.banking.ui.ConsoleTUI;
 import com.iantimothyjohnson.assignments.banking.ui.StandardTUI;
 import com.iantimothyjohnson.assignments.banking.ui.TUI;
+import com.iantimothyjohnson.assignments.banking.util.Passwords;
 import com.iantimothyjohnson.assignments.banking.util.StringUtils;
 
 public class Driver {
@@ -145,13 +147,32 @@ public class Driver {
 		tui.printSuccess("Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
 		while (true) {
 			String option = tui.selectValue("Please select an activity", "View/update existing account",
-					"Create new account", "Logout");
+					"Create new account", "Change password", "Logout");
 			switch (option) {
 			case "View/update existing account":
 				chooseAccount(user);
 				break;
 			case "Create new account":
 				createBankAccount(user);
+				break;
+			case "Change password":
+				char[] currentPassword = tui.promptPassword("For security, please enter your current password");
+				byte[] currentHashedPassword = Passwords.hashPassword(currentPassword, user.getPasswordSalt());
+				if (!Arrays.equals(user.getPasswordHash(), currentHashedPassword)) {
+					tui.printError("Incorrect password.");
+					break;
+				}
+				char[] newPassword = tui.promptPasswordWithConfirmation("Enter new password");
+				// Give the user a new salt as well.
+				user.setPasswordSalt(Passwords.generateSalt());
+				user.setPasswordHash(Passwords.hashPassword(newPassword, user.getPasswordSalt()));
+				// Update the user data so the new password is retained.
+				try {
+					UserService.getInstance().update(user);
+					tui.printSuccess("Password successfully changed.");
+				} catch (UserNotFoundException e) {
+					LOGGER.log(Level.SEVERE, "Unable to update user who is known to exist.", e);
+				}
 				break;
 			case "Logout":
 				return;
