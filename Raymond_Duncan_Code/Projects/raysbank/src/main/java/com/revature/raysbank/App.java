@@ -58,7 +58,7 @@ public class App
     }
 
 	public int loginMenu() {
-    	System.out.println("==========================   Hello! And welcome to RaysBank!   ==========================\n"
+    	System.out.println("============================   Hello! Welcome to RaysBank!   ============================\n"
     					 + "||  Please select an option                                                            ||\n"
     					 + "||   1) Login                                                                          ||\n"
     					 + "||   2) Create Account                                                                 ||\n"
