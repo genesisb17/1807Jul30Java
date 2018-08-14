@@ -297,13 +297,37 @@ GO;
 
 ----------------- 6.1 AFTER/FOR
 -- Create an after insert trigger on the employee table fired after a new record is inserted into the table
-
+create trigger Trigger1
+on employee
+after insert
+as
+begin
+  print "New record added to EMPLOYEE";
+end
+go;
+/
 
 -- Create an after update trigger on the album table that fires after a row is inserted in the table
-
+create trigger Trigger2
+on album
+after update
+as
+begin
+  print "Record updated in ALBUM";
+end
+go;
+/
 
 -- Create an after delete trigger on the customer table that fires after a row is deleted from the table
-
+create trigger Trigger3
+on customer
+after delete
+as
+begin
+  print "Record deleted from CUSTOMER";
+end
+go;
+/
 
 
 
