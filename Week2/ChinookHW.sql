@@ -27,7 +27,8 @@ insert into employee (employeeid,lastname,firstname,title,reportsto)
 values(10, 'Doe', 'Jane', 'Sales Support Agent', 2);
 
 --insert two new records into customer table
---customerid firstname lastname company address city state country postalcode phone fax email supportrepid 
+--customerid firstname lastname company address city state country postalcode 
+--phone fax email supportrepid 
 insert into customer (customerid,firstname,lastname,company,country,email) 
 values(60, 'John', 'Doe', 'Revature', 'USA','john@doe.com');
 insert into customer (customerid,firstname,lastname,company,country,email) 
@@ -139,12 +140,11 @@ end;
 
 --create a function that returns the length of a mediatype from the
 --mediatype table
-create or replace function length_mediatype(type_id number, mt_name varchar2) -------------------------------------
+create or replace function length_mediatype(type_id number, mt_name varchar2)
 return number is len_mediatype number(10);
 
 begin
-select 
-return percentage;
+select length(mt_name) into len_mediatype from dual;
 end;
 /
 
@@ -161,7 +161,7 @@ select avg(total) into avg_inv from invoice;
 return avg_inv;
 end;
 /
---create function tat returns most expensive track--------------------------------
+--create function tat returns most expensive track
 create or replace function exponsive
 return number
 is 
@@ -189,20 +189,19 @@ end;
 /
 
 --3.4
---create a funciton that returns all employees who are born after
+--create a funciton that returns all employees who are born after ------------------------
 --1968
-create or replace function born -- -------------------------------------------------
-return number
-is 
-born_after number;
 
+create or replace function born(cursorParam out sys_refcursor)
+return varchar2
+is 
+result2 varchar2;
 begin
 
-select * where birthdate > '31-DEC-1968' into born_after from employee;
-return born_after;
+open cursorParam for select * into result2 from employee where birthdate > '31-DEC-1968';
 end;
 /
-select * from employee;
+
 
 --4.1
 --create a stored procedure that selects the first and last names
@@ -210,12 +209,12 @@ select * from employee;
 create or replace procedure fName_lName
 is 
 --create a dummy table
-employee_temp EMPLOYEE.FirstName%TYPE;
+employee_temp employee.FirstName%TYPE;
 --create cursor
 CURSOR emp_cursor
 is
 --bring first name with space and then add first name with space to last name
-  select concat(concat(FirstName,' '), LastName) FROM EMPLOYEE;
+  select concat(concat(FirstName,' '), LastName) FROM employee;
 begin  
 open emp_cursor;
   LOOP
@@ -311,9 +310,8 @@ AS
   TEMP3 VARCHAR2(20);
 BEGIN
   SELECT EMP.FIRSTNAME, EMP.LASTNAME, emp.COMPANY INTO TEMP, TEMP2, TEMP3
-  FROM Customer EMP
-  DBMS_OUTPUT.PUT_LINE(TEMP || '
-  ' || TEMP2 || ' works at ' || TEMP3);
+  FROM Customer EMP;
+  DBMS_OUTPUT.PUT_LINE(TEMP || ' ' || TEMP2 || ' works at ' || TEMP3);
 END name_and_company;
 /
 
@@ -321,24 +319,52 @@ END name_and_company;
 --create a transaction that given an invoiceid will delete that
 --invoice (there may be constraints that rely on this, find out 
 --how to resolve them)
-set transaction;
-delete from INVOICE where 
 
-DELETE FROM INVOICE WHERE INVOICEID = 'invoiceid'; 
+DELETE FROM INVOICE WHERE INVOICEID ='invoiceid'; --needs an id 
 COMMIT;
 
 --create a transaction nested within a stored procedure that 
 --inserts a new record in the customer table
+create or replace function new_customer --may need a lot of work
+return number
+is 
+num_inserted number;
 
+begin
+
+Insert into customer(firstname, lastname) values('Tiff','Mac');
+commit;
+return num_inserted;
+end;
+/
 
 --6.1
 --create an after insert trigger on the employee table fired after
 --a new record is inserted into the table
-
+CREATE OR REPLACE TRIGGER c_trig
+after insert on employee
+for each row 
+begin 
+   DBMS_output.put_line('Employee Added');
+end;
+/
 --create an after update trigger on the album table that fires after
 --a row is inserted in the table
+create or replace trigger a_trig
+after update on album
+for each row
+begin
+  DBMS_output.put_line('Album Updated!');
+end;
+/
 
 --create an after delete trigger on the customer table that fires after
 --a row is deleted from the table.
-
+create or replace trigger del_trig
+after delete on customer
+for each row
+begin
+  DBMS_output.put_line('Customer Deleted!');
+end;
+/
 
