@@ -342,12 +342,16 @@ select * from album;
 
 ----------------- 7.4 CROSS
 -- Create a cross join that joins album and artist and sorts by artist name in ascending order
-
+select *
+from album al, artist ar
+order by ar.name ASC;
 
 
 ----------------- 7.5 SELF
 -- Perform a self-join on the employee table, joining on the reportsto column
-
+select * from employee e1
+join employee e2
+on e1.reportsto = e2.reportsto;
 
 
 ----------------- 7.6 Complicated Join Assignment
