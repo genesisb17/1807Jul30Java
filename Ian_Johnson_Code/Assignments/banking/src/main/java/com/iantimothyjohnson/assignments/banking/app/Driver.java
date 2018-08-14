@@ -2,11 +2,13 @@ package com.iantimothyjohnson.assignments.banking.app;
 
 import java.io.EOFException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountAlreadyOwnedByUserException;
+import com.iantimothyjohnson.assignments.banking.exceptions.AccountBalanceTooLargeException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AccountNotFoundException;
 import com.iantimothyjohnson.assignments.banking.exceptions.AuthenticationFailureException;
 import com.iantimothyjohnson.assignments.banking.exceptions.ConsoleNotSupportedException;
@@ -171,6 +173,30 @@ public class Driver {
 
 		// We can now display a list of accounts for the user to pick from.
 		String[] menuItems = accounts.stream().map(Account::getName).toArray(String[]::new);
+		// Let's try to disambiguate any duplicates in the list by their ID.
+		for (int i = 0; i < menuItems.length; i++) {
+			// Let's construct a list of all the elements that have the same
+			// name as this one.
+			List<Integer> duplicateIndexes = new ArrayList<>();
+
+			// We can assume without loss of generality that the index of the
+			// first duplicate item is less than that of the second duplicate
+			// (in a pair).
+			for (int j = i + 1; j < menuItems.length; j++) {
+				if (menuItems[i].equals(menuItems[j])) {
+					duplicateIndexes.add(j);
+				}
+			}
+			// Now let's rename any duplicates:
+			if (!duplicateIndexes.isEmpty()) {
+				// We should rename the first element as well, just for
+				// consistency.
+				duplicateIndexes.add(i);
+			}
+			for (int j : duplicateIndexes) {
+				menuItems[j] += " (ID " + accounts.get(j).getId() + ")";
+			}
+		}
 		int choice = tui.select("Please choose an account to view or update", menuItems);
 		Account selected = accounts.get(choice);
 		manipulateAccount(user, selected);
@@ -199,9 +225,12 @@ public class Driver {
 		switch (option) {
 		case "Deposit":
 			BigDecimal depositAmount = tui.promptDollarAmount("Amount to deposit (in dollars)");
-			account.deposit(depositAmount);
 			try {
+				account.deposit(depositAmount);
 				AccountService.getInstance().update(account);
+			} catch (AccountBalanceTooLargeException e) {
+				tui.printError(e.getMessage());
+				break;
 			} catch (AccountNotFoundException e) {
 				LOGGER.log(Level.SEVERE, "Attempted to deposit to non-existent account.", e);
 				break;
@@ -266,11 +295,14 @@ public class Driver {
 		// Perform the withdrawal and then deposit to the other account.
 		try {
 			from.withdraw(amount);
+			to.deposit(amount);
 		} catch (InsufficientFundsException e) {
 			tui.printError(e.getMessage());
 			return;
+		} catch (AccountBalanceTooLargeException e) {
+			tui.printError(e.getMessage());
+			return;
 		}
-		to.deposit(amount);
 
 		// We now have to be sure to save the changes to the accounts.
 		try {

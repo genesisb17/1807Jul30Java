@@ -2,7 +2,10 @@ package com.iantimothyjohnson.assignments.banking.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import com.iantimothyjohnson.assignments.banking.exceptions.AccountBalanceTooLargeException;
 import com.iantimothyjohnson.assignments.banking.exceptions.InsufficientFundsException;
 import com.iantimothyjohnson.assignments.banking.util.StringUtils;
 
@@ -13,11 +16,17 @@ import com.iantimothyjohnson.assignments.banking.util.StringUtils;
  */
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	private static final Logger LOGGER = Logger.getLogger(Account.class.getName());
+
 	/**
 	 * An array of the recognized account types.
 	 */
-	public static final String[] ACCOUNT_TYPES = {"Savings", "Checking"};
+	public static final String[] ACCOUNT_TYPES = { "Savings", "Checking" };
+	/**
+	 * The maximum amount of money that can be in one account (currently 10 million
+	 * dollars).
+	 */
+	public static final BigDecimal MAX_BALANCE = new BigDecimal("10000000");
 
 	/**
 	 * The account ID number.
@@ -76,7 +85,10 @@ public class Account implements Serializable {
 		return balance;
 	}
 
-	public void setBalance(BigDecimal balance) {
+	public void setBalance(BigDecimal balance) throws AccountBalanceTooLargeException {
+		if (balance.compareTo(MAX_BALANCE) > 0) {
+			throw new AccountBalanceTooLargeException(balance);
+		}
 		this.balance = balance;
 	}
 
@@ -94,12 +106,14 @@ public class Account implements Serializable {
 	 * 
 	 * @param amount The amount of money to deposit. The amount must not be
 	 *               negative.
+	 * @throws AccountBalanceTooLargeException If the new account balance would
+	 *                                         exceed the maximum.
 	 */
-	public void deposit(BigDecimal amount) {
+	public void deposit(BigDecimal amount) throws AccountBalanceTooLargeException {
 		if (amount.compareTo(BigDecimal.ZERO) < 0) {
 			throw new IllegalArgumentException("Cannot deposit a negative amount.");
 		}
-		balance = balance.add(amount);
+		setBalance(balance.add(amount));
 	}
 
 	/**
@@ -117,6 +131,11 @@ public class Account implements Serializable {
 		if (amount.compareTo(balance) > 0) {
 			throw new InsufficientFundsException(amount, balance);
 		}
-		balance = balance.subtract(amount);
+		try {
+			setBalance(balance.subtract(amount));
+		} catch (AccountBalanceTooLargeException e) {
+			// This is impossible.
+			LOGGER.log(Level.SEVERE, "Withdraw resulted in account balance that was too large.", e);
+		}
 	}
 }

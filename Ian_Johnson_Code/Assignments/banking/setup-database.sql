@@ -92,3 +92,5 @@ BEGIN
     END IF;
 END;
 /
+
+SELECT * FROM bank_user;
