@@ -1,0 +1,92 @@
+<!DOCTYPE html> <!-- must be first line of HTML file. Indicates that it is HTML5 -->
+<html lang="en"> <!-- ROOT ELEMENT of html page (IE it is the outtermost label)-->
+<head>  <!-- All metadata about the page lives here within the head label -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 101</title>
+    <link rel="stylesheet" href="..\css\css101.css">
+</head>
+<body> <!-- This is where all content to display goes. Note* elements can be hidden/removed -->
+    Hello! This is our first HTML page (But it's maybe my fifth?? Not really sure...)
+    <p id="text1">This is a block of text within the paragraph tag</p> <!-- It is generally bad practice to give multiple elements the same id-->
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+
+    <hr> <!-- Horizontal line -->
+    <br> <!-- The next 5 lines are generated using "br*5" + Tab shortcut -->
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <h3>Lists:</h3>
+    <h5>There are two types of lists: Ordered(numbered) and Unordered(bullets)</h6>
+    <h6>Here is an unordered list</h6>
+    <ul>
+        <li class="first">first</li>
+        <li>second</li>
+        <li>third</li>
+        <li>
+            fourth, with nested unordered list
+            <ul>
+                <li>Nested list item 1</li>
+                <li>Nested list item 2</li>
+                <li>Nested list item 3</li>
+            </ul>
+        </li>
+        <li class="fifth">fifth</li>
+    </ul>
+    <h6>Here's an ordered list</h6>
+    <ol>
+        <li class="first">first</li>
+        <li>second</li>
+        <li>third</li>
+    </ol>
+
+    <div> 
+        <!-- This is a div. It doesn't have any properties, but it is used to separate groups of elements.
+            It is used for styling and organizing your webpage -->
+        <hr> <!-- Used to make a horizontal line -->
+
+        <h3>Forms</h3>
+        <form action="test" method="GET">
+            <input type="text" placeholder="Username" name="username"> <br>
+            <input type="text" max="100" min="0" name="age"> <br>
+            <input type="password" name="password"> <br>
+            <input type="radio" name="role"> Associate <br>
+            <input type="radio" name="role"> Trainer <br>
+            <input type="radio" name="role" checked> Manager <br>
+            <h5>Countries Traveled</h5>
+            <input type="checkbox" name="Cuba" value="cuba">Cuba <br>
+            <input type="checkbox" name="Australia" value="australia">Australia <br>
+            <input type="checkbox" name="Asia" value="asia">Asia <br>
+            <input type="color" name="color">
+            <input type="submit" value="Submit button">
+        </form>
+        <!-- file:///C:/Users/Ray/my_git_repos/1807Jul30Java/Raymond_Duncan_Code/Week3-4/html/test?
+            username=
+            &age=
+            &password=
+            &role=on
+            &color=%23000000 
+        This is the request that was sent via the browser
+        Requests are composed of
+            - Header
+            - Body
+        -->
+
+        <h3>More on forms...Lets look at <i>output</i>!</h3>
+        <form action="" oninput="rangevalue.value=range.value">
+            <input type="range" name="range" min="0" max="100"><output name="rangevalue" for="range"></output>
+        </form>
+
+        <button>This is a regular button</button>
+
+    </div>
+</body>
+</html>

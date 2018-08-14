@@ -1,0 +1,8 @@
+li {
+    color: peru /* Click and hover over this to bring up a color picker */
+}
+
+.first {
+    color: green
+}
+/* CSS works according to precedence. IE Style descriptors with more precedence have priority over items with less */
