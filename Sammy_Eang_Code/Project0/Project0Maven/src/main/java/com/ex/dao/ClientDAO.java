@@ -13,6 +13,8 @@ import com.ex.pojo.Client;
 
 public class ClientDAO implements DAO<Client, Integer>{
 	
+	//Basically all of what is done here is basically the same as what 
+	//is done in the AccountDao class so look there for reference
 	@Override
 	public List<Client> findAll() {
 		
@@ -38,27 +40,6 @@ public class ClientDAO implements DAO<Client, Integer>{
 			e.printStackTrace();
 		}
 		return clients;
-	}
-
-	@Override
-	public Client findOne(Integer id) {
-		
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			
-			String sql = "select client_first_name as FIRST_NAME, lastname as LAST_NAME, " + 
-					"username from client where client_id = ?";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, id);
-			ResultSet info = ps.executeQuery();
-			
-			while(info.next()) {
-				Client client = new Client();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 
 	@Override
@@ -98,14 +79,5 @@ public class ClientDAO implements DAO<Client, Integer>{
 		
 		return client;
 	}
-
-	@Override
-	public Client update(Client obj) {
-		return null;
-	}
-
-	@Override
-	public void delete(Client obj) {}
-	
 
 }

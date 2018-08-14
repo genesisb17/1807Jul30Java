@@ -13,6 +13,8 @@ import com.ex.pojo.Client_Account_Junction;
 
 public class JunctionDAO implements DAO<Client_Account_Junction, Integer>{
 
+	//Basically all of what is done here is basically the same as what 
+	//is done in the AccountDao class so look there for reference
 	@Override
 	public List<Client_Account_Junction> findAll() {
 		List<Client_Account_Junction> junctions = new ArrayList<Client_Account_Junction>();
@@ -36,11 +38,6 @@ public class JunctionDAO implements DAO<Client_Account_Junction, Integer>{
 		return junctions;
 	}
 
-	@Override
-	public Client_Account_Junction findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Client_Account_Junction save(Client_Account_Junction obj) {
@@ -66,18 +63,6 @@ public class JunctionDAO implements DAO<Client_Account_Junction, Integer>{
 		}
 		
 		return caj;
-	}
-
-	@Override
-	public Client_Account_Junction update(Client_Account_Junction obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Client_Account_Junction obj) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
