@@ -168,21 +168,9 @@ SELECT average_invoiceline_price() AS "Average invoice price($)" FROM DUAL;
 -----------           3.4 User Defined Table Valued Functions           -----------
 --Task – Create a function that returns all employees who are born after 1968.
 CREATE OR REPLACE TYPE my_record AS OBJECT (
-"EMPLOYEEID" NUMBER , 
-	"LASTNAME" VARCHAR2(20 BYTE), 
 	"FIRSTNAME" VARCHAR2(20 BYTE), 
-	"TITLE" VARCHAR2(30 BYTE), 
-	"REPORTSTO" NUMBER, 
-	"BIRTHDATE" DATE, 
-	"HIREDATE" DATE, 
-	"ADDRESS" VARCHAR2(70 BYTE), 
-	"CITY" VARCHAR2(40 BYTE), 
-	"STATE" VARCHAR2(40 BYTE), 
-	"COUNTRY" VARCHAR2(40 BYTE), 
-	"POSTALCODE" VARCHAR2(10 BYTE), 
-	"PHONE" VARCHAR2(24 BYTE), 
-	"FAX" VARCHAR2(24 BYTE), 
-	"EMAIL" VARCHAR2(60 BYTE)
+	"LASTNAME" VARCHAR2(20 BYTE), 
+	"BIRTHDATE" DATE
 );
 /
 CREATE OR REPLACE TYPE my_table AS TABLE OF my_record;
@@ -190,9 +178,11 @@ CREATE OR REPLACE TYPE my_table AS TABLE OF my_record;
 CREATE OR REPLACE FUNCTION employees_born_post_1968
 RETURN my_table AS employees my_table;
 BEGIN
-SELECT * INTO employees FROM employee WHERE birthdate BETWEEN to_date('12-31-1968', 'MM-DD-YYYY') AND (SELECT CURRENT_DATE FROM DUAL);
+SELECT my_record(firstname,lastname,birthdate) bulk collect into employees FROM employee WHERE birthdate BETWEEN to_date('12-31-1968', 'MM-DD-YYYY') AND (SELECT CURRENT_DATE FROM DUAL);
+return employees;
 END;
 /
+select * from (select employees_born_post_1968() from dual);
 
 SELECT * FROM employee;
 SELECT * FROM employee WHERE birthdate BETWEEN to_date('12-31-1968', 'MM-DD-YYYY') AND (SELECT CURRENT_DATE FROM DUAL);
