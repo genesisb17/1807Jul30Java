@@ -115,10 +115,11 @@ create or replace function get_mediatype_length
   return mediatypeLength
   is mediatypeLength number;
 BEGIN
-  
+  mediatypeLength := select LENGTH(name) from mediatype where mediatypeid = 1;
+  return mediatypeLength;
 END;
 /
-
+select * from mediatype;
 
 ----------------- 3.2 System Defined Aggregate Functions
 -- Create a function that returns the average total of all invoices
