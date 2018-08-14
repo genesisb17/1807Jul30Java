@@ -1,0 +1,71 @@
+ <!DOCTYPE html> <!-- must be first line of html file, Indicates our file is html-->
+ <html lang="en"> <!-- We're in english!. ROOT element.-->
+ <head> <!-- We're all of our metadata describing the page is-->
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>HTML 101</title>
+ </head>
+ <body> <!-- Where all content to display goes. elements can be hidden or removed.-->
+     Hello! This is their first HTML page!
+     <p id="text1">Also Hello. Paragraph text.</p> <!-- Id's only go to one element. Classes go to many-->
+     <h1>H1</h1>
+     <h2>H2</h2>
+     <h3>H3</h3>
+     <h4>H4</h4>
+     <h5>H5</h5>
+     <h6>H6! The last one!</h6>
+     
+     <hr> <!-- Horizontal line -->
+
+     <br> 
+     <br>
+     <br>
+
+     <hr>
+
+     <h3>Lists</h3>
+     <h6>There are 2 types of lists: Ordered(numbered) and unordered(bullets)</h6>
+     <ul>
+         <li>first</li>
+         <ul>
+             <li>a</li>
+             <li>b</li>
+         </ul>
+         <li>second</li>
+         <li>third</li>
+     </ul>
+
+     <ol>
+         <li class="first">first</li>
+         <li>second</li>
+     </ol>
+
+     <div class="jumbotron"></div>
+
+     <hr>
+     <h2>Forms</h2>
+        <form method="GET" action="test">
+            <input type="text" placeholder="Username" name="username"> <br>
+            <input type="number" max="100" min="0" name="age"> <br>
+            <input type="password" name="password"> <br>
+            <input type="radio" name="role" value="associate"> Associate <br>
+            <input type="radio" name="role" value="Trainer" checked> Trainer <br>
+            Countries Traveled: <br>
+            <input type="checkbox" name="Cuba" value="cuba"> Cuba <br>
+            <input type="checkbox" name="Mexico" value="mexico"> Mexico <br>
+            <input type="checkbox" name="Australia" value="australia"> Australia <br>
+            <input type="color" name="favecolor"> <br>
+            <input type="submit" value="Submit Button"> <br>
+        </form>
+     <footer>
+         This is a footer
+     </footer>
+
+     <h6>More on forms... now for <i>outputs!></i></h6>
+     <form oninput="hi.value=hey.value">
+         <input type="range" name="hey" min="0" max="100">
+         <output name="hi" for="hey"></output>
+     </form>
+ </body>
+ </html>
