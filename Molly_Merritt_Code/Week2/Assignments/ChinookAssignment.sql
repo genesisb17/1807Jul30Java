@@ -105,7 +105,7 @@ create or replace function get_current_time
   return time
   is currTime time;
 BEGIN
-  set @currTime = CURTIME();
+  currTime := CURTIME();
   return currTime;
 END;
 /
