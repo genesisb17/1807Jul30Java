@@ -10,15 +10,17 @@ public class Transaction {
 	private final int fromAccount;
 	private final int toAccount;
 	private final double amount;
+	private final double balance;
 	private final ZonedDateTime dbTransactionTime;	
 		
-	public Transaction(int transactionID, int fromAccount, int toAccount, double amount,
+	public Transaction(int transactionID, int fromAccount, int toAccount, double amount, double previousBalance, 
 			ZonedDateTime dbTransactionTime) {
 		super();
 		this.transactionID = transactionID;
 		this.fromAccount = fromAccount;
 		this.toAccount = toAccount;
 		this.amount = amount;
+		this.balance = amount + previousBalance;
 		this.dbTransactionTime = dbTransactionTime;
 	}
 
@@ -36,6 +38,10 @@ public class Transaction {
 
 	public double getAmount() {
 		return amount;
+	}
+	
+	public double getBalance() {
+		return balance;
 	}
 
 	public ZonedDateTime getTransactionTime() {

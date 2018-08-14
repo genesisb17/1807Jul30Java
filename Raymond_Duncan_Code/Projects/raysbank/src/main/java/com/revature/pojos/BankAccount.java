@@ -3,28 +3,32 @@ package com.revature.pojos;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Account {
+public class BankAccount {
 	/*
 	 * Abstract class used to represent any type of account (Savings, Checking, CertificateOfDeposit, Loan, Mortgage, etc.)
 	 * 	-Defines all operations available to a type of account. More specific implementations in the extending classes
 	 */
 	private final AccountType accountType;
-	private final int primaryAccountID;
-	private int secondaryAccountID;
+	private final int accountNumber;
+	private final int primaryUserID;
+	private int secondaryUserID;
 	private int balance;
 	private List<Transaction> transactions;
 	
-	public Account(AccountType accountType, int primaryAccountID) {
+	public BankAccount(AccountType accountType, int accountNumber, int primaryUserID) {
+		//Primarily used when creating a new account
 		this.accountType = accountType;
-		this.primaryAccountID = primaryAccountID;
+		this.accountNumber = accountNumber;
+		this.primaryUserID = primaryUserID;
 		this.balance = 0;
 		this.transactions = new LinkedList<Transaction>();
 	}
 	
-	public Account(AccountType accountType, int primaryAccountID, int balance, List<Transaction> transactions) {
+	public BankAccount(AccountType accountType, int primaryUserID, int accountNumber, int balance, List<Transaction> transactions) {
 		super();
 		this.accountType = accountType;
-		this.primaryAccountID = primaryAccountID;
+		this.accountNumber = accountNumber;
+		this.primaryUserID = primaryUserID;
 		this.balance = balance;
 		this.transactions = transactions;
 	}
@@ -32,17 +36,21 @@ public class Account {
 	public String getAccountType() {
 		return accountType.toString();
 	}
+	
+	public int getAccountNumber() {
+		return accountNumber;
+	}
 
-	public int getPrimaryAccountID() {
-		return primaryAccountID;
+	public int getPrimaryUserID() {
+		return primaryUserID;
 	}
 	
-	public int getSecondaryAccountID() {
-		return secondaryAccountID;
+	public int getSecondaryUserID() {
+		return secondaryUserID;
 	}
 	
-	public void setSecondaryAccountID(int secondaryAccountID) {
-		this.secondaryAccountID = secondaryAccountID;
+	public void setSecondaryUserID(int secondaryUserID) {
+		this.secondaryUserID = secondaryUserID;
 	}
 	
 	public int getBalance() {
@@ -61,8 +69,8 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [accountType=" + accountType + ", primaryAccountID=" + primaryAccountID
-				+ ", secondaryAccountID=" + secondaryAccountID + ", balance=" + balance + ", transactions="
+		return "Account [accountType=" + accountType + ", primaryUserID=" + primaryUserID
+				+ ", secondaryUserID=" + secondaryUserID + ", balance=" + balance + ", transactions="
 				+ transactions + "]";
 	}
 	
