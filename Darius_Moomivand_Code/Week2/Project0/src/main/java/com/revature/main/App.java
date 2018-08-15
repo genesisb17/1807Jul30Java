@@ -118,7 +118,7 @@ public class App {
 		Double prevBal = w.getBalance();
 		prevBal -= withdraw;
 		w.setBalance(prevBal);
-		System.out.println( "After Transaction " + w.toString());
+		System.out.println( "After Transaction " + w.toString() + "\n");
 		AccountsService ac = new AccountsService();
 		ac.updateAccount(w);
 
@@ -145,7 +145,7 @@ public class App {
 
 			System.out.println("\n\nWelcome to Revature banking.\n1. "
 					+ "GO TO YOUR ACCOUNT.\n2. CREATE A USERNAME.\n");
-			int userOption = Integer.parseInt(scanner.nextLine());						/////changes made
+			int userOption = Integer.parseInt(scanner.nextLine());						
 			
 			if(userOption == 1) {
 				System.out.println("Please enter your Username.\n");
@@ -168,18 +168,18 @@ public class App {
 				for(ClientAccount a : allCA) {
 					myAList = new <Integer>ArrayList();
 					if(clientId == a.getClientId()){
-						stack.push(a.getAccountId());                ///this is the prob
+						nim =a.getAccountId();                
 					}
 				}
 
 
 				System.out.println("\nHere are your accounts:\n");
 					for(Accounts t : allAccounts) {
-						nim = stack.peek();
+					//	nim = stack.peek();
 						if(nim == t.getAccId()){
 							System.out.println((accountCounter+1) + ". " + t.toString() + "\n");
 							allMyAccounts.add(t);
-							stack.pop();
+						//	stack.pop();
 						}					
 					}
 				

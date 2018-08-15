@@ -39,7 +39,7 @@ public class Accounts {
 	
 	@Override
 	public String toString() {
-		return "Accounts [accId=" + accId + ", balance=" + balance + ", accountTypeId=" + accountTypeId + "]";
+		return "Account: [ " + balance + " ]\n";
 	}
 
 }
