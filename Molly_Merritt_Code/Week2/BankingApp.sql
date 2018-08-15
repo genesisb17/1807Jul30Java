@@ -86,6 +86,7 @@ END;
 
 
 delete from users;
-select * from accounts; -- where username = 'mollymerritt' and password = 'mollymerritt';
+select * from accounts;
+select balance from accounts where accountnumber = 1012349;
 commit;
 rollback;

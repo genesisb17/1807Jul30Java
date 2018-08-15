@@ -112,7 +112,9 @@ public class App {
 			addAccount(u);
 			System.out.println("\nAccount created successfully\n");
 			break;
-		case 7:	// Add transaction
+		case 7:	// Make transaction
+			updateAccount();
+			break;
 		case 8: // Update user
 			updateUser(u);
 			System.out.println("\nInformation updated successfully\n");
@@ -249,10 +251,55 @@ public class App {
 	}
 	
 	// CASE 9 - update account
-	static Accounts updateAccount(Accounts a, int accountType) {
+	static Accounts updateAccount() {
 		System.out.println("Enter your account number:");
 		int accountNumber = Integer.parseInt(scanner.nextLine());
-		return aService.updateAccount(accountNumber, accountType);
+		System.out.println("Enter your account type:\n"
+				+ "1. Checking\n"
+				+ "2. Savings");
+		int accountType = 0;
+		try {
+			accountType = Integer.parseInt(scanner.nextLine());
+		}
+		catch(NumberFormatException e) {
+			System.out.println("Sorry, you must enter 1 or 2");
+			updateAccount();
+		}
+		System.out.println("Would you like to make a deposit or withdrawal?\n"
+				+ "1. Deposit\n"
+				+ "2. Withdrawal");
+		int option = 0;
+		try {
+			option = Integer.parseInt(scanner.nextLine());
+		}
+		catch(NumberFormatException e) {
+			System.out.println("Sorry, you must enter 1 or 2");
+			updateAccount();
+		}
+		double amount = 0;
+		switch(option) {
+		case 1: // deposit
+			System.out.println("How much would you like to deposit?");
+			try {
+				amount = Integer.parseInt(scanner.nextLine());
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Sorry, you must enter a number");
+				updateAccount();
+			}
+			break;
+		case 2: // withdrawal
+			System.out.println("How much would you like to withdraw?");
+			try {
+				amount = -Double.parseDouble(scanner.nextLine());
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Sorry, you must enter a number");
+				updateAccount();
+			}
+			break;
+		}
+		return aService.updateAccount(accountNumber, accountType, amount);
 	}
 	
 	

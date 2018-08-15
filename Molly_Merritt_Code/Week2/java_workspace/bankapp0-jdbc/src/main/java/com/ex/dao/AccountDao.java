@@ -58,12 +58,13 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 	}
 
 //	@Override
-	public Accounts update(int accountNumber, int accountType) {
+	public Accounts update(int accountNumber, int accountType, double amount) {
 		Accounts obj = new Accounts();
+		obj.setAccountNumber(accountNumber);
+		obj.setAccountType(accountType);
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			conn.setAutoCommit(false);
-			String query = "SELECT balance from accounts where"
-					+ "accountID = ?";
+			String query = "SELECT balance from accounts where "
+					+ "accountNumber = ?";
 			
 			String[] keys = new String[1];
 			keys[0] = "accountID";	// column name where keys are
@@ -72,18 +73,22 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 			
 			ps.setDouble(1, accountNumber);
 			
-			int rows = ps.executeUpdate();
-			System.out.println(rows);
-			
-			if(rows != 0) {
-				ResultSet rs = ps.getResultSet();
-				obj.setBalance(rs.getDouble(0));
-				conn.commit();
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				obj.setBalance(rs.getDouble("balance") + amount);
 			}
+			
+//			if(rows != 0) {
+//				ResultSet rs = ps.getResultSet();
+//				obj.setBalance(rs.getDouble(0) + amount);
+//				conn.commit();
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			System.out.println("updating account");
+			System.out.println("new balance: " + obj.getBalance());
 			conn.setAutoCommit(false);
 			String query = "UPDATE accounts set balance = ?"
 					+ "where accountNumber = ?";
@@ -94,6 +99,7 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 			PreparedStatement ps = conn.prepareStatement(query, keys);
 			
 			ps.setDouble(1, obj.getBalance());
+			ps.setInt(2,  obj.getAccountNumber());
 			
 			int rows = ps.executeUpdate();
 			System.out.println(rows);
@@ -107,15 +113,15 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 		return obj;
 	}
 	
-	public Accounts withdraw(Accounts acc, double amount) {
-		acc.setBalance(acc.getBalance() - amount);
-		return update(acc);
-	}
-	
-	public Accounts deposit(Accounts acc, double amount) {
-		acc.setBalance(acc.getBalance() + amount);
-		return update(acc);
-	}
+//	public Accounts withdraw(Accounts acc, double amount) {
+//		acc.setBalance(acc.getBalance() - amount);
+//		return update(acc);
+//	}
+//	
+//	public Accounts deposit(Accounts acc, double amount) {
+//		acc.setBalance(acc.getBalance() + amount);
+//		return update(acc);
+//	}
 
 //	@Override
 	public void delete(Accounts obj) {
