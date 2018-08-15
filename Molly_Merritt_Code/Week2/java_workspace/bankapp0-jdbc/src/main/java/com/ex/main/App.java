@@ -249,6 +249,11 @@ public class App {
 	}
 	
 	// CASE 9 - update account
+	static Accounts updateAccount(Accounts a) {
+		System.out.println("Enter your account number:");
+		int accountNumber = Integer.parseInt(scanner.nextLine());
+		return aService.updateAccount(a);
+	}
 	
 	
 	// CASE 10 - update transaction

@@ -9,19 +9,19 @@ import java.util.List;
 import com.ex.pojos.Accounts;
 import com.ex.util.ConnectionFactory;
 
-public class AccountDao implements Dao<Accounts, Integer> {
+public class AccountDao { // implements Dao<Accounts, Integer> {
 
-	@Override
+//	@Override
 	public List<Accounts> findAll() {
 		return null;
 	}
 
-	@Override
+//	@Override
 	public Accounts findOne(Integer id) {
 		return null;
 	}
 
-	@Override
+//	@Override
 	public Accounts save(Accounts obj) {
 //		System.out.println("Calling AccountDao.save()");
 //		Users user = new Users();
@@ -57,12 +57,42 @@ public class AccountDao implements Dao<Accounts, Integer> {
 		return obj;
 	}
 
-	@Override
+//	@Override
 	public Accounts update(Accounts obj) {
-		return null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String query = "UPDATE accounts set balance = ?";
+			
+			String[] keys = new String[1];
+			keys[0] = "userID";	// column name where keys are
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			
+			ps.setDouble(1, obj.getBalance());
+			
+			int rows = ps.executeUpdate();
+			System.out.println(rows);
+			
+			if(rows != 0) {
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	public Accounts withdraw(Accounts acc, double amount) {
+		acc.setBalance(acc.getBalance() - amount);
+		return update(acc);
+	}
+	
+	public Accounts deposit(Accounts acc, double amount) {
+		acc.setBalance(acc.getBalance() + amount);
+		return update(acc);
 	}
 
-	@Override
+//	@Override
 	public void delete(Accounts obj) {
 		
 	}

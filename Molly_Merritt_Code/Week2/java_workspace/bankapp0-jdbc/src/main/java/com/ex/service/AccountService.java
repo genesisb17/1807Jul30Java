@@ -7,10 +7,14 @@ import com.ex.pojos.Users;
 
 public class AccountService {
 	
-	static Dao<Accounts, Integer> aDao = new AccountDao();
+	static AccountDao aDao = new AccountDao();
 	
 	public Accounts addAccount(Accounts a) {
 		return aDao.save(a);
+	}
+	
+	public Accounts updateAccount(Accounts a) {
+		return aDao.update(a);
 	}
 
 }
