@@ -16,14 +16,14 @@ public class App {
 	static String option;
 	
 	// Introduction to app. Will only run once.
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CustomException {
 		System.out.println("Welcome to the Not Greedy Banking App!");
 		System.out.println("----------START----------\n");
 		intro();
 	}
 	
 	// The portal for logging in and creating an account
-	static void intro() {
+	static void intro() throws CustomException {
 		System.out.println("Please enter a number for one of the options:\n"
 				+ "1. Login\n"
 				+ "2. Create an Account\n"
@@ -59,7 +59,7 @@ public class App {
 		}
 	}
 
-	private static void createBankingAccount() {
+	private static void createBankingAccount() throws CustomException {
 	 	System.out.println("Please enter a username.");
 		String username = sc.nextLine().toLowerCase();
 		
@@ -82,7 +82,7 @@ public class App {
 		intro();
 	}
 	
-	private static void logIn() {
+	private static void logIn() throws CustomException {
 		// Needed for when object is sent to be initialized
 		int userid = 0;
 		
@@ -90,10 +90,14 @@ public class App {
 		// .toLowerCase since usernames are not normally case-sensitive
 		String username = sc.nextLine().toLowerCase();
 		
+		if (username.equals(null) || username.equals("")) {
+			throw new CustomException("You can't have empty string as a username! For angering me, I kick you out!");
+		}
+		
 		System.out.println("Please enter your password.");
 		String password = sc.nextLine();
 		
-		// Will store the results of the check to the DB
+		// Will store the results of the check to thes DB
 		Users user = UsersService.logIn(userid, username, password);
 		
 		// Will start over if null is returned (meaning creds didn't match to anything in the DB)
@@ -105,7 +109,7 @@ public class App {
 		fork(user);
 	}
 
-	private static void fork(Users user) {
+	private static void fork(Users user) throws CustomException {
 		System.out.println("Select one of the following options:");
 		System.out.println("1. Checkings\n"
 				+ "2. Savings\n"
@@ -133,7 +137,7 @@ public class App {
 			case 2: savingsAccountExist(user);
 					break;
 					// If they wanna get out of here
-			case 3: System.out.println("You are not logged out.");
+			case 3: System.out.println("You are now logged out.");
 					intro();
 					break;	
 					// GOODBYE ACCOUNTS
@@ -151,7 +155,7 @@ public class App {
 		}
 	}
 
-	private static void checkingsAccountExist(Users user) {
+	private static void checkingsAccountExist(Users user) throws CustomException {
 		boolean status = CheckingsService.doesAccountExist(user); // Will always check if they have an checkings account
 		// User will be prompted to do this until they create an account
 		if (status == false) {
@@ -183,7 +187,7 @@ public class App {
 		checkings(user);	
 	}
 	
-	private static void savingsAccountExist(Users user) {
+	private static void savingsAccountExist(Users user) throws CustomException {
 		boolean savingsExist = SavingsService.doesAccountExist(user);
 		
 		if (savingsExist == false) {
@@ -214,7 +218,7 @@ public class App {
 		savings(user);
 	}
 	
-	private static void createCheckings(Users user) {
+	private static void createCheckings(Users user) throws CustomException {
 		System.out.println("How much would you like to put into your new account?");
 		String input = sc.nextLine();
 		
@@ -245,7 +249,7 @@ public class App {
 		}
 	}
 	
-	private static void createSavings(Users user) {
+	private static void createSavings(Users user) throws CustomException {
 		// Same as createCheckings
 		System.out.println("How much would you like to put into your new account?");
 		String input = sc.nextLine();
@@ -275,7 +279,7 @@ public class App {
 		}
 	}
 
-	private static void checkings(Users user) {
+	private static void checkings(Users user) throws CustomException {
 		System.out.println("What would you like to do with your checkings account?\n"
 			+ "1. View the amount in your checkings account\n"
 			+ "2. Withdraw funds from your checkings account\n"
@@ -313,7 +317,7 @@ public class App {
 		}
 	}
 
-	private static void savings(Users user) {
+	private static void savings(Users user) throws CustomException {
 		System.out.println("What would you like to do with your savings account?\n"
 			+ "1. View the amount in your savings account\n"
 			+ "2. Withdraw funds from your savings account\n"
@@ -351,7 +355,7 @@ public class App {
 			}
 	}
 	
-	private static void depositSavings(Users user) {
+	private static void depositSavings(Users user) throws CustomException {
 		System.out.println("How much would you like to deposit?");
 		String input = sc.nextLine();
 		
@@ -378,7 +382,7 @@ public class App {
 		savings(user);
 	}
 
-	private static void withdrawSavings(Users user) {
+	private static void withdrawSavings(Users user) throws CustomException {
 		System.out.println("How much would you like to withdraw?");
 		
 		String input = sc.nextLine();
@@ -406,13 +410,13 @@ public class App {
 		savings(user);
 	}
 
-	private static void viewSavings(Users user) {
+	private static void viewSavings(Users user) throws CustomException {
 		// Simply grabs the total and displays it
 		SavingsService.total(user);
 		savings(user);		
 	}
 
-	private static void withdrawCheckings(Users user) {
+	private static void withdrawCheckings(Users user) throws CustomException {
 		System.out.println("How much would you like to withdraw?");
 		
 		String input = sc.nextLine();
@@ -439,7 +443,7 @@ public class App {
 		checkings(user);
 	}
 
-	private static void depositCheckings(Users user) {
+	private static void depositCheckings(Users user) throws CustomException {
 		System.out.println("How much would you like to deposit?");
 		String input = sc.nextLine();
 		
@@ -466,9 +470,18 @@ public class App {
 	
 	}
 
-	private static void viewCheckings(Users user) {
+	private static void viewCheckings(Users user) throws CustomException {
 		// Same as viewSavings
 		CheckingsService.total(user);
 		checkings(user);
+	}
+}
+
+class CustomException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
+
+	public CustomException(String message) {
+		super(message);
 	}
 }
