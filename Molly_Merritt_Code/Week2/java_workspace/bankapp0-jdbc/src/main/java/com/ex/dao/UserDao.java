@@ -101,8 +101,8 @@ public class UserDao { //implements Dao<Users, Integer> {
 //		Users user = new Users();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String query = "insert into users(userID, firstName, lastName, username,"
-					+ "password) " + "values(?,?,?,?,?)";
+			String query = "INSERT INTO users(userID, firstName, lastName, username,"
+					+ "password) " + "VALUES(?,?,?,?,?)";
 			
 			String[] keys = new String[1];
 			keys[0] = "userID";	// column name where keys are
@@ -135,7 +135,32 @@ public class UserDao { //implements Dao<Users, Integer> {
 
 //	@Override
 	public Users update(Users obj) {
-		return null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String query = "UPDATE users set firstName = ?, lastName = ?,"
+					+ "username = ?, password = ? WHERE userID = ?";
+			
+			String[] keys = new String[1];
+			keys[0] = "userID";	// column name where keys are
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			
+			ps.setString(1, obj.getFirstName());
+			ps.setString(2, obj.getLastName());
+			ps.setString(3, obj.getUsername());
+			ps.setString(4, obj.getPassword());
+			ps.setInt(5, obj.getUserID());
+			
+			int rows = ps.executeUpdate();
+			System.out.println(rows);
+			
+			if(rows != 0) {
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 //	@Override

@@ -93,7 +93,7 @@ public class App {
 		
 		switch(option) {
 		case 1:	// View my user
-			viewUser();
+			viewUser(u);
 			break;
 		case 2: // View all users
 			viewAllUsers();
@@ -116,10 +116,16 @@ public class App {
 			logOut();
 			break;
 		}
+		menu(u);
 	}
 	
 	static Users logIn() {
-		return viewUser();
+		System.out.println("Enter your username: ");
+		String username = scanner.nextLine();
+		System.out.println("Enter your password: ");
+		String password = scanner.nextLine();
+		Users u = uService.getUser(username, password);
+		return viewUser(u);
 	}
 	
 	static Users signUp() {
@@ -132,12 +138,7 @@ public class App {
 	}
 	
 	// CASE 1 - view user information
-	static Users viewUser() {
-		System.out.println("Enter your username: ");
-		String username = scanner.nextLine();
-		System.out.println("Enter your password: ");
-		String password = scanner.nextLine();
-		Users u = uService.getUser(username, password);
+	static Users viewUser(Users u) {
 		System.out.println("\nUser information");
 		System.out.println("First name: " + u.getFirstName());
 		System.out.println("Last name: " + u.getLastName());
@@ -192,7 +193,7 @@ public class App {
 	
 	
 	// CASE 8 - update user
-	static void updateUser(Users u) {
+	static Users updateUser(Users u) {
 		System.out.println("What information would you like to update?\n"
 				+ "1. First name\n"
 				+ "2. Last name\n"
@@ -208,10 +209,23 @@ public class App {
 		}
 		switch(option) {
 		case 1: // update first name
+			System.out.println("Enter your new first name:");
+			String firstname = scanner.nextLine();
+			u.setFirstName(firstname);
 		case 2: // update last name
+			System.out.println("Enter your new last name:");
+			String lastname = scanner.nextLine();
+			u.setLastName(lastname);
 		case 3: // update username
+			System.out.println("Enter your new username:");
+			String username = scanner.nextLine();
+			u.setUsername(username);
 		case 4: // update password
+			System.out.println("Enter your new password:");
+			String password = scanner.nextLine();
+			u.setPassword(password);
 		}
+		return uService.updateUser(u);
 	}
 	
 	// CASE 9 - update account

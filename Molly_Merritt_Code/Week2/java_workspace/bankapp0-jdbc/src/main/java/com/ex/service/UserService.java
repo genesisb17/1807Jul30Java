@@ -24,5 +24,9 @@ public class UserService {
 		// add user using DAO
 		return uDao.save(u);
 	}
+	
+	public Users updateUser(Users u) {
+		return uDao.update(u);
+	}
 
 }
