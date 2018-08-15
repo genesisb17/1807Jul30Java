@@ -59,9 +59,7 @@ public class Driver {
 		System.out.println("Enter Username:\n");
 		String username = scan.nextLine();
 
-		//check if username exists in database
-		//Client c = new Client();
-		
+
 		if(cService.findOne(username) != null) {
 			
 			System.out.println("Enter Password:\n");
@@ -83,13 +81,10 @@ public class Driver {
 			loginPrompt();
 		}
 		
-		//System.out.println(c.getUsername());
-
 	}
 
 	static void accountScreen() {
 		
-		//System.out.println("");
 		if (!aService.getAll().contains(null)) {
 			
 			LinkedList<Account> temp = new LinkedList<Account>();
@@ -107,7 +102,7 @@ public class Driver {
 			for(Account a: listAccounts) {
 				
 				if(ca.getId() == a.getClientId()) {
-					//System.out.println(a.getAccountTypeId());
+					
 					if(a.getAccountTypeId() == 1) {
 						
 						System.out.println(counter + ". Savings Account\n");
@@ -121,8 +116,7 @@ public class Driver {
 						temp.add(a);
 						counter++;
 					}	
-//					System.out.println(counter);
-//					System.out.println(option + " option");
+
 				}		
 			}
 			try {
@@ -176,7 +170,6 @@ public class Driver {
 				+ "1. Withdraw Funds\n"
 				+ "2. Deposit Funds\n" 
 				+ "3. Check Balance\n" 
-//				+ "4. Add a New Account\n"
 				+ "4. Back to Accounts\n" 
 				+ "5. Back to Login\n"
 				+ "6. Exit\n");
@@ -222,14 +215,7 @@ public class Driver {
 				accountOptions(a);
 				
 			} 
-//			else
-//			{
-//				a.setBalance(a.getBalance() - amount);
-//				System.out.println("Your Balance is: " + a.getBalance());
-//				aService.update(a);
-//				accountOptions(a);
-//			}
-			//aService.update(a);
+
 			accountOptions(a);
 			break;
 			
@@ -258,7 +244,7 @@ public class Driver {
 		case 3:
 			
 			System.out.println("Your Balance is: " + a.getBalance()+"\n");
-			//aService.update(a);
+
 			accountOptions(a);
 			break;
 		case 4:
@@ -280,7 +266,6 @@ public class Driver {
 	}
 
 	static void createClient() {
-		//Client c = new Client();
 
 		System.out.println("Please, enter your first name: \n");
 		String firstName = scan.nextLine();
@@ -306,7 +291,7 @@ public class Driver {
 		//check if username exists and is unique
 		while(username == null || !cService.isUsernameUnique(username) || username.isEmpty()) 
 		{
-			System.out.println("Please, enter a username or enter a different username");
+			System.out.println("Please, enter a different username");
 			username= scan.nextLine();
 		}
 		
@@ -324,9 +309,6 @@ public class Driver {
 		ca.setPassword(password);
 
 		cService.save(ca);
-		System.out.println(ca.getId() + "the key we're lookin for");
-		//ca = c;
-		System.out.println(ca.getId()+ "brrrrrrrroooooooooooooooooooooo it's not being set");
 		createAccount();
 		
 	}
@@ -406,8 +388,6 @@ public class Driver {
 			break;			
 		}
 		a.setClientId(ca.getId());
-		//aService.save(a);
-		
 		
 		accountOptions(a);
 		

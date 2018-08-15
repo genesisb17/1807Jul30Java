@@ -1,0 +1,74 @@
+<!DOCTYPE html> <!-- must be first line of html file. indicates that it is html5-->
+<html lang="en"> <!-- ROOT ELEMENT of html5-->
+<head><!-- all metadata about page lives here-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WELCOME TO HTML 101</title>
+    <link rel="stylesheet" href="/css/css101.css">
+
+    <style>
+        li {
+            color: blue;
+        }
+    </style>
+</head>
+<body> <!-- where all content to display goes. note* elements can be hidden/removed.
+body elements is where you display. and you can hide them as well.-->
+    Hello! This is our first HTML page!
+    <p id="text1"> This is text inside of a paragraph tag</p>
+    <h1> h1</h1>
+    <h2> h2</h2>
+    <h3> h3</h3>
+    <h4> h4</h4>
+
+    <hr> <!-- horizontal line -->
+    <!--  -->
+    <br>
+    <hr>
+    <h1> Lists    </h1>
+    <h2>There are two types of lists: Ordered(numbered) and Unordered(bullets)</h2>
+    <ul>
+        <li class = "first">first</li>
+            <ul>
+                <li>indexed</li>
+            </ul>
+        <li>second</li>
+        <li>third</li>
+    </ul>
+     <ol>
+         <li>first</li>
+     </ol>
+
+     <div class = "jumbotron"> <!--naming convention is hyphens and all lower case for classes-->
+
+     </div>
+     <hr>
+     <h2>Forms</h2>
+     <form method="GET" action="test">
+         <!-- you don't need closing tag becaus it's a fieldd-->
+         <input type="text" placeholder="Username" name="username" > <br>
+         <input type="number" max="100" min ="0" placeholder="Enter number"> <br>
+         <input type="password" name ="password" placeholder="Password"> <br>
+         <input type="radio" name="role" value="Associate"> Associate <br>
+         <input type="radio" name="role" value="Trainer" checked> <br>
+         Countries Traveled: <br>
+         <input type="checkbox" name ="Cuba" value="cuba">Cuba <br>
+         <input type="checkbox" name ="Mexico" value="mexico">Mexico <br>
+         <input type="checkbox" name ="El Salvador" value="el-salvador">El Salvador <br>
+        <input type="color" name="favcolor"> <!-- color picker shows up-->
+         <input type="submit" value="Submit Button"> <br>        
+     </form>
+
+     <h6>More on forms. . . lets check ut <i>outputs</i></h6>
+     <form oninput="y.value=a.value">
+         <input type="range" name="a" min="0" max="100">
+         <output name="y" for="a"></output>
+     </form>
+
+     <button>This is a button</button>
+     <footer>
+        This is a footer
+     </footer>
+</body>
+</html>

@@ -5,9 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.rev.util.ConnectionFactory;
 
 import oracle.jdbc.internal.OracleTypes;
@@ -81,8 +81,6 @@ public class AccountDAO implements DAO<Account, Integer> {
 			ps.setInt(2,  a.getAccountTypeId());
 			ps.setDouble(3, a.getBalance());
 			ps.setInt(4,  a.getClientId());
-			//System.out.println(ps);
-			//System.out.println(keys + " keys");
 			
 			int rowsUpdated = ps.executeUpdate();
 			if(rowsUpdated != 0) {
@@ -97,7 +95,6 @@ public class AccountDAO implements DAO<Account, Integer> {
 			}
 			conn.commit();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(a.getClientId()+ " ACCOUNT PASSED");
@@ -120,7 +117,6 @@ public class AccountDAO implements DAO<Account, Integer> {
 				temp.setBalance(rs.getDouble("balance"));
 				temp.setClientId(rs.getInt("client_id"));
 
-				//System.out.println(temp);
 				accounts.add(temp);
 			}
 		} catch (SQLException e) {
@@ -148,14 +144,42 @@ public class AccountDAO implements DAO<Account, Integer> {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return null;
 	}
 
 	public void delete(Account obj) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	
+	public List<Account> findAll(Account obj) {
+		//gives this method the ability to make this any type of list. you don't need to worry of the type of 
+				//list when you call this method.
+				List<Account> accounts = new ArrayList<Account>();
+				try (Connection conn = ConnectionFactory
+						.getInstance().getConnection()){ //singleton so you don't use 'new'
+					String query = "select * from accounts";
+					//STATEMENT INTERFACE
+					//Connection is really important interface. you can only instantiate things that implement connection
+					Statement statement = conn.createStatement();
+					
+					//now get result set. (any executeUpdate is going to return number of rows affected)
+					ResultSet rs = statement.executeQuery(query);
+					
+					//iterate through result set. each row
+					while(rs.next()) {
+						Account temp = new Account();
+						temp.setAccountId(rs.getInt(1)); //there's no 0 index in the table. gets first column which are id's
+						//temp.setAccount(rs.getString(2)); //gets 2nd column which are the names of the genres. you can put 
+														//the label of the column as well instead of the col number
+						accounts.add(temp);
+					}
+				} catch(SQLException e) {
+					e.printStackTrace();
+				}
+				return accounts;
 	}
 
 	@Override
