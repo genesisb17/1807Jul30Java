@@ -7,6 +7,7 @@ import com.revature.dao.BankAccountDAO;
 import com.revature.dao.TransactionDAO;
 import com.revature.exceptions.InvalidInputException;
 import com.revature.exceptions.NYIException;
+import com.revature.pojos.AccountType;
 import com.revature.service.AccountManager;
 
 /**
@@ -69,7 +70,7 @@ public class App
     }
 	
 	public void mainMenu() {
-		//Logic for when the user is logged in
+		//Logic for when the user is logged in		
 		while(loggedIn) {
 			System.out.println("=====================================   Main Menu   =====================================\n"
 					 		 + "||  Please select an option                                                            ||\n"

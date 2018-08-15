@@ -19,7 +19,7 @@ public class TransactionDAO implements DAO<Transaction,Integer> {
 	}
 
 	@Override
-	public Transaction save(Integer id) {
+	public Transaction save(Transaction obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}

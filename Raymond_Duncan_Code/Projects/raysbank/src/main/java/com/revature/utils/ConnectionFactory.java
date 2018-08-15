@@ -20,7 +20,7 @@ public class ConnectionFactory {
 		isInstantiated = true;
 	}
 	
-	public synchronized ConnectionFactory getInstance() {
+	public synchronized static ConnectionFactory getInstance() {
 		if(!isInstantiated) connectionFactory = new ConnectionFactory();
 		return connectionFactory;
 	}
@@ -35,7 +35,7 @@ public class ConnectionFactory {
 			conn = DriverManager.getConnection(
 					prop.getProperty("url"),
 					prop.getProperty("usr"),
-					prop.getProperty("password"));
+					prop.getProperty("pwd"));
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
