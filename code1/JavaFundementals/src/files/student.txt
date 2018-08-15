@@ -1,0 +1,22 @@
+Dylan;dcorbus@csumb.edu;100.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
+John Smith;johnsmith@csumb.edu;90.0
