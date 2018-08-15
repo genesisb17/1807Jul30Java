@@ -115,14 +115,26 @@ public class Driver {
 		while (true) {
 			User user = new User();
 			String username = tui.promptNonEmptyLine("Username");
+			if (username.length() > 32) {
+				tui.printError("Usernames are limited to 32 characters or fewer.");
+				continue;
+			}
 			if (!UserService.getInstance().isUsernameAvailable(username)) {
 				tui.printError("Username already taken. Please choose another.");
 				continue;
 			}
 			user.setUsername(username);
 			char[] password = tui.promptPasswordWithConfirmation("Password");
-			user.setFirstName(tui.promptNonEmptyLine("First name"));
-			user.setLastName(tui.promptNonEmptyLine("Last name"));
+			String firstName = tui.promptNonEmptyLine("First name");
+			String lastName = tui.promptNonEmptyLine("Last name");
+			if (firstName.length() > 32 || lastName.length() > 32) {
+				tui.printError(
+						"Unfortunately, names are currently limited to 32 characters or fewer in each component (first name or last name). "
+								+ "We apologize for the inconvenience.");
+				continue;
+			}
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
 			try {
 				SessionManager.getInstance().createUser(user, password);
 				tui.printSuccess("Successfully created user " + user.getUsername() + ".");
