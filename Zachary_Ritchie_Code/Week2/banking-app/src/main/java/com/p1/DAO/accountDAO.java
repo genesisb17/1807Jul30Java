@@ -143,4 +143,32 @@ public class accountDAO implements DAO<account, Integer>
 			e.printStackTrace();
 		}		
 	}
+	
+	public List<account> getAl() 
+	{
+		List<account> genres = new ArrayList<account>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection())
+		{
+			String query = "select * from accounts order by account_name asc";
+			
+			// Statement interface
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next())
+			{
+				account temp = new account();
+				temp.setAccount_Id(rs.getInt(1));
+				temp.setAccount_Name(rs.getString(2));
+				genres.add(temp);
+			}
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return genres;
+	}
+	
 }

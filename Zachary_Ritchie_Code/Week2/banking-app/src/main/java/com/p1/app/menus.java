@@ -363,7 +363,7 @@ public class menus
 			}
 			else
 			{
-				System.out.println("Not unique, please try again");
+				System.out.println("Username not unique, please try again");
 			}
 		}while(check == true);
 				
