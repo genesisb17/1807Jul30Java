@@ -82,7 +82,7 @@ public class App {
 				+ "4. View Transactions\n"
 				+ "5. Add User\n"
 				+ "6. Add Account\n"
-				+ "7. Add Transaction\n"
+				+ "7. Make Transaction\n"
 				+ "8. Update User\n"
 				+ "9. Update Account\n"
 				+ "10. Update Transaction\n"
