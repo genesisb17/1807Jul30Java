@@ -9,7 +9,6 @@ public class Accounts {
 	public Accounts() {}
 	public Accounts(int accountTypeId) {
 		this.accountTypeId = accountTypeId;
-		this.balance = 100;
 	}
 	public Accounts(int accountTypeId, double balance) {
 		super();

@@ -19,15 +19,15 @@ public class ClientAccountDoa implements Dao<ClientAccount, Integer>{
 	public List<ClientAccount> findAll() {
 		List<ClientAccount> clientAcc = new ArrayList<ClientAccount>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "Select * From client_account";
+			String query = "select * from client_account";
 			
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
 				ClientAccount temp = new ClientAccount();
-				temp.setClientId(rs.getDouble("client_id"));
-				temp.setAccountId(rs.getDouble("account_id"));
+				temp.setClientId(rs.getInt("client_id"));
+				temp.setAccountId(rs.getInt("account_id"));
 				clientAcc.add(temp);
 			}
 			

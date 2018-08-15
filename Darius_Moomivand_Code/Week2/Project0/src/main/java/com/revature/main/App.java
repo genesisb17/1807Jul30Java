@@ -8,9 +8,11 @@ import java.util.Scanner;
 import com.revature.dao.ClientDAO;
 import com.revature.dao.Dao;
 import com.revature.pojo.Accounts;
+import com.revature.pojo.AllAccounts;
 import com.revature.pojo.Client;
 import com.revature.pojo.ClientAccount;
 import com.revature.service.AccountsService;
+import com.revature.service.AllAccountService;
 import com.revature.service.ClientAccountService;
 import com.revature.service.ClientService;
 
@@ -18,23 +20,28 @@ public class App {
 	static List<Accounts> allAccounts = new <Accounts> ArrayList();
 	static List<Client> allClients = new <Client> ArrayList();
 	static List<ClientAccount> allCA = new <ClientAccount>ArrayList();
+	static List<Accounts> allMyAccounts = new<Accounts> ArrayList();
 	static ClientAccountService caService = new ClientAccountService();
 	static AccountsService aService = new AccountsService();
 	static ClientService cService = new ClientService();
+	static AllAccountService aaService = new AllAccountService();
 	static int AccountId;
 	static int clientId;
 	static String user;
 	static String pw;
 	static Scanner scanner = new Scanner(System.in);
 	static int option;
+	static int updater;
 	static Boolean mainMenu = true;
 	static double userCID;
 	static double userAID;
-
+	static List<Integer> myAList;
+	static int accountCounter = 0;
+	
 	public static void main(String[] args) {
 		allAccounts = getAccounts();
 		allClients = getClients();
-		
+		allCA = getClientAccount();
 		
 		checkUser();
 		menu();
@@ -45,35 +52,31 @@ public class App {
 			System.out.println("Main menu\n"
 						+ "1 - WITHDRAW MONEY\n"
 						+ "2 - DEPOSIT MONEY\n"
-						+ "3 - CHECK BALANCE\n"
-						+ "4 - CREATE A NEW ACCOUNT\n"
-						+ "5 - EXIT");
-			String input;
+						+ "3 - CREATE A NEW ACCOUNT\n"
+						+ "4 - EXIT");
+
 			try {
-			input = scanner.nextLine();
-			option = Integer.parseInt(input);
-			} catch(InputMismatchException e) {
+			option = Integer.parseInt(scanner.nextLine());
+			} catch(NumberFormatException e) {
 				System.out.println("You did not input a valid option.\n Please select again.\n");
 				menu();
 			}	
 			
 			switch(option) {
 			
-			case 1: withDraw();
+			case 1: viewAccounts();
+					withdrawCash();
 					break;
 					
-			case 2: // Call function to pull up user accounts.
-					// call function to selection account 
-					break;
-			case 3: // Call function to pull up user accounts.
-					// call function to selection account
+			case 2: viewAccounts();
+					depositCash();
 					break;
 				
-			case 4: createAccount();
+			case 3: createAccount();
 					break;
 		
 					
-			case 5: mainMenu = false;
+			case 4: mainMenu = false;
 					System.out.println("Goodbye!");
 		
 			}
@@ -81,10 +84,48 @@ public class App {
 	
 		}	
 	}
+	
+	static void depositCash() {
+		System.out.println("Enter the amount to deposit.\n");
+		double withdraw = scanner.nextInt();
+		Accounts w = allMyAccounts.get(updater-1);
+		System.out.println("Before Transaction " + w.toString());
 
-	static void withDraw() {
-		
+		Double prevBal = w.getBalance();
+		prevBal += withdraw;
+		w.setBalance(prevBal);
+		System.out.println( "After Transaction " + w.toString());
+		AccountsService ac = new AccountsService();
+		ac.updateAccount(w);	
 	}
+	
+	static void withdrawCash() {
+		System.out.println("Enter the amount to withdraw.\n");
+		double withdraw = scanner.nextInt();
+		Accounts w = allMyAccounts.get(updater-1);
+		System.out.println("Before Transaction " + w.toString());
+
+		Double prevBal = w.getBalance();
+		prevBal -= withdraw;
+		w.setBalance(prevBal);
+		System.out.println( "After Transaction " + w.toString());
+		AccountsService ac = new AccountsService();
+		ac.updateAccount(w);
+
+	}
+	
+	
+	static void viewAccounts() {
+		
+		for(Accounts t : allMyAccounts) {
+			int i =1;
+			System.out.print(i + ". ");
+			System.out.println(t.toString());
+		}
+		System.out.println("Select which account");
+		updater = scanner.nextInt();		
+	}
+
 	
 
 	static void checkUser() {
@@ -94,9 +135,9 @@ public class App {
 
 			System.out.println("\n\nWelcome to Revature banking.\n1. "
 					+ "Goto my accounts.\n2. Create a new username.\n");
-			option = Integer.parseInt(scanner.nextLine());
+			int userOption = Integer.parseInt(scanner.nextLine());						/////changes made
 			
-			if(option == 1) {
+			if(userOption == 1) {
 				System.out.println("Please enter your Username.\n");
 				user = scanner.nextLine();
 				System.out.println("Please enter your password\n");
@@ -105,17 +146,35 @@ public class App {
 	
 				for(Client c : allClients) {
 					if(user.equals(c.getUserName()) && pw.equals(c.getPassword())) {
-						System.out.println(c.getClientId());
 						clientId = c.getClientId();
 						check = false;
 						break;
 					}
-
 				}
 				
-			System.out.println("User not found!");	
+				for(ClientAccount a : allCA) {
+					myAList = new <Integer>ArrayList();
+					if(clientId == a.getClientId()){
+						myAList.add(a.getAccountId());
+					}
+				}
+				
+				System.out.println("\nHere are your accounts:\n");
+				for(Integer ab : myAList) {
+					List<Integer> myBList = new <Integer>ArrayList();
+				
+					for(Accounts t : allAccounts) {
+					
+						if(ab.equals(t.getAccId())){
+							System.out.println((accountCounter+1) + ". " + t.toString() + "\n");
+							allMyAccounts.add(t);
+						}					
+					}
+				}
+				
+				
 			
-			}else if(option == 2){
+			}else if(userOption == 2){
 				addClient();
 				check = false;
 			}else {
@@ -141,22 +200,22 @@ public class App {
 
 		ClientService cs = new ClientService();
 		clientId = cs.enterClient(newClient);		
-		System.out.println("Congradulations! You have created a new user!");
+		System.out.println("Congratulations! You have created a new user!");
 
 	}
 	
 	
 	static void createAccount() {
 		
-		System.out.println("What type of account would you like to create?\n"
+		System.out.println("\nAll accounts require a $100 dollar starting fee.\n"
+				+ "What type of account would you like to create?\n"
 				+ "1. Checking.\n2. Savings.\n");
 		
 		Integer accSelect = Integer.parseInt(scanner.nextLine());
-		Accounts newAccount = new Accounts(accSelect);
+		Accounts newAccount = new Accounts(accSelect, 100);
 		AccountsService ac = new AccountsService();
 		AccountId = ac.saveNew(newAccount);					// new account id
-		System.out.println("new account id is: " + AccountId);
-			
+		
 		System.out.println("Congradulations! You have created a account!");
 
 	}

@@ -1,32 +1,38 @@
 package com.revature.pojo;
 
 public class ClientAccount {
-	private double clientId;
-	private double accountId;
+	private int clientId;
+	private int accountId;
 	
 	public ClientAccount() {}
-	
-	public ClientAccount(double clientId, double accountId) {
+
+	public ClientAccount(int clientId, int accountId) {
 		super();
 		this.clientId = clientId;
 		this.accountId = accountId;
 	}
-	public double getClientId() {
+
+	public int getClientId() {
 		return clientId;
 	}
-	public void setClientId(double clientId) {
+
+	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-	public double getAccountId() {
+
+	public int getAccountId() {
 		return accountId;
 	}
-	public void setAccountId(double accountId) {
+
+	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ClientAccount [clientId=" + clientId + ", accountId=" + accountId + "]";
 	}
+	
+
 
 }

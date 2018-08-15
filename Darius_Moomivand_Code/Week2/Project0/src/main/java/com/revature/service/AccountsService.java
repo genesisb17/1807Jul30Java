@@ -6,6 +6,7 @@ import java.util.List;
 import com.revature.dao.AccountsDao;
 import com.revature.dao.Dao;
 import com.revature.pojo.Accounts;
+import com.revature.pojo.ClientAccount;
 
 public class AccountsService {
 	
@@ -20,6 +21,10 @@ public class AccountsService {
 	
 	public List<Accounts> getAll(){
 		return aDao.findAll();
+	}
+	
+	public void updateAccount(Accounts obj){
+		aDao.update(obj);
 	}
 	
 	

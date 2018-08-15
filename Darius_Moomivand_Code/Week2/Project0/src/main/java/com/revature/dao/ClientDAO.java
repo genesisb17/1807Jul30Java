@@ -82,10 +82,7 @@ public class ClientDAO implements Dao<Client, Integer>{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
-		
-		System.out.println(obj.toString());
+		}	
 		return obj;		
 		
 	}

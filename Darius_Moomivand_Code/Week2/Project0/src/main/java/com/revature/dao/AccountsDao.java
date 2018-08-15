@@ -75,17 +75,34 @@ public class AccountsDao implements Dao<Accounts, Integer>{
 		return obj;
 	}
 
-	@Override
-	public Accounts update(Accounts obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+		
 
 	@Override
 	public void delete(Accounts obj) {
 		// TODO Auto-generated method stub
 		
 	
+	}
+
+	@Override
+	public Accounts update(Accounts obj) {
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			conn.setAutoCommit(false);
+			String sql = "UPDATE ACCOUNTS SET BALANCE = ? "
+					+ "WHERE ACCOUNTS.ACCOUNT_ID =?";
+
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setDouble(1, obj.getBalance());
+			ps.setInt(2, obj.getAccId());
+			ps.executeUpdate();
+							
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;	
+		
 	}
 	
 	

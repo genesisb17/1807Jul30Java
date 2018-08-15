@@ -20,4 +20,9 @@ public class ClientAccountService {
 		return caDao.findAll();
 	}
 	
+	
+	public void getAccounts() {
+		
+	}
+	
 }
