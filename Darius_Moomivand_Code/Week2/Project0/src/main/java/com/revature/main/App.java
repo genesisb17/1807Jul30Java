@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 import com.revature.dao.ClientDAO;
 import com.revature.dao.Dao;
@@ -34,21 +35,28 @@ public class App {
 	static int updater;
 	static Boolean mainMenu = true;
 	static double userCID;
-	static double userAID;
-	static List<Integer> myAList;
+	static double userAID; 	
+	static List<Integer> myAList = new <Integer>ArrayList();
 	static int accountCounter = 0;
-	
+	static int nim;
+	static Stack<Integer> stack = new Stack<Integer>();
 	public static void main(String[] args) {
 		allAccounts = getAccounts();
 		allClients = getClients();
 		allCA = getClientAccount();
 		
+		String time = aService.time();
+		System.out.println(time);
+		
 		checkUser();
 		menu();
+		
+		
 	}
 	
 	static void menu() {
 		while(mainMenu) {
+			
 			System.out.println("Main menu\n"
 						+ "1 - WITHDRAW MONEY\n"
 						+ "2 - DEPOSIT MONEY\n"
@@ -73,16 +81,18 @@ public class App {
 					break;
 				
 			case 3: createAccount();
-					break;
+					//break;
 		
 					
 			case 4: mainMenu = false;
 					System.out.println("Goodbye!");
 		
 			}
-			
 	
 		}	
+		getAccounts();
+		getClients();
+		getClientAccount();
 	}
 	
 	static void depositCash() {
@@ -116,7 +126,7 @@ public class App {
 	
 	
 	static void viewAccounts() {
-		
+		getAccounts();
 		for(Accounts t : allMyAccounts) {
 			int i =1;
 			System.out.print(i + ". ");
@@ -134,7 +144,7 @@ public class App {
 		do{
 
 			System.out.println("\n\nWelcome to Revature banking.\n1. "
-					+ "Goto my accounts.\n2. Create a new username.\n");
+					+ "GO TO YOUR ACCOUNT.\n2. CREATE A USERNAME.\n");
 			int userOption = Integer.parseInt(scanner.nextLine());						/////changes made
 			
 			if(userOption == 1) {
@@ -151,26 +161,28 @@ public class App {
 						break;
 					}
 				}
+			
+				
+				
 				
 				for(ClientAccount a : allCA) {
 					myAList = new <Integer>ArrayList();
 					if(clientId == a.getClientId()){
-						myAList.add(a.getAccountId());
+						stack.push(a.getAccountId());                ///this is the prob
 					}
 				}
-				
+
+
 				System.out.println("\nHere are your accounts:\n");
-				for(Integer ab : myAList) {
-					List<Integer> myBList = new <Integer>ArrayList();
-				
 					for(Accounts t : allAccounts) {
-					
-						if(ab.equals(t.getAccId())){
+						nim = stack.peek();
+						if(nim == t.getAccId()){
 							System.out.println((accountCounter+1) + ". " + t.toString() + "\n");
 							allMyAccounts.add(t);
+							stack.pop();
 						}					
 					}
-				}
+				
 				
 				
 			
@@ -200,6 +212,9 @@ public class App {
 
 		ClientService cs = new ClientService();
 		clientId = cs.enterClient(newClient);		
+		
+		
+		
 		System.out.println("Congratulations! You have created a new user!");
 
 	}
@@ -214,7 +229,12 @@ public class App {
 		Integer accSelect = Integer.parseInt(scanner.nextLine());
 		Accounts newAccount = new Accounts(accSelect, 100);
 		AccountsService ac = new AccountsService();
-		AccountId = ac.saveNew(newAccount);					// new account id
+		AccountId = ac.saveNew(newAccount);		
+		
+		ClientAccount newCA = new ClientAccount();
+		newCA.setAccountId(AccountId);
+		newCA.setClientId(clientId);
+		caService.saveNew(newCA);
 		
 		System.out.println("Congradulations! You have created a account!");
 
@@ -223,12 +243,13 @@ public class App {
 	
 	static List<Client> getClients() {
 		List<Client> tempClient = cService.getAll();
+
 		return tempClient;
 	}	
 	
 	static List<Accounts> getAccounts() {
 		List<Accounts> tempAcc = aService.getAll();		
-	return tempAcc;
+		return tempAcc;
 	}
 	
 	static List<ClientAccount> getClientAccount() {
@@ -237,8 +258,6 @@ public class App {
 	}
 		
 }
-
-
 
 
 

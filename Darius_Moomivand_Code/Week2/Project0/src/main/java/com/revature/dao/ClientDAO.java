@@ -103,8 +103,7 @@ public class ClientDAO implements Dao<Client, Integer>{
 
 	public int getClientId(int id) {
 		int g = 0;
-		try(Connection conn = ConnectionFactory
-				.getInstance().getConnection()){
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			String sql = "select * from genre where genre_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
@@ -119,6 +118,13 @@ public class ClientDAO implements Dao<Client, Integer>{
 			e.printStackTrace();
 		}
 		return g;
+	}
+
+
+	@Override
+	public String time() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

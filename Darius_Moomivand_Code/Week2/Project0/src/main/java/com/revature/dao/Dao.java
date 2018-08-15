@@ -14,4 +14,6 @@ public interface Dao<T, I extends Serializable> {
 		return true;
 	}
 
+	String time();
+
 }

@@ -70,4 +70,10 @@ public class AllAccountsDao  implements Dao<AllAccounts, Integer>{
 		
 	}
 
+	@Override
+	public String time() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

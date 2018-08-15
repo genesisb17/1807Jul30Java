@@ -1,13 +1,18 @@
 package com.revature.dao;
 
 import com.revature.pojo.Accounts;
+import com.revature.pojo.AllAccounts;
 import com.revature.util.ConnectionFactory;
 
+import oracle.jdbc.OracleTypes;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +54,6 @@ public class AccountsDao implements Dao<Accounts, Integer>{
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			conn.setAutoCommit(false);
 			String query = "INSERT INTO accounts(balance, acc_type_id) values(?,?)";
-			
 			String[] keys = new String[1];
 			keys[0] = "account_id";
 			
@@ -105,5 +109,27 @@ public class AccountsDao implements Dao<Accounts, Integer>{
 		
 	}
 	
-	
+	public String time() {
+		String transactionId = "";
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String query = "{ ? = call getDate}";
+			
+			CallableStatement cs = conn.prepareCall(query);
+			
+			cs.registerOutParameter(1, Types.VARCHAR);
+			cs.execute();
+			
+			transactionId = cs.getNString(1);
+			
+			//System.out.println(transactionId);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return transactionId;
+		
+	}
 }

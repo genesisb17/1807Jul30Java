@@ -21,8 +21,7 @@ public class ClientAccountService {
 	}
 	
 	
-	public void getAccounts() {
-		
+	public void getAccounts(int id) {
+		caDao.findOne(id);
 	}
-	
 }

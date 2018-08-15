@@ -27,6 +27,10 @@ public class AccountsService {
 		aDao.update(obj);
 	}
 	
+	public String time() {
+		String time = aDao.time();
+		return time;
+	}
 	
 	
 	

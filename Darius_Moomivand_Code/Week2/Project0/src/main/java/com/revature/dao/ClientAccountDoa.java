@@ -40,8 +40,25 @@ public class ClientAccountDoa implements Dao<ClientAccount, Integer>{
 
 	@Override
 	public ClientAccount findOne(Integer id) {
-		// TODO Auto-generated method stub
 		return null;
+/*		int g =0;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String sql = "select * from accounts inner join client_account on accounts.account_id=client_account.account_id\r\n" + 
+					"where client_id=?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet info = ps.executeQuery();
+			while(info.next()) {
+			g = info.getInt(1);
+
+			}
+			// more code
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	return g;	
+*/	
 	}
 
 	@Override
@@ -86,6 +103,12 @@ public class ClientAccountDoa implements Dao<ClientAccount, Integer>{
 	public void delete(ClientAccount obj) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String time() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
