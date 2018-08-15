@@ -27,7 +27,7 @@ public class AccountDao implements Dao<Accounts, Integer> {
 //		Users user = new Users();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String query = "insert into account(accountID, accountNumber, userID, "
+			String query = "insert into accounts(accountID, accountNumber, userID, "
 					+ "accountType, balance) " + "values(?,?,?,?,?)";
 			
 			String[] keys = new String[1];

@@ -3,13 +3,18 @@ package com.ex.main;
 import java.util.List;
 import java.util.Scanner;
 
+import com.ex.pojos.Accounts;
 import com.ex.pojos.Users;
+import com.ex.service.AccountService;
+import com.ex.service.TransactionService;
 import com.ex.service.UserService;
 
 public class App {
 	
 	static Scanner scanner = new Scanner(System.in);
 	static UserService uService = new UserService();
+	static AccountService aService = new AccountService();
+	static TransactionService tService = new TransactionService();
 
 	public static void main(String[] args) {
 		welcomeMenu();
@@ -72,7 +77,7 @@ public class App {
 		// MAIN MENU
 		System.out.println("\n---------Main Menu--------\n"
 				+ "1. View My User\n"
-				+ "2. View All Users"
+				+ "2. View All Users\n"
 				+ "3. View Account\n"
 				+ "4. View Transactions\n"
 				+ "5. Add User\n"
@@ -87,7 +92,7 @@ public class App {
 			option = Integer.parseInt(scanner.nextLine());
 		}
 		catch(NumberFormatException e) {
-			System.out.println("Sorry, you must enter a number between 1 and 6");
+			System.out.println("Please enter a number between 1 and 11");
 			menu(u);
 		}
 		
@@ -104,11 +109,13 @@ public class App {
 			addUser();
 			break;
 		case 6:	// Add account
-			addAccount();
+			addAccount(u);
+			System.out.println("\nAccount created successfully\n");
 			break;
 		case 7:	// Add transaction
 		case 8: // Update user
 			updateUser(u);
+			System.out.println("\nInformation updated successfully\n");
 			break;
 		case 9: // Update account
 		case 10: // Update transaction
@@ -185,8 +192,21 @@ public class App {
 	}
 	
 	// CASE 6 - add account
-	static void addAccount() {
-		
+	static Accounts addAccount(Users u) {
+		System.out.println("Enter account number: ");
+		int accountNumber = Integer.parseInt(scanner.nextLine());
+		int userID = u.getUserID();
+		System.out.println("Enter account type: \n"
+				+ "1. Savings\n"
+				+ "2. Checking");
+		int accountType = Integer.parseInt(scanner.nextLine());
+		double balance = 0;
+		Accounts a = new Accounts();
+		a.setAccountNumber(accountNumber);
+		a.setUserID(userID);
+		a.setAccountType(accountType);
+		a.setBalance(balance);
+		return aService.addAccount(a);
 	}
 	
 	// CASE 7 - add transaction
