@@ -86,6 +86,6 @@ END;
 
 
 delete from users;
-select * from users; -- where username = 'mollymerritt' and password = 'mollymerritt';
+select * from accounts; -- where username = 'mollymerritt' and password = 'mollymerritt';
 commit;
 rollback;

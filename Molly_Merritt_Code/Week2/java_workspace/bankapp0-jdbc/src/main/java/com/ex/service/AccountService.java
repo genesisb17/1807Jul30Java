@@ -13,8 +13,8 @@ public class AccountService {
 		return aDao.save(a);
 	}
 	
-	public Accounts updateAccount(Accounts a) {
-		return aDao.update(a);
+	public Accounts updateAccount(int accountNumber, int accountType) {
+		return aDao.update(accountNumber, accountType);
 	}
 
 }

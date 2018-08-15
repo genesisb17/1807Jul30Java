@@ -249,10 +249,10 @@ public class App {
 	}
 	
 	// CASE 9 - update account
-	static Accounts updateAccount(Accounts a) {
+	static Accounts updateAccount(Accounts a, int accountType) {
 		System.out.println("Enter your account number:");
 		int accountNumber = Integer.parseInt(scanner.nextLine());
-		return aService.updateAccount(a);
+		return aService.updateAccount(accountNumber, accountType);
 	}
 	
 	

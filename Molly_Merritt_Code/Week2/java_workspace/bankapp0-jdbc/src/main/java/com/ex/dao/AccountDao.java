@@ -58,13 +58,38 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 	}
 
 //	@Override
-	public Accounts update(Accounts obj) {
+	public Accounts update(int accountNumber, int accountType) {
+		Accounts obj = new Accounts();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			conn.setAutoCommit(false);
-			String query = "UPDATE accounts set balance = ?";
+			String query = "SELECT balance from accounts where"
+					+ "accountID = ?";
 			
 			String[] keys = new String[1];
-			keys[0] = "userID";	// column name where keys are
+			keys[0] = "accountID";	// column name where keys are
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			
+			ps.setDouble(1, accountNumber);
+			
+			int rows = ps.executeUpdate();
+			System.out.println(rows);
+			
+			if(rows != 0) {
+				ResultSet rs = ps.getResultSet();
+				obj.setBalance(rs.getDouble(0));
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String query = "UPDATE accounts set balance = ?"
+					+ "where accountNumber = ?";
+			
+			String[] keys = new String[1];
+			keys[0] = "accountID";	// column name where keys are
 			
 			PreparedStatement ps = conn.prepareStatement(query, keys);
 			
