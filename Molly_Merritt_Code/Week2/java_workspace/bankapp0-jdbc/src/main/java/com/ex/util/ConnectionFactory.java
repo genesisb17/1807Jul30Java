@@ -27,8 +27,8 @@ public class ConnectionFactory {
 		Connection conn = null;
 		Properties prop = new Properties();
 		String path = "/Users/mollymerritt/my_git_repos/1807Jul30Java/"
-				+ "Week2/jdbc/bookstore-jdbc/src/main/resources/"
-				+ "application.properties";
+				+ "Molly_Merritt_Code/Week2/java_workspace/bankapp0-jdbc/src/main/"
+				+ "resources/application.properties";
 		try {
 			prop.load(new FileReader(path));
 			Class.forName(prop.getProperty("driver"));
