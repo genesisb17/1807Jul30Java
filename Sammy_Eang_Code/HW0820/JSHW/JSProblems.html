@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" 
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="jumbotron" id="wrapper">
+        <output id="time" class="float-right"></output>
+        <h1>Sammy Eang JS Homework</h1>
+        <br>
+        <h2>1. Fibonacci</h2>
+            <input type="text" id="fib" class="form-control col-4" placeholder="Enter number">
+                <br>
+            <button class="btn btn-submit" id="fibSubmit">Calculate</button>
+                <br>
+                <br>
+            <h4>Output:</h4>
+            <output id="fibbOutput"></output>
+                <br>
+                <br>
+                <hr>
+                <br>
+
+        <h2>2. Bubble Sort</h2>
+            <p>Add in each number to the array, then click sort!</p>
+            <input type="text" id="bubble" class="form-control col-4" placeholder="Enter number to add to list">
+                <br>
+            <button class="btn btn-submit" id="bubbleAdd">Add</button>
+            <button class="btn btn-submit" id="bubbleSort">Sort</button>
+                <br>
+            <output id="bubbleAdded"></output>
+                <br>
+            <h4>Output:</h4>
+            <output id="bubbleOutput"></output>
+                <br>
+                <br>
+                <hr>
+                <br>
+
+        <h2>3. Reverse String</h2>
+        <input type="text" id="reverse" class="form-control col-4" placeholder="Enter String">
+            <br>
+        <button class="btn btn-submit" id="reStringSubmit">Reverse!</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="reStringOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+
+        <h2>4. Factorial</h2>
+        <input type="text" id="factorialNum" class="form-control col-4" placeholder="Enter Number">
+            <br>
+        <button class="btn btn-submit" id="factorialSubmit">Calculate</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="factorialOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+
+        <h2>5. Substring</h2>
+        <p>Enter in all values first before clicking 'Submit'!</p>
+        <p>Offset position starts at 0 for the first letter!</p>
+        <input type="text" id="stringSub" class="form-control col-4" placeholder="Enter String">
+            <br>
+        <input type="text" id="offset" class="form-control col-4" placeholder="Enter Offset Position">
+            <br>
+        <input type="text" id="length" class="form-control col-4" placeholder="Enter Length">
+            <br>
+        <button class="btn btn-submit" id="substringSubmit">Submit</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="subStringOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+        
+        <h2>6. Even or Odd?</h2>
+        <input type="text" id="eoNum" class="form-control col-4" placeholder="Enter Number">
+            <br>
+        <button class="btn btn-submit" id="eoSubmit">Let's Find Out!</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="eoOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+
+        <h2>7. Palindrome?</h2>
+        <input type="text" id="palinString" class="form-control col-4" placeholder="Enter String">
+            <br>
+        <button class="btn btn-submit" id="palinSubmit">Let's Find Out!</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="palinOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+    
+        <h2>8. Descending Order</h2>
+        <p>Enter in any number. The digits will be rearranged from highest to lowest!</p>
+        <input type="text" id="descNum" class="form-control col-4" placeholder="Enter A Number">
+            <br>
+        <button class="btn btn-submit" id="descSubmit">Let's Find Out!</button>
+            <br>
+            <br>
+        <h4>Output:</h4>
+        <output id="descOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+
+        <h2>9. Live Clock</h2>
+            <br>
+        <p>Look at the top right of the page!</p>
+            <br>
+        <button class="btn btn-submit" id="timeStart">Click Me First!</button>
+            <br>
+            <hr>
+            <br>
+
+        <h2>10. Printing an Object Literal</h2>
+            <br>
+        <p>All the magic is within the JS file!</p>
+            <br>
+        <h4>Output: </h4>
+        <output id="objLitOutput"></output>
+            <br>
+            <br>
+            <hr>
+            <br>
+            
+        </div>
+
+    <script type="text/javascript" src="JSProblems.js"></script>
+</body>
+</html>
+
