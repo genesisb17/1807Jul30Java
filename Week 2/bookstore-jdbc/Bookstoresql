@@ -1,0 +1,143 @@
+--BOOKSTORE DDL SCRIPT
+CREATE TABLE Genre
+(
+--  ColName datatype    Optional Constraints
+    Genre_ID number(10) PRIMARY KEY,
+    Name varchar2(256) UNIQUE NOT NULL
+);
+
+CREATE TABLE Book
+(
+    Book_ID number(10) PRIMARY KEY,
+    ISBN varchar2(10) UNIQUE NOT NULL,
+    Title varchar2(256) NOT NULL,
+    Price number(6,2) NOT NULL,
+    Genre_ID number(10),
+    --naming constraint fk_book_genre, gives it constraint
+    CONSTRAINT fk_book_genre FOREIGN KEY(Genre_ID)
+        REFERENCES Genre(Genre_ID)
+);
+
+CREATE TABLE Author
+(
+    Author_ID number(10) PRIMARY KEY,
+    First_Name varchar(20) NOT NULL,
+    Last_Name varchar(20),
+    Biography varchar(1000) UNIQUE NOT NULL
+);
+
+CREATE TABLE Book_Author
+(
+    Book_ID number(10),
+    Author_ID number(10),
+    PRIMARY KEY(Book_ID, Author_ID),
+    FOREIGN KEY(Book_ID) 
+        REFERENCES Book(Book_ID),
+    FOREIGN KEY(Author_ID)
+        REFERENCES Author(Author_ID)
+);
+
+-----------------SEQUENCES------------------
+
+CREATE SEQUENCE book_seq;
+
+CREATE SEQUENCE "DEMO1807JUL30JAVA"."BOOK_SEQ"
+MINVALUE 1
+MAXVALUE 9999999999999999999999999999
+INCREMENT BY 1
+START WITH 1
+CACHE 20 NOORDER NOCYCLE NOPARTITION;
+
+DROP SEQUENCE a;
+
+CREATE sequence genre_seq;
+
+CREATE SEQUENCE author_seq
+minvalue 1
+start with 5
+increment by 5
+cache 5; --how many values will be stored in memory for faster
+
+----------TRIGGERS
+CREATE OR REPLACE TRIGGER b_seq_trig -- declare and name trigger
+BEFORE INSERT ON Book -- when will trigger execute
+FOR EACH ROW -- necessary to change value of table
+BEGIN
+    --what to do when trigger is fired
+    SELECT book_seq.nextVal 
+    INTO : new.book_id
+    FROM DUAL;
+END;
+
+/
+--ABOUT DUAL: it's a dummy table
+SELECT * FROM DUAL;
+SELECT SYSDATE
+FROM DUAL; 
+
+------------------DML Stuff...
+
+SELECT * FROM genre;
+INSERT INTO genre(name)
+VALUES('Autobiography');
+
+CREATE OR REPLACE TRIGGER a_seq_trig -- declare and name trigger
+BEFORE INSERT ON Author -- when will trigger execute
+FOR EACH ROW -- necessary to change value of table
+BEGIN
+    --what to do when trigger is fired
+    SELECT author_seq.nextVal 
+    INTO : new.author_id
+    FROM DUAL;
+END;
+
+/
+
+SELECT * FROM DUAL;
+SELECT SYSDATE
+FROM DUAL; 
+
+CREATE OR REPLACE TRIGGER g_seq_trig -- declare and name trigger
+BEFORE INSERT ON Genre -- when will trigger execute
+FOR EACH ROW -- necessary to change value of table
+BEGIN
+    --what to do when trigger is fired
+    SELECT genre_seq.nextVal 
+    INTO : new.genre_id
+    FROM DUAL;
+END;
+
+/
+
+--DML
+SELECT * FROM genre;
+
+INSERT INTO genre(name)
+WHERE name = 'Fiction';
+
+VALUES ('Language');
+
+------PL/SQL-------
+--Create a procedure to return all books
+/*
+    - Oracle creates a context area with all information necessary
+    for processing an SQL statement
+    - a Cursor is a pointer to the context area
+    - the "active set" is the row(s) returned by a statement and is held
+    by the cursor 
+    - there are two types: implicit and explicit
+    --> Implicit - created by oracle whenever we execute a DML
+        statement (and no explicit cursor on the set exists)
+    --> Explicit - programmer defined, as seen below, and is used
+        for obtaining more control over context area
+*/
+
+CREATE OR REPLACE PROCEDURE get_all_books(
+cursorParam OUT SYS_REFCURSOR)
+IS
+BEGIN
+    OPEN cursorParam 
+    FOR SELECT * FROM book;
+END;
+/
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html> <!--COMMENT SYNTAX --> <!-- !DOCTYPE html is always the first line in an html file-->
+<html lang="en"> <!-- HTML is the root element of html page-->
+<head>  <!-- all meta data about page live shere-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=chrome">
+    <title>HTML101</title>
+    <link rel="stylesheet" href="../css/css101.css">
+    <style>
+        .first{
+            color:blue;
+        }
+    </style>
+
+</head>
+<body> <!-- Where all content to display goes. note* elements can be hidden / removed.-->
+    Hello! This is our first HTML page!
+    <p>Hello! This is text inside of a paragraph tag</p>
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    
+    <hr> <!-- horizontal line-->
+        <br>
+        <br>
+        <br> 
+    <hr>
+
+    <h3>Lists: </h3>
+    <h6 id="text"> There are two types of lists: Ordered(numbered) and Unordered(bullets)</h6>
+    <ul>
+        <li class="first"> first</li>
+        <li>second</li>
+        <li>third</li>
+        <li>fourth</li>
+    </ul>
+
+    <ol>
+        <li class="first"> Order 1</li>
+        <li>Order 2</li>
+    </ol>
+
+    <divd>
+        <hr>
+        <h2>Forms</h2>
+        <form method="GET" action="test">   
+            <input id="text" placeholder="Username" name="username"><br>
+            <input id="number" max= "100" min ="0" name="age"><br>
+            <input id="password" name="password"><br>
+            <input id="radio" name="role" value="Associate"> <br>
+            <input id="radio" name="role" value="Trainer" checked> <br>
+            Countries Traveled:<br>
+            <input id="checkbox" name="Cuba" value="cuba"> <br>
+            <input id="checkbox" name="Mexico" value="Mexico"> <br>
+            <input id="checkbox" name="Spain" value="Spain"><br>
+            <input id="color" name="favorite color">
+            
+            <h6>More on forms... Lets check out<i>outputs</i></h6>
+            <form>
+                <input id="range" name="a" min="0" max="100">
+                <output name ="y" for="a"></output>
+            </form>
+        </form>
+        <button id="submit">This is a button</button>
+    </divd>
+
+    <footer>
+        this is a footer
+    </footer>
+
+    <div>
+        
+    </div>
+
+</body>
+</html>
+
