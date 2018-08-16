@@ -147,3 +147,23 @@ delete obj.name
 //The for...in statement iterates over all non-Symbol, enumerable properties of an object.
 for (var prop in obj) { console.log(prop) } //print out all properties of obj
 for (var prop in obj) { console.log(obj[prop]) } //print out value of each property of obj
+
+
+////--------------------------Operators
+/*GUARD operator &&
+    - if the first operand is truthy, return the 2nd operand,
+        otherwise, it returns the first operand
+    ***** returns the actual operand NOT true or false (unless that's the operand)
+*/
+var currentSession = null;
+var userInfo = {username: "gbonds", password: 123};
+
+var getUser = curr
+/* DEFAULT OPERATOR |Session && userInfo;
+|
+    if the first operand is truthy, return it
+    otherwise, return the second operand
+*/
+var earlyLeave = 1;
+var regularLeave = 530;
+var timeOut = earlyLeave || regularLeave;

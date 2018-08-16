@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Into to DOM Manipulation</title>
+    <title>Intro to DOM Manipulation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -13,20 +13,31 @@
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
+
+    <link rel="icon" href="https://thumbs.dreamstime.com/z/bank-building-icon-24113387.jpg">
 </head>
 <body>
-    <div class="jumbotron" id="wrapper">
+    <div class="jumbotron" id="logInView">
         <h1>Enter User Information</h1>
         <input type="text" id="username" class="form-control col-4"
                  placeholder="Username">
         <input type="password" id="password" class="form-control col-4"
                  placeholder="Password">
-        <button class="btn btn-submit" id="logIn">Log In</button>
+        <button class="btn btn-submit" id="logIn">Log In</button> <br><span class="col-4" id="message"></span>
         <!-- another way to make a button: 
         <input type="submit" class="btn btn-submit" value="Submit Button"> -->
     </div>
 
+    <div class="jumbotron" id="homeView" hidden="true">
+        <h1 id="greeting"></h1>
+        <input type="number" min="0">
+        <button id="withdraw" class="btn btn-success">Withdraw Funds</button>
+        <button id="deposit" class="btn btn-warning">Deposit Funds</button>
+        <span id="moneyMessage"></span>
+    </div>
 
-    <script type="text/javascript" src="../js/domManipulation.js"></script>
+
+
+    <script type="text/javascript" src="../js/domManipulation.1.js"></script>
 </body>
 </html>
