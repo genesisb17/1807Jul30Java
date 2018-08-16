@@ -18,7 +18,7 @@ public class App {
 	// Introduction to app. Will only run once.
 	public static void main(String[] args) throws CustomException {
 		System.out.println("Welcome to the Not Greedy Banking App!");
-		System.out.println("----------START----------\n");
+		System.out.println("---------------START-----------------\n");
 		intro();
 	}
 	
