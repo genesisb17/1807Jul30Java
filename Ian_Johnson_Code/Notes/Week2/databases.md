@@ -291,9 +291,9 @@ problems:
 
 The isolation levels are as follows:
 
-| Isolation level                        | Dirty read | Non-repeatable read | Phantom read |
-| -------------------------------------- | ---------- | ------------------- | ------------ |
-| Read uncommitted                       | possible   | possible            | possible     |
-| Repeatable committed (usually default) | impossible | possible            | possible     |
-| Repeatable read                        | impossible | impossible          | possible     |
-| Serializable                           | impossible | impossible          | impossible   |
+| Isolation level                  | Dirty read | Non-repeatable read | Phantom read |
+| -------------------------------- | ---------- | ------------------- | ------------ |
+| Read uncommitted                 | possible   | possible            | possible     |
+| Read committed (usually default) | impossible | possible            | possible     |
+| Repeatable read                  | impossible | impossible          | possible     |
+| Serializable                     | impossible | impossible          | impossible   |
