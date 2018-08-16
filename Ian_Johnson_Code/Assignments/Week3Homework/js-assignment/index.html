@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+  <title>Week 3 JS assignment</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row align-items-center">
+      <h4 id="time-display" class="col-12 col-md-4 order-md-last text-center text-md-right">Time</h4>
+      <h1 class="col-12 col-md-8">Week 3 JavaScript assignment</h1>
+    </div>
+    <h2>1. Fibonacci</h2>
+    <h3>Directions</h3>
+    Define function: fib(n)
+    <br> Return the nth number in the fibonacci sequence.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q1-input">Input number</label>
+        <input id="q1-input" class="form-control" type="number" placeholder="Input number">
+      </div>
+      <button id="q1-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q1-output" class="output"></pre>
+
+    <h2>2. Bubble Sort</h2>
+    <h3>Directions</h3>
+    Define function: bubbleSort(numArray)
+    <br> Use the bubble sort algorithm to sort the array.
+    <br> Return the sorted array.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q2-input">Input array (e.g. [1, 2, 3])</label>
+        <input id="q2-input" class="form-control" type="text" placeholder="Input array (e.g. [1, 2, 3])">
+      </div>
+      <button id="q2-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q2-output" class="output"></pre>
+
+    <h2>3. Reverse String</h2>
+    <h3>Directions</h3>
+    Define function: reverseStr(someStr)
+    <br> Reverse and return the String.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q3-input">Input string</label>
+        <input id="q3-input" class="form-control" type="text" placeholder="Input string">
+      </div>
+      <button id="q3-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q3-output" class="output"></pre>
+
+    <h2>4. Factorial</h2>
+    <h3>Directions</h3>
+    Define function: factorial(someNum)
+    <br> Use recursion to compute and return the factorial of someNum.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q4-input">Input number</label>
+        <input id="q4-input" class="form-control" type="number" placeholder="Input number">
+      </div>
+      <button id="q4-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q4-output" class="output"></pre>
+
+    <h2>5. Substring</h2>
+    <h3>Directions</h3>
+    Define function substring(someStr, length, offset)
+    <br> Return the substring contained between offset and (offset + length) inclusively.
+    <br> If incorrect input is entered, use the alert function and describe why the input was incorrect.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2 mb-2 mb-md-0">
+        <label class="sr-only" for="q5-input1">Input string</label>
+        <input id="q5-input1" class="form-control" type="text" placeholder="Input string">
+      </div>
+      <div class="form-group mr-2 mb-2 mb-md-0">
+        <label class="sr-only" for="q5-input2">Substring length</label>
+        <input id="q5-input2" class="form-control" type="number" placeholder="Substring length">
+      </div>
+      <div class="form-group mr-2 mb-2 mb-md-0">
+        <label class="sr-only" for="q5-input3">Substring offset</label>
+        <input id="q5-input3" class="form-control" type="number" placeholder="Substring offset">
+      </div>
+      <button id="q5-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q5-output" class="output"></pre>
+
+    <h2>6. Even Number</h2>
+    <h3>Directions</h3>
+    Define function: isEven(someNum)
+    <br> Return true if even, false if odd.
+    <br> Do not use % operator.
+    <h3>Input</h3>
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q6-input">Input number</label>
+        <input id="q6-input" class="form-control" type="number" placeholder="Input number">
+      </div>
+      <button id="q6-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q6-output" class="output"></pre>
+
+    <h2>7. Palindrome</h2>
+    <h3>Directions</h3>
+    Define function isPalindrome(someStr)
+    <br> Return true if someStr is a palindrome, otherwise return false.
+    <div class="form-inline mb-3">
+      <div class="form-group mr-2">
+        <label class="sr-only" for="q7-input">Input string</label>
+        <input id="q7-input" class="form-control" type="text" placeholder="Input string">
+      </div>
+      <button id="q7-submit" class="btn btn-primary">Compute</button>
+    </div>
+    <h3>Output</h3>
+    <pre id="q7-output" class="output"></pre>
+
+    <h2>8. Shapes</h2>
+    <h3>Directions</h3>
+    Define function: printShape(shape, height, character) shape is a String and is either "Square", "Triangle", "Diamond". height
+    is a Number and is the height of the shape. Assume the number is odd. character is a String that represents the contents
+    of the shape. Assume this String contains just one character. Use a switch statement to determine which shape was passed
+    in. Use the console.log function to print the desired shape. Example for printShape("Square", 3, "%"); %%% %%% %%% Example
+    for printShape("Triangle", 3, "$"); $ $$ $$$ Example for printShape("Diamond", 5, "*"); * *** ***** *** *
+
+    <h2>9. Object literal</h2>
+    <h3>Directions</h3>
+    Define function traverseObject(someObj) Print every property and it's value.
+
+    <h2>10. Delete Element</h2>
+    <h3>Directions</h3>
+    Define function deleteElement(someArr) Print length Delete the third element in the array. Print length The lengths should
+    be the same.
+
+    <h2>11. Splice Element</h2>
+    <h3>Directions</h3>
+    Define function spliceElement(someArr) Print length Splice the third element in the array. Print length The lengths should
+    be one less than the original length.
+
+    <h2>12. Defining an object using a constructor</h2>
+    <h3>Directions</h3>
+    Define a function Person(name, age) The following line should set a Person object to the variable john: var john = new Person("John",
+    30);
+
+    <h2>13. Defining an object using an object literal</h2>
+    <h3>Directions</h3>
+    Define function getPerson(name, age) The following line should set a Person object to the variable john: var john = getPerson("John",
+    30);
+
+    <h2>14. Display the current time on the top right of your HTML page, updating every second</h2>
+
+    <h2>15. Descending order</h2>
+    <h3>Directions</h3>
+    Your task is to make a function that can take any non-negative integer as a argument and return it with its digits in descending
+    order. Essentially, rearrange the digits to create the highest possible number.
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
