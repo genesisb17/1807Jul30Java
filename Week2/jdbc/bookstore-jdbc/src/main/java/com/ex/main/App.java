@@ -3,6 +3,8 @@ package com.ex.main;
 import java.util.List;
 import java.util.Scanner;
 
+import com.ex.dao.BookDao;
+import com.ex.dao.Dao;
 import com.ex.pojos.Book;
 import com.ex.pojos.Genre;
 import com.ex.service.BookService;
@@ -22,9 +24,14 @@ public class App {
 		 */
 		System.out.println("WELCOME!\n"
 				+ "Ready to Read?!");
-		menu();
+	//	menu();
 		
 //		Dao dao = new BookDao();
+//		
+//		List<Book> books = dao.findAll();
+//		for(Book b : books) {
+//			System.out.println(b.toString());
+//		}
 //		Book b = new Book();
 //		b.setGenreId(22);
 //		b.setIsbn("91849789");

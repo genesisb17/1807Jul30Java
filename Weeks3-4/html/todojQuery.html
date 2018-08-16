@@ -35,6 +35,9 @@
             </div>
             <div class="col">
                 <h3>Purchased:</h3>
+                <ul id="bought">
+
+                </ul>
             </div>
         </div>
 
@@ -51,7 +54,12 @@ $("#add").on('click', function(){
     item.innerText = text;
     $("#toBuy").append(item);
     $("#newItem").val('');
+
 });
+
+$('#toBuy').on('click', 'li', function(){
+    $('#bought').append(this);
+})
 
 
 </script>

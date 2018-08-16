@@ -56,7 +56,7 @@ public class GenreDAO implements Dao<Genre, Integer>{
 			String sql = "select * from genre where genre_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
-			ResultSet info = ps.executeQuery();
+			ResultSet info = ps.executeQuery( );
 			while(info.next()) {
 			g = new Genre();
 			g.setId(info.getInt(1));
