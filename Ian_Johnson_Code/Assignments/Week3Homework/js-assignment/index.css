@@ -3,3 +3,11 @@
   border-radius: 5px;
   padding: 1em;
 }
+
+.question {
+  margin-bottom: 3rem;
+}
+
+.question.hidden {
+  display: none;
+}

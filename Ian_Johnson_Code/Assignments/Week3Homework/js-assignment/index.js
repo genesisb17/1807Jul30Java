@@ -126,10 +126,58 @@ function isPalindrome(someStr) {
 // *****
 //  ***
 //   *
+function printShape(shape, height, character) {
+  if (height < 0) {
+    throw new Error('Cannot make a shape with a negative height.');
+  }
+  let formatted = '';
+  switch (shape) {
+    case 'Square':
+      for (let i = 0; i < height; i++) {
+        formatted += character.repeat(height);
+        formatted += '\n';
+      }
+      break;
+    case 'Triangle':
+      for (let i = 0; i < height; i++) {
+        formatted += character.repeat(i + 1);
+        formatted += '\n';
+      }
+      break;
+    case 'Diamond':
+      if (height % 2 === 0) {
+        throw new Error('Cannot make a diamond with an even height.');
+      }
+      for (let i = 0; i < Math.floor(height / 2); i++) {
+        formatted += ' '.repeat(character.length * (height / 2 - i));
+        formatted += character.repeat(2 * i + 1);
+        formatted += ' '.repeat(character.length * (height / 2 - i));
+        formatted += '\n';
+      }
+      for (let i = Math.floor(height / 2); i >= 0; i--) {
+        formatted += ' '.repeat(character.length * (height / 2 - i));
+        formatted += character.repeat(2 * i + 1);
+        formatted += ' '.repeat(character.length * (height / 2 - i));
+        formatted += '\n';
+      }
+      break;
+    default:
+      throw new Error(`${shape} is not a valid shape.`);
+  }
+  console.log(formatted);
+  return formatted;
+}
 
 // 9. Object literal
 // Define function traverseObject(someObj)
 // Print every property and it's value.
+function traverseObject(someObj) {
+  let output = '';
+  for (let prop in someObj) {
+    output += `${prop}: ${someObj[prop]}\n`;
+  }
+  return output;
+}
 
 // 10. Delete Element
 // Define function deleteElement(someArr)
@@ -137,6 +185,15 @@ function isPalindrome(someStr) {
 // Delete the third element in the array.
 // Print length
 // The lengths should be the same.
+function deleteElement(someArr) {
+  let output = '';
+  output += `Initial array: ${someArr}; length ${someArr.length}\n`;
+  delete someArr[2];
+  output += `After deleting the third element: ${someArr}; length ${
+    someArr.length
+  }\n`;
+  return output;
+}
 
 // 11. Splice Element
 // Define function spliceElement(someArr)
@@ -144,16 +201,47 @@ function isPalindrome(someStr) {
 // Splice the third element in the array.
 // Print length
 // The lengths should be one less than the original length.
+function spliceElement(someArr) {
+  let output = '';
+  output += `Initial array: ${someArr}; length ${someArr.length}\n`;
+  someArr.splice(3, 1);
+  output += `After splicing the third element: ${someArr}; length ${
+    someArr.length
+  }\n`;
+  return output;
+}
 
 // 12. Defining an object using a constructor
 // Define a function Person(name, age)
 // The following line should set a Person object to the variable john:
-// 	var john = new Person("John", 30);
+// var john = new Person("John", 30);
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+Person.prototype.getName = function() {
+  return this.name;
+};
+
+Person.prototype.getAge = function() {
+  return this.age;
+};
+
+Person.prototype.toString = function() {
+  return `Name: ${this.getName()}, Age: ${this.getAge()}`;
+};
 
 // 13. Defining an object using an object literal
 // Define function getPerson(name, age)
 // The following line should set a Person object to the variable john:
-// 	var john = getPerson("John", 30);
+// var john = getPerson("John", 30);
+function getPerson(name, age) {
+  // This doesn't use an object literal, but I think it's the best way of doing
+  // this. To use an object literal and still have the returned thing be a
+  // Person, I'd have to use the __proto__ property, which is deprecated.
+  return new Person(name, age);
+}
 
 // 14. Display the current time on the top right of your HTML page,
 // updating every second
@@ -162,6 +250,24 @@ function isPalindrome(someStr) {
 // Your task is to make a function that can take any non-negative
 // integer as a argument and return it with its digits in descending
 // order. Essentially, rearrange the digits to create the highest possible number.
+function descendingDigits(num) {
+  if (num < 0) {
+    throw new Error('The input number must be non-negative.');
+  } else if (num === 0) {
+    return 0;
+  }
+  // First, let's get the digits as an array.
+  const digits = [];
+  while (num > 0) {
+    digits.push(num % 10);
+    num = Math.floor(num / 10);
+  }
+  // We want to sort in descending order.
+  digits.sort((a, b) => b - a);
+  // Just for fun, let's use the reduce method to construct the number to
+  // return.
+  return digits.reduce((num, digit) => 10 * num + digit);
+}
 
 /**
  * A helper function to solve problems. It relies on the fact that the input
@@ -238,7 +344,37 @@ function parseIntStrict(str) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Updates which question is shown on the page, by hiding all others.
+ */
+function updateShownQuestion() {
+  const selectedId = document.getElementById('question-select').value;
+  // First, hide all the questions:
+  for (const question of document.querySelectorAll('.question')) {
+    question.setAttribute('aria-hidden', true);
+    question.classList.add('hidden');
+  }
+  // Now unhide the one we want:
+  const selected = document.getElementById(selectedId);
+  selected.setAttribute('aria-hidden', false);
+  selected.classList.remove('hidden');
+}
+
+window.onload = () => {
+  // Make the "time" indicator update every second.
+  setInterval(() => {
+    document.getElementById(
+      'time-display'
+    ).textContent = new Date().toLocaleTimeString('en-US', { hour12: false });
+  }, 1);
+
+  // Set up the question selector.
+  updateShownQuestion();
+  document
+    .getElementById('question-select')
+    .addEventListener('change', updateShownQuestion);
+
+  // Set up the questions themselves.
   setUpQuestion(1, input => fib(parseIntStrict(input)));
   setUpQuestion(2, input => {
     const arr = JSON.parse(input);
@@ -254,4 +390,31 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   setUpQuestion(6, input => isEven(parseIntStrict(input)));
   setUpQuestion(7, isPalindrome);
-});
+  setUpQuestion(8, (shape, height, character) =>
+    printShape(shape, parseIntStrict(height), character)
+  );
+  setUpQuestion(9, input => {
+    const obj = JSON.parse(input);
+    if (typeof obj !== 'object') {
+      throw new Error('Input must be an object.');
+    }
+    return traverseObject(obj);
+  });
+  setUpQuestion(10, input => {
+    const arr = JSON.parse(input);
+    if (!Array.isArray(arr)) {
+      throw new Error('Input must be an array.');
+    }
+    return deleteElement(arr);
+  });
+  setUpQuestion(11, input => {
+    const arr = JSON.parse(input);
+    if (!Array.isArray(arr)) {
+      throw new Error('Input must be an array.');
+    }
+    return spliceElement(arr);
+  });
+  setUpQuestion(12, (name, age) => new Person(name, parseIntStrict(age)));
+  setUpQuestion(13, (name, age) => getPerson(name, parseIntStrict(age)));
+  setUpQuestion(15, input => descendingDigits(parseIntStrict(input)));
+};

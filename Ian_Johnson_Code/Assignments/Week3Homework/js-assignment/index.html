@@ -14,162 +14,327 @@
 <body>
   <div class="container">
     <div class="row align-items-center">
-      <h4 id="time-display" class="col-12 col-md-4 order-md-last text-center text-md-right">Time</h4>
-      <h1 class="col-12 col-md-8">Week 3 JavaScript assignment</h1>
+      <h4 id="time-display" class="col-12 col-md-auto order-md-last text-center text-md-right">Time</h4>
+      <h1 class="col-12 col-md">Week 3 JavaScript assignment</h1>
     </div>
-    <h2>1. Fibonacci</h2>
-    <h3>Directions</h3>
-    Define function: fib(n)
-    <br> Return the nth number in the fibonacci sequence.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q1-input">Input number</label>
-        <input id="q1-input" class="form-control" type="number" placeholder="Input number">
-      </div>
-      <button id="q1-submit" class="btn btn-primary">Compute</button>
+    <div class="form-group row align-items-baseline">
+      <label class="col-12 col-md-auto" for="question-select">Select question to view:</label>
+      <select id="question-select" class="form-control custom-select col-12 col-md-4">
+        <option value="question1">1. Fibonacci</option>
+        <option value="question2">2. Bubble Sort</option>
+        <option value="question3">3. Reverse String</option>
+        <option value="question4">4. Factorial</option>
+        <option value="question5">5. Substring</option>
+        <option value="question6">6. Even Number</option>
+        <option value="question7">7. Palindrome</option>
+        <option value="question8">8. Shapes</option>
+        <option value="question9">9. Object Literal</option>
+        <option value="question10">10. Delete Element</option>
+        <option value="question11">11. Splice Element</option>
+        <option value="question12">12. Object Constructor</option>
+        <option value="question13">13. Object Literal</option>
+        <option value="question14">14. Time Display</option>
+        <option value="question15">15. Descending Order</option>
+      </select>
     </div>
-    <h3>Output</h3>
-    <pre id="q1-output" class="output"></pre>
-
-    <h2>2. Bubble Sort</h2>
-    <h3>Directions</h3>
-    Define function: bubbleSort(numArray)
-    <br> Use the bubble sort algorithm to sort the array.
-    <br> Return the sorted array.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q2-input">Input array (e.g. [1, 2, 3])</label>
-        <input id="q2-input" class="form-control" type="text" placeholder="Input array (e.g. [1, 2, 3])">
+    <div id="question1" class="question">
+      <h2>1. Fibonacci</h2>
+      <h3>Directions</h3>
+      Define function: fib(n)
+      <br> Return the nth number in the fibonacci sequence.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q1-input">Input number</label>
+          <input id="q1-input" class="form-control" type="number" placeholder="Input number">
+        </div>
+        <button id="q1-submit" class="btn btn-primary">Compute</button>
       </div>
-      <button id="q2-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q1-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q2-output" class="output"></pre>
 
-    <h2>3. Reverse String</h2>
-    <h3>Directions</h3>
-    Define function: reverseStr(someStr)
-    <br> Reverse and return the String.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q3-input">Input string</label>
-        <input id="q3-input" class="form-control" type="text" placeholder="Input string">
+    <div id="question2" class="question">
+      <h2>2. Bubble Sort</h2>
+      <h3>Directions</h3>
+      Define function: bubbleSort(numArray)
+      <br> Use the bubble sort algorithm to sort the array.
+      <br> Return the sorted array.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q2-input">Input array (e.g. [1, 2, 3])</label>
+          <input id="q2-input" class="form-control" type="text" placeholder="Input array (e.g. [1, 2, 3])">
+        </div>
+        <button id="q2-submit" class="btn btn-primary">Compute</button>
       </div>
-      <button id="q3-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q2-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q3-output" class="output"></pre>
 
-    <h2>4. Factorial</h2>
-    <h3>Directions</h3>
-    Define function: factorial(someNum)
-    <br> Use recursion to compute and return the factorial of someNum.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q4-input">Input number</label>
-        <input id="q4-input" class="form-control" type="number" placeholder="Input number">
+    <div id="question3" class="question">
+      <h2>3. Reverse String</h2>
+      <h3>Directions</h3>
+      Define function: reverseStr(someStr)
+      <br> Reverse and return the String.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q3-input">Input string</label>
+          <input id="q3-input" class="form-control" type="text" placeholder="Input string">
+        </div>
+        <button id="q3-submit" class="btn btn-primary">Compute</button>
       </div>
-      <button id="q4-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q3-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q4-output" class="output"></pre>
 
-    <h2>5. Substring</h2>
-    <h3>Directions</h3>
-    Define function substring(someStr, length, offset)
-    <br> Return the substring contained between offset and (offset + length) inclusively.
-    <br> If incorrect input is entered, use the alert function and describe why the input was incorrect.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2 mb-2 mb-md-0">
-        <label class="sr-only" for="q5-input1">Input string</label>
-        <input id="q5-input1" class="form-control" type="text" placeholder="Input string">
+    <div id="question4" class="question">
+      <h2>4. Factorial</h2>
+      <h3>Directions</h3>
+      Define function: factorial(someNum)
+      <br> Use recursion to compute and return the factorial of someNum.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q4-input">Input number</label>
+          <input id="q4-input" class="form-control" type="number" placeholder="Input number">
+        </div>
+        <button id="q4-submit" class="btn btn-primary">Compute</button>
       </div>
-      <div class="form-group mr-2 mb-2 mb-md-0">
-        <label class="sr-only" for="q5-input2">Substring length</label>
-        <input id="q5-input2" class="form-control" type="number" placeholder="Substring length">
-      </div>
-      <div class="form-group mr-2 mb-2 mb-md-0">
-        <label class="sr-only" for="q5-input3">Substring offset</label>
-        <input id="q5-input3" class="form-control" type="number" placeholder="Substring offset">
-      </div>
-      <button id="q5-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q4-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q5-output" class="output"></pre>
 
-    <h2>6. Even Number</h2>
-    <h3>Directions</h3>
-    Define function: isEven(someNum)
-    <br> Return true if even, false if odd.
-    <br> Do not use % operator.
-    <h3>Input</h3>
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q6-input">Input number</label>
-        <input id="q6-input" class="form-control" type="number" placeholder="Input number">
+    <div id="question5" class="question">
+      <h2>5. Substring</h2>
+      <h3>Directions</h3>
+      Define function substring(someStr, length, offset)
+      <br> Return the substring contained between offset and (offset + length) inclusively.
+      <br> If incorrect input is entered, use the alert function and describe why the input was incorrect.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2 mb-2 mb-md-0">
+          <label class="sr-only" for="q5-input1">Input string</label>
+          <input id="q5-input1" class="form-control" type="text" placeholder="Input string">
+        </div>
+        <div class="form-group mr-2 mb-2 mb-md-0">
+          <label class="sr-only" for="q5-input2">Substring length</label>
+          <input id="q5-input2" class="form-control" type="number" placeholder="Substring length">
+        </div>
+        <div class="form-group mr-2 mb-2 mb-md-0">
+          <label class="sr-only" for="q5-input3">Substring offset</label>
+          <input id="q5-input3" class="form-control" type="number" placeholder="Substring offset">
+        </div>
+        <button id="q5-submit" class="btn btn-primary">Compute</button>
       </div>
-      <button id="q6-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q5-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q6-output" class="output"></pre>
 
-    <h2>7. Palindrome</h2>
-    <h3>Directions</h3>
-    Define function isPalindrome(someStr)
-    <br> Return true if someStr is a palindrome, otherwise return false.
-    <div class="form-inline mb-3">
-      <div class="form-group mr-2">
-        <label class="sr-only" for="q7-input">Input string</label>
-        <input id="q7-input" class="form-control" type="text" placeholder="Input string">
+    <div id="question6" class="question">
+      <h2>6. Even Number</h2>
+      <h3>Directions</h3>
+      Define function: isEven(someNum)
+      <br> Return true if even, false if odd.
+      <br> Do not use % operator.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q6-input">Input number</label>
+          <input id="q6-input" class="form-control" type="number" placeholder="Input number">
+        </div>
+        <button id="q6-submit" class="btn btn-primary">Compute</button>
       </div>
-      <button id="q7-submit" class="btn btn-primary">Compute</button>
+      <h3>Output</h3>
+      <pre id="q6-output" class="output"></pre>
     </div>
-    <h3>Output</h3>
-    <pre id="q7-output" class="output"></pre>
 
-    <h2>8. Shapes</h2>
-    <h3>Directions</h3>
-    Define function: printShape(shape, height, character) shape is a String and is either "Square", "Triangle", "Diamond". height
-    is a Number and is the height of the shape. Assume the number is odd. character is a String that represents the contents
-    of the shape. Assume this String contains just one character. Use a switch statement to determine which shape was passed
-    in. Use the console.log function to print the desired shape. Example for printShape("Square", 3, "%"); %%% %%% %%% Example
-    for printShape("Triangle", 3, "$"); $ $$ $$$ Example for printShape("Diamond", 5, "*"); * *** ***** *** *
+    <div id="question7" class="question">
+      <h2>7. Palindrome</h2>
+      <h3>Directions</h3>
+      Define function isPalindrome(someStr)
+      <br> Return true if someStr is a palindrome, otherwise return false.
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q7-input">Input string</label>
+          <input id="q7-input" class="form-control" type="text" placeholder="Input string">
+        </div>
+        <button id="q7-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q7-output" class="output"></pre>
+    </div>
 
-    <h2>9. Object literal</h2>
-    <h3>Directions</h3>
-    Define function traverseObject(someObj) Print every property and it's value.
+    <div id="question8" class="question">
+      <h2>8. Shapes</h2>
+      <h3>Directions</h3>
+      Define function: printShape(shape, height, character)
+      <br> shape is a String and is either "Square", "Triangle", "Diamond".
+      <br> height is a Number and is the height of the shape. Assume the number is odd.
+      <br> character is a String that represents the contents of the shape.
+      <br> Assume this String contains just one character. Use a switch statement to determine which shape was passed in.
+      Use the console.log function to print the desired shape.
+      <br> Example for printShape("Square", 3, "%"):
+      <pre class="output">
+%%%
+%%%
+%%%
+</pre> Example for printShape("Triangle", 3, "$"):
+      <pre class="output">
+$
+$$
+$$$
+</pre> Example for printShape("Diamond", 5, "*"):
+      <pre class="output">
+  *
+ ***
+*****
+ ***
+  *
+</pre>
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q8-input2">Shape</label>
+          <select id="q8-input1" class="form-control custom-select">
+            <option value="Square">Square</option>
+            <option value="Triangle">Triangle</option>
+            <option value="Diamond">Diamond</option>
+          </select>
+        </div>
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q8-input2">Length</label>
+          <input type="number" id="q8-input2" placeholder="Length">
+        </div>
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q8-input3">Character</label>
+          <input type="text" id="q8-input3" placeholder="Character">
+        </div>
+        <button id="q8-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q8-output" class="output"></pre>
+    </div>
 
-    <h2>10. Delete Element</h2>
-    <h3>Directions</h3>
-    Define function deleteElement(someArr) Print length Delete the third element in the array. Print length The lengths should
-    be the same.
+    <div id="question9" class="question">
+      <h2>9. Object literal</h2>
+      <h3>Directions</h3>
+      Define function traverseObject(someObj)
+      <br> Print every property and it's value.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q9-input">Object (as JSON)</label>
+          <input type="text" id="q9-input" placeholder="Object (as JSON)">
+        </div>
+        <button id="q9-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q9-output" class="output"></pre>
+    </div>
 
-    <h2>11. Splice Element</h2>
-    <h3>Directions</h3>
-    Define function spliceElement(someArr) Print length Splice the third element in the array. Print length The lengths should
-    be one less than the original length.
+    <div id="question10" class="question">
+      <h2>10. Delete Element</h2>
+      <h3>Directions</h3>
+      Define function deleteElement(someArr)
+      <br>Print length
+      <br>Delete the third element in the array.
+      <br> Print length The lengths should be the same.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q10-input">Array (as JSON)</label>
+          <input type="text" id="q10-input" placeholder="Array (as JSON)">
+        </div>
+        <button id="q10-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q10-output" class="output"></pre>
+    </div>
 
-    <h2>12. Defining an object using a constructor</h2>
-    <h3>Directions</h3>
-    Define a function Person(name, age) The following line should set a Person object to the variable john: var john = new Person("John",
-    30);
+    <div id="question11" class="question">
+      <h2>11. Splice Element</h2>
+      <h3>Directions</h3>
+      Define function spliceElement(someArr)
+      <br> Print length
+      <br> Splice the third element in the array.
+      <br> Print length The lengths should be one less than the original length.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q11-input">Array (as JSON)</label>
+          <input type="text" id="q11-input" placeholder="Array (as JSON)">
+        </div>
+        <button id="q11-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q11-output" class="output"></pre>
+    </div>
 
-    <h2>13. Defining an object using an object literal</h2>
-    <h3>Directions</h3>
-    Define function getPerson(name, age) The following line should set a Person object to the variable john: var john = getPerson("John",
-    30);
+    <div id="question12" class="question">
+      <h2>12. Defining an object using a constructor</h2>
+      <h3>Directions</h3>
+      Define a function Person(name, age)
+      <br>The following line should set a Person object to the variable john: <code>var john = new Person("John", 30);</code>
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q12-input1">Name</label>
+          <input type="text" id="q12-input1" placeholder="Name">
+        </div>
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q12-input2">Age</label>
+          <input type="text" id="q12-input2" placeholder="Age">
+        </div>
+        <button id="q12-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q12-output" class="output"></pre>
+    </div>
 
-    <h2>14. Display the current time on the top right of your HTML page, updating every second</h2>
+    <div id="question13" class="question">
+      <h2>13. Defining an object using an object literal</h2>
+      <h3>Directions</h3>
+      Define function getPerson(name, age)
+      <br> The following line should set a Person object to the variable john: <code>var john = getPerson("John", 30);</code>
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q13-input1">Name</label>
+          <input type="text" id="q13-input1" placeholder="Name">
+        </div>
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q13-input2">Age</label>
+          <input type="text" id="q13-input2" placeholder="Age">
+        </div>
+        <button id="q13-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q13-output" class="output"></pre>
+    </div>
 
-    <h2>15. Descending order</h2>
-    <h3>Directions</h3>
-    Your task is to make a function that can take any non-negative integer as a argument and return it with its digits in descending
-    order. Essentially, rearrange the digits to create the highest possible number.
+    <div id="question14" class="question">
+      <h2>14. Display the current time on the top right of your HTML page, updating every second</h2>
+      There is no input or output for this question; please see the upper-right corner of this page.
+    </div>
+
+    <div id="question15" class="question">
+      <h2>15. Descending order</h2>
+      <h3>Directions</h3>
+      Your task is to make a function that can take any non-negative integer as a argument and return it with its digits in descending
+      order. Essentially, rearrange the digits to create the highest possible number.
+      <h3>Input</h3>
+      <div class="form-inline mb-3">
+        <div class="form-group mr-2">
+          <label class="sr-only" for="q15-input">Input number</label>
+          <input type="text" id="q15-input" placeholder="Input number">
+        </div>
+        <button id="q15-submit" class="btn btn-primary">Compute</button>
+      </div>
+      <h3>Output</h3>
+      <pre id="q15-output" class="output"></pre>
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
