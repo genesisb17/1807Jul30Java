@@ -21,6 +21,9 @@ function logIn(){
                         //successfully logged in
                         $('#message').attr('hidden', 'true');
                         console.log("logged in");
+                        $('#landingView').attr('hidden', 'true');
+                        $('#homeView').removeAttr('hidden');
+                        $('#greeting').html(`Welcome ${user.firstName}`);
                     }
                     else{
                         var elem = $('#message');
