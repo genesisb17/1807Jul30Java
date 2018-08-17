@@ -7,11 +7,11 @@ public class myException extends Exception
 
 	public myException()
 	{
-		
+		super();
 	}
 	
-	public myException(String message)
+	/*public myException()
 	{
-		super(message);
-	}
+		super("Invalid Input");
+	}*/
 }

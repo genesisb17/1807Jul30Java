@@ -50,4 +50,28 @@
  //delete properties
  delete obj.name
 
- 
+ function scopes(cond){
+     var functionVar = "this is declared using var in a function";
+     let functioLet = "this is declared using let in a funciton";
+     const functionConst = "declared using const in a function";
+     if (cond){
+         var blockV = "block var";
+         let blockL = "block let";
+         const blockC = "block const";
+         console.log(`in if block --- var ${blockV}, let ${blockL}, const ${blockC}`);
+     }
+
+     console.log(functionVar);
+     console.log(functioLet);
+     console.log(functionConst);
+     console.log(blockV);
+    // console.log(blockL);
+    // console.log(blockC);
+
+
+ }
+
+ /// operators
+ var currentSession = null;
+ var userinfo = {username: "zritch", password: 123};
+ var getuser = currentSession && userinfo;

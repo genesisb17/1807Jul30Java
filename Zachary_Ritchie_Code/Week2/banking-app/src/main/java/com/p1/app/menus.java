@@ -304,6 +304,11 @@ public class menus
 				try
 				{
 					amount = Double.parseDouble(scanner.nextLine());
+					if (amount < 0)
+					{
+						System.out.println("Invalid input\n");
+						accountOptions(obj);
+					}
 				}
 				catch (NumberFormatException e)
 				{
@@ -345,18 +350,33 @@ public class menus
 		customer cus = new customer();
 		Boolean check = true;
 		System.out.println("Create First Name:");		
-		String firstname = scanner.nextLine();			
+		String firstname = scanner.nextLine();		
+		if (badLength(firstname)) 
+		{
+			System.out.println("To long please shorten");
+			createUser();
+		}
 		cus.setFirstName(firstname);		
 		
 		System.out.println("Create Last Name:");
 		String lastname = scanner.nextLine();
+		if (badLength(lastname)) 
+		{
+			System.out.println("To long please shorten");
+			createUser();
+		}
 		cus.setLastName(lastname);
 				
 		do
 		{
 			System.out.println("Create Username");
 			String username = scanner.nextLine();
-			if(cService.findOne(username) == null)
+			if (badLength(username)) 
+			{
+				System.out.println("To long please shorten");
+				createUser();
+			}
+			else if(cService.findOne(username) == null)
 			{
 				cus.setUser_Username(username);
 				check = false;
@@ -370,11 +390,26 @@ public class menus
 		
 		System.out.println("Create Password");
 		String password = scanner.nextLine();
+		if (badLength(password)) 
+		{
+			System.out.println("To long please shorten");
+			createUser();
+		}
 		cus.setUser_Password(password);
 		
 		cService.save(cus);
 		customerTemp = cus;
 		accountsScreen();
+	}
+	
+	private static Boolean badLength(String obj)
+	{
+		if (obj.length() > 50)
+		{
+			return true;
+		}
+		
+		return false;
 	}
 	
 	static void createAccount()
@@ -383,6 +418,11 @@ public class menus
 		
 		System.out.println("Enter account name");
 		String accountName = scanner.nextLine();
+		if (badLength(accountName)) 
+		{
+			System.out.println("To long please shorten");
+			createAccount();
+		}
 		acc.setAccount_Name(accountName);
 		
 		System.out.println("----Choose Account Tpye----\n"
