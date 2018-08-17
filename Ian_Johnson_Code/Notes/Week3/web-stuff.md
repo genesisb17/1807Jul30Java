@@ -86,3 +86,70 @@ truthy; the only falsy values are:
 - `null`
 - `NaN`
 - `''`
+
+## HTTP
+
+HTTP is a stateless, application-layer protocol for communicating between
+distributed systems, and is the foundation of the modern web. HTTP assumes
+very little about a particular system, and does not keep state between
+message exchanges. Communication usually takes place over TCP/IP, but any
+reliable transport can be used. The default port for TCP/IP is 80.
+Communication between a client and a server occurs via a request/response
+pair.
+
+HTTP requests have several methods, some of which can be matched up with CRUD:
+
+- Create: POST
+- Read: GET
+- Update: PUT
+- Delete: DELETE
+
+There are also HEAD, OPTIONS and TRACE, among others.
+
+Key terms:
+
+- Resources: expose easily understood directory structure through URIs (e.g.
+  /pokemon/25)
+- Representations: transfer JSON or XML to represent data objects and
+  attributes
+- Messages: use HTTP methods explicitly
+- Stateless: interactions store no client context on the server between
+  requests
+
+### HTTP verbs
+
+Here are some key terms relating to HTTP methods:
+
+- Safe: a method is safe if it doesn't alter the state of the server (a
+  read-only operation).
+- Idempotent: a method is idempotent if an identical request can be made once
+  or several times in a row with the same effect while leaving the server in
+  the same state. All safe methods are also idempotent.
+- Cacheable: a cacheable response is an HTTP response that can be cached, or
+  stored to be retrieved and used later. Not all HTTP responses can be cached;
+  this depends on the HTTP verb used for the request and a few other qualifying
+  factors.
+
+Here is a list of the verbs (methods):
+
+- GET: requests a resource
+- POST: submits an entity to the specified resource, often causing a change
+  in state or side effects on the server
+- PUT: updates data
+- DELETE: deletes a resource
+- HEAD: similar to GET but has no response body (only headers)
+- CONNECT: establishes a tunnel to the server identified by the target
+  resource
+- OPTIONS: describes communication options for the target resource
+- TRACE: performs a loop-back test along the path to the target resource
+- PATCH: applies partial modifications to a resource
+
+### Status codes
+
+These are used to indicate the result of the HTTP request.
+
+- 1xx: informational
+- 2xx: success
+- 3xx: redirection
+- 4xx: client error
+- 5xx: server error
