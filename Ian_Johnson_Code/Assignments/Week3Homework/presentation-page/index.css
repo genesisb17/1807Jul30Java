@@ -1,0 +1,107 @@
+a {
+  color: hsl(70, 85%, 20%);
+}
+
+body {
+  background: hsl(70, 50%, 85%);
+}
+
+code {
+  color: hsl(180, 85%, 25%);
+}
+
+footer {
+  border-top: 1px solid grey;
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.jumbotron {
+  background-image: url("threads.jpg");
+  background-size: cover;
+  border-radius: 0;
+}
+
+.text-box {
+  background: rgba(212, 212, 212, 70%);
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+/* Code highlighting color scheme */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: hsl(70, 100%, 10%);
+  background: hsl(70, 50%, 80%);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #555;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: hsl(180, 85%, 25%);
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: hsl(355, 65%, 50%);
+}
+
+.hljs-literal {
+  color: hsl(200, 85%, 25%);
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+  color: hsl(70, 85%, 20%);
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: hsl(40, 70%, 30%);
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: hsl(20, 70%, 30%);
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: hsl(150, 85%, 25%);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}

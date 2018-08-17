@@ -6,10 +6,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Java threads</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="atom-one-dark.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
+  <div class="jumbotron">
+    <div class="container text-box">
+      <h1>Java threads</h1>
+      <p class="lead">How to achieve concurrency in Java</p>
+      <hr>
+      <h4>By Ian Johnson</h4>
+    </div>
+  </div>
+  <div class="container">
+    <h2>What is a thread?</h2>
+    <p>
+      Consider the following problem: you're writing a web server, and you'd like to be able to handle requests from multiple clients
+      at the same time. Using the standard features available in Java, you've written a simple prototype that accepts a request
+      for a file, retrieves the file and responds to the client with the contents of the file. But how can you make it so
+      that your program can accept a new request <em>while</em> the first request is still being processed?
+    </p>
+    <p>
+      The answer is <em>threads</em>. A thread is a separate flow of program execution. With multiple threads, your program
+      can (at least conceptually) do several things at the same time, such as accept a new client request while another client's
+      file is being fetched.
+    </p>
+    <p>
+      There are actually two types of threads in Java: <em>user threads</em> and <em>daemon threads</em>. When the last user
+      thread has terminated, the JVM will exit. As a result, daemon threads are typically used for background processes (the
+      JVM's garbage collector runs on a daemon thread). In the example problem, you might want to have your main thread accept
+      requests and then pass them off to one of several user threads that are created for the purpose of fulfilling requests.
+    </p>
 
+    <h2>How do I use one?</h2>
+    <p>
+      There are two ways to make a thread in Java: you must either extend the
+      <code>Thread</code> class or implement the <code>Runnable</code> interface. Let's give a simple example of both cases.
+    </p>
+    <h3>Extending <code>Thread</code></h3>
+    <p>
+      When you extend the <code>Thread</code> class, you override the <code>run</code> method to implement your thread's
+      behavior. Then, you call the <code>start</code> method on an object of your thread to start it.
+    </p>
+    <pre class="code-sample"><code class="java">public class ThreadExample {
+    private static class MyThread extends Thread {
+        @Override
+        public void run() {
+            System.out.println("I'm in another thread!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t = new MyThread();
+        t.start();
+        // You will see the "I'm in another thread!" message.
+    }
+}</code></pre>
+
+    <h3>Implementing <code>Runnable</code></h3>
+    <p>
+      When you implement the <code>Runnable</code> interface, you must override the <code>run</code> method, where you implement
+      your thread's behavior. Then, you construct a new <code>Thread</code> object, passing in an instance of your <code>Runnable</code>.
+      The <code>start</code> method of that <code>Thread</code> object will start your thread.
+    </p>
+    <pre class="code-sample"><code class="java">public class RunnableExample {
+    private static class MyRunnable implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("I'm a Runnable!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t = new Thread(new MyRunnable());
+        t.start();
+    }
+}</code></pre>
+    <p>
+      Since <code>Runnable</code> is a functional interface (it has precisely one abstract method), you can use a lambda
+      expression instead of writing out an entire class.
+    </p>
+    <pre class="code-sample"><code class="java">public class RunnableLambdaExample {
+    public static void main(String[] args) {
+        Thread t = new Thread(() -> {
+            System.out.println("I'm a Runnable inside a lambda expression!");
+        });
+        t.start();
+    }
+}</code></pre>
+
+    <h2>Is there anything I need to be careful of?</h2>
+    <p>
+      Yes, when you have several threads working with the same data. Consider what might happen if you have two threads both accessing
+      and changing a counter, as in the example below.
+    </p>
+    <pre class="code-sample"><code class="java">public class ProblematicThreads {
+    private static int counter = 0;
+
+    private static class Counter implements Runnable {
+        @Override
+        public void run() {
+            while (counter < 20) {
+                int newCounterValue = counter + 1;
+                System.out.println("Incrementing counter");
+                counter = newCounterValue;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Counter());
+        Thread t2 = new Thread(new Counter());
+        t1.start();
+        t2.start();
+    }
+}</code></pre>
+    <p>
+      Let's say that as <code>t1</code> is printing <code>"Incrementing counter"</code>, <code>t2</code> calculates
+      <code>newCounterValue</code>. Since <code>t1</code> hasn't updated <code>counter</code> yet, <code>t2</code> finds
+      the same value for <code>newCounterValue</code> that <code>t1</code> found. But now, when each thread sets the new
+      value for <code>counter</code>, this means that the new values will be the same; the counter was incremented only once,
+      even though the message was output twice! This is probably not what the author of the above code wanted.
+    </p>
+    <p>
+      One solution is to <em>synchronize</em> access to <code>counter</code>. In Java, it is possible to use any object as
+      a <em>lock</em> for a block of code marked with the <code>synchronized</code> keyword. The lock can only be held by
+      one thread at a time, and only the thread that holds the lock may execute the code in the <code>synchronized</code>      block.
+      Thus, we could rewrite the above example in a thread-safe way as follows.
+    </p>
+    <pre class="code-sample"><code class="java">public class UnproblematicThreads {
+    private static Integer counter = 0;
+
+    private static class Counter implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                synchronized (counter) {
+                    if (counter >= 20) {
+                        break;
+                    }
+                    int newCounterValue = counter + 1;
+                    System.out.println("Incrementing counter");
+                    counter = newCounterValue;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Counter());
+        Thread t2 = new Thread(new Counter());
+        t1.start();
+        t2.start();
+    }
+}</code></pre>
+    <p>
+      Now, we know that the two threads will not be in conflict over the counter, since only one may be accessing it at any given
+      time. Note that we also had to remove the loop condition and introduce an <code>if</code> statement inside the
+      <code>synchronized</code> block; this is because we want <em>any</em> code accessing <code>counter</code> to be in
+      the <code>synchronized</code> block, and wrapping the entire loop in the block would destroy any potential for concurrency
+      (one thread would execute the entire loop, and the other thread would have nothing left to do).
+    </p>
+
+    <footer>
+      Title image credit to <a href="https://commons.wikimedia.org/wiki/User:Vesihiisi">Vesihiisi</a>.
+      Syntax highlighting provided by <a href="https://highlightjs.org/">highlight.js</a>.
+    </footer>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="highlight.pack.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
