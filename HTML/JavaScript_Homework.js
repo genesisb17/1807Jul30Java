@@ -18,8 +18,70 @@ function checkFunction() {
         case "palindrome" :
         isPalindrome(textbox);
         break;
+        case "fibonacci" :
+        fib(textbox);
+        break;
+        case "bubblesort" :
+        bubbleSort(textbox);
+        break;
+        case "deleteelement" :
+        deleteElement(textbox);
+        break;
+        case "spliceelement" :
+        spliceElement(textbox);
+        break;
 
     }
+}
+
+// 1. Fibonacci
+function fib(n) {
+    let newNum = Number(n);
+    let a = 1;
+    let b = 0;
+    let temp;
+
+
+    if (newNum < 0) {
+        document.getElementById("output").innerHTML="Please enter a non-negative number.";
+        return 0;
+    }
+
+    if (newNum <= 1) {
+        document.getElementById("output").innerHTML=newNum;
+        return;
+    }
+
+    while (newNum >= 0) {
+        temp = a;
+        a = a + b;
+        b = temp;
+        newNum = newNum - 1;
+    }
+    
+    document.getElementById("output").innerHTML=b;
+}
+
+// 2. Bubble Sort
+function bubbleSort(array) {
+    var newArr = array.split(', ');
+    var newArr2 = newArr.map(Number);
+
+    var swapped;
+    do {
+        swapped = false;
+        for (var i=0; i < newArr2.length-1; i++) {
+            if (newArr2[i] > newArr2[i+1]) {
+                var temp = newArr2[i];
+                newArr2[i] = newArr2[i+1];
+                newArr2[i+1] = temp;
+                swapped = true;
+            }
+        }
+    }
+    while (swapped);
+    document.getElementById("output").innerHTML=newArr2;
+    return;
 }
 
 // 3. Reverse String
@@ -31,6 +93,7 @@ function reverseStr(someStr) {
     }
     
     document.getElementById("output").innerHTML=newString;
+    return;
 }
 
 // 4. Factorial
@@ -93,3 +156,40 @@ function isPalindrome(someStr) {
     document.getElementById("output").innerHTML="Is a palindrome.";
     return;
 }
+
+// 10. Delete Element
+function deleteElement(someArr) {
+    var newArr = someArr.split(', ');
+
+    console.log(newArr.length);
+    console.log(newArr);
+
+    if (newArr.length < 3) {
+        document.getElementById("output").innerHTML="The string entered is not long enough!";
+        return;
+    }
+
+    delete newArr[2];
+
+    console.log(newArr.length)
+    console.log(newArr);
+}
+
+//11. Splice Element
+function spliceElement(someArr) {
+    var newArr = someArr.split(', ');
+
+    console.log(newArr.length);
+    console.log(newArr);
+
+    if (newArr.length < 3) {
+        document.getElementById("output").innerHTML="The string entered is not long enough!";
+        return;
+    }
+
+    newArr.splice(2,1);
+
+    console.log(newArr.length);
+    console.log(newArr);
+}
+
