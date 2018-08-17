@@ -18,23 +18,6 @@ public class App {
 
 	public static void main(String[] args) {
 		welcomeMenu();
-		
-//		String firstName = "Mickey";
-//		String lastName = "Mouse";
-//		String username = "mickeymouse";
-//		String password = "disney";
-//		Users u = new Users(firstName, lastName, username, password);
-//		u = uService.addUser(u);
-//		
-//		List<Users> users = uService.getAllUsers();
-////		System.out.println(users.size());
-//		for (Users user : users) {
-//			System.out.println(user.getUserID());
-//			System.out.println(user.getFirstName());
-//			System.out.println(user.getLastName());
-//			System.out.println(user.getUsername());
-//			System.out.println(user.getPassword());
-//		}
 	}
 	
 	static void welcomeMenu() {
@@ -51,21 +34,24 @@ public class App {
 		try {
 			option = Integer.parseInt(scanner.nextLine());
 		} catch(NumberFormatException e) {
-			System.out.println("\nPlease enter a number\n");
+			System.out.println("\nPlease enter a number between 1 and 2\n");
 			loginMenu();
 		}
 		Users u = new Users();
 		switch(option) {
 		case 1:	// Log in
 			u = logIn();
+//			System.out.println("\nWelcome!\n");
 			menu(u);
 			break;
 		case 2: // Sign up
 			u = signUp();
-			menu(u);
+			System.out.println("\nYour account has been "
+					+ "successfully created\n");
+			loginMenu();
 			break;
 		default:
-			System.out.println("\nPlease enter one of the following numbers: 1, 2\n");
+			System.out.println("\nPlease enter a number between 1 and 2\n");
 			loginMenu();
 			break;
 		}
@@ -76,23 +62,23 @@ public class App {
 	static void menu(Users u) {		
 		// MAIN MENU
 		System.out.println("\n---------Main Menu--------\n"
-				+ "1. View My User\n"
-				+ "2. View All Users\n"
-				+ "3. View Account\n"
-				+ "4. View Transactions\n"
-				+ "5. Add User\n"
-				+ "6. Add Account\n"
-				+ "7. Make Transaction\n"
-				+ "8. Update User\n"
-				+ "9. Update Account\n"
-				+ "10. Update Transaction\n"
-				+ "11. Logout\n");
+				+ "1. View User Information\n"
+//				+ "2. View All Users\n"
+//				+ "3. View Account\n"
+//				+ "4. View Transactions\n"
+//				+ "3. Add User\n"
+				+ "2. Add Account\n"
+				+ "3. Make Transaction\n"
+				+ "4. Update User Information\n"
+//				+ "9. Update Account\n"
+//				+ "10. Update Transaction\n"
+				+ "5. Logout\n");
 		int option = 0;
 		try {
 			option = Integer.parseInt(scanner.nextLine());
 		}
 		catch(NumberFormatException e) {
-			System.out.println("Please enter a number between 1 and 11");
+			System.out.println("Please enter a number between 1 and 5");
 			menu(u);
 		}
 		
@@ -100,30 +86,31 @@ public class App {
 		case 1:	// View my user
 			viewUser(u);
 			break;
-		case 2: // View all users
-			viewAllUsers();
-			break;
-		case 3:	// View accounts
-		case 4:	// View transactions
-		case 5:	// Add user
-			addUser();
-			break;
-		case 6:	// Add account
+//		case 2: // View all users
+//			viewAllUsers();
+//			break;
+//		case 3:	// View accounts
+//		case 4:	// View transactions
+//		case 3:	// Add user
+//			addUser();
+//			break;
+		case 2:	// Add account
 			addAccount(u);
 			System.out.println("\nAccount created successfully\n");
 			break;
-		case 7:	// Make transaction
+		case 3:	// Make transaction
 			updateAccount();
 			break;
-		case 8: // Update user
+		case 4: // Update user
 			updateUser(u);
 			System.out.println("\nInformation updated successfully\n");
 			break;
-		case 9: // Update account
-		case 10: // Update transaction
-		case 11: // Logout
+//		case 9: // Update account
+//		case 10: // Update transaction
+		case 5: // Logout
 			logOut();
 			break;
+		default: System.out.println("Please enter a number between 1 and 5");
 		}
 		menu(u);
 	}
@@ -234,18 +221,23 @@ public class App {
 			System.out.println("Enter your new first name:");
 			String firstname = scanner.nextLine();
 			u.setFirstName(firstname);
+			break;
 		case 2: // update last name
 			System.out.println("Enter your new last name:");
 			String lastname = scanner.nextLine();
 			u.setLastName(lastname);
+			break;
 		case 3: // update username
 			System.out.println("Enter your new username:");
 			String username = scanner.nextLine();
 			u.setUsername(username);
+			break;
 		case 4: // update password
 			System.out.println("Enter your new password:");
 			String password = scanner.nextLine();
 			u.setPassword(password);
+			break;
+		default: System.out.println("Please enter a number between 1 and 4");
 		}
 		return uService.updateUser(u);
 	}
@@ -255,24 +247,26 @@ public class App {
 		System.out.println("Enter your account number:");
 		int accountNumber = Integer.parseInt(scanner.nextLine());
 		System.out.println("Enter your account type:\n"
-				+ "1. Checking\n"
-				+ "2. Savings");
+				+ "1. Savings\n"
+				+ "2. Checking");
 		int accountType = 0;
 		try {
 			accountType = Integer.parseInt(scanner.nextLine());
-		}
-		catch(NumberFormatException e) {
+		} catch(NumberFormatException e) {
 			System.out.println("Sorry, you must enter 1 or 2");
 			updateAccount();
 		}
+		return makeTransaction(accountNumber, accountType);
+	};
+	
+	static Accounts makeTransaction(int accountNumber, int accountType) {
 		System.out.println("Would you like to make a deposit or withdrawal?\n"
 				+ "1. Deposit\n"
 				+ "2. Withdrawal");
 		int option = 0;
 		try {
 			option = Integer.parseInt(scanner.nextLine());
-		}
-		catch(NumberFormatException e) {
+		} catch(NumberFormatException e) {
 			System.out.println("Sorry, you must enter 1 or 2");
 			updateAccount();
 		}
@@ -281,9 +275,8 @@ public class App {
 		case 1: // deposit
 			System.out.println("How much would you like to deposit?");
 			try {
-				amount = Integer.parseInt(scanner.nextLine());
-			}
-			catch(NumberFormatException e) {
+				amount = Double.parseDouble(scanner.nextLine());
+			} catch(NumberFormatException e) {
 				System.out.println("Sorry, you must enter a number");
 				updateAccount();
 			}
@@ -292,8 +285,7 @@ public class App {
 			System.out.println("How much would you like to withdraw?");
 			try {
 				amount = -Double.parseDouble(scanner.nextLine());
-			}
-			catch(NumberFormatException e) {
+			} catch(NumberFormatException e) {
 				System.out.println("Sorry, you must enter a number");
 				updateAccount();
 			}

@@ -85,7 +85,7 @@ END;
 /
 
 
-delete from users;
+select * from users;
 select * from accounts;
 select balance from accounts where accountnumber = 1012349;
 commit;

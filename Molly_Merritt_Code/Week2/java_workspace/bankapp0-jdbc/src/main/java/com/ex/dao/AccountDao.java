@@ -75,7 +75,13 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				obj.setBalance(rs.getDouble("balance") + amount);
+				if (rs.getDouble("balance") + amount > 0) {
+					obj.setBalance(rs.getDouble("balance") + amount);
+				} else {
+					System.out.println("You do not have enough funds to "
+							+ "make this transaction");
+					return obj;
+				}
 			}
 			
 //			if(rows != 0) {
@@ -87,11 +93,10 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 			e.printStackTrace();
 		}
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			System.out.println("updating account");
-			System.out.println("new balance: " + obj.getBalance());
+//			System.out.println("new balance: " + obj.getBalance());
 			conn.setAutoCommit(false);
 			String query = "UPDATE accounts set balance = ?"
-					+ "where accountNumber = ?";
+					+ "where accountNumber = ? and accountType = ?";
 			
 			String[] keys = new String[1];
 			keys[0] = "accountID";	// column name where keys are
@@ -100,13 +105,17 @@ public class AccountDao { // implements Dao<Accounts, Integer> {
 			
 			ps.setDouble(1, obj.getBalance());
 			ps.setInt(2,  obj.getAccountNumber());
+			ps.setInt(3,  obj.getAccountType());
 			
 			int rows = ps.executeUpdate();
-			System.out.println(rows);
+//			System.out.println(rows);
 			
 			if(rows != 0) {
 				conn.commit();
 			}
+			String newBalance = String.format("%.2f", obj.getBalance());
+			System.out.println("Transaction complete. Your "
+					+ "new balance is $" + newBalance);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
