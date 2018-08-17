@@ -97,8 +97,7 @@ public class AccountDAO implements DAO<Account, Integer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(a.getClientId()+ " ACCOUNT PASSED");
-		System.out.println(aa.getClientId()+ " ACCOUNT RETURNED");
+		
 		return a;
 	}
 	public List<Account> getAccounts(Client c) {

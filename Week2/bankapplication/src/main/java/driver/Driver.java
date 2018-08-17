@@ -277,7 +277,7 @@ public class Driver {
 			}
 		} catch(MyException e) {
 			System.out.println("You definitely are a star, but"
-							+" do not use an * in your name, please!\n");
+							+" do not use a * in your name, please!\n");
 			createClient();
 		}
 		
@@ -362,7 +362,7 @@ public class Driver {
 			a.setClientId(ca.getId());
 			System.out.println(ca.getId() + " account ");
 			aService.save(a);
-			System.out.println(a.getClientId() + "the client ID of the account we just created");
+			//System.out.println(a.getClientId() + "the client ID of the account we just created");
 			System.out.println("Congratulations! You have a new savings account!\n");
 
 			accountOptions(a);

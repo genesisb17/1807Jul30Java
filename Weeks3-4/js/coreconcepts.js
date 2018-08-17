@@ -48,3 +48,25 @@ obj.name;
 
 // delete properties
 // delete obj.name;
+
+function scopes(){
+    var functionvar = "this is declared using var in a function";
+    let functionlet = "this is declared using let in a function";
+    const functionConst = "declared using const in a function";
+    // javascript will interpret and guess where a semicolon is
+    //put the semicolon there to avoid it injecting a ; where its unneeded
+    if(cond){
+        var blockV = "block var";
+        var blockL = "block let";
+        var blockC = "block const";
+        console.log(`IN IF BLOCK --- var ${blockV},let ${blockL}, const ${blockC}`);
+    }
+    console.log(functionvar);
+    console.log(functionlet);
+    console.log(functionConst);
+    console.log(blockV);
+    console.log(blockL);
+    console.log(blockC);
+
+    
+}

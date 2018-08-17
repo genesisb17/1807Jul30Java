@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "tiff",
+      "lastName": "Mac",
+      "username": "tm",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "firstName": "test",
+      "lastName": "test",
+      "username": "test",
+      "password": "test"
+    },
+    {
+      "firstName": "genesis",
+      "lastName": "bonds",
+      "username": "gb",
+      "password": "1234",
+      "id": 3
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "balance": 100,
+      "owner": 1
+    }
+  ]
+}
