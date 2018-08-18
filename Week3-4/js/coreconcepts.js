@@ -52,3 +52,18 @@ delete obj.name
 for(var prop in obj) {
     console.log(obj.prop);
 }
+
+/* Operators
+    Guard and default - in one note
+*/
+
+//guard
+var currentSession = null;
+var userInfo = {username: "seang", password: 123};
+
+var getUser = currentSession && userInfo;
+
+//default
+var earlyLeave = 1;
+var regularLeave = 530;
+var timeOut = earlyLeave || regularLeave;

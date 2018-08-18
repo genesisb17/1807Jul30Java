@@ -10,14 +10,64 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <style>
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: gray;
+            text-decoration: none;
+        }
+        
+        ul {
+            border: 1px solid gray;
+        }
+        ul li {
+            background: whitesmoke;
+        }
+    </style>
 </head>
-<body>
+<body class='jumbotron jumbotron-fluid text-center'>
     <!-- HW INFORMATION
         - Create a styled HTML page containing information about *Collections*
         - Must use list(s), image(s), hyperlinks for reference, & at least
             1 Bootstrap styled element
     -->
 
-    <h1></h1>
+    <div>
+        <h1><a class="title" target="_" href="https://www.tutorialspoint.com/java/java_collection_interface.htm">Collections</a></h1>
+        <br><br>
+        <div id="accordion" role="tablist" class="col-4 offset-4">
+            <div class="card">
+              <div class="card-header" role="tab" id="headingOne">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
+                    What are 'Collections'?
+                  </a>
+                </h5>
+              </div>
+            <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-body">
+                  <p>Not 'what are collections?', but rather, what <em>is</em> collections?</p>
+                  <p>'Collections' is an class in Java which is the foundation upon which the
+                      collections framework is built. It declares the core methods that all collections 
+                      will have.
+                  </p>
+                  <p>Some methods:</p>
+                  <ul class="list-unstyled">
+                      <li>boolean add(Object obj)</li>
+                      <li>boolean contains(Object obj)</li>
+                      <li>boolean remove(Object obj)</li>
+                      <li>int size( )</li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Java.util.Collection_hierarchy.svg" alt="Know your collections!" class="col-6">
 </body>
 </html>
