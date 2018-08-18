@@ -36,7 +36,7 @@ public class UsersService {
 	}
 
 	public static Users logIn(int userid, String username, String password) {
-		Users u = UsersDAO.logIn(userid, username, password);
+		Users u = UsersDAO.logIn(userid, username, password);		
 		
 		// Here to kick a user out if they try to brute force login...
 		if (u == null) {
@@ -71,4 +71,15 @@ public class UsersService {
 			return;
 		}
 	}
+}
+
+class AlsCustomException extends Exception {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public AlsCustomException(String message) {
+    super(message);
+  }
 }
