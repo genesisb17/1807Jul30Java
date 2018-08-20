@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Java Script Homework</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</head>
+<h6 class="float-right" id="timekeeper">time goes here</h5>
+<body>
+
+    <h3>Java Script Homework</h3>
+    
+    <!--
+    <input type="text" id="title" placeholder="Book Title..." 
+            class="form-control col-6">
+    <input type="number" id="isbn" maxlength="10" minlength="10" class="form-control col-4">
+    <input type="number" id="price" class="form-control col-2">
+    <select id="genres" class="form-control col-4">
+    </select>
+    <button id="addBook">Add!</button>
+-->
+    <hr>
+    <table class="table table-sm table-hover table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Input</th>
+                <th>Output</th>
+            </tr>
+        </thead>
+        <tbody id="questionTable">
+            <tr>
+                <td>Insert Fibbonnaci number to calculate:<input type="number" id="fibinput" maxlength="10" minlength="10" class="form-control col-4"><button id="fibsubmit">Calculate!</button></td>
+                <td><ul id="answer"></ul></td>
+                
+            </tr>
+            <tr>
+                <td>Type a word to get its reverse:<input type="text" id="reverseinput" placeholder="Enter a word..." class="form-control col-4"><button id="reversesubmit">Reverse It!</button></td>
+                <td><ul id="reverseanswer"></ul></td>
+                
+            </tr>
+            <tr>
+                <td>Insert Number to find Factorial:<input type="number" id="factorialinput" maxlength="10" minlength="10" class="form-control col-4"><button id="factorialsubmit">Calculate!</button></td>
+                <td><ul id="facanswer"></ul></td>
+                
+            </tr>
+            <tr>
+                <td>Insert a number to check if it is even or odd:<input type="number" id="eveninput" maxlength="10" minlength="10" class="form-control col-4"><button id="evensubmit">Check my Number!</button></td>
+                <td><ul id="evenanswer"></ul></td>
+                
+            </tr>
+            <tr>
+                <td>Type a word to check if its a Palindrome:<input type="text" id="palindromeinput"  class="form-control col-4"><button id="palindromesubmit">Check my Word</button></td>
+                <td><ul id="panswer"></ul></td>
+                
+            </tr>
+            <tr>
+                <td>Define a Person Object:
+                    <input type="text" id="nameinput" placeholder="Name..." class="form-control col-4">
+                    <input type="number" id="ageinput" placeholder="Age....."  class="form-control col-4">
+                    
+                    <button id="personsubmit">Create Person</button>
+                
+                </td>
+                <td><ul id="personanswer"></ul></td>
+                
+            </tr>
+            <tr>
+                    <td>Pass in array to delete from
+                            <input type="text" id="deleteInput" placeholder="Enter array of numbers" class="form-control col-4">
+                        <button id="deletesubmit">Delete 3rd item from array</button>
+                    
+                    </td>
+                    <td><ul id="deleteanswer"></ul></td>
+                    
+                </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript" src="../js/JscriptHw.js"></script>
+</body>
+
+</html>
