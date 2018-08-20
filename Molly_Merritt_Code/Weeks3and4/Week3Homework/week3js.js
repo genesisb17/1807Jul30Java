@@ -5,7 +5,23 @@
     $("#calcFib").on('click', function(){
         var num = $("#fibNum").val()-1;
         let myFibNum = fib(num);
-        $("#fib").html(myFibNum);
+        if (num < 0) {
+            $("#showFib").html("You must enter a positive number");
+        } else{
+            let res;
+            if (((num+1)%10 == 1) && (num+1 != 11)) {
+                res = `The ${num+1}st Fibonacci number is ${myFibNum}`;
+            } else if (((num+1)%10 == 2) && (num+1 != 12)) {
+                res = `The ${num+1}nd Fibonacci number is ${myFibNum}`;
+            } else if (((num+1)%10 == 3) && (num+1 != 13)) {
+                res = `The ${num+1}rd Fibonacci number is ${myFibNum}`;
+            }
+            else if (num+1 > 3) {
+                res = `The ${num+1}th Fibonacci number is ${myFibNum}`;
+            }
+            $("#showFib").html(res);
+            $("#fibNum").val('');
+        }
     });
     function fib(n) {
         if (n <= 1) { return n; }
@@ -17,11 +33,52 @@
     Define function: bubbleSort(numArray)
     Use the bubble sort algorithm to sort the array.
     Return the sorted array. */
+    $("#calcBubbleSort").on('click', function(){
+        var arr = $("#inputArr").val().split(",");
+        console.log(arr);
+        let tmp = [arr.length];
+        for (let i=0; i<arr.length; i++) {
+            tmp[i] = arr[i];
+        }
+        console.log(tmp);
+        let sortedArr = bubbleSort(arr);
+        console.log(sortedArr);
+        let res =  `The sorted result of ${tmp} is ${sortedArr}`;
+        $("#showArr").html(res);
+        $("inputArr").val('');
+    });
+    function bubbleSort(numArray) {
+        for (let i=0; i<numArray.length; i++) {
+            for (let j=1; j<numArray.length; j++) {
+                if (numArray[j-1] > numArray[j]) {
+                    swap(numArray, j-1, j);
+                }
+            }
+        } return numArray;
+    }
+    function swap(arr, i, j) {
+        var tmp = arr[i];;
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
 
 
 /* 3. Reverse String
     Define function: reverseStr(someStr)
     Reverse and return the String. */
+    $("#calcReverse").on('click', function(){
+        var str = $("#str").val();
+        let myStr = reverseString(str);
+        let res =  `The reverse of "${str}" is "${myStr}"`;
+        $("#showReverse").html(res);
+        $("str").val('');
+    });
+    function reverseString(str) {
+        var newStr = "";
+        for (i=str.length-1; i>=0; i--) {
+            newStr += str[i];
+        } return newStr;
+    }
 
 
 /* 4. Factorial
@@ -30,7 +87,9 @@
     $("#calcFact").on('click', function(){
         var num = $("#fact").val();
         let myFact = fact(num);
-        alert(myFact);
+        let res = `The value of ${num}! is ${myFact}`;
+        $("#showFact").html(res);
+        $("#fact").val('');
     });
     function fact(n) {
         if (n<=1) { return 1; }
@@ -50,19 +109,36 @@
     Do not use % operator. */
     $("#calcIsEven").on('click', function(){
         var num = $("#isEvenNum").val();
-        let myNum = isEven(num);
-        alert(myNum);
+        let isNumEven = isEven(num);
+        let res = `The number ${num} is ${isNumEven}`;
+        $("#showIsEven").html(res);
+        $("#isEvenNum").val('');
     });
     function isEven(n) {
         if (((n/2) - Math.floor(n/2)) == 0) {
-            return true;
-        } else { return false; };
+            return "even";
+        } else { return "odd"; };
     }
 
 
 /* 7. Palindrome
     Define function isPalindrome(someStr)
     Return true if someStr is a palindrome, otherwise return false */
+    $("#calcPalindrome").on('click', function(){
+        var str = $("#inputText").val();
+        console.log(str);
+        let isStrPalindrome = isPalindrome(str);
+        console.log(isStrPalindrome);
+        let res = `The word "${str}" is ${isStrPalindrome} a palindrome`;
+        $("#showPalindrome").html(res);
+        $("#inputText").val('');
+    });
+    function isPalindrome(str) {
+        let backwards = reverseString(str);
+        if (str.toLowerCase() == backwards.toLowerCase()) {
+            return "";
+        } else { return "not"; }
+    }
 
 
 /* 8. Shapes
@@ -129,10 +205,24 @@
     Your task is to make a function that can take any non-negative 
     integer as a argument and return it with its digits in descending 
     order. Essentially, rearrange the digits to create the highest possible number. */
-
-    function descendingNum(n) {
+    $("#calcDescendingOrder").on('click', function(){
+        var num = $("#inputNum").val();
+        let sortedNum = descendingNum(num);
+        let res = `The number ${num} with its digits sorted in descending order is ${sortedNum}`;
+        $("#showDescending").html(res);
+        $("#sortedNum").val('');
+    });
+    function descendingNum(number) {
         var numDigits = number.toString().length;
-        for (let i=0; i<numDigits; i++) {
-
-        }
+        var arr = number.toString().split("");
+        return sortedArr = bubbleSortDescending(arr);
+    }
+    function bubbleSortDescending(numArray) {
+        for (let i=0; i<numArray.length; i++) {
+            for (let j=1; j<numArray.length; j++) {
+                if (numArray[j-1] < numArray[j]) {
+                    swap(numArray, j-1, j);
+                }
+            }
+        } return numArray;
     }
