@@ -3,7 +3,7 @@
     Return the nth number in the fibonacci sequence. */
 
     $("#calcFib").on('click', function(){
-        var num = $("#fibNum").val()-1;
+        var num = $("#inputFib").val()-1;
         let myFibNum = fib(num);
         if (num < 0) {
             $("#showFib").html("You must enter a positive number");
@@ -34,7 +34,7 @@
     Use the bubble sort algorithm to sort the array.
     Return the sorted array. */
     $("#calcBubbleSort").on('click', function(){
-        var arr = $("#inputArr").val().split(",");
+        var arr = $("#inputBubble").val().split(",");
         console.log(arr);
         let tmp = [arr.length];
         for (let i=0; i<arr.length; i++) {
@@ -68,7 +68,7 @@
     Define function: reverseStr(someStr)
     Reverse and return the String. */
     $("#calcReverse").on('click', function(){
-        var str = $("#str").val();
+        var str = $("#inputReverse").val();
         let myStr = reverseString(str);
         let res =  `The reverse of "${str}" is "${myStr}"`;
         $("#showReverse").html(res);
@@ -86,7 +86,7 @@
     Define function: factorial(someNum)
     Use recursion to compute and return the factorial of someNum. */
     $("#calcFact").on('click', function(){
-        var num = $("#fact").val();
+        var num = $("#inputFact").val();
         let myFact = fact(num);
         let res = `The value of ${num}! is ${myFact}`;
         $("#showFact").html(res);
@@ -109,7 +109,7 @@
     Return true if even, false if odd.
     Do not use % operator. */
     $("#calcIsEven").on('click', function(){
-        var num = $("#isEvenNum").val();
+        var num = $("#inputEven").val();
         let isNumEven = isEven(num);
         let res = `The number ${num} is ${isNumEven}`;
         $("#showIsEven").html(res);
@@ -126,7 +126,7 @@
     Define function isPalindrome(someStr)
     Return true if someStr is a palindrome, otherwise return false */
     $("#calcPalindrome").on('click', function(){
-        var str = $("#inputText").val();
+        var str = $("#inputTextPalindrome").val();
         console.log(str);
         let isStrPalindrome = isPalindrome(str);
         console.log(isStrPalindrome);
@@ -177,17 +177,21 @@
     Print length
     The lengths should be the same. */
     $("#calcDelete").on('click', function(){
-        var arr = $("#inputArr").val().split(",");
-        console.log($("#inputArr").val());
+        var arr = $("#inputArrDelete").val().split(",");
         console.log(arr);
         let deletedArr = deleteElement(arr, 3);
+        console.log(deletedArr);
         let res = `Length before deleting: ${arr.length}. Length after deleting: ${deletedArr.length}`;
         $("#showDeleted").html(res);
         $("#inputArr").val('');
     });
     function deleteElement(arr, index) {
-        arr[index] = undefined;
-        return arr;
+        let newArr = [arr.length];
+        for (let i=0; i<arr.length; i++) {
+            if (i==index-1) { arr[index-1] = undefined; }
+            newArr[i] = arr[i];
+        }
+        return newArr;
     }
 
 
@@ -198,9 +202,10 @@
     Print length
     The lengths should be one less than the original length. */
     $("#calcSplice").on('click', function(){
-        var arr = $("#inputArr").val().split(",");
+        var arr = $("#inputArrSplice").val().split(",");
         console.log(arr);
         let splicedArr = spliceElement(arr, 3);
+        console.log(splicedArr);
         let res = `Length before splicing: ${arr.length}. Length after splicing: ${splicedArr.length}`;
         $("#showSpliced").html(res);
         $("#inputArr").val('');
@@ -209,9 +214,9 @@
         let newArr = [arr.length-1];
         for (let i=0; i<index-1; i++) {
             newArr[i] = arr[i];
-        } for (let j=index; j<arr.length; j++) {
-            newArr[i] = arr[i];
-        } console.log(newArr);
+        } for (let j=index-1; j<arr.length-1; j++) {
+            newArr[j] = arr[j+1];
+        }
         return newArr;
     }
 
@@ -237,7 +242,7 @@
     integer as a argument and return it with its digits in descending 
     order. Essentially, rearrange the digits to create the highest possible number. */
     $("#calcDescendingOrder").on('click', function(){
-        var num = $("#inputNum").val();
+        var num = $("#inputDescending").val();
         let sortedNum = descendingNum(num);
         let res = `The number ${num} with its digits sorted in descending order is ${sortedNum}`;
         $("#showDescending").html(res);
