@@ -1,0 +1,31 @@
+.topnav {
+    border-style:ridge;
+    background-image: linear-gradient(black, gray);
+    overflow: hidden;
+    font-family:"Verdana", Genava, sans-serif;
+}
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 100px;
+    text-decoration: none;
+    margin-left:40px;
+    font-size: 17px;
+}
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.topnav a.active {
+    background-image: linear-gradient(#c7c8f7, gray);
+    color: white;
+}
+.tiptop h2#sub{
+    margin-left: 50px;
+    font-family:"Verdana", Genava, sans-serif;
+}
+.descriptionContent, .actualDes p{
+    margin-left:70px;
+    font-family:"Verdana", Genava, sans-serif;
+}

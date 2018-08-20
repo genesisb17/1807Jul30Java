@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="collections">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <title>Collection Main</title>
+</head>
+<body>
+    <link rel="stylesheet" href="../css/presentation.css">
+    <div class="topnav">
+            <a class="active" href="../html/presentation.html">Home</a>
+            <a href="../html/examples.html">Examples</a>
+            <a href="../html/keywords.html">Keywords</a>
+            <a href="../html/contact.html">Contact</a>
+    </div>
+    <div class="tiptop">
+        <h1>Collection
+        <br> 
+            <h2 id="sub"><i>(the root interface of collection hierarchy)</i></h2>
+        </h1>
+    </div>
+    <hr>
+    <div class="descriptionContent">
+        <p>public interface Collection&lt<b>E</b>&gt</p>
+            <p>
+                extends Iterable&lt<b>E</b>&gt
+            </p>
+            
+            <p><b>E</b> are the type of elements in this collection</p>
+            <div class="actualDes">
+                <p>
+                    The JDK does not provide any direct implementation of this interface.
+                    <br> 
+                    Rather, it provides group of classes (i.e. ArrayList, Hashset) 
+                    <br>
+                    and subinterfaces (i.e. List, Queue) that make up the collections framework. 
+                    <br>
+                    Depending on the task in hand, some collections are better for
+                    <br>
+                    manipulating a group of elements than others.
+            </p>
+        </div>
+    </div>
+    <hr>
+    <button id="frameBut">Framework</button>
+    <div class="framework">
+        <div class="diagram">
+            <img id="keyimg" hidden="true" src="../image/key.png">
+        </div>  
+    <script type="text/javascript" src="../js/presentation.js"></script>
+</body>
+</html> 

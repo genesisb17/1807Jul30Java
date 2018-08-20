@@ -1,7 +1,6 @@
 window.onload = function(){
     document.getElementById("logIn").addEventListener(
         "click", getUserInfo, true);
-
 }
 
 function getUserInfo(){

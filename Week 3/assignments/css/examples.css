@@ -1,0 +1,103 @@
+.topnav {
+    border-style:ridge;
+    background-image: linear-gradient(black, gray);
+    overflow: hidden;
+    font-family:"Verdana", Genava, sans-serif;
+}
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 100px;
+    text-decoration: none;
+    margin-left:40px;
+    font-size: 17px;
+    font-family:"Verdana", Genava, sans-serif;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.topnav a.active {
+    background-image: linear-gradient(#c7c8f7, gray);
+    color: white;
+}
+.tiptop h2#sub{
+    margin-left: 50px;
+    font-family:"Verdana", Genava, sans-serif;
+}
+.descriptionContent, .actualDes p{
+    margin-left:70px;
+    font-family:"Verdana", Genava, sans-serif;
+}
+.tiptop, .secondexample{
+    font-family:"Verdana", Genava, sans-serif;
+}
+
+.tiptop p#example1, .tiptop p#brace3, .secondexample p#example2
+{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 50px;
+}
+
+.tiptop p#example1pt2, .tiptop p#brace2, .secondexample p#example2pt1,
+.secondexample p#brace6{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 75px;
+}
+
+.tiptop p#example1pt3, .tiptop p#brace1, .secondexample p#example2pt2,
+.secondexample p#brace5{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 100px;
+}
+
+.tiptop p#example1pt4, .secondexample p#example2pt3, 
+.secondexample p#brace4{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 10s steps(40, end),
+        blink-caret .75s;
+    margin-left: 125px;
+}
+
+.secondexample p#example2pt4{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 10s steps(40, end),
+        blink-caret .75s;
+    margin-left: 150px;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  

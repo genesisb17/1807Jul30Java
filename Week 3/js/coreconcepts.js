@@ -23,52 +23,65 @@ JavaScript is a scripting language for client-side operations (
         hoisting, semicolon injection, anonymous functions, 
         template literals, callback functions, IIFE, arrow notation... 
 */
-
+var testThisVar;
 var a = 5;
 var b = "hello";
 var c = 'hello';
-var d = 7/0;
+var d = 7 / 0;
 var e = {
-    firstName: "genesis", 
+    firstName: "genesis",
     lastName: "bonds",
-    age:30,
-    getFullName: function(){
+    age: 30,
+    getFullName: function () {
         return `${this.firstName} ${this.lastName}`;
-    }};
+    }
+};
 e["age"] = 20;
 e["about me"] = "I like food"; //can have obj properties with spaces. must use obj["prop"] not obj.prop syntax
 var f = e.age;
-var g = [0 , 2, 4, 6, 8];
+var g = [0, 2, 4, 6, 8];
 var h = null;
 var i;
 var j = 1, k = 'hey', l = null; //can declare and initialize multiple variables at once. maintains scope
 var b; //if you redeclare a JS variable, it will not lose its value
-console.log(typeof(a)); //returns the type of variable or expression
+console.log(typeof (a)); //returns the type of variable or expression
 var interpol = `Hi ${e.name}`;
+let globallet = "this is still a global var";
 
-function scopes(){
-    var functionVar = "this is declared using var in a function";
+function scopes(cond) {
+    //var functionVar, functionlet, functionConst, 
+    var functionVar = "this is delcared using var in a function";
     let functionLet = "this is declared using let in a function";
-    const functionConst = "this is declared using const in a function";
-    if(cond){
+    const functionConst = "delcarfed using const in a function";
+    if (cond) { //here just to show that we are declaring vars in a block
         var blockV = "block var";
         let blockL = "block let";
         const blockC = "block const";
-        console.log(`IN IF BLOCK -- var ${blockV}, let ${blockL}, const ${blockC}`);
-        blockC = 5;
+        console.log(`IN IF BLOCK --- var ${blockV}, let ${blockL}, const ${blockC}`);
+        //  blockC = 5; //CANNOT REASSIGN VARS DECLARED WITH CONST
         console.log(`changed value of blockC = ${blockC}`)
     }
+
+    console.log(functionVar);
+    console.log(functionLet);
+    console.log(functionConst);
+    console.log(blockV);
+    // console.log(blockL); // blockL was declared using LET inside of a block. not accessible outside of block
+    // console.log(blockC);
+    var functionVar;
+    console.log(functionVar);
+    noDeclaration = "this variable was never declared but is used in a function.. what scope is it?";
+    console.log(noDeclaration);
+
 }
 
-console.log(functionVar);
-console.log(functionLet);
-console.log(functionConst);
-console.log(blockV);
-console.log(blockL);
-console.log(blockC);
-var functionVar;
-console.log(functionVar);
-noDeclaration = "this was never declared but is used in a function.. what is it?"
+function testScope() {
+    for (var i = 0; i < 10; i++) {
+
+    }
+    console.log(i); //this works! bad!
+}
+
 
 function truthyFalsy(cond) { // if true
     if (cond) {
@@ -131,5 +144,21 @@ delete obj.name
 //The for...in statement iterates over all non-Symbol, enumerable properties of an object.
 for (var prop in obj) { console.log(prop) } //print out all properties of obj
 for (var prop in obj) { console.log(obj[prop]) } //print out value of each property of obj
-
  
+//-------------------------------------OPERATORS-------------------------------------------
+var currentSession = null;
+var userInfo = {username: "kchea", password: 1234};
+
+var getUser = currSession && userInfo;
+
+/*
+ DEFAULT OPERATOR | Session && userInfo;
+
+ if the first operand is truthy, return it
+ otherwise, return the second operand
+*/
+
+var earlyLeave = 1;
+var regularLeave = 530;
+var timeOut = earlyLeave || regularLeave;
+
