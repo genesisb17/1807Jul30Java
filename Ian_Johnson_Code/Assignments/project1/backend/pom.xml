@@ -2,11 +2,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.iantimothyjohnson.assignments</groupId>
-    <artifactId>project1</artifactId>
+    <groupId>com.iantimothyjohnson.assignments.project1</groupId>
+    <artifactId>project1-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Project 1 - ERS</name>
-    <description>The Employee Reimbursement System.</description>
+    <description>The backend for the Employee Reimbursement System.</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
