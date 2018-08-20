@@ -37,7 +37,10 @@ public interface DAO<T> {
     /**
      * Queries the database for all its elements of this type.
      * 
-     * @return a list of all elements in the database
+     * @return a list of all elements in the database. This list is not
+     *         guaranteed to be mutable, but if it is mutable, changes to it
+     *         will not be reflected in the database. Changes to the objects in
+     *         the list will also not be reflected in the database.
      */
     public List<T> selectAll();
 
@@ -46,7 +49,8 @@ public interface DAO<T> {
      * 
      * @param id the ID of the element to find
      * @return the element that was found, or null if there is no element with
-     *         the given ID
+     *         the given ID. Modifications to this element will not be reflected
+     *         in the database.
      */
     public T selectById(int id);
 
@@ -54,6 +58,11 @@ public interface DAO<T> {
      * Updates the database for the given object. The database row(s)
      * corresponding to the object will be updated to match the object's
      * property values.
+     * 
+     * Implementors of this method reserve the right not to update certain
+     * fields in the database which are not meant to be set directly (for
+     * example, timestamps that are set in the database when an object is
+     * updated).
      * 
      * @param obj the object to be updated in the database. The ID member of the
      *            object will be used to identify the row(s) in the database to
@@ -63,7 +72,10 @@ public interface DAO<T> {
     public boolean update(T obj);
 
     /**
-     * Deletes a single object from the database.
+     * Deletes a single object from the database. Note that this low-level
+     * method does not take any constraints into account; the user (through
+     * higher-level abstractions) must ensure that dependent entries are deleted
+     * before attempting to delete something that has dependencies.
      * 
      * @param id the ID of the object to be deleted
      * @return whether the object was actually deleted

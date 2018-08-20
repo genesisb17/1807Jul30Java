@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
  * 
  * @author Ian Johnson
  */
-public class Reimbursement {
+public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     private int id;
     private ReimbursementType type;
     private ReimbursementStatus status;
@@ -20,10 +20,19 @@ public class Reimbursement {
     private OffsetDateTime submitted;
     private OffsetDateTime resolved;
 
+    public Reimbursement() {
+    }
+
+    public Reimbursement(Reimbursement r) {
+        copyFrom(r);
+    }
+
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -90,5 +99,32 @@ public class Reimbursement {
 
     public void setResolved(OffsetDateTime resolved) {
         this.resolved = resolved;
+    }
+
+    @Override
+    public String toString() {
+        return "Reimbursement [id=" + id + ", type=" + type + ", status="
+            + status + ", amount=" + amount + ", description=" + description
+            + ", authorId=" + authorId + ", resolverId=" + resolverId
+            + ", submitted=" + submitted + ", resolved=" + resolved + "]";
+    }
+
+    @Override
+    public Reimbursement copy() {
+        return new Reimbursement(this);
+    }
+
+    @Override
+    public void copyFrom(Reimbursement r) {
+        id = r.id;
+        type = r.type;
+        status = r.status;
+        amount = r.amount;
+        description = r.description;
+        // TODO: initialize receipt field here.
+        authorId = r.authorId;
+        resolverId = r.resolverId;
+        submitted = r.submitted;
+        resolved = r.resolved;
     }
 }

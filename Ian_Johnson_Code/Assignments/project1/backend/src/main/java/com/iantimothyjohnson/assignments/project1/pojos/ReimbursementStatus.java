@@ -39,7 +39,7 @@ public enum ReimbursementStatus {
         return status;
     }
 
-    private ReimbursementStatus(int id) {
+    ReimbursementStatus(int id) {
         this.id = id;
     }
 

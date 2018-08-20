@@ -39,7 +39,7 @@ public enum UserRole {
         return role;
     }
 
-    private UserRole(int id) {
+    UserRole(int id) {
         this.id = id;
     }
 

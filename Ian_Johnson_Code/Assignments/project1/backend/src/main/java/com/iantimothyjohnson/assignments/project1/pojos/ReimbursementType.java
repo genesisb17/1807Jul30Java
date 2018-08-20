@@ -38,7 +38,7 @@ public enum ReimbursementType {
         return type;
     }
 
-    private ReimbursementType(int id) {
+    ReimbursementType(int id) {
         this.id = id;
     }
 
