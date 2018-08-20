@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstname": "Raymond",
+      "lastname": "Duncan",
+      "uname": "raydunc111",
+      "pword": "pass"
+    },
+    {
+      "id": 2,
+      "firstname": "Anthony",
+      "lastname": "Duncan",
+      "uname": "adunc",
+      "pword": "pass"
+    },
+    {
+      "id": 3,
+      "firstname": "Action",
+      "lastname": "Bronson",
+      "uname": "bronsolino",
+      "pword": "pass"
+    },
+    {
+      "firstname": "Angelina",
+      "lastname": "Jolie",
+      "uname": "ajolie",
+      "pword": "pass",
+      "id": 4
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "type": "Checking",
+      "balance": 0
+    }
+  ]
+}

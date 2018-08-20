@@ -1,0 +1,29 @@
+#page-wrapper {
+    background-color: white;
+}
+
+#welcome-banner {
+    background-color: #004E3E;
+}
+
+#sidebar {
+    background-color:  #006954; 
+}
+
+#main-content {
+    background-color: whitesmoke;
+}
+
+/* .container {
+    background-color: solid #004E3E;
+    border: 1px solid black;
+} */
+
+.fill {
+    min-height: 100vh;
+    height: 100%;
+}
+
+.js-functionality {
+    display: none;
+}

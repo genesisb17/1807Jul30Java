@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+  <!-- CSS -->
+  <style>
+    /* .my-container {
+      border: 1px solid black;
+    }
+
+    .my-row {
+      border: 3px solid red;
+    }
+
+    .my-col {
+      border: 3px dotted blue;
+    } */
+  </style>
+
+  <title>RaysBank JS Functionality</title>
+</head>
+
+<body>
+  <div class="container-fluid my-container fill" id="page-wrapper">
+    <div class="row jumbotron" id="welcome-banner" style="margin-bottom: 0px;">
+      <h1>Welcome to RaysBank</h1>
+    </div>
+    <div class="row fill">
+      <div class="col col-3 my-col " id="sidebar">Sidebar
+        <div class="nav-bar">
+          <ul id="nav flex-column" active="" style="list-style: none;">
+            <li class="nav-item" id="fibonacci">Fibonacci</li>
+            <li class="nav-item" id="bubbleSort">BubbleSort</li>
+            <li class="nav-item" id="reverseString">Reverse String</li>
+            <li class="nav-item" id="factorial">Factorial</li>
+            <li class="nav-item" id="substring">Substring</li>
+            <li class="nav-item" id="evenNumber">Even Number</li>
+            <li class="nav-item" id="palindrome">Palindrome</li>
+            <li class="nav-item" id="shapes">Shapes</li>
+            <li class="nav-item" id="objectLiteral">Object Literal</li>
+            <li class="nav-item" id="deleteElement">Delete Element</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col col-9 my-col" id="main-content">
+        Main content
+        <div class="row my-row" id="welcome-row">Welcome</div>
+        <div class="row my-row">
+          <div id="welcome-div">
+            <h3>This is the JS functionality section of RaysBank!</h3>
+            <h3>Please select a function to test from the left</h3>
+          </div>
+          <div class="js-functionality col-12" id="fibonacci-div">
+            <h3>Fibonacci Functionality!</h3>
+            <input type="number" id="fibonacci-input">
+            <button class="btn btn-light" id="fibonacci-button">Get Sequence!</button>
+            <label for="fibonacci-output" class="col col-11">Output</label>
+            <textarea id="fibonacci-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="bubbleSort-div">
+            <h3>BubbleSort Functionality</h3>
+            <input type="text" id="bubbleSort-input">
+            <button class="btn btn-light" id="bubbleSort-button">Sort!</button>
+            <label for="bubbleSort-output" class="col col-11">Output</label>
+            <textarea id="bubbleSort-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="reverseString-div">
+            <h3>Reverse String Functionality</h3>
+            <input type="text" id="reverseString-input">
+            <button class="btn btn-light" id="reverseString-input">Reverse String</button>
+            <label for="reverseString-output" class="col col-11">Output</label>
+            <textarea id="reverseString-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="factorial-div">
+            <h3>Factorial Functionality</h3>
+            <input type="number" id="factorial-input">
+            <button class="btn btn-light" id="factorial-button">Get Factorial</button>
+            <label for="factorial-output" class="col col-11">Output</label>
+            <textarea id="factorial-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="substring-div">
+            <h3>Substring Functionality</h3>
+            <input type="text" id="substring-str">
+            <input type="number" id="substring-length">
+            <input type="number" id="substring-offset">
+            <button class="btn btn-light" id="substring-button">Generate Substring</button>
+            <label for="substring-output" class="col col-11">Output</label>
+            <textarea id="substring-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="evenNumber-div">
+            <h3>Even Number Functionality</h3>
+            <input type="number" id="evenNumber-input">
+            <button class="btn btn-light" id="evenNumber-button">Is it Even?</button>
+            <div id="isEven-div" isEven="">
+              <div id="even-true" class="js-functionality">
+                <!-- Use a card to say it is even -->
+                <img src="../img/correct.png" alt="">
+              </div>
+              <div id="even-false" class="js-functionality">
+                <!-- Use a card to say it is not even -->
+                <img src="../img/incorrect.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="js-functionality col-12" id="palindrome-div">
+            <h3>Palindrome Functionality</h3>
+            <input type="text" id="palindrome-input">
+            <button class="btn btn-light" id="palindrome-button">Is it a Palindrome?</button>
+            <label for="palindrome-output" class="col col-11">Output</label>
+            <textarea id="palindrome-output" class="col col-11" rows="3"></textarea>
+          </div>
+          <div class="js-functionality col-12" id="shapes-div">
+            <h3>Shapes Functionality</h3>
+            <div class="row col-12">
+              <select name="" id="shapes-selector">
+                <option value="square">Square</option>
+                <option value="triangle">Triangle</option>
+                <option value="diamond">Diamond</option>
+              </select>
+              <input type="text" maxlength="1" minlength="1" id="shapes-character">
+              <input type="number" min="3" max="15" id="shapes-height">
+              <button class="btn btn-light" id="shapes-button">Generate Shape</button>
+            </div>
+            <textarea name="" id="shapes-output" cols="35" rows="15"></textarea>
+          </div>
+          <div class="js-functionality col-12 row" id="objectLiteral-div">
+            <h3>Object Literal Functionality</h3>
+            <div class="col col-12">
+              <div class="row">
+                <input type="text" id="object-key">
+                <input type="text" id="object-value">
+                <button class="btn btn-light" id="objectLiteral-addButton">Add Attrinute</button>
+              </div>
+              <div class="row col-12">
+                <div class="col col-4">
+                  <label for="object-fields">Object Attributes</label>
+                  <ul id="object-fields">
+                    <li>A: a</li>
+                    <li>B: b</li>
+                    <li>C: c</li>
+                  </ul>
+                </div>
+                <div class="col col-2">
+                  <button class="btn btn-light" id="objectLiteral-print">Print Object</button>
+                </div>
+                <div class="col col-6">
+                  <textarea name="" id="objectLiteral-output" cols="30" rows="10"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="js-functionality col-12" id="deleteElement-div">
+            <h3>Delete Element Functionality</h3>
+            <input type="text" id="deleteElement-array">
+            <input type="number" id="deleteElement-index">
+            <button class="btn btn-light" id="deleteElement-button">Delete Element</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <script src="../js/jquery-3.3.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../js/dom.js"></script>
+  <script type="text/javascript" src="../js/index.js"></script>
+  <link type="text/css" rel="stylesheet" href="../css/raysbank.css">
+</body>
+
+</html>

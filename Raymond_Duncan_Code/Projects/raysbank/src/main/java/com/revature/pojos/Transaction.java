@@ -1,57 +1,51 @@
 package com.revature.pojos;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 
 public class Transaction {
 	/*
 	 * Class that represents a single monetary exchange between two accounts
 	 */
-	private final int transactionID;
-	private final int fromAccount;
-	private final int toAccount;
+	private final long transactionID;
+	private final long fromAccount;
+	private final long toAccount;
 	private final double amount;
-	private final double balance;
-	private final ZonedDateTime dbTransactionTime;	
+	private final Timestamp dbTransactionTime;	
 		
-	public Transaction(int transactionID, int fromAccount, int toAccount, double amount, double previousBalance, 
-			ZonedDateTime dbTransactionTime) {
+	public Transaction(long transactionID, long fromAccount, long toAccount, double amount, 
+			Timestamp dbTransactionTime) {
 		super();
 		this.transactionID = transactionID;
 		this.fromAccount = fromAccount;
 		this.toAccount = toAccount;
 		this.amount = amount;
-		this.balance = amount + previousBalance;
 		this.dbTransactionTime = dbTransactionTime;
 	}
 
-	public int getTransactionID() {
+	public long getTransactionID() {
 		return transactionID;
 	}
 
-	public int getFromAccount() {
+	public long getFromAccount() {
 		return fromAccount;
 	}
 
-	public int getToAccount() {
+	public long getToAccount() {
 		return toAccount;
 	}
 
 	public double getAmount() {
 		return amount;
 	}
-	
-	public double getBalance() {
-		return balance;
-	}
 
-	public ZonedDateTime getTransactionTime() {
+	public Timestamp getTransactionTime() {
 		return dbTransactionTime;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Transaction [transactionID=" + transactionID + ", fromAccount=" + fromAccount + ", toAccount="
-				+ toAccount + ", amount=" + amount + "]";
+				+ toAccount + ", amount=" + amount + ", dbTransactionTime=" + dbTransactionTime + "]";
 	}
 		
 }

@@ -92,10 +92,15 @@ public class BankAccount {
 	public void setClosedDate(Timestamp closedDate) {
 		this.closedDate = closedDate;
 	}
+	
+	private static String split(long accountNumber) {
+		String str = (new Long(accountNumber)).toString();
+		return str.substring(0, 5) + "-" + str.substring(5,10) + "-" + str.substring(10,16);
+	}
 
 	@Override
 	public String toString() {
-		return "BankAccount [accountType=" + accountType + ", accountNumber=" + accountNumber + ", primaryUserID="
+		return "BankAccount [accountType=" + accountType + ", accountNumber=" + split(accountNumber) + ", primaryUserID="
 				+ primaryUserID + ", secondaryUserID=" + secondaryUserID + ", balance=" + balance + ", openDate="
 				+ openDate + ", closedDate=" + closedDate + "]";
 	}
@@ -104,7 +109,7 @@ public class BankAccount {
 		switch (str) {
 		case "SAVINGS":
 			return AccountType.SAVINGS;
-		case "CHECKINGS":
+		case "CHECKING":
 			return AccountType.CHECKING;
 		case "CERTIFICATEOFDEPOSIT":
 			return AccountType.CERTIFICATEOFDEPOSIT;

@@ -4,6 +4,7 @@ public enum NameTitle {
 	/*
 	 * Enumeration for the title of the user. Maybe the commented items can be added later...
 	 */
+	None,
 	Mr,
 	Mrs,
 	Ms,

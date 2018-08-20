@@ -34,7 +34,7 @@ conn raysbankAdmin/admin
 ********************************************************************************/
 
 CREATE TABLE BankAccount (
-    account_number NUMBER(16) NOT NULL PRIMARY KEY,
+    account_number NUMBER(14) NOT NULL PRIMARY KEY,
     account_type VARCHAR(20) NOT NULL,
     primary_uid NUMBER(12) NOT NULL,
     secondary_uid NUMBER(12),
@@ -45,8 +45,9 @@ CREATE TABLE BankAccount (
 
 CREATE TABLE Transaction (
     transaction_id NUMBER NOT NULL PRIMARY KEY,
-    from_account NUMBER(12) NOT NULL,
-    to_account NUMBER(12) NOT NULL,
+    from_account NUMBER(14) NOT NULL,
+    to_account NUMBER(14) NOT NULL,
+    amount NUMBER NOT NULL,
     balance NUMBER NOT NULL,
     time TIMESTAMP NOT NULL
 );
@@ -82,19 +83,19 @@ ALTER TABLE UserCredentials
    Triggers
 ********************************************************************************/
 CREATE SEQUENCE account_number_seq
-MINVALUE 1000000000000000
-START WITH 1000000000000000
-MAXVALUE 9999999999999999
+MINVALUE 10000000000000
+START WITH 10000000000000
+MAXVALUE 99999999999999
 INCREMENT BY 1;
 
 CREATE SEQUENCE new_transaction_seq
-MINVALUE 0
-START WITH 0
+MINVALUE 1
+START WITH 1
 INCREMENT BY 1;
 
 CREATE SEQUENCE new_user_seq
-MINVALUE 0
-START WITH 0
+MINVALUE 1
+START WITH 1
 INCREMENT BY 1;
 
 /*******************************************************************************
@@ -138,6 +139,14 @@ END;
 
 /*******************************************************************************
    Populate Database
+********************************************************************************/
+INSERT INTO BankUser(user_id,title,firstname,lastname,total_balance,time_joined) VALUES(NULL,NULL,'Ray','Duncan',1000,NULL);
+INSERT INTO BankAccount(account_number,account_type,primary_uid,secondary_uid,balance,open_date,close_date) VALUES(NULL,'SAVINGS',1,NULL,1000.00,NULL,NULL);
+INSERT INTO BankAccount(account_number,account_type,primary_uid,secondary_uid,balance,open_date,close_date) VALUES(NULL,'CHECKING',1,NULL,1000.00,NULL,NULL);
+INSERT INTO Transaction(transaction_id,from_account,to_account,amount,balance,time) VALUES(NULL,1000000000000000,1000000000000001,1000,1000,NULL);
+
+/*******************************************************************************
+   END
 ********************************************************************************/
 
 COMMIT;
