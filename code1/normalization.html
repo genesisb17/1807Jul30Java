@@ -1,0 +1,324 @@
+<!doctype>
+<html>
+    <head>  
+        <title>Database Normalization</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" 
+        integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        
+    </head>
+    <body>  
+        
+        <div class="container mt-2">
+            <nav class="navbar navbar-expand bg-primary">
+                <a href="https://www.essentialsql.com/get-ready-to-learn-sql-database-normalization-explained-in-simple-english/" target="_blank" class="navbar-brand text-light">Normalization</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                       
+                        <li class="nav-item dropdown bg-success">
+                            <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown">Navigation Menu</a>
+                            <div class="dropdown-menu bg-info">
+                                <a href="#uses" class="dropdown-item text-light bg-info">Why Normalize?</a>
+                            </div>
+                        </li>
+                    </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="" class="nav-link text-light">Log in <span class="oi oi-account-login"></span></a></li>
+                </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display2">Database Normalization</h1>
+                <p class="lead">This is the process of reducing data redundancy within a database.
+                    Reducing data redundancy is important because the cost of storing  extra data is more expensive and
+                    can slow down your database performance.
+                </p>
+            </div>
+        </div>
+        <div class="container">
+            <button class="btn btn-danger" data-target="#exampleModal" data-toggle="modal">1NF</button>
+            <div class="modal fade" id="exampleModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title">1st normal form</div>
+                        </div>
+                        <div class="modal-body">
+                                <h2>1NF</h2>
+                            <p>
+                                <ul>
+                                    <li>Eliminate repeating groups in individual tables</li>
+                                    <li>Create a separate table for each set of related data</li>
+                                    <li>Identify each set of related data with a primary key</li>
+                                </ul>
+                            </p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" data-dismiss="modal">close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        
+            <button class="btn btn-warning" data-target="#exampleModal2" data-toggle="modal">2NF</button>
+            <div class="modal fade" id="exampleModal2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title">2nd normal form</div>
+                        </div>
+                        <div class="modal-body">
+                            <h2>2NF</h2>
+                            <p>
+                                <h3> A table is in 2nd Normal Form if:</h3>
+                                   
+                                    <ul>
+                                        <li>The table is in 1st normal form</li>
+                                        <li>All the non-key columns are dependent on the table’s primary key.</li>
+                                    </ul>
+                             
+                            </p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" data-dismiss="modal">close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success" data-target="#exampleModal3" data-toggle="modal">3NF</button>
+            <div class="modal fade" id="exampleModal3">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title">3rd normal form</div>
+                        </div>
+                        <div class="modal-body">
+                            <h2>3NF</h2>
+                            <p>
+                                <h3>A table is in third normal form if:</h3>
+                                <ul>
+                                    <li>A table is in 2nd normal form.</li>
+                                    <li>It contains only columns that are non-transitively dependent on the primary key</li>
+                                </ul>
+                            </p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" data-dismiss="modal">close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="container mt-4">
+        <div class="btn btn-group">
+            <button class="btn btn-outline-primary" id="nnf">Denormalized Table</button>
+            <button class="btn btn-outline-danger" id="1nf">1st NF table view</button>
+            <button class="btn btn-outline-warning" id="2nf">2NF table view</button>
+            <button class="btn btn-outline-success" id="3nf">3nf table view</button>
+        </div>
+    </div>
+        <div class="container mt-2" id="table">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>not normalized</h4>
+                    <tr>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Coach</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Team 1</td>
+                        <td>Billy Bob</td>
+                        <td>QuarterBack</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-2" hidden id="table1nf">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>1nf</h4>
+                    <tr>
+                        <th>Playerid</th>
+                        <th>FirstName</th>
+                        <th>Lastname</th>
+                        <th>team</th>
+                        <th>CoachfName</th>
+                        <th>CoachLname</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John</td>
+                        <td>Smith</td>
+                        <td>team1</td>
+                        <td>Billy</td>
+                        <td>Bob</td>
+                        <td>QuarterBack</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-2" hidden id="table2nf">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>2nf</h4>
+                    <tr>
+                        <th>Playerid</th>
+                        <th>FirstName</th>
+                        <th>Lastname</th>
+                        <th>team id</th>
+                        <th>Position id</th>
+                        <th>coach id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                            <td>1</td>
+                            <td>John</td>
+                            <td>Smith</td>
+                            <td>1</td>
+                            <td>QB</td>
+                            <td>1</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container mt-2" hidden id="table3nf">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>3nf</h4>
+                <tr>
+                    <th>Playerid</th>
+                    <th>FirstName</th>
+                    <th>Lastname</th>
+                    <th>teamid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John</td>
+                        <td>Smith</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>Team table</h4>
+                <tr>
+                    <th>Teamid</th>
+                    <th>Team</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>team1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>coach table</h4>
+                <tr>
+                    <th>coachid</th>
+                    <th>firstname</th>
+                    <th>lastname</th>
+                    <th>Teamid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Billy</td>
+                        <td>bob</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <h4>Positions table</h4>
+                <tr>
+                    <th>Positonid</th>
+                    <th>position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>QB</td>
+                        <td>quarterback</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover table-striped">
+                    <thead>
+                        <h4>Player positions table</h4>
+                    <tr>
+                        <th>Player id</th>
+                        <th>positionid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>QB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="container offset-3" id="uses">
+            <h2 class="col-md-12">Why do we normalize Databases?</h2>
+        <div class="card-columns mt-2 text-light col-md-12">
+                <div class="card mb-2 bg-primary">
+                    <div class="card-body text-center">
+                        <h3 class="card-text">Normalized Databases</h3>
+                    <p class="card-text">Normaliztion is used for OLTP databases due to the fast write performance of
+                        a normalized db. It is easy to insert data on a bunch of small tables with only a few columns as opposed to writing to 
+                        all the columuns on one table. 
+
+                    </p>
+                    
+                    </div>
+                </div>
+                <div class="card mb-2 bg-secondary text-light">
+                    <div class="card-body text-center">
+                            <h3 class="card-text">Denormalized Database</h3>
+                            <p class="card-text">Denormalization is used for OLAP databases due to the fast read performance of
+                                a denormalized db. It is easy to read data from one big table as opposed to joining a bunch of small tables.
+                                <br> <br>
+                            </p>
+                    </div>
+                </div>
+        </div>  
+        </div>      
+    
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+        <script src="..\clientsideexamples\normalization.js"></script>
+    </body>
+ 
+</html>

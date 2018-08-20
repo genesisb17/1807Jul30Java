@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 101 Client Side tech stack</title>
+    <script type="text/javascript" src="../Clientstuff/domManipulation.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" 
+        integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        <style>
+        div {
+            text-decoration-color: aliceblue;
+        }
+        
+        </style>
+        
+</head>
+<body name="hello">
+    <div class="container">
+        <nav class="navbar navbar-toggle navbar-expand-sm bg-primary mt-2">
+            <a href="" class="navbar-brand text-light">Dylan Corbus</a>
+           <ul class="navbar-nav">
+               <li class="nav-item"><a href="" target="_blank" class="nav-link text-light">Page one</a></li>
+           </ul>
+        </nav>
+    <div class="jumbotron mb-2" style="text-align: center" id="wrapper">
+        <h1>User Input</h1>
+        <input type="text" class="form-cotrol col-4" id="username" placeholder="Username"> <br>
+        <input type="password" class="form-cotrol col-4 mt-2" id="password" placeholder="Password"> <br>
+        <button class="btn btn-submit btn-success mt-2" id="login"><span class="oi oi-check"></span></button>   
+    </div>
+    <div class="card bg-light">
+        <h4 class="text-light bg-primary" style="text-align: center">Basic Card</h2>
+        <div class="card-body">
+           <p>
+                This is my assignment using HTML, Bootstrap and JavaScript with a little bit of css.
+                to get started please type in the credentials test, test into the username and password fields.
+                
+           </p>
+        </div>
+    </div>
+</div>
+<div class="container" hidden id="problems">    
+    <div class="card-deck mt-2 text-light">
+            <div class="card bg-secondary">
+                <div class="card-body text-center" id="card1">
+                    <p class="card-text">Enter the nth term <br> of the fibonacci sequence. <br><br><br><br></p>
+                    <input type="text" class="form-control" placeholder="input" id="1inpt">
+                    <input type="submit" class="btn btn-submit btn-success mt-2" id="submit1">
+                </div>
+            </div>
+            <div class="card bg-secondary">
+                <div class="card-body text-center" id="card2">
+                    <p class="card-text">bubblesort an array of numbers <br>seperated by commas <br>(please put one at the end).</p>
+                    <input type="text" class="form-control" placeholder="input" id="2inpt">
+                    <input type="submit" class="btn btn-submit btn-success mt-2" id="submit2">
+                </div>
+            </div>
+            <div class="card bg-secondary">
+                <div class="card-body text-center" id="card3">
+                    <p class="card-text">Enter a String to reverse.<br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> <br><br></p>
+                    <input type="text" class="form-control" placeholder="input" id="3inpt">
+                    <input type="submit" class="btn btn-submit btn-success mt-2" id="submit3">
+                </div>
+            </div>
+            <div class="card bg-secondary">
+                <div class="card-body text-center">
+                    <p class="card-text">Calculate the factorial of a number<br>
+                        <br>
+                        <br>
+                        <br> <br><br> <br>
+                        <br>
+                        <br></p>
+                    <input type="text" class="form-control" placeholder="input" id="4inpt">
+                    <input type="submit" class="btn btn-submit btn-success mt-2" id="submit4"> <br>
+                    <span id="span4"></span>
+                </div>
+            </div>
+    </div>    
+    
+    <div class="card-columns mt-2 text-light">
+        <div class="card mb-2 bg-primary">
+            <div class="card-body text-center">
+            <p class="card-text">enter a number to find out if it is even or odd.</p>
+            <input type="text" class="form-control" placeholder="input" id="5inpt">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit5"> <br>
+            <span id="span5"></span>
+            </div>
+        </div>
+        <div class="card mb-2 bg-secondary text-light">
+            <div class="card-body text-center">
+            <p class="card-text">Is the word a palindrome?</p>
+            <input type="text" class="form-control" placeholder="input" id="6inpt">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit6"> <br>
+            <span id="span6"></span>
+            </div>
+        </div>
+        <div class="card mb-2 bg-primary">
+            <div class="card-body text-center">
+            <p class="card-text">Print a square, diamond, or a triangle.</p>
+            <input type="text" class="form-control" placeholder="input" id="7inpt">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit7">
+            <span id="span7"></span>
+            </div>
+        </div>
+        <div class="card mb-2 bg-primary">
+            <div class="card-body text-center">
+            <p class="card-text">Enter in your name.</p>
+            <input type="text" class="form-control" placeholder="input" id="8inpt">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit8"> <br>
+            <span id="span8"></span>
+            </div>
+        </div> 
+        <div class="card mb-2 bg-secondary text-light">
+            <div class="card-body text-center">
+            <p class="card-text">Some text inside the fifth card</p>
+            <input type="text" class="form-control" placeholder="input" id="9inpt">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit9">
+            <span id="span9"></span>
+            </div>
+        </div>
+        <div class="card mb-2 bg-primary">
+            <div class="card-body text-center">
+            <p class="card-text">Some text inside the sixth card</p>
+            <input type="text" class="form-control" placeholder="input">
+            <input type="submit" class="btn btn-submit btn-success mt-2" id="submit10">
+            </div>
+        </div>
+    </div>    
+    
+
+</div>
+   
+   
+</body>
+</html>
