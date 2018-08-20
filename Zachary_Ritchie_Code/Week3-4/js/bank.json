@@ -1,0 +1,25 @@
+{
+    "users" : [
+        {
+            "id" : 1,
+            "firstName" : "zachary",
+            "lastName" : "ritchie",
+            "username" : "zr",
+            "password" : "zr"
+        },
+        {
+            "id" : 2,
+            "firstName" : "test",
+            "lastname" : "test",
+            "username" : "test",
+            "password" : "test"
+        }
+    ],
+    "accounts" : [
+        {
+            "id" : 1,
+            "balance" : 1000,
+            "owner" : 1
+        }
+    ]
+}

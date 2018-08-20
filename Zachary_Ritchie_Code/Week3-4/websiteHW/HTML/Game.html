@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Primitives</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+                <a class="navbar-brand" href="#">Primitives</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="../HTML/Home.html" data-toggle="tooltip" data-placement="bottom" title="home">Home </a>
+                    </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="test your skills">Game <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="links">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Links
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="https://en.wikibooks.org/wiki/Java_Programming/Primitive_Types">Primitives Wiki</a>
+                        <a class="dropdown-item" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Primitives Oracle</a>
+                        <!--<div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>-->
+                      </div>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Disabled</a>
+                    </li> 
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  </form> -->
+                </div>
+              </nav>
+
+              <br>
+
+              <div class="form-group row">
+                    <div class="col-2"></div>
+                    <div class="col-2"><h3>Primitive Data Types</h3></div>
+                    <div class="col-2"><h3>Numeric Types</h3></div>
+                    <div class="col-2"><h3>Integral Types</h3></div>
+                    <div class="col-2"><h3>Floating-Point Types</h3></div>
+                    <div class="col-2"></div>
+              </div>
+
+              <div class="form-group{border:0} row">
+                  <div class="col-2"></div>
+
+                  <div class="col-2">                        
+                        <ul><input type="checkbox" id="boolean1" name="boolean" value="boolean"> boolean </ul> 
+                        <ul><input type="checkbox" id="byte1" name="byte" value="byte"> byte</ul> 
+                        <ul><input type="checkbox" id="char1" name="char" value="char"> char</ul> 
+                        <ul><input type="checkbox" id="double1" name="double" value="double"> double</ul>
+                        <ul><input type="checkbox" id="float1" name="float" value="float"> float</ul>
+                        <ul><input type="checkbox" id="int1" name="int" value="int"> int</ul>
+                        <ul><input type="checkbox" id="long1" name="long" value="long"> long</ul>
+                        <ul><input type="checkbox" id="short1" name="short" value="short"> short</ul> 
+                        <ul><button class="btn btn-secondary" id="q1compute">Submit</button></ul>
+                        <ul><h4 id="q1"></h4></ul>
+                  </div>
+
+                  <div class="col-2">                        
+                        <ul><input type="checkbox" id="boolean2" name="boolean" value="boolean"> boolean </ul> 
+                        <ul><input type="checkbox" id="byte2" name="byte" value="byte"> byte</ul> 
+                        <ul><input type="checkbox" id="char2" name="char" value="char"> char</ul> 
+                        <ul><input type="checkbox" id="double2" name="double" value="double"> double</ul>
+                        <ul><input type="checkbox" id="float2" name="float" value="float"> float</ul>
+                        <ul><input type="checkbox" id="int2" name="int" value="int"> int</ul>
+                        <ul><input type="checkbox" id="long2" name="long" value="long"> long</ul>
+                        <ul><input type="checkbox" id="short2" name="short" value="short"> short</ul>   
+                        <ul><button class="btn btn-secondary" id="q2compute">Submit</button></ul>
+                        <ul><h4 id="q2"></h4></ul>
+                  </div>
+
+                  <div class="col-2">                        
+                        <ul><input type="checkbox" id="boolean3" name="boolean" value="boolean"> boolean </ul> 
+                        <ul><input type="checkbox" id="byte3" name="byte" value="byte"> byte</ul> 
+                        <ul><input type="checkbox" id="char3" name="char" value="char"> char</ul> 
+                        <ul><input type="checkbox" id="double3" name="double" value="double"> double</ul>
+                        <ul><input type="checkbox" id="float3"name="float" value="float"> float</ul>
+                        <ul><input type="checkbox" id="int3" name="int" value="int"> int</ul>
+                        <ul><input type="checkbox" id="long3" name="long" value="long"> long</ul>
+                        <ul><input type="checkbox" id="short3" name="short" value="short"> short</ul> 
+                        <ul><button class="btn btn-secondary" id="q3compute">Submit</button></ul>
+                        <ul><h4 id="q3"></h4></ul>               
+                  </div>
+
+                  <div class="col-2">                        
+                        <ul><input type="checkbox" id="boolean4" name="boolean" value="boolean"> boolean </ul> 
+                        <ul><input type="checkbox" id="byte4" name="byte" value="byte"> byte</ul> 
+                        <ul><input type="checkbox" id="char4" name="char" value="char"> char</ul> 
+                        <ul><input type="checkbox" id="double4" name="double" value="double"> double</ul>
+                        <ul><input type="checkbox" id="float4" name="float" value="float"> float</ul>
+                        <ul><input type="checkbox" id="int4" name="int" value="int"> int</ul>
+                        <ul><input type="checkbox" id="long4" name="long" value="long"> long</ul>
+                        <ul><input type="checkbox" id="short4" name="short" value="short"> short</ul>
+                        <ul><button class="btn btn-secondary" id="q4compute">Submit</button> </ul> 
+                        <ul><h4 id="q4"></h4></ul>
+                  </div>
+
+                  <div class="col-2"></div>
+              </div>
+
+              <script type = "text/javascript" src="../JS/game.js"></script>
+</body>
+</html>

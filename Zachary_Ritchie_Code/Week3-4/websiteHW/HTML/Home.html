@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Primitives</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="#">Primitives</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" data-toggle="tooltip" data-placement="bottom" title="home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../HTML/Game.html" data-toggle="tooltip" data-placement="bottom" title="test your skills">Game</a>
+            </li>
+            <li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="links">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Links
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="https://en.wikibooks.org/wiki/Java_Programming/Primitive_Types">Primitives Wiki</a>
+                <a class="dropdown-item" href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Primitives Oracle</a>
+                <!--<div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>-->
+              </div>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li> 
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+
+      <div class="form-group{border:0} row">
+        <!-- Left Column -->
+        <div class="col-3"></div>
+        
+        <!-- Middle Column -->
+        <div class="col-6">
+          <br>
+          <h2>Pirimitives</h2> 
+          <p >Primitive types are the most basic data types available within the Java language. 
+            There are 8, these types serve as the building blocks of data manipulation in Java. 
+            Such types serve only one purpose — containing pure, simple values of a kind. Because 
+            these data types are defined into the Java type system by default, they come with a 
+            number of operations predefined. You can not define a new operation for such primitive 
+            types. In the Java type system, there are three further categories of primitives:
+         <ul>
+           <li>Numeric primitives: short, int, long, float and double. These primitive data types hold 
+            only numeric data. Operations associated with such data types are those of simple arithmetic 
+            (addition, subtraction, etc.) or of comparisons (is greater than, is equal to, etc.)
+            </li>
+            <li>Textual primitives: byte and char. These primitive data types hold characters (that can be Unicode
+                alphabets or even numbers). Operations associated with such types are those of textual manipulation 
+                (comparing two words, joining characters to make words, etc.). However, byte and char can also 
+                support arithmetic operations.
+            </li>
+            <li>
+                Boolean and null primitives: boolean and null.
+                All the primitive types have a fixed size. Thus, the primitive types are limited to a range of values.
+                 A smaller primitive type (byte) can contain less values than a bigger one (long).
+            </li>
+          </ul>  
+          <br>
+          <label class="col-1"></label> <!-- spacing -->
+          <img href="../images/Primitive-data-types-in-java.jpg"><img src="../images/Primitive-data-types-in-java.jpg"  title=""></img>
+          <br><br>
+          <p>
+              Programming may not be as trivial or boring as just crunching huge numbers any more. However, huge chunks of 
+              code written in any programming language today, let alone Java, obsessively deal with numbers, be it churning 
+              out huge prime numbers, or just calculating a cost of emission from your scooter. In 1965, Gemini V space
+               mission escaped a near-fatal accident caused by a programming error. Again in 1979, a computer program 
+               overestimated the ability of five nuclear reactors to withstand earthquakes; the plants shut down temporarily.
+               There is one thing common to both these programming errors: the subject data, being computed at the time 
+               the errors occurred, was numeric. Out of past experience, Java came bundled with revised type checking for 
+               numeric data and put significant emphasis on correctly identifying different types of it. You must recognise 
+               the importance of numeric data when it comes to programming.
+          </p>
+          </p>   
+        </div>  
+        
+        <!-- Right Column -->
+        <div class="col-3"></div>
+      </div>
+      
+</body>
+</html>

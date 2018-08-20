@@ -1,11 +1,13 @@
 window.onload = function(){
     
     document.getElementById("q1compute").addEventListener("click", calcFib, true);
+    document.getElementById("q2compute").addEventListener("click", bubblesort, true);
     document.getElementById("q3compute").addEventListener("click", reverseString, true);
     document.getElementById("q4compute").addEventListener("click", factorial, true);
     document.getElementById("q5compute").addEventListener("click", evenNumber, true);
     document.getElementById("q6compute").addEventListener("click", palindrome, true);
-
+    document.getElementById("q15compute").addEventListener("click", descendingOrder, true);
+    clock();
 }
 
 function calcFib()
@@ -100,14 +102,75 @@ function person(name, age)
     this.firstName = name;
     this.age = age;
 }
-var john = getPerson("John", 30);
+var john = person("John", 30);
 
-var getPerson ={
-    setName: function(name){
-        this.name = name;
-    },
-    setAge: function(age){
-        this.age = age;
-    }
+var getPerson = {
+    firstname: "John",
+    age: "30"
 }
-var john = getPerson("John", 30);
+var john = getPerson;
+
+function clock()
+{
+    var d = new Date();
+    var n = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var t = setTimeout(clock, 500);
+    document.getElementById("q14").innerHTML = n;    
+}
+
+function splice()
+{
+    let input = document.getElementById("input2").value;    
+    let output =  JSON.parse("[" + input + "]");
+    output.splice(2, 1, null);
+    console.log(output.length);
+    document.getElementById("q2").innerHTML = output.length;   
+
+}
+
+function bubblesort()
+{
+    let input = document.getElementById("input2").value;
+    let array = Array.from(input);
+    let length = input.length;
+    for(let i = 0; i < length; i++)
+    {
+        for(let j = 0; j < (length - i - 1); j++)
+        {
+            if(array[j] > array[j+1])
+            {
+                var tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;                
+            }
+        }
+    }
+    document.getElementById("q2").innerHTML = array;   
+
+}
+
+function descendingOrder()
+{
+    let input = document.getElementById("input15").value;
+    let array = Array.from(input);
+    let length = input.length;
+    for(let i = 0; i < length; i++)
+    {
+        for(let j = 0; j < (length - i - 1); j++)
+        {
+            if(array[j] > array[j+1])
+            {
+                var tmp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = tmp;                
+            }
+        }
+    }
+    let reversed = "";
+    for (var i = array.length - 1; i >= 0; i--)
+    {        
+        reversed += array[i];
+    }    
+    
+    document.getElementById("q15").innerHTML = reversed;  
+}
