@@ -1,5 +1,6 @@
 window.onload = function(){
     doDate();
+ 
     document.getElementById("fibsubmit").addEventListener("click", fib);
     document.getElementById("reversesubmit").addEventListener("click", reverseString);
     document.getElementById("factorialsubmit").addEventListener("click", factorial);
@@ -9,7 +10,7 @@ window.onload = function(){
     document.getElementById("deletesubmit").addEventListener("click", deleteFromArray);
 }
 
-function fib(number){
+function fib(){
 
     let userinput=document.getElementById("fibinput").value;
     let calc=0;
