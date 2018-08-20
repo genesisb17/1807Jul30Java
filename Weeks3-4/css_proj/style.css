@@ -4,13 +4,18 @@
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
   }
-  
+	
+	.img-fluid{
+		max-width: 100%;
+		height: auto;
+	} 
+
   html, body {
 	padding: 0;
 	margin: 0;
   }
   body {
-	color: #325050;
+	color: #323c50;
 	background: #fff;
 	font-family: 'Libre Baskerville', sans-serif;
 	font-size: 70%;
@@ -27,7 +32,7 @@
 	  color: #1a5952;
 	}
 	a:hover, a:focus {
-	  color: #0599c2;
+	  color: #89a8b1;
 	  text-decoration: underline;
 	}
   abbr {
@@ -40,10 +45,10 @@
 	height: 230px;
 	padding: 20px 0 70px 0;
   
-	background: #2d6360 50% 0 url(huntington.jpg) no-repeat; /* old IE fallback */
+	background: #2d4b63 50% 0 url(blue_hills.jpg) no-repeat; /* old IE fallback */
   
 	background-attachment: fixed, fixed, fixed, scroll;
-	background-image: url(contours.png), url(noise.png), url(gridlines.png), url(huntington.jpg);
+	background-image: url(blue_hills.jpg), url(rock_wall.jpg), url(gold.jpg), url(rock_wall.jpg);
 	background-position: 0 0, 0 0, -5px -25px, 0 50%;
 	background-repeat: repeat, repeat, repeat, no-repeat;
 	background-size: auto, auto, auto, cover;
@@ -83,7 +88,7 @@
 	padding-top: 5px;
 	padding-bottom: 30px;
 	border-top: none;
-	color: rgba(255,255,255,0.6);
+	color: rgba(231, 234, 245, 0.712);
 	font-size: 1.6em;
 	font-style: italic;
   }
@@ -93,7 +98,7 @@
   }
   h3 {
 	margin: 2em 0 0 0;
-	color: #2e484c;
+	color: #1a3e4e;
 	font-family: 'Julius Sans One', sans-serif;
 	font-size: 1.8em;
 	font-weight: normal;
@@ -133,14 +138,14 @@
 	-moz-border-radius: 1px;
 	border-radius: 1px;
   
-	color: #809b7e;
+	color: #6a6d9c;
 	font-family: 'Julius Sans One', sans-serif;
 	text-transform: uppercase;
   }
   .intro a:hover, .intro a:focus {
 	z-index: 2;
 	color: #fff;
-	background: #3d8a9f;
+	background: #3d709f;
 	text-decoration: none;
   }
   
@@ -150,8 +155,8 @@
 	top: 6px;
 	left: 8px;
 	padding: 2px;
-	color: #a9b995;
-	background: #d9e1cd;
+	color: #95a4b9;
+	background: #cdd9e1;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-o-border-radius: 2px;
@@ -176,15 +181,15 @@
   }
 	.intro a:hover::before {
 	  color: #fff;
-	  background: #357d93;
+	  background: #356693;
 	}
   
   
   /* coloured cutoff */
   div.participation, div.benefits {
 	background-attachment: scroll, scroll, fixed;
-	background-color: rgba(138,188,159,0.5);
-	background-image: url(contours-opaque.png), url(gridlines-opaque.png), url(bamboo.png);
+	background-color: rgba(41, 72, 90, 0.5);
+	background-image: url(blue_opaque2.png), url(gridlines-opaque.png), url(forest3.jpg);
 	background-repeat: repeat, repeat, no-repeat;
 	background-size: auto, auto, cover;
   }
@@ -213,11 +218,11 @@
 	display: none;
   }
   .sidebar a {
-	color: #607476;
+	color: #697796;
 	text-decoration: none;
   }
 	.sidebar a:hover, .sidebar a:focus {
-	  color: #49968e;
+	  color: #497a96;
 	}
   .sidebar ul {
 	padding: 0;
@@ -235,12 +240,12 @@
 	float: left;
 	width: 50%;
 	padding: 1.5em 10%;
-	border-top: solid 1px #d9e3dc;
-	color: #c0cac3;
+	border-top: solid 1px #d9dde3;
+	color: #c0c9ca;
 	font-style: italic;
   }
 	.design-selection li:hover, .design-selection li:focus {
-	  background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+	  background: -moz-linear-gradient(left,  rgba(255, 255, 255, 0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); /* FF3.6+ */
 	  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
 	  background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
 	  background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); /* Opera 11.10+ */
@@ -265,7 +270,7 @@
 	display: none;
   }
   .design-selection .designer-name {
-	color: #616857;
+	color: #53696e;
 	font-size: 0.9em;
 	font-style: normal;
   }
@@ -279,7 +284,7 @@
 	right: 0;
 	width: 100%;
 	height: 70px;
-	background: rgba(255,255,255,0.2);
+	background: rgba(180, 190, 211, 0.452);
   }
   .design-archives h3 {
 	display: none;
@@ -352,7 +357,7 @@
   }
   .design-archives .viewall a:hover, .design-archives .viewall a:focus, .design-archives .viewall a:active,
   .design-archives a:hover::before, .design-archives a:focus::before, .design-archives a:active::before {
-	background-color: rgba(255,255,255,0.25);
+	background-color: rgba(255, 255, 255, 0.25);
 	box-shadow: inset 0 0 10px rgba(255,255,255,0.1);
   }
   .design-archives .previous a::before {
@@ -367,17 +372,17 @@
   /* resources */
   .zen-resources {
 	overflow: hidden;
-	background-color: rgba(138,188,159,0.5);
-	background-image: url(bamboo.png);
+	background-color: rgba(138, 180, 188, 0.5);
+	background-image: url(rock_wall2.jpg);
   }
   .zen-resources li {
-	border-top: solid 1px #a0b9ad;
+	border-top: solid 1px #a4a0b9;
 	font-style: normal;
   }
   .zen-resources li:last-child {
 	float: none;
 	width: auto;
-	border-bottom: solid 1px #a0b9ad;
+	border-bottom: solid 1px #a0a8b9;
   }
   
   
@@ -409,7 +414,7 @@
 	background: #3e5d67;
   
 	background-attachment: fixed, fixed, fixed, scroll;
-	background-image: url(contours.png), url(gridlines.png), url(noise.png), url(koi.jpg);
+	background-image: url(blue_hills.jpg), url(gridlines.png), url(noise.png), url(koi.jpg);
 	background-position: 0 0, -5px -25px, 0 0, 0 50%;
 	background-repeat: repeat, repeat, repeat, no-repeat;
 	background-size: auto, auto, auto, cover;
@@ -430,7 +435,7 @@
 	clear: both;
 	padding: 3em 10%;
 	color: #fff;
-	background: #134347;
+	background: #182b47;
 	text-align: center;
   }
   footer a {
@@ -482,7 +487,7 @@
 	footer a.zen-github::before {content: "g";}
 	footer a.zen-github:hover::before, footer a.zen-github:focus::before {content: "G";}
   
-  
+  /* DO NOT PASS  */
   
   /* low-res CSS */
   @media only screen and (max-width: 600px) {

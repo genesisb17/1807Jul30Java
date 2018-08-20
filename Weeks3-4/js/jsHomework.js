@@ -56,6 +56,10 @@ function bubbleSort(){//-   -   -   -   -   -   -   -   -   -   -   -   -
     var array = someStr.split(" ");
     
     var arrayLength = array.length;
+    for(var i = 0; i<arrayLength; i++){
+        array[i] = parseInt(array[i]);
+    } 
+    
     var i; var j; var temp; var count = 0;
     for(i = 0; i < arrayLength; i++) {
         for(j = 0; j < arrayLength - 1; j++) {
