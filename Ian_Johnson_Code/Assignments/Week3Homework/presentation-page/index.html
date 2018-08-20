@@ -40,6 +40,32 @@
       JVM's garbage collector runs on a daemon thread). In the example problem, you might want to have your main thread accept
       requests and then pass them off to one of several user threads that are created for the purpose of fulfilling requests.
     </p>
+    <p>
+      A thread in Java is always in one of several states; the state of a thread can be retrieved using the <code>getState</code>      method
+      on a
+      <code>Thread</code> object. Here is a list of all the thread states (see also the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html">official
+        documentation
+      </a>):
+      <dl>
+        <dt>NEW</dt>
+        <dd>The thread has not yet started.</dd>
+        <dt>RUNNABLE</dt>
+        <dd>The thread is currently executing in the JVM.</dd>
+        <dt>BLOCKED</dt>
+        <dd>The thread is currently blocked, waiting for a monitor lock (that is, waiting to enter a synchronized block of
+          code).
+        </dd>
+        <dt>WAITING</dt>
+        <dd>The thread is waiting indefinitely for another thread to perform some action. For example, the thread may have
+          called the <code>wait</code> method on an object, which puts the thread in this state until another thread calls
+          the <code>notify</code> method on the same object.</dd>
+        <dt>TIMED_WAITING</dt>
+        <dd>The thread is waiting for another thread to perform some action, as with the WAITING state, but with a timeout.
+          That is, the thread will only wait for a certain amount of time before "giving up" and resuming execution.</dd>
+        <dt>TERMINATED</dt>
+        <dd>The thread has exited.</dd>
+      </dl>
+    </p>
 
     <h2>How do I use one?</h2>
     <p>
@@ -138,13 +164,13 @@
       Thus, we could rewrite the above example in a thread-safe way as follows.
     </p>
     <pre class="code-sample"><code class="java">public class UnproblematicThreads {
-    private static Integer counter = 0;
+    private static int counter = 0;
 
     private static class Counter implements Runnable {
         @Override
         public void run() {
             while (true) {
-                synchronized (counter) {
+                synchronized (UnproblematicThreads.class) {
                     if (counter >= 20) {
                         break;
                     }
@@ -172,8 +198,8 @@
     </p>
 
     <footer>
-      Title image credit to <a href="https://commons.wikimedia.org/wiki/User:Vesihiisi">Vesihiisi</a>.
-      Syntax highlighting provided by <a href="https://highlightjs.org/">highlight.js</a>.
+      Title image credit to <a href="https://commons.wikimedia.org/wiki/User:Vesihiisi">Vesihiisi</a>. Syntax highlighting
+      provided by <a href="https://highlightjs.org/">highlight.js</a>.
     </footer>
   </div>
 
