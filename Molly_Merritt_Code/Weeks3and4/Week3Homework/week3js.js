@@ -50,6 +50,7 @@
     function bubbleSort(numArray) {
         for (let i=0; i<numArray.length; i++) {
             for (let j=1; j<numArray.length; j++) {
+                console.log(numArray[j]);
                 if (numArray[j-1] > numArray[j]) {
                     swap(numArray, j-1, j);
                 }
@@ -175,6 +176,19 @@
     Delete the third element in the array.
     Print length
     The lengths should be the same. */
+    $("#calcDelete").on('click', function(){
+        var arr = $("#inputArr").val().split(",");
+        console.log($("#inputArr").val());
+        console.log(arr);
+        let deletedArr = deleteElement(arr, 3);
+        let res = `Length before deleting: ${arr.length}. Length after deleting: ${deletedArr.length}`;
+        $("#showDeleted").html(res);
+        $("#inputArr").val('');
+    });
+    function deleteElement(arr, index) {
+        arr[index] = undefined;
+        return arr;
+    }
 
 
 /* 11. Splice Element
@@ -183,6 +197,23 @@
     Splice the third element in the array.
     Print length
     The lengths should be one less than the original length. */
+    $("#calcSplice").on('click', function(){
+        var arr = $("#inputArr").val().split(",");
+        console.log(arr);
+        let splicedArr = spliceElement(arr, 3);
+        let res = `Length before splicing: ${arr.length}. Length after splicing: ${splicedArr.length}`;
+        $("#showSpliced").html(res);
+        $("#inputArr").val('');
+    });
+    function spliceElement(arr, index) {
+        let newArr = [arr.length-1];
+        for (let i=0; i<index-1; i++) {
+            newArr[i] = arr[i];
+        } for (let j=index; j<arr.length; j++) {
+            newArr[i] = arr[i];
+        } console.log(newArr);
+        return newArr;
+    }
 
 
 /* 12. Defining an object using a constructor
