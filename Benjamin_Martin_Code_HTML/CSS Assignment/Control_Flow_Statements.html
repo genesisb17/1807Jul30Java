@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<title>Control Flow Statements</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="#decision-making" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Decision-Making</a>
+    <a href="#looping" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Looping</a>
+    <a href="#branching" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Branching</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Decision-Making</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Looping</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Branching</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-red w3-center" style="padding:128px 16px" id="main">
+  <h1 class="w3-margin w3-jumbo">Control Flow Statements</h1>
+  <p class="w3-xlarge">By Benjamin Martin</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>What are Control Flow Statements?</h1>
+      <h5 class="w3-padding-32">Control Flow Statements are statements used in programming to dictate the next set of operations 
+          the program will perform either with a binary decision or iterating through an operation until a specific condition is met.</h5>
+
+      <p class="w3-text-grey">All programs, whether basic or complex, require decision-making in some form or another. Without control flow statements, activities such as
+            looping through arrays would be impossible. Programs would also lose their ability to perform more than one activity and would require
+            the user to take the output and funnel it into the next program depending on what it is instead of letting the program do it for them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" id="decision-making">
+        <div class="w3-content">
+            <div class="w3-third w3-center"></div>
+                <div class="w3-twothird">
+                    <h1>Decision-Making</h1>
+                    <img src="https://www.sitesbay.com/java/images/control-statement/if-statement.png">
+                    <h5 class="w3-padding-32">Statements used to determine if a set of operations will occur and if so under what conditions will need to be met in order to execute.</h5>
+          
+                    <p class="w3-text-grey">If-else, if-else if-else, and switch all perform the same, but should be selected based on how many decisions can be made.<br><br>
+                        If-else, if-else if-else will both execute "else" if no other condition is met. For switch, the default case will happen if no other case is found.<br><br>
+                        To leave out the else or default will mean no code is executed if no condition is met.</p>
+                </div>
+        </div>
+    </div>
+
+<!-- Third Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" id="looping">
+    <div class="w3-content">
+        <div class="w3-third w3-center"></div>
+            <div class="w3-twothird">
+                <h1>Looping Statements</h1>
+                <img src="https://www.sitesbay.com/cprogramming/images/control-statement/loop.png">
+                <h5 class="w3-padding-32">Statements that involve iterating through a set of operations until a specific condition is met.</h5>
+      
+                <p class="w3-text-grey">While: Loop that will repeat a set of operations until the condition to perform them is false. 
+                    Will not execute at all if the condition starts false.<br><br>
+                    Do While: Loop that performs like a While look except that it will execute once before checking the condition's status.<br><br>
+                    For: Loop that executes a specific number of times. Usually dictated with an initialized variable that counts the number of repeats.
+                    When the counter makes the condition false, the loop will stop.</p>
+            </div>
+    </div>
+</div>
+
+<!-- Fourth Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" id="branching">
+        <div class="w3-content">
+            <div class="w3-third w3-center"></div>
+                <div class="w3-twothird">
+                    <h1>Branching Statements</h1>
+                    <img src="https://cdn.programiz.com/sites/tutorial2program/files/how-continue-statement-works_0.jpg">
+                    <h5 class="w3-padding-32">Statements used to alter what happens in a specific iteration of a control flow statement.</h5>
+          
+                    <p class="w3-text-grey">Continue: Skips the current iteration and moves onto the next iteration.<br><br>
+                        Break: Skips the current loop and continues to the next line of code.<br><br>
+                        Return: End the current loop and returns to whichever method or function called it from.<br>
+                        <br>
+                        Continue and break are used primarly in loops while return sees most utility in functions/methods that want to stop at diffrent
+                        parts to return some modified value.<br><br><br><br><br></p>
+                </div>
+        </div>
+    </div>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
