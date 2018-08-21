@@ -1,5 +1,11 @@
 a {
   color: hsl(70, 85%, 20%);
+  transition: color 300ms;
+}
+
+a:hover {
+  color: hsl(70, 85%, 40%);
+  text-decoration: none;
 }
 
 body {
@@ -14,6 +20,14 @@ footer {
   border-top: 1px solid grey;
   font-size: 0.8rem;
   padding-top: 0.5rem;
+}
+
+nav {
+  font-size: 1.1rem;
+}
+
+nav ul ul {
+  font-size: 0.9em;
 }
 
 .jumbotron {

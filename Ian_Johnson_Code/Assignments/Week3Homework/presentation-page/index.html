@@ -22,6 +22,21 @@
     </div>
   </div>
   <div class="container">
+    <h2 id="toc-heading">Table of contents</h2>
+    <nav role="navigation" aria-labelledby="toc-heading">
+      <ul>
+        <li><a href="#what-is">What is a thread?</a></li>
+        <li>
+          <a href="#how-to-use">How do I use one?</a>
+          <ul>
+            <li><a href="#extending-thread">Extending <code>Thread</code></a></li>
+            <li><a href="#implementing-runnable">Implementing <code>Runnable</code></a></li>
+          </ul>
+        </li>
+        <li><a href="#caveats">Is there anything I need to be careful of?</a></li>
+      </ul>
+    </nav>
+    <a id="what-is"></a>
     <h2>What is a thread?</h2>
     <p>
       Consider the following problem: you're writing a web server, and you'd like to be able to handle requests from multiple clients
@@ -44,8 +59,7 @@
       A thread in Java is always in one of several states; the state of a thread can be retrieved using the <code>getState</code>      method
       on a
       <code>Thread</code> object. Here is a list of all the thread states (see also the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html">official
-        documentation
-      </a>):
+        documentation</a>):
       <dl>
         <dt>NEW</dt>
         <dd>The thread has not yet started.</dd>
@@ -67,11 +81,13 @@
       </dl>
     </p>
 
+    <a id="how-to-use"></a>
     <h2>How do I use one?</h2>
     <p>
       There are two ways to make a thread in Java: you must either extend the
       <code>Thread</code> class or implement the <code>Runnable</code> interface. Let's give a simple example of both cases.
     </p>
+    <a id="extending-thread"></a>
     <h3>Extending <code>Thread</code></h3>
     <p>
       When you extend the <code>Thread</code> class, you override the <code>run</code> method to implement your thread's
@@ -92,6 +108,7 @@
     }
 }</code></pre>
 
+    <a id="implementing-runnable"></a>
     <h3>Implementing <code>Runnable</code></h3>
     <p>
       When you implement the <code>Runnable</code> interface, you must override the <code>run</code> method, where you implement
@@ -124,6 +141,7 @@
     }
 }</code></pre>
 
+    <a id="caveats"></a>
     <h2>Is there anything I need to be careful of?</h2>
     <p>
       Yes, when you have several threads working with the same data. Consider what might happen if you have two threads both accessing
