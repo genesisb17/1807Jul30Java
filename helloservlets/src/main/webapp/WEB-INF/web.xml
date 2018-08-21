@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>helloservlets</display-name>
+  
+  <!-- WEB.XML a.k.a Deployment Descriptor
+  is the file with which we configure our web apps
+  Here, we indicate which URL-patterns (endpoints)
+  will send requests to respective servlets and
+  configure other details like parameters and when to initialize our servlets -->
+  
+  <servlet>
+  	<servlet-name>HelloServlet</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+  	<load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HelloServlet</servlet-name>
+ 	<url-pattern>/hello</url-pattern> <!-- would be the display-name then url-pattern. The link would be localhost:8888/helloservlets/hello -->
+  </servlet-mapping>				<!-- Unless you use the default, the new port number has to be listed -->
+  
+  <servlet>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloHttpServlet</servlet-class>
+  	<init-param>
+  		<param-name>info</param-name>
+  		<param-value>Servlets are awesome</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<url-pattern>/hellohttp</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
