@@ -8,12 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ex.pojos.User;
 import com.ex.service.DummyUserService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//REQUEST DISPATCHER! Used for forwarding
+		req.getRequestDispatcher("login.html").
+		forward(req, resp);
+	}
+	
 	
 	static DummyUserService uService = new DummyUserService();
 	
@@ -32,14 +41,20 @@ public class LoginServlet extends HttpServlet{
 		
 		PrintWriter out = resp.getWriter();
 		if(u == null) {
-			out.println("Sorry, invalid username");
+			//out.println("Sorry, invalid username");
+			resp.sendRedirect("login");
 		}
 		else if(!u.getPassword().equals(pass)) {
 			out.println("Sorry, invalid passsword");
 		}
 		else {
-			//valid login 
-			out.println("Welcome, " + name + "!");
+			//valid login getSession() - returns 
+			//current session or creates new one if none exists
+			HttpSession session = req.getSession();
+			session.setAttribute("user", u);
+			System.out.println(session.getId());
+			//out.println("Welcome, " + name + "!");
+			resp.sendRedirect("home");
 		}
 	
 	
