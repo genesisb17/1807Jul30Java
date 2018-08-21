@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lambda Expressions in Java</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="lambdaSite.css">
+</head>
+<body>
+
+    <!-- Must use list(s), image(s), hyperlinks for references, and at least 1 Bootstrap styled element -->
+    <div id="title" class="jumbotron">
+        <h1>Lambda Expressions in Java</h1>
+        
+    </div>
+
+    <div id="content">
+        <div id="intro">
+            <h4>Introduction</h4>
+            <p>Lambda expressions are anonymous methods which implement the single method of a functional interface.
+                They enable you to pass functionality as an argument to another method. A lambda expression cannot
+                be generic, but the functional interface associated with it can be.</p>
+            <br>
+        </div>
+
+        <div id="characteristics">
+            <h4>Characteristics of Lambda Expressions</h4>
+            <ul>
+                <li><b>Optional type declaration of a parameter</b> - The compiler can infer the type from the value of the parameter</li>
+                <li><b>Optional parenthesis around parameter</b> - Parentheses are only required for multiple parameters</li>
+                <li><b>Optional curly braces</b> - Curly braces are only required if the body contains multiple statements</li>
+                <li><b>Optional return keyword</b> - If the body has a single expression, the compiler automatically
+                    returns the value. To indicate that the expression returns a value, curly braces are required.</li>
+            </ul>
+        </div>
+
+        <div id="syntax">
+            <h4>Syntax</h4>
+            <img id="syntaxImg" src="lambdaSyntax.png" alt="Lambda Syntax">
+            <br><br>
+        </div>
+
+        <!-- <div id="scope">
+            <h4>Scope</h4>
+            <p>In a lambda expression, you can refer to any final variable.</p>
+            <br><br>
+        </div> -->
+
+        <div id="example">
+            <h4>Example</h4>
+            <img id="exImg" src="lambdaExample.png" alt="Lambda Example">
+            <br><br>
+        </div>
+
+        <div id="importantNotes">
+            <h4>Important Notes:</h4>
+            <ul>
+                <li>Lambdas are functions; they do not belong to any classes</li>
+                <li>Lambda expressions can only be used to implement functional interfaces</li>
+                <li>The body of a lambda expression can contain any number of statements. When there is 
+                    more than one statement, these statements must be enclosed in curly brackets. The 
+                    return type of the function must match the return type of the block</li>
+            </ul>
+            <br><br>
+        </div>
+    </div>
+        
+    <div id="references" class="jumbotron">
+        <ul><h6>References:</h6>
+            <li><a href="https://medium.freecodecamp.org/learn-these-4-things-and-working-with-lambda-expressions-b0ab36e0fffc">Free Code Camp</a></li>
+            <li><a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Oracle Documentation</a></li>
+            <li><a href="https://www.geeksforgeeks.org/lambda-expressions-java-8/">GeeksForGeeks</a></li>
+        </ul>
+    </div>
+    
+    
+</body>
+</html>
