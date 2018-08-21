@@ -13,7 +13,7 @@ public interface Identifiable {
      * @return the object's ID
      */
     int getId();
-    
+
     /**
      * Sets the ID of this object.
      * 

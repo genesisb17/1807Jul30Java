@@ -15,23 +15,12 @@ import com.iantimothyjohnson.assignments.project1.pojos.UserRole;
 import com.iantimothyjohnson.assignments.project1.util.ConnectionFactory;
 
 /**
- * A singleton User DAO that connects to a database using JDBC.
+ * A User DAO that connects to a database using JDBC.
  * 
  * @author Ian Johnson
  */
 public final class SQLUserDAO extends SQLDAO<User> implements UserDAO {
     private static final Logger logger = LogManager.getLogger();
-    private static SQLUserDAO instance;
-
-    private SQLUserDAO() {
-    }
-
-    public static SQLUserDAO getInstance() {
-        if (instance == null) {
-            instance = new SQLUserDAO();
-        }
-        return instance;
-    }
 
     @Override
     public boolean insert(User obj) {
@@ -137,7 +126,7 @@ public final class SQLUserDAO extends SQLDAO<User> implements UserDAO {
         try (
             Connection conn = ConnectionFactory.getInstance().getConnection()) {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
+            ps.setString(1, username.toLowerCase());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return parseResultSetRow(rs);

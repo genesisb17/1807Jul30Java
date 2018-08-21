@@ -20,24 +20,13 @@ import com.iantimothyjohnson.assignments.project1.pojos.ReimbursementType;
 import com.iantimothyjohnson.assignments.project1.util.ConnectionFactory;
 
 /**
- * A singleton Reimbursement DAO that connects to a database using JDBC.
+ * A Reimbursement DAO that connects to a database using JDBC.
  * 
  * @author Ian Johnson
  */
-public class SQLReimbursementDAO extends SQLDAO<Reimbursement>
+public final class SQLReimbursementDAO extends SQLDAO<Reimbursement>
     implements ReimbursementDAO {
     private static final Logger logger = LogManager.getLogger();
-    private static SQLReimbursementDAO instance;
-
-    private SQLReimbursementDAO() {
-    }
-
-    public static SQLReimbursementDAO getInstance() {
-        if (instance == null) {
-            instance = new SQLReimbursementDAO();
-        }
-        return instance;
-    }
 
     @Override
     public boolean insert(Reimbursement obj) {
@@ -106,7 +95,8 @@ public class SQLReimbursementDAO extends SQLDAO<Reimbursement>
         final String sql = "UPDATE reimbursement SET "
             + "type = ?, status = ?, amount = ?, description = ?, author = ?, resolver = ? "
             + "WHERE id = ?";
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+        try (
+            Connection conn = ConnectionFactory.getInstance().getConnection()) {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, obj.getType().getId());
             ps.setInt(2, obj.getStatus().getId());

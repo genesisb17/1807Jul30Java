@@ -8,7 +8,12 @@ import java.util.stream.Collectors;
 import com.iantimothyjohnson.assignments.project1.pojos.Reimbursement;
 import com.iantimothyjohnson.assignments.project1.pojos.ReimbursementStatus;
 
-public class MockReimbursementDAO extends MockDAO<Reimbursement>
+/**
+ * A reimbursement DAO class intended for use in testing.
+ * 
+ * @author Ian Johnson
+ */
+public final class MockReimbursementDAO extends MockDAO<Reimbursement>
     implements ReimbursementDAO {
     @Override
     public boolean insert(Reimbursement r) {
