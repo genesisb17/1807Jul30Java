@@ -12,10 +12,21 @@
   <servlet>
   	<servlet-name>HS</servlet-name>
   	<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
   	<servlet-name>HS</servlet-name>
   	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloHttpServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<url-pattern>/hellohttp</url-pattern>
   </servlet-mapping>
   
 </web-app>

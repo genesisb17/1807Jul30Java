@@ -16,6 +16,30 @@ import javax.servlet.ServletResponse;
  *
  */
 public class HelloServlet extends GenericServlet {
+	/*
+		LIFECYCLE OF A SERVLET! init() service() destroy()
+		init is called by the container when the servlet is 
+		initialized. here you can configure things like 
+		parameters, loggers, etc. basically anything you want
+		to happen upon initialization of this servlet
+		
+		the container then calls the service() method every 
+		time a request is sent to the url-pattern that you have
+		assigned this servlet. basically this is the part
+		where the servlet "services" the request
+		
+		lastly, the container calls destroy which will deallocate
+		memory to the servlet. we often don't see this happen bc
+		we don't typically limit the lifetime of the servlet, 
+		and if we simply stop the app from running, this method 
+		call is not shown
+	 */
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		System.out.println("INITIALIZING HELLO SERVLET");
+	}
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.GenericServlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
@@ -28,6 +52,13 @@ public class HelloServlet extends GenericServlet {
 		PrintWriter writer = res.getWriter();
 		writer.println("HELLO WORLD! WELCOME TO JAVA SERVLETS!");
 
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		System.out.println("IN HELLOSERVLET destroy()");
 	}
 
 }
