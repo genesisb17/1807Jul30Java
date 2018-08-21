@@ -23,6 +23,8 @@ public class HelloHttpServlet extends HttpServlet{
 		super.destroy();
 		System.out.println("IN HTTP DESTROY");
 	}
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, 
 			HttpServletResponse resp) 
@@ -30,15 +32,21 @@ public class HelloHttpServlet extends HttpServlet{
 		System.out.println("IN HTTP SERVLET DOGET");
 		PrintWriter out = resp.getWriter();
 		resp.setContentType("text/html");
-		out.write("<h1> Hello <b>Genesis</b> ! </h1>");
+		
+		//Servlet Config is any configuration detail about this particular servlet
+		String info = getServletConfig().getInitParameter("info");
+		out.write("<h1> Hello <b>Genesis</b> ! </h1>"
+				+ "<br> Random init params: <i>" + info + "</i>");
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, 
 			HttpServletResponse resp) 
 					throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		
+		
+		PrintWriter out = resp.getWriter();
+		out.write("IN HTTPSERVLET POST METHOD!");
 	}
 	
 	@Override

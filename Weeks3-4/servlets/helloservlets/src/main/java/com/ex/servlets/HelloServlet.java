@@ -16,6 +16,8 @@ import javax.servlet.ServletResponse;
  *
  */
 public class HelloServlet extends GenericServlet {
+	
+	static int counter = 0;
 	/*
 		LIFECYCLE OF A SERVLET! init() service() destroy()
 		init is called by the container when the servlet is 
@@ -47,16 +49,21 @@ public class HelloServlet extends GenericServlet {
 	@Override
 	public void service(ServletRequest req, 
 			ServletResponse res) throws ServletException, IOException {
-		System.out.println("--- IN HELLOSERVLET service()");
+		
+		System.out.println("--- IN HELLOSERVLET service() -- count: " + counter);
 		
 		PrintWriter writer = res.getWriter();
-		writer.println("HELLO WORLD! WELCOME TO JAVA SERVLETS!");
+		
+		//SERVLET CONTEXT is any config details applying to the entire servlet container
+		String bio = getServletContext().getInitParameter("Bio");
+		
+		writer.println("HELLO WORLD! WELCOME TO JAVA SERVLETS!"
+				+ "About me: " + bio);
 
 	}
 	
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
 		System.out.println("IN HELLOSERVLET destroy()");
 	}
