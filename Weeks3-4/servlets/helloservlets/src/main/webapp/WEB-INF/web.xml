@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>helloservlets</display-name>
+  
+  <!-- WEB.XML aka Deployment Descriptor
+  is the file with which we configure our web apps 
+  Here, we indicate which url-patterns (endpoints) 
+  will send requests to respective servlets and 
+  configure other details like parameters and 
+  when to initialize our servlets-->
+  
+  <servlet>
+  	<servlet-name>HS</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HS</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
