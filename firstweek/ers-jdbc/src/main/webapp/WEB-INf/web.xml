@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>ers-jdbc</display-name>
+  <!-- Web xml is the file where we configure our web apps.
+  Here we indicate which url patterns will send requests to the repective servlets. -->
+ <context-param>
+  <param-name>bio</param-name>
+  <param-value>blah blah blah</param-value>
+ </context-param>
+  
+  
+  
+  
+  
+  
+  
+</web-app>

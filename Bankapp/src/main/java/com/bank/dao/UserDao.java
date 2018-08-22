@@ -1,7 +1,6 @@
 package com.bank.dao;
 
 
-import java.awt.print.Book;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,9 +42,8 @@ public class UserDao {
 			}
 			conn.commit();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			//redousername used to be here
-			
+			System.out.println("that userrname was invalid please redo");
+			Driver.createAccount();
 			
 		}
 		return user;	
@@ -111,7 +109,7 @@ public class UserDao {
 			ps.setString(1, uname.toUpperCase());
 			ps.setString(2, pwd);
 			ps.executeUpdate();
-			System.out.println("accnt deleted");
+			
 			} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Those credentials were invalid, please try again");

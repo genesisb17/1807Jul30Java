@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>servlets</display-name>
+  <!-- Web xml is the file where we configure our web apps.
+  Here we indicate which url patterns will send requests to the repective servlets. -->
+ <context-param>
+  <param-name>bio</param-name>
+  <param-value>blah blah blah</param-value>
+ </context-param>
+  
+  
+  
+  
+  
+  <servlet>
+  <servlet-name>FirstServ</servlet-name>
+  <servlet-class>servlets.servlet.FirstServ</servlet-class>
+  <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>FirstServ</servlet-name>
+  <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>HttpServlets</servlet-name>
+  <servlet-class>servlets.servlet.HttpServlets</servlet-class>
+  <init-param>
+  	<param-name>info</param-name>
+  	<param-value>servlets are kinda crappy</param-value>
+  </init-param>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>HttpServlets</servlet-name>
+  <url-pattern>/test1</url-pattern>
+  </servlet-mapping>
+</web-app>

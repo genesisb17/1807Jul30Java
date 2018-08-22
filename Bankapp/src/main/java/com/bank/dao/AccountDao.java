@@ -1,11 +1,12 @@
 package com.bank.dao;
 
+import java.awt.Window.Type;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,12 +119,14 @@ public class AccountDao {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			String sql = "CALL GET_TIME()";
 			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, OracleTypes.CURSOR);
+//			cs.registerOutParameter(1, OracleTypes.CURSOR);
+			cs.registerOutParameter(1, OracleTypes.DATE);
 			cs.execute();
 			
 			ResultSet rs = (ResultSet) cs.getObject(1);
 			while(rs.next()) {
 				Account a = new Account();
+				System.out.println(rs.getDate(1));
 				a.setTime(rs.getString(1));
 				accnts.add(a);
 			}
@@ -133,5 +136,7 @@ public class AccountDao {
 		} 
 		return accnts;
 	}
+	
+	
 
 }

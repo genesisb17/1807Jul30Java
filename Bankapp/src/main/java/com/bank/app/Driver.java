@@ -114,6 +114,7 @@ public class Driver {
 	//Gets displayed on login
 	public static void userOptions() {
 //		Service.getTime();
+		
 		System.out.println("Menu: 1: Logout 2: Withdraw 3: Deposit 4: Open new Account");
 		String input = scan.nextLine();
 		if (input == null) {
@@ -140,6 +141,8 @@ public class Driver {
 		} 
 		Service.onLoginAfter(u.getUname());
 	}
+	
+	
 	
 	//Logout method
 	public static void logout()  {
