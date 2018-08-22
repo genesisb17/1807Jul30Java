@@ -20,9 +20,11 @@ public class LoadViewsServlet extends HttpServlet{
 		log.trace("Initializing LoadViewsServlet");
 	}
 	
-	@Override
+	@Override 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String resource = "partials/" + process(req, resp) + ".html";	
+		resp.addHeader("Access-Control-Allow-Origin", "*");
+	
 		req.getRequestDispatcher(resource).forward(req, resp);
 	}
 	
@@ -37,6 +39,8 @@ public class LoadViewsServlet extends HttpServlet{
 			return "genreView";
 		case "/bookstore/books.view":
 			return "booksView";
+		case "/bookstore/author.view":
+			return "authorView";
 		default:
 			return "errorView";
 		}
