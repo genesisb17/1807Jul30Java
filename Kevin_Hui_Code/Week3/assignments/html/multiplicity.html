@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multiplicity</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body class="bg-light">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="text-center">
+                <h1>Multiplicity</h1>
+                <h6>Database Design</h6>
+                by Kevin Hui
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">
+                "A specification of the range of allowable cardinality values - the size - that a set may assume."</p>
+            <footer class="blockquote-footer">James Rumbaugh in the <cite title="Source Title">UML Reference Manual</cite>.</footer>
+        </blockquote>
+
+        <h5>What is it?</h5>
+        <p>
+            <b>Multiplicity</b> is simply defined to be the <b>cardinality</b> and the <b>participation</b> between two entities.
+        </p>
+        <p>
+            We can look at relationships more closely during the design of the database, using an
+            <a href="https://www.lucidchart.com/pages/er-diagrams" target="_blank">Entity Relationship Diagram</a>. We would
+            often signify the multiplicity between two entities in a diagram usingeither the UML semantics or using crow's
+            foot notation.
+        </p>
+
+        <div class="row">
+            <div class="col-7">
+                <p>
+                    Let's remember the cardinalities in database design:
+                    <ul>
+                        <li>One-to-one (1:1)</li>
+                        <ul>
+                            <li>One record in table A can reference at most one record of table B.</li>
+                            <li>One record in table B can reference at most one record of table A.</li>
+                            <li>Use the primary key and foreign key with <u>UNIQUE</u> constraints to enforce referential
+                                integrity.
+                            </li>
+                        </ul>
+                        <li>One-to-many/Many-to-one (1:N/N:1)</li>
+                        <ul>
+                            <li>One record in table A can reference multiple records of table B.</li>
+                            <li>One record in table B can reference at most one record of table A.</li>
+                            <li>Use the primary key and foreign key constraints to enforce referential integrity.</li>
+                        </ul>
+                        <li>Many-to-many (M:N)</li>
+                        <ul>
+                            <li>One record in table A can reference multiple records of table B.</li>
+                            <li>One record in table B can reference multiple records of table A.</li>
+                            <li>Actual database implementation requires the use of a juntion table to enforce this relationship.</li>
+                        </ul>
+                    </ul>
+                </p>
+
+            </div>
+            <div class="col-5">
+                <img class="img-fluid" src="http://3.bp.blogspot.com/-4t71515irAM/ToVZHu4yF-I/AAAAAAAAALY/AJFTZ8FA2AY/s1600/crowsfoot_notation.gif"
+                    alt="Crows Foot with UML">
+            </div>
+        </div>
+        <div>
+            <p>
+                Participation can also be defined in one of two ways:
+                <ul>
+                    <li>Optional</li>
+                    <ul>
+                        <li>The record does not need to have any value in the column with the foreign key constraint.</li>
+                    </ul>
+                    <li>Mandatory</li>
+                    <ul>
+                        <li>The record must always reference a record in another table.</li>
+                        <li>The <u>NOT NULL</u> constraint is required alongside the foreign key constraint.</li>
+                    </ul>
+                </ul>
+            </p>
+            <p>
+                When we look at relationships between entities, not every record needs to be referenced based on the context of the relationship.
+            </p>
+            <p>
+                For example:
+            </p>
+            <blockquote class="blockquote text-center bg-white">
+                <p class="mb-0">
+                    An employee has <span class="text-danger">at most one</span> superior/manager to report to.
+                    <br> A superior/manager has <span class="text-danger">at least one</span> employee to oversee.
+                </p>
+            </blockquote>
+            <p>
+                Here, an employee of a company will often have a manager or superior to report to, and that relationship can be enforced
+                with constraints. However, some employees of a company do not have annyone to report to (i.e., the boss)
+                and thus not required to have any reference. The particpation from employee to superior is optional, while
+                the relationship from superior to employee(s) is mandatory.
+            </p>
+            <br>
+        </div>
+        <div>
+            <h5>Representing Many-to-Many Relationships</h5>
+            <p>
+                Enforcing many-to-many relationships in a database schema can only be resolved using a spearate table, called a junction
+                table (a.k.a. join table, association table, map table, etc.). Junction tables simply have enties that have
+                key pairings of two of the tables' primary keys. This pairing in the junction table serves as both the primary
+                (composite) key of that table, as well as foreign keys referencing to the two entities in the many-to-many
+                relationship.
+            </p>
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <p>
+                        <img class="img-fluid" src="https://www.599cd.com/site/courselist/access2013/expert/x7/images/defaul10.jpg" alt="Junction table">
+                    </p>
+                    <p>
+                        A specific group can have multiple customers at any given time.
+                        <br>
+                        A customer can be placed in mutliple groups at any given time.
+                    </p>
+                </div>
+                <div class="col-6">
+                    <p>
+                        <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Mapping_table_concept.png" alt="Junction table 2">
+                    </p>
+                    <p>
+                        The primary keys of both the 'actor' and 'film' tables are used for pairings in the
+                        'actor_film_mapping' table.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <footer class="text-right">
+            &copy <img style="height: 21px" src="https://media.giphy.com/media/6z8PVQqhOooN2/giphy.gif" alt="elmo">
+        </footer>
+    </div>
+</body>
+
+</html>

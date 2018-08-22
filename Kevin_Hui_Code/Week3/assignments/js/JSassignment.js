@@ -1,4 +1,9 @@
-
+window.onload = function() {
+    document.getElementById("fibsubmit").addEventListener("click", function() {
+        let passIn = document.getElementById("fibinput").value;
+        document.getElementById("fiboutput").innerHTML = "Fibonacci term at position " + passIn + " is " + fib(passIn) + ".";
+    }, true);
+}
 
 // 1. Fibonacci 
 // Define function: fib(n) 
@@ -173,10 +178,6 @@ function traverseObject(someObj) {
 // Splice the third element in the array.
 // Print length
 // The lengths should be one less than the original length.
-
-function spliceElement(someArr) {
-
-}
 
 // 12. Defining an object using a constructor
 // Define a function Person(name, age)
