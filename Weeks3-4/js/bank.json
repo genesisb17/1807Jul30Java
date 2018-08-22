@@ -20,6 +20,13 @@
       "username": "tombRaider44",
       "password": "brad",
       "id": 3
+    },
+    {
+      "firstName": "Brad",
+      "lastName": "Pitt",
+      "username": "iLoveAngie",
+      "password": "123",
+      "id": 4
     }
   ],
   "accounts": [

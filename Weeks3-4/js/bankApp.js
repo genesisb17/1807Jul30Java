@@ -1,5 +1,71 @@
 window.onload = function(){
     $('#logIn').on('click', logIn);
+    $('#showRegView').on('click', showRegisterView);
+}
+
+function showRegisterView(){
+    console.log("make new user");
+    $('#logIn').detach();
+    $('#firstname').removeAttr('hidden');
+    $('#lastname').removeAttr('hidden');
+    $('#register').removeAttr('hidden');
+    $('#showRegView').attr('hidden', 'true');
+    $('#register').on('click', register);
+    $('#username').on('blur', validateUsername);
+}
+
+function validateUsername(){
+    console.log("BLURRED!");
+    let username = $('#username').val();
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var arr = JSON.parse(xhr.responseText);
+            if(arr.length==1){
+                var elem = $('#message');
+                elem.removeAttr("hidden");
+                elem.html("Sorry, you have an invalid username");   
+            }
+            else{
+                $('#message').attr('hidden', 'true');
+            }
+        }
+    }
+
+    xhr.open("GET", 
+    `http://localhost:3000/users?username=${username.toLowerCase()}`, true);
+    xhr.send();
+}
+
+function register(){
+    //add new user
+    let uname = $('#username').val();
+    let pw = $('#password').val();
+    let fn = $('#firstname').val();
+    let ln = $('#lastname').val();
+    let user = {
+        firstName: fn,
+        lastName: ln,
+        username: uname,
+        password: pw
+    };
+
+    let reqBody = JSON.stringify(user);
+
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==201){
+            let user = JSON.parse(xhr.responseText);
+            $('#landingView').attr('hidden', 'true');
+            $('#homeView').removeAttr('hidden');
+            $('#greeting').html(`Welcome ${user.firstName}`);
+        }
+
+    }
+    xhr.open("POST", "http://localhost:3000/users", true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(reqBody);
+
 }
 
 function logIn(){
@@ -21,6 +87,9 @@ function logIn(){
                         //successfully logged in
                         $('#message').attr('hidden', 'true');
                         console.log("logged in");
+                        $('#landingView').attr('hidden', 'true');
+                        $('#homeView').removeAttr('hidden');
+                        $('#greeting').html(`Welcome ${user.firstName}`);
                     }
                     else{
                         var elem = $('#message');
