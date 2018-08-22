@@ -8,6 +8,13 @@
   will send requests to respective servlets and
   configure other details like parameters and when to initialize our servlets -->
   
+  <context-param>
+  	<param-name>Bio</param-name>
+  	<param-value>Genesis Bonds is cool. She is a trainer
+   		here at Revature.</param-value>
+  </context-param>
+  
+  
   <servlet>
   	<servlet-name>HelloServlet</servlet-name>
   	<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
