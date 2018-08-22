@@ -28,9 +28,9 @@ public class ConnectionFactory
 	{
 		Connection conn = null; 
 		Properties prop = new Properties();
-		String path = "C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java"
+		String path = /*"C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java"
 				+ "\\Zachary_Ritchie_Code\\Week2\\bookstore-JDBC\\src"
-				+ "\\main\\resources\\application.properties";
+				+ "\\main\\resources\\application.properties";*/ "C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java\\Weeks3-4\\servlets\\src\\main\\resources\\application.properties";
 		
 		try {
 			prop.load(new FileReader(path));
