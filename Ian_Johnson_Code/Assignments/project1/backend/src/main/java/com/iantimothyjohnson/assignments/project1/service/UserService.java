@@ -6,10 +6,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.iantimothyjohnson.assignments.project1.dao.UserDAO;
-import com.iantimothyjohnson.assignments.project1.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.project1.exceptions.PermissionDeniedException;
 import com.iantimothyjohnson.assignments.project1.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.project1.exceptions.UsernameNotAvailableException;
 import com.iantimothyjohnson.assignments.project1.pojos.User;
+import com.iantimothyjohnson.assignments.project1.pojos.UserRole;
 import com.iantimothyjohnson.assignments.project1.util.Passwords;
 
 /**
@@ -22,15 +23,32 @@ import com.iantimothyjohnson.assignments.project1.util.Passwords;
 public class UserService {
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     * The user "performing" the calls to these methods (so that permissions can
+     * be checked accordingly).
+     */
+    private User actor;
     private UserDAO userDao;
 
     /**
      * Constructs a new UserService with the given DAO backend.
      * 
+     * @param actor   a User object corresponding to the user who can be thought
+     *                of as "calling" the methods in this instance. This will be
+     *                used to evaluate the user's permission to perform certain
+     *                operations.
      * @param userDao the DAO backend to use. This DAO will be used for all
      *                interactions between the UserService and the database.
+     * @throws IllegalArgumentException if either actor or userDao is null
      */
-    public UserService(UserDAO userDao) {
+    public UserService(User actor, UserDAO userDao) {
+        if (actor == null) {
+            throw new IllegalArgumentException("actor must not be null.");
+        }
+        if (userDao == null) {
+            throw new IllegalArgumentException("userDao must not be null.");
+        }
+        this.actor = actor;
         this.userDao = userDao;
     }
 
@@ -44,11 +62,18 @@ public class UserService {
      * @param password the new user's password. Whether or not the user creation
      *                 is successful, this array will be cleared (every element
      *                 set to zero) before the method returns.
+     * @throws PermissionDeniedException     if the actor is not a manager (only
+     *                                       managers can create accounts)
      * @throws UsernameNotAvailableException if the user's desired username is
      *                                       already in use by another user
      */
     public void create(User user, char[] password)
-        throws UsernameNotAvailableException {
+        throws PermissionDeniedException, UsernameNotAvailableException {
+        if (actor.getRole() != UserRole.MANAGER) {
+            throw new PermissionDeniedException(
+                "Only managers can create users.");
+        }
+
         if (userDao.selectByUsername(user.getUsername()) != null) {
             Arrays.fill(password, '\0');
             throw new UsernameNotAvailableException(user.getUsername());
@@ -69,44 +94,23 @@ public class UserService {
      * 
      * @param username the username of the user to get
      * @return the user that was found
-     * @throws UserNotFoundException if no user with the given username exists
+     * @throws PermissionDeniedException if the user is not a manager (who can
+     *                                   retrieve all user information) or the
+     *                                   same as the desired user
+     * @throws UserNotFoundException     if no user with the given username
+     *                                   exists
      */
-    public User get(String username) throws UserNotFoundException {
-        User user = userDao.selectByUsername(username);
-        if (user == null) {
-            throw new UserNotFoundException(username);
+    public User get(String username)
+        throws PermissionDeniedException, UserNotFoundException {
+        if (actor.getRole() != UserRole.MANAGER
+            && !actor.getUsername().equals(username)) {
+            throw new PermissionDeniedException(
+                "Only managers are allowed to retrieve arbitrary user data.");
         }
-        return user;
-    }
 
-    /**
-     * Attempts to log in the user with the given username and password. This
-     * method does the same thing as the get method, but it also checks that the
-     * correct password is supplied before returning the User.
-     * 
-     * @param username the username of the user to log in
-     * @param password the (unhashed) password to be used for authentication.
-     *                 Whether or not the login was successful, this array will
-     *                 be cleared (every element set to zero) before the method
-     *                 returns.
-     * @return the User object corresponding to the logged-in user
-     * @throws UserNotFoundException          if no user with the given username
-     *                                        was found
-     * @throws AuthenticationFailureException if the given password was
-     *                                        incorrect for the user
-     */
-    public User login(String username, char[] password)
-        throws UserNotFoundException, AuthenticationFailureException {
         User user = userDao.selectByUsername(username);
         if (user == null) {
-            Arrays.fill(password, '\0');
             throw new UserNotFoundException(username);
-        }
-        byte[] hashedPassword = Passwords.hashPassword(password,
-            user.getPasswordSalt());
-        Arrays.fill(password, '\0');
-        if (!Arrays.equals(hashedPassword, user.getPasswordHash())) {
-            throw new AuthenticationFailureException();
         }
         return user;
     }
@@ -115,8 +119,17 @@ public class UserService {
      * Updates the information in the database for the given user.
      * 
      * @param user the user whose information to update
+     * @throws PermissionDeniedException if the actor is not a manager and is
+     *                                   not trying to update their own
+     *                                   information
      */
-    public void update(User user) {
+    public void update(User user) throws PermissionDeniedException {
+        if (actor.getRole() != UserRole.MANAGER
+            && actor.getId() != user.getId()) {
+            throw new PermissionDeniedException(
+                "Only managers can update arbitrary user data.");
+        }
+
         if (!userDao.update(user)) {
             logger.error("User was not updated properly.");
         }
