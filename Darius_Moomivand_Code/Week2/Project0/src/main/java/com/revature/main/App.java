@@ -117,6 +117,10 @@ public class App {
 
 		Double prevBal = w.getBalance();
 		prevBal -= withdraw;
+		if(prevBal < 0) {
+			System.out.println("NOT ENOUGH FUNDS AVAILABLE!!!");
+			return;
+		}
 		w.setBalance(prevBal);
 		System.out.println( "After Transaction " + w.toString() + "\n");
 		AccountsService ac = new AccountsService();
@@ -143,8 +147,8 @@ public class App {
 
 		do{
 
-			System.out.println("\n\nWelcome to Revature banking.\n1. "
-					+ "GO TO YOUR ACCOUNT.\n2. CREATE A USERNAME.\n");
+			System.out.println("\n\nWELCOME TO REVATURE BANKING\n\n1. "
+					+ "LOGIN TO YOUR ACCOUNT.\n2. CREATE A USERNAME.\n");
 			int userOption = Integer.parseInt(scanner.nextLine());						
 			
 			if(userOption == 1) {
@@ -159,6 +163,8 @@ public class App {
 						clientId = c.getClientId();
 						check = false;
 						break;
+					} else {
+					//	System.out.println("Incorrect Login.");
 					}
 				}
 			

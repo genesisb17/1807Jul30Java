@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Genesis",
+      "lastName": "Bonds",
+      "username": "gb",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "firstName": "test",
+      "lastName": "test",
+      "username": "test",
+      "password": "test"
+    },
+    {
+      "firstName": "Angelina",
+      "lastName": "Jolie",
+      "username": "tombRaider44",
+      "password": "brad",
+      "id": 3
+    },
+    {
+      "firstName": "Brad",
+      "lastName": "Pitt",
+      "username": "iLoveAngie",
+      "password": "123",
+      "id": 4
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "balance": 1000,
+      "owner": 1
+    }
+  ]
+}

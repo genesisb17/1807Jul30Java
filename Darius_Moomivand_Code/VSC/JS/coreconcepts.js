@@ -42,3 +42,25 @@ var obj = {
     }
     
 }
+
+
+
+//how to access object properties
+obj.name
+obj["name"]
+
+//delete properties
+delete obj.name
+
+// This is a guard. First operator acts as a "guard" for the function. Must be true to see second operand.
+function guard(op1, op2){
+    return op1 && op
+;}
+
+// This function put emphasis on the first operand. If first one is falsey, then returns second. If truthy, returns first operand.
+function defaultOp(op1, op2) { return op1 || op2; }
+
+
+var currentSesion =null;
+var userInfo = { username: "goods", password: 123};
+var getuser = currSession && userInfo;

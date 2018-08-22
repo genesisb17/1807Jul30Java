@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Serialization</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+            ul {
+                list-style-type: square;
+            }
+            ol.d {
+                list-style-type: lower-alpha;
+            }
+            #background {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('cat.png');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 60%;
+                opacity: 0.4;
+                filter:alpha(opacity=30);
+            }
+        </style>
+</head>
+
+
+<body>
+    <body>
+      <div id="background"></div>
+
+
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="file:///Users/dariusmoomivand/my_git_repos/1807Jul30Java/Weeks3-4/assignments/Webpage/Serial.html?#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://gregtrowbridge.com/golang-json-serialization-with-interfaces/">Link</a>
+              </li>
+
+
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="mySearch">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="gSearch">Search</button>
+            </form>
+          </div>
+        </nav>
+    
+        <main role="main">
+    
+          <!-- Main jumbotron for a primary marketing message or call to action -->
+          <div class="jumbotron">
+            <div class="container">
+              <h1 class="display-3">Serialization</h1>
+              <p>Serialization is the process of translating data structures or object state into a format that can be stored (for example, in a file or memory buffer) or transmitted (for example, across a network connection link) and reconstructed later (possibly in a different computer environment).</p>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button" id="LMButton">Learn more »</a></p>
+            </div>
+          </div>
+    
+          <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+              <div class="col-md-4">
+                <h2>Uses</h2>
+                <p> <ol>
+                    <li>Transferring data through the wires (messaging).</li>
+                    <li>A method of storing data (in databases, on hard disk drives)</li>
+                    <li>A method of remote procedure calls</li>
+                    <li>A method for distributing objects</li>
+                    <li>A method for detecting changes in time-varying data</li>
+                </ol>
+                    
+                </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+              </div>
+              <div class="col-md-4">
+                <h2>Drawbacks</h2>
+                <p>
+                    <ul class ="a">
+                            <li>Serialization breaks the opacity of an abstract data type by potentially exposing private implementation details.</li>
+                            <li>Trivial implementations which serialize all data members may violate encapsulation.</li>
+                            <li>To discourage competitors from making compatible products, publishers of proprietary software often keep the details of their programs' serialization formats a trade secret.</li>
+                            <li>Many institutions, such as archives and libraries, attempt to future proof their backup archives—in particular, database dumps—by storing them in some relatively human-readable serialized format.</li>
+                    </ul>
+                </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+              </div>
+              <div class="col-md-4">
+                <h2>Formats</h2>
+                <p>
+                    <ol class="d">
+                        <li> Xerox Network Systems Courier technology in the early 1980s influenced the first widely adopted standard</li>
+                        <li> Sun Microsystems published the External Data Representation (XDR) in 1987.</li>
+                        <li>In the late 1990s, a push to provide an alternative to the standard serialization protocols started: XML was used to produce a human readable text-based encoding. </li>
+                        <li>JSON is a lighter plain-text alternative to XML which is also commonly used for client-server communication in web applications. JSON is based on JavaScript syntax, but is supported in other programming languages as well.</li>
+                    </ol>
+                </p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+              </div>
+            </div>
+    
+            <hr>
+    
+          </div> <!-- /container -->
+    
+        </main>
+    
+        <footer class="container">
+          <p>© Revature 2017-2018</p>
+        </footer>
+    
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <script src="Serial.js"></script>
+    
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
