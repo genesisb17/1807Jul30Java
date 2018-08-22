@@ -21,7 +21,7 @@ function loadHomeView(){
 		}
 		
 	}
-	xhr.open("GET", "loadHome");
+	xhr.open("GET", "home.view");
 	xhr.send();
 	
 }
