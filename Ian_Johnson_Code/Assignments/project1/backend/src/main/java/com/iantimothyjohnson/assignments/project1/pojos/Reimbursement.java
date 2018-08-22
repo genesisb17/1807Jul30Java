@@ -86,6 +86,11 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     }
 
     public void setDescription(String description) {
+        if (description.length() > MAX_DESCRIPTION_LEN) {
+            throw new IllegalArgumentException(
+                "Description length is greater than the maximum of "
+                    + MAX_DESCRIPTION_LEN + ".");
+        }
         this.description = description;
     }
 

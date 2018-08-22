@@ -2,6 +2,7 @@ package com.iantimothyjohnson.assignments.project1.service;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import com.iantimothyjohnson.assignments.project1.dao.MockUserDAO;
 import com.iantimothyjohnson.assignments.project1.dao.UserDAO;
+import com.iantimothyjohnson.assignments.project1.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.project1.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.project1.pojos.User;
 import com.iantimothyjohnson.assignments.project1.pojos.UserRole;
 import com.iantimothyjohnson.assignments.project1.util.Passwords;
@@ -67,5 +70,31 @@ class LoginServiceTest {
             "Failed to get user by logging in with uppercase username.");
         assertArrayEquals(new char[password.length], password,
             "Password not cleared after logging user in with uppercase username.");
+    }
+
+    @Test
+    @DisplayName("cannot login with a non-existent username")
+    final void testLoginBadUsername() throws Exception {
+        String username = TEST_USERNAME + "123";
+        char[] password = Arrays.copyOf(TEST_PASSWORD, TEST_PASSWORD.length);
+        assertThrows(UserNotFoundException.class,
+            () -> loginService.login(username, password),
+            "Successfully logged in non-existent user.");
+        assertArrayEquals(new char[password.length], password,
+            "Password not cleared after unsuccessful login.");
+    }
+
+    @Test
+    @DisplayName("cannot login with an incorrect password")
+    final void testLoginBadPassword() throws Exception {
+        // Make up an incorrect password.
+        char[] password = Arrays.copyOf(TEST_PASSWORD, TEST_PASSWORD.length + 1);
+        password[password.length - 1] = 'a';
+
+        assertThrows(AuthenticationFailureException.class,
+            () -> loginService.login(TEST_USERNAME, password),
+            "Successfully logged in user with incorrect password.");
+        assertArrayEquals(new char[password.length], password,
+            "Password not cleared after unsuccessful login.");
     }
 }

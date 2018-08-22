@@ -99,7 +99,7 @@ class UserServiceTest {
 
             User inserted = userDao.selectById(user.getId());
             assertEquals(inserted, user,
-                "User object does not match database contents.");
+                "Manager object does not match database contents.");
         }
 
         @Test
@@ -156,7 +156,43 @@ class UserServiceTest {
             char[] password = "password".toCharArray();
 
             assertThrows(PermissionDeniedException.class,
-                () -> userService.create(user, password));
+                () -> userService.create(user, password),
+                "Successfully created new user.");
+        }
+
+        @Test
+        @DisplayName("cannot get another user's information")
+        void testGetOtherPermissionDenied() throws Exception {
+            assertThrows(PermissionDeniedException.class,
+                () -> userService.get(TEST_MANAGER_USERNAME),
+                "Successfully got another user's information.");
+        }
+
+        @Test
+        @DisplayName("can get own user information")
+        void testGetSelf() throws Exception {
+            assertEquals(testEmployee, userService.get(TEST_EMPLOYEE_USERNAME),
+                "Employee object does not match database contents.");
+        }
+
+        @Test
+        @DisplayName("cannot update another user's information")
+        final void testUpdateOtherPermissionDenied() throws Exception {
+            testManager.setFirstName("Updated");
+            testManager.setLastName("User2");
+            assertThrows(PermissionDeniedException.class,
+                () -> userService.update(testManager),
+                "Successfully updated another user's information.");
+        }
+
+        @Test
+        @DisplayName("can update own user information")
+        final void testUpdateSelf() throws Exception {
+            testEmployee.setFirstName("Johnny");
+            testEmployee.setLastName("Appleseed");
+            userService.update(testEmployee);
+            assertEquals(testEmployee, userDao.selectById(testEmployee.getId()),
+                "Employee information not successfully updated.");
         }
     }
 }
