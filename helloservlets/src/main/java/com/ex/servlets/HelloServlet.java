@@ -45,8 +45,13 @@ public class HelloServlet extends GenericServlet {
 	@Override
 	public void service(ServletRequest req, 
 			ServletResponse res) throws ServletException, IOException {
+<<<<<<< HEAD
 		
 		System.out.println("--- IN HELLOSERVLET service() -- count: " + counter);
+=======
+		String counter = null;
+		System.out.println("--- IN HELLOSERVLET service() -- count" + counter);
+>>>>>>> 8a45ee28df4024c7025b4780b97ab6f3effdf9bd
 		
 		PrintWriter writer = res.getWriter();
 		
