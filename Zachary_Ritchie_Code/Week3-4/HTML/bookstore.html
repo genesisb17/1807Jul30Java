@@ -47,5 +47,27 @@
         </tbody>
     </table>
 
+
+    <button id="doStuff">Click Me!</button>
+    <div id="doThings"></div>
+    <script>
+        //Goal: get text from servlet asynchronously via AJAX
+        document.getElementById("doStuff").addEventListener("click", function(e)
+        {
+         //send ajax request
+         var xhr = new XMLHttpRequest();
+         xhr.onreadystatechange = function()
+         {
+            if(xhr.readyState==4 && xhr.status==200)
+           	 {
+           	 	document.getElementById("things").innerHTML = xhr.responseText;
+           	 }
+         }
+         xhr.open();
+         xhr.send();
+        }, true)
+    </script>
+
+
 </body>
 </html>
