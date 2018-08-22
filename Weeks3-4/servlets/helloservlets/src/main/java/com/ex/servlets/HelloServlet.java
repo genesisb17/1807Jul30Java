@@ -11,11 +11,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Genesis
  *
  */
 public class HelloServlet extends GenericServlet {
+	
+	private static Logger log = Logger.getLogger(HelloServlet.class);
 	
 	static int counter = 0;
 	/*
@@ -40,7 +44,7 @@ public class HelloServlet extends GenericServlet {
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
-		System.out.println("INITIALIZING HELLO SERVLET");
+		log.trace("INITIALIZING HELLO SERVLET");
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +54,7 @@ public class HelloServlet extends GenericServlet {
 	public void service(ServletRequest req, 
 			ServletResponse res) throws ServletException, IOException {
 		
-		System.out.println("--- IN HELLOSERVLET service() -- count: " + counter);
+		log.trace("--- IN HELLOSERVLET service() -- count: " + counter);
 		
 		PrintWriter writer = res.getWriter();
 		
@@ -65,7 +69,7 @@ public class HelloServlet extends GenericServlet {
 	@Override
 	public void destroy() {
 		super.destroy();
-		System.out.println("IN HELLOSERVLET destroy()");
+		log.trace("IN HELLOSERVLET destroy()");
 	}
 
 }

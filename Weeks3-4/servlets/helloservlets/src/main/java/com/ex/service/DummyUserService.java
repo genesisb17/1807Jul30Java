@@ -6,6 +6,9 @@ import java.util.stream.Stream;
 import com.ex.pojos.User;
 
 public class DummyUserService {
+	/*
+	 * Dummy Service layer simulating data persistence
+	 */
 	
 	static ArrayList<User> users = new ArrayList<User>();
 	{
@@ -18,7 +21,7 @@ public class DummyUserService {
 		return users;
 	}
 	
-	//STREAM MAGIC
+	//STREAM MAGIC -- more at https://www.mkyong.com/java8/java-8-streams-filter-examples/
 	public User getByUsername(String name) {
 		User u = users.stream().filter( x -> 
 		x.getUsername().equals(name)).findAny().orElse(null);
