@@ -1,23 +1,35 @@
 #title {
     text-align: center;
 }
-#intro {
-    padding-left: 100px;
-    padding-right: 100px;
-}
 #content {
     text-align: center;
     padding-left: 200px;
     padding-right: 200px;
 }
-#characteristics {
-    text-align: left;
-    padding-left: 100px;
-    padding-right: 100px;
+#intro {
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+#syntax {
+    padding-bottom: 25px;
+    padding-top: 25px;
 }
 #syntaxImg {
     width: 70%;
     height: 70%;
+}
+#characteristics {
+    text-align: left;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+#example {
+    padding-bottom: 25px;
+    padding-top: 25px;
 }
 #exImg {
     width: 70%;
@@ -25,12 +37,14 @@
 }
 #importantNotes {
     text-align: left;
-    padding: 100px;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 25px;
+    padding-top: 25px;
 }
 
 ul {
-    /* list-style-position: outside; */
-    /* text-indent: 10px; */
+    list-style-position: outside;
 }
 h4 {
     text-align: center;
