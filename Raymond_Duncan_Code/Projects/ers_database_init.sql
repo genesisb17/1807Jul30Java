@@ -14,8 +14,8 @@ GRANT RESOURCE TO ers_database;
     CREATE TABLES
 ****************************************************************************/
 
-CREATE TABLE ers_users (
-    ers_users_id NUMBER,
+CREATE TABLE ers_user (
+    ers_user_id NUMBER,
     ers_username VARCHAR2(16),
     ers_password VARCHAR2(32),
     ers_firstname VARCHAR2(32),
@@ -51,6 +51,14 @@ CREATE TABLE ers_user_roles (
     ers_user_role_id NUMBER,
     user_role VARCHAR2(32)
 );
+
+/****************************************************************************
+    SEQUENCES
+****************************************************************************/
+
+/****************************************************************************
+    TRIGGERS
+****************************************************************************/
 
 /****************************************************************************
     TABLE CONSTRAINTS

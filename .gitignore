@@ -62,3 +62,6 @@ hs_err_pid*
 
 # Properties files
 **/*.properties
+
+# Bank DB Populator
+**/raysbankpopulator
