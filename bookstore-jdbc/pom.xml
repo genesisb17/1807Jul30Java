@@ -18,4 +18,5 @@
 			<version>11.2.0</version>
 		</dependency>
 	</dependencies>
+	<packaging>war</packaging>
 </project>
