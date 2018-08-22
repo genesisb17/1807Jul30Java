@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <title>JDBC Interfaces</title>
+</head>
+
+<body>
+    <div class="wrapper container-fluid" id="all-content">
+        <div class="container" id="content-box">
+            <div id="introduction" class="jumbotron">
+                <h1>JDBC Important Interfaces</h1>
+                <hr>
+                <h2>Introduction</h2>
+                <p>Text introducing JDBC</p>
+            </div>
+            <hr>
+            <div id="contents">
+                <h2>Contents</h2>
+                    <a href="#connection">Connection</a><br>
+                    <a href="#statement">Statement</a><br>
+                    <a href="#preparedStatement">Prepared Statement</a><br>
+                    <a href="#callableStatement">Callable Statement</a><br>
+                    <a href="#resultSet">Result Set</a><br>
+            </div>
+            <hr>
+            <div id="connection">
+                <h2>Connection Interface</h2>
+                <p id="connection-content">
+                    There are four steps that one must take before utilising the connection interface and establishing a connection to our database.
+                    They are as follows...
+                    <h4>Import Required Libraries</h4>
+                    JDBC uses two libraries to execute all its functionality: <br>
+                    <i>java.sql.*</i> and <i>java.math.*</i> <br> The first library is necessary for most functionality,
+                    as the connections to a SQL database must be established. The second is used for more advanced features
+                    of the JDBC library, as it adds support for the BigInteger and BigDecimal classes. <br><br>
+                    <h4>Registering the JDBC Driver</h4>
+                    In order to access the database using JDBC, one must use the correct database driver. Registering the database is the process
+                    of loading the required logic into memory in order to interact with the desired SQL database
+                    <br>
+                    <table class="table">
+                        Here are some popular databases and their driver name
+                        <thead>
+                            <th>RDBMS</th>
+                            <th>JDBC Driver Name</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MySQL</td>
+                                <td>com.mysql.jdbc.Driver</td>
+                            </tr>
+                            <tr>
+                                <td>ORACLE</td>
+                                <td>oracle.jsbc.driver.OracleDriver</td>
+                            </tr>
+                            <tr>
+                                <td>DB2</td>
+                                <td>COM.imb.db2.jdbc.net.DB2Driver</td>
+                            </tr>
+                            <tr>
+                                <td>Sybase</td>
+                                <td>com.sybase.jdbc.SybDriver</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    There are two ways to register a driver
+                    <h5><u>Method 1:</u> Class.forName()</h5>
+                    This method uses the <a href="https://www.baeldung.com/java-reflection">Reflection API</a> to instantiate
+                    the driver object, using one of the strings listed the table above.
+                    <div class="code-example">
+                        CODE EXAMPLE!
+                    </div>
+                    <h5><u>Method 2:</u> DriverManager.registerDriver()</h5>
+                    This uses the static DeiverManager.registerDriver() method and is used when run in a non-SDK compliant JVM
+                    <div class="code-example">
+                        CODE EXAMPLE!
+                    </div>
+                    <h4>Database URL Formulation</h4>
+                    Once the driver is registered, one must build the string representing the URL used to connect to the database.
+                    <br>
+                    <table class="table">
+                        <thead>
+                            <th>RDBMS</th>
+                            <th>JDBC URL Format</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MySQL</td>
+                                <td>jdbc:mysql://hostname/ databaseName</td>
+                            </tr>
+                            <tr>
+                                <td>ORACLE</td>
+                                <td>jdbc:oracle:thin:@hostname:port Number:databaseName</td>
+                            </tr>
+                            <tr>
+                                <td>DB2</td>
+                                <td>jdbc:db2:hostname:port Number/databaseName</td>
+                            </tr>
+                            <tr>
+                                <td>Sybase</td>
+                                <td>hostname: port Number/databaseName</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4>Create the Connection Object</h4>
+                    Finally, one must create the connection using the DriverManager.getConnection(). If there is a username and password required
+                    to access the DB, they are passed as inputs (DriverManager.getConnection(url,username,password)) The
+                    login credentials are generally abstracted from the code. One such way is by using an external .properties
+                    file and accessing the data using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Properties.html">Properties</a>
+                    class.
+
+                </p>
+            </div>
+            <hr>
+            <div id="statement">
+                <h2>Statement Interface</h2>
+                <p id="statement-content">
+                    Of the three types of statements available for use in the JDBC API, Statement is the most basic. It uses a string comprised
+                    of a SQL expression that is sent to the RDBMS. The results of the expression are then sent back to the
+                    JDBC API in the form of a <a href="#resultSet">ResultSet</a> object. In order to
+                    send a SQL query to the database using Statement, one must first initialize a new PreparedStatement object
+                    using the Connection interface and the desired SQL expression in the format of a string (no trailing
+                    semicolon). Then by calling the PreparedStatement.executeQuery() method the query is sent to the database
+                    and a ResultSet object is returned.
+                    <br>
+                    <div class="code_example">
+                        <img src="../images/StatementExample.PNG" alt="StatementExample">
+                    </div>
+                    <br> Statements are generally used with static strings like a SELECT * FROM [TABLE]; I.e. one should
+                    never insert user input into a Statement because it allows for the possibility of
+                    <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>.
+                </p>
+            </div>
+            <hr>
+            <div id="preparedStatement">
+                <h2>Prepared Statement Interface</h2>
+                <p id="preparedStatement-content">
+                    Prepared Statements are very similar to Statements. In fact, the PreparedStatement interface extends the Statement interface.
+                    The major difference is that Prepared Statements are implemented in such a way that allows for variables
+                    to be safely placed into the query string in any places where there is a question mark. Much like with
+                    Statement, one must first initialize a PreparedStatement object using the a connection acquired from
+                    the Connection interface. Then by calling the PreparedStatement.executeQuery() you can capture the output
+                    in a ResultSet and handle the output accordingly. <br> PreparedStatements are often
+                    used for UPDATE queries and queries that include a function call. <br>
+                    <div class="code-example">
+                        <img src="../images/PreparedStatementExample.PNG" alt="PreparedStatementExample">
+                    </div>
+                </p>
+            </div>
+            <hr>
+            <div id="callableStatement">
+                <h2>Callable Statement Interface</h2>
+                <p id="callableStatement-content">
+                    Callable Statements further extend the functionality of the PreparedStatement interface and are used to send queries to the
+                    RDBMS that correspond to defined procedures. They are used in much the same way as Prepared Statements
+                    except for the fact that the SQL statement is enclosed in curly brackets. Callable Statements are used
+                    generally for queries that are complicated in nature, ones that have a defined prodecure in the database.
+                    <br>
+                    <div class="code-example">
+                        <img src="../images/CallableStatementExample.PNG" alt="CallableStatementExample">
+                    </div>
+                </p>
+            </div>
+            <hr>
+            <div id="resultSet">
+                <h2>Result Set Interface</h2>
+                <p id="resultSet-content">
+                    The Result Set interface is used to capture the results of a SQL query from the three Statement types. It is an iterable
+                    object that stores each individual row with references to each column value. The data from the result
+                    set can then be compiled into java objects and manipulated as needed. <br>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+</body>
+<footer id="footer">
+    <h6>Read more...</h6>
+    <a href="https://www.tutorialspoint.com/jdbc/jdbc-db-connections.htm">TutorialsPoint JDBC Connection Interface</a><br>
+    <a href="https://www.tutorialspoint.com/jdbc/jdbc-statements.htm">TutorialsPoint JDBC Statement Interfaces</a><br>
+    <a href="https://www.tutorialspoint.com/jdbc/jdbc-result-sets.htm">TutorialsPoint JDBC Result Set Interface</a><br>
+    <a href="http://www.oracle.com/technetwork/java/javase/jdbc/index.html">JDBC Overview</a><br>
+</footer>
+
+</html>
