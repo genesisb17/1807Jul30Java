@@ -2,6 +2,8 @@ package com.iantimothyjohnson.assignments.project1.pojos;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A user of the ERS.
  * 
@@ -31,7 +33,9 @@ public class User implements Copiable<User>, Identifiable {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private byte[] passwordSalt;
+    @JsonIgnore
     private byte[] passwordHash;
 
     public User() {

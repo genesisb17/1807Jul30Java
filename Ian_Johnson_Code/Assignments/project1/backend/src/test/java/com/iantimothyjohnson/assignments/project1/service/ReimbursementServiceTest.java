@@ -121,7 +121,7 @@ class ReimbursementServiceTest {
         @DisplayName("can get an employee's reimbursements")
         void testGetEmployeeReimbursements() throws Exception {
             assertEquals(employeeReimbursements,
-                reimbursementService.getAllForUser(testEmployee),
+                reimbursementService.getAllForUser(testEmployee.getId()),
                 "Employee's reimbursements do not match what was inserted into the database.");
         }
     }
@@ -146,7 +146,7 @@ class ReimbursementServiceTest {
         @DisplayName("cannot get another employee's reimbursements")
         void testGetOtherReimbursementsPermissionDenied() throws Exception {
             assertThrows(PermissionDeniedException.class,
-                () -> reimbursementService.getAllForUser(testManager),
+                () -> reimbursementService.getAllForUser(testManager.getId()),
                 "Successfully got another user's reimbursements.");
         }
 
@@ -154,7 +154,7 @@ class ReimbursementServiceTest {
         @DisplayName("can get own reimbursements")
         void testGetOwnReimbursements() throws Exception {
             assertEquals(employeeReimbursements,
-                reimbursementService.getAllForUser(testEmployee),
+                reimbursementService.getAllForUser(testEmployee.getId()),
                 "Employee's reimbursements do not match what was inserted into the database.");
         }
     }

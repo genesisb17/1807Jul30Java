@@ -1,10 +1,12 @@
 package com.iantimothyjohnson.assignments.project1.service;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.iantimothyjohnson.assignments.project1.dao.SQLUserDAO;
 import com.iantimothyjohnson.assignments.project1.dao.UserDAO;
 import com.iantimothyjohnson.assignments.project1.exceptions.PermissionDeniedException;
 import com.iantimothyjohnson.assignments.project1.exceptions.UserNotFoundException;
@@ -29,6 +31,19 @@ public class UserService {
      */
     private User actor;
     private UserDAO userDao;
+
+    /**
+     * Constructs a new UserService with the default SQLUserDAO backend.
+     * 
+     * @param actor a User object corresponding to the user who can be thought
+     *              of as "calling" the methods in this instance. This will be
+     *              used to evaluate the user's permission to perform certain
+     *              operations.
+     * @throws IllegalArgumentException if the actor is null
+     */
+    public UserService(User actor) {
+        this(actor, new SQLUserDAO());
+    }
 
     /**
      * Constructs a new UserService with the given DAO backend.
@@ -89,6 +104,31 @@ public class UserService {
     }
 
     /**
+     * Gets a user by id. For getting a user object in the context of logging
+     * that user in, use the login method in preference to this one.
+     * 
+     * @param id the id of the user to get
+     * @return the user that was found
+     * @throws PermissionDeniedException if the user is not a manager (who can
+     *                                   retrieve all user information) or the
+     *                                   same as the desired user
+     * @throws UserNotFoundException     if no user with the given id exists
+     */
+    public User get(int id)
+        throws PermissionDeniedException, UserNotFoundException {
+        if (actor.getRole() != UserRole.MANAGER && actor.getId() != id) {
+            throw new PermissionDeniedException(
+                "Only managers are allowed to retrieve arbitrary user data.");
+        }
+
+        User user = userDao.selectById(id);
+        if (user == null) {
+            throw new UserNotFoundException(id);
+        }
+        return user;
+    }
+
+    /**
      * Gets a user by username. For getting a user object in the context of
      * logging that user in, use the login method in preference to this one.
      * 
@@ -113,6 +153,21 @@ public class UserService {
             throw new UserNotFoundException(username);
         }
         return user;
+    }
+
+    /**
+     * Gets a list of all users in the database.
+     * 
+     * @return a list of all users in the database
+     * @throws PermissionDeniedException if the actor is not a manager (who is
+     *                                   allowed to see all user data)
+     */
+    public List<User> getAll() throws PermissionDeniedException {
+        if (actor.getRole() != UserRole.MANAGER) {
+            throw new PermissionDeniedException(
+                "Only managers are allowed to retrieve arbitrary user data.");
+        }
+        return userDao.selectAll();
     }
 
     /**

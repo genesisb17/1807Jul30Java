@@ -35,8 +35,9 @@ public class ConnectionFactory {
 
     private ConnectionFactory() {
         Properties props = new Properties();
-        try (Reader r = new InputStreamReader(ConnectionFactory.class
-            .getResourceAsStream("/application.properties"), "UTF-8")) {
+        try (Reader r = new InputStreamReader(
+            getClass().getResourceAsStream("/application.properties"),
+            "UTF-8")) {
             props.load(r);
             url = props.getProperty("url");
             if (url == null) {

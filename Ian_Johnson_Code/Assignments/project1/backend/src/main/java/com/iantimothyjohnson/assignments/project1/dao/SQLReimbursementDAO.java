@@ -182,7 +182,6 @@ public final class SQLReimbursementDAO extends SQLDAO<Reimbursement>
         r.setStatus(ReimbursementStatus.fromId(rs.getInt("status")));
         r.setAmount(rs.getBigDecimal("amount"));
         r.setDescription(rs.getString("description"));
-        // Set the receipt here.
         r.setAuthorId(rs.getInt("author"));
         r.setResolverId(rs.getInt("resolver"));
         r.setSubmitted(rs.getObject("submitted", OffsetDateTime.class));

@@ -3,6 +3,7 @@ package com.iantimothyjohnson.assignments.project1.pojos;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.iantimothyjohnson.assignments.project1.util.StringUtils;
 
 /**
@@ -25,10 +26,14 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     private ReimbursementStatus status;
     private BigDecimal amount;
     private String description;
-    // TODO: figure out how to represent the receipt in here.
+    // TODO: figure out a way to put a receipt here.
     private int authorId;
     private int resolverId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+        pattern = "yyyy-MM-dd'T'hh:mm'Z'", timezone = "UTC")
     private OffsetDateTime submitted;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+        pattern = "yyyy-MM-dd'T'hh:mm'Z'", timezone = "UTC")
     private OffsetDateTime resolved;
 
     public Reimbursement() {

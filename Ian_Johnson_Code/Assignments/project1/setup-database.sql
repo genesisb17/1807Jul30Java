@@ -63,6 +63,7 @@ BEGIN
 END;
 /
 
+
 CREATE TABLE reimbursement (
     id NUMBER(10, 0) PRIMARY KEY,
     type NUMBER(10, 0) NOT NULL REFERENCES reimbursement_type(id),
@@ -95,7 +96,7 @@ CREATE OR REPLACE PROCEDURE proc_submit_reimbursement(
     type IN NUMBER,
     amount IN NUMBER,
     description IN VARCHAR2,
-    receipt IN BLOB,
+    receipt IN NUMBER,
     author IN NUMBER,
     submitted_timestamp OUT TIMESTAMP WITH TIME ZONE,
     new_id OUT NUMBER,
@@ -155,13 +156,3 @@ END;
 /
 
 SELECT * FROM ers_user;
-SELECT * FROM reimbursement;
-DECLARE
-    resolved_timestamp TIMESTAMP WITH TIME ZONE;
-    num_affected NUMBER;
-BEGIN
-    proc_resolve_reimbursement(14, 2, 5, resolved_timestamp, num_affected);
-    DBMS_OUTPUT.PUT_LINE(resolved_timestamp);
-    DBMS_OUTPUT.PUT_LINE(num_affected);
-END;
-/
