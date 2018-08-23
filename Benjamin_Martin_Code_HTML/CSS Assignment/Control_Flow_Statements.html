@@ -16,13 +16,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+  <div class="w3-bar w3-yellow w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
     <a href="#controlflows" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Control Flow Statements?</a>
     <a href="#decision-making" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Decision-Making</a>
     <a href="#looping" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Looping</a>
     <a href="#branching" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Branching</a>
+    <a href="#test" id="navtestmain" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Chance Time!</a>
   </div>
 
   <!-- Navbar on small screens -->
@@ -32,11 +33,13 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <a href="#decision-making" class="w3-bar-item w3-button w3-padding-large">Decision-Making</a>
     <a href="#looping" class="w3-bar-item w3-button w3-padding-large">Looping</a>
     <a href="#branching" class="w3-bar-item w3-button w3-padding-large">Branching</a>
+    <a href="#test" id="navtestmini" class="w3-bar-item w3-button w3-padding-large">Chance Time!</a>
+
   </div>
 </div>
 
 <!-- Header -->
-<header class="w3-container w3-red w3-center" style="padding:128px 16px" id="main">
+<header class="w3-container w3-blue w3-center" style="padding:128px 16px" id="main">
   <h1 class="w3-margin w3-jumbo">Control Flow Statements</h1>
   <p class="w3-xlarge">By Benjamin Martin</p>
 </header>
@@ -95,34 +98,110 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Fourth Grid -->
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" id="branching">
-        <div class="w3-content">
-            <div class="w3-third w3-center"></div>
-                <div class="w3-twothird">
-                    <h1>Branching Statements</h1>
-                    <img src="https://cdn.programiz.com/sites/tutorial2program/files/how-continue-statement-works_0.jpg">
-                    <h5 class="w3-padding-32">Statements used to alter what happens in a specific iteration of a control flow statement.</h5>
-          
-                    <p class="w3-text-grey">Continue: Skips the current iteration and moves onto the next iteration.<br><br>
-                        Break: Skips the current loop and continues to the next line of code.<br><br>
-                        Return: End the current loop and returns to whichever method or function called it from.<br>
-                        <br>
-                        Continue and break are used primarly in loops while return sees most utility in functions/methods that want to stop at diffrent
-                        parts to return some modified value.<br><br><br><br><br></p>
-                </div>
-        </div>
+    <div class="w3-content">
+        <div class="w3-third w3-center"></div>
+            <div class="w3-twothird">
+                <h1>Branching Statements</h1>
+                <img src="https://cdn.programiz.com/sites/tutorial2program/files/how-continue-statement-works_0.jpg">
+                <h5 class="w3-padding-32">Statements used to alter what happens in a specific iteration of a control flow statement.</h5>
+        
+                <p class="w3-text-grey">Continue: Skips the current iteration and moves onto the next iteration.<br><br>
+                    Break: Skips the current loop and continues to the next line of code.<br><br>
+                    Return: End the current loop and returns to whichever method or function called it from.<br>
+                    <br>
+                    Continue and break are used primarly in loops while return sees most utility in functions/methods that want to stop at diffrent
+                    parts to return some modified value.<br><br><br><br><br></p>
+            </div>
     </div>
+</div>
+
+<!-- Fourth Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container" id="test">
+    <div class="w3-content">
+        <div class="w3-third w3-center"></div>
+            <div class="w3-twothird">
+                <h1>Test your newfound knowledge!</h1>
+                <img src="https://i.ytimg.com/vi/EcA_3N4u8dU/hqdefault.jpg"><br>
+
+                <audio
+                id="chance-time"
+                src="chance.wav">
+                </audio>
+
+                <audio id="winning"
+                src="result-win.wav">
+                </audio>
+
+                <audio id="wario-winning"
+                src="wario-win.wav">
+                </audio>
+
+                <audio id="losing"
+                src="result-miss.wav">
+                </audio>
+
+                <audio id="wario-losing"
+                src="wario-miss.wav">
+                </audio>
+
+                <h5 class="w3-padding-32">What does the follow loop print out?</h5>
+        
+                <!--KILL ME-->
+                <h5 class="w3-text-black">public static void main(String[] args) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int i, j;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (i=0, j=0; i+j &lt; 20; ++i, j+=i--) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("i+j = " + (i+j));<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }<br><br>
+                
+                5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="checkbox-5" value="5"><br>
+                8 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="checkbox-8" value="8"><br>
+                13 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="checkbox-13" value="13"><br>
+                Compile error<input type="checkbox" id="wrong" value="Compile error"><br>
+                <button type="submit" id="submit-btn" value="Answer!">&nbsp;&nbsp;Answer!</button>
+                </h5>
+            </div>
+    </div>
+</div>
 
 <script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else { 
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else { 
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            document.getElementById("chance-time").pause()
+            document.getElementById("chance-time").currentTime = 0
+            var w = document.getElementById("checkbox-5");
+            var x = document.getElementById("checkbox-8");
+            var y = document.getElementById("checkbox-13");
+            var z = document.getElementById("wrong");
+            
+            if (w.checked==true && x.checked==true && y.checked==true && z.checked==false) {
+                document.getElementById("winning").volume=0.2;
+                document.getElementById("winning").play()
+                document.getElementById("wario-winning").play()
+            } else {
+                document.getElementById("losing").volume=0.5;
+                document.getElementById("losing").play()
+                document.getElementById("wario-losing").play()
+            }
+            });
+
+        document.getElementById("navtestmini").addEventListener("click", function() {
+            document.getElementById("chance-time").play()
+        });     
+
+        document.getElementById("navtestmain").addEventListener("click", function() {
+            document.getElementById("chance-time").play()
+        });   
+        </script>
 
 </body>
 </html>
