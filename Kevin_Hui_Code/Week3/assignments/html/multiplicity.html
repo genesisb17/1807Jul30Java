@@ -56,25 +56,42 @@
                         <ul>
                             <li>One record in table A can reference at most one record of table B.</li>
                             <li>One record in table B can reference at most one record of table A.</li>
-                            <li>Use the primary key and foreign key with <u>UNIQUE</u> constraints to enforce referential
-                                integrity.
+                            <li><a data-toggle="collapse" href="#one2one" role="button" aria-expanded="false" aria-controls="one2one">How
+                                    is this implemented?</a><br>
+                                <div class="collapse multi-collapse" id="one2one">
+                                    <div class="card card-body">
+                                        The column with the Foreign Key constraint must also have the UNIQUE constraint.
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                         <li>One-to-many/Many-to-one (1:N/N:1)</li>
                         <ul>
                             <li>One record in table A can reference multiple records of table B.</li>
                             <li>One record in table B can reference at most one record of table A.</li>
-                            <li>Use the primary key and foreign key constraints to enforce referential integrity.</li>
+                            <li><a data-toggle="collapse" href="#one2many" role="button" aria-expanded="false" aria-controls="one2many">How
+                                    is this implemented?</a><br>
+                                <div class="collapse multi-collapse" id="one2many">
+                                    <div class="card card-body">
+                                        Use the Primary Key constraint in one table and have a Foreign Key constraint in another table.
+                                    </div>
+                                </div>
+                            </li>
                         </ul>
                         <li>Many-to-many (M:N)</li>
                         <ul>
                             <li>One record in table A can reference multiple records of table B.</li>
                             <li>One record in table B can reference multiple records of table A.</li>
-                            <li>Actual database implementation requires the use of a juntion table to enforce this relationship.</li>
+                            <li><a data-toggle="collapse" href="#many2many" role="button" aria-expanded="false" aria-controls="many2many">How
+                                    is this implemented?</a><br>
+                                <div class="collapse multi-collapse" id="many2many">
+                                    <div class="card card-body">
+                                        Actual database implementation requires the use of a juntion table to enforce this relationship. </div>
+                                </div>
+                            </li>
                         </ul>
                     </ul>
                 </p>
-
             </div>
             <div class="col-5">
                 <img class="img-fluid" src="http://3.bp.blogspot.com/-4t71515irAM/ToVZHu4yF-I/AAAAAAAAALY/AJFTZ8FA2AY/s1600/crowsfoot_notation.gif"
@@ -92,16 +109,19 @@
                     <li>Mandatory</li>
                     <ul>
                         <li>The record must always reference a record in another table.</li>
-                        <li>The <u>NOT NULL</u> constraint is required alongside the foreign key constraint.</li>
+                        <li><a data-toggle="collapse" href="#participation" role="button" aria-expanded="false" aria-controls="participation">What
+                                constraint enforces this?</a><br>
+                            <div class="collapse multi-collapse" id="participation">
+                                <div class="card card-body">
+                                    The NOT NULL constraint is required alongside the foreign key constraint.</div>
+                            </div>
+                        </li>
                     </ul>
                 </ul>
             </p>
-            <p>
-                When we look at relationships between entities, not every record needs to be referenced based on the context of the relationship.
-            </p>
-            <p>
-                For example:
-            </p>
+            <h5>
+                Example:
+            </h5>
             <blockquote class="blockquote text-center bg-white">
                 <p class="mb-0">
                     An employee has <span class="text-danger">at most one</span> superior/manager to report to.
@@ -110,9 +130,8 @@
             </blockquote>
             <p>
                 Here, an employee of a company will often have a manager or superior to report to, and that relationship can be enforced
-                with constraints. However, some employees of a company do not have annyone to report to (i.e., the boss)
-                and thus not required to have any reference. The particpation from employee to superior is optional, while
-                the relationship from superior to employee(s) is mandatory.
+                with constraints. The particpation from employee to superior is optional, while the relationship from superior
+                to employee(s) is mandatory.
             </p>
             <br>
         </div>
@@ -131,21 +150,24 @@
                     <p>
                         <img class="img-fluid" src="https://www.599cd.com/site/courselist/access2013/expert/x7/images/defaul10.jpg" alt="Junction table">
                     </p>
-                    <p>
-                        A specific group can have multiple customers at any given time.
-                        <br>
-                        A customer can be placed in mutliple groups at any given time.
-                    </p>
                 </div>
                 <div class="col-6">
                     <p>
                         <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Mapping_table_concept.png" alt="Junction table 2">
                     </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <p>
-                        The primary keys of both the 'actor' and 'film' tables are used for pairings in the
-                        'actor_film_mapping' table.
+                        A specific group can have multiple customers at any given time.
+                        <br> A customer can be placed in mutliple groups at any given time.
                     </p>
-
+                </div>
+                <div class="col-6">
+                    <p>
+                        The primary keys of both the 'actor' and 'film' tables are used for pairings in the 'actor_film_mapping' table.
+                    </p>
                 </div>
             </div>
         </div>
