@@ -9,11 +9,23 @@ import com.ex.pojos.Genre;
 public class GenreService {
 	static Dao<Genre, Integer> dao = new GenreDao();
 	
-	public Genre findById(int id) {
-		return dao.findOne(id);
+	public List<Genre> getAllGenres(){
+		return dao.findAll();
 	}
-
-	public List<Genre> getAll(){
-		return dao.getAll();
+	
+	public Genre getOne(int id) {
+		return dao.findOne(id);
+	}	
+	
+	public Genre addGenre(Genre g) {
+		return dao.save(g);
+	}
+	
+	public Genre updateGenre(Genre g) {
+		return dao.update(g);
+	}
+	
+	public boolean isUnique(Genre g) {
+		return dao.isUnique(g);
 	}
 }

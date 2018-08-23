@@ -35,6 +35,8 @@ public class LoadViewsServlet extends HttpServlet {
 			return "genreView";
 		case "/bookstore/books.view":
 			return "booksView";
+		case "/bookstore/author.view":
+			return "authorView";
 		default:
 			return "errorView";
 		}

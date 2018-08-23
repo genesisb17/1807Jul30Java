@@ -1,5 +1,6 @@
 package com.ex.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,15 +12,20 @@ import java.util.List;
 import com.ex.pojos.Genre;
 import com.ex.util.ConnectionFactory;
 
+import oracle.jdbc.internal.OracleTypes;
+
 public class GenreDao implements Dao<Genre, Integer>{
 
-	public List<Genre> getAll() {
+	public List<Genre> findAll() {
 		List<Genre> genres = new ArrayList<Genre>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "select * from genre";
+			String sql = "{call get_all_genres(?)}";
 
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.registerOutParameter(1, OracleTypes.CURSOR);
+			cs.execute();
+			
+			ResultSet rs = (ResultSet) cs.getObject(1);
 
 			while(rs.next()) {
 				Genre temp = new Genre();
@@ -30,7 +36,7 @@ public class GenreDao implements Dao<Genre, Integer>{
 
 
 		} catch (SQLException e) {
-		//	e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return genres;
@@ -39,7 +45,7 @@ public class GenreDao implements Dao<Genre, Integer>{
 	public Genre findOne(Integer id) {
 		Genre g = new Genre();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "select * from genre where genre_id = ?";
+			String sql = "select * from genre where bgenre_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet info = ps.executeQuery();
@@ -58,10 +64,10 @@ public class GenreDao implements Dao<Genre, Integer>{
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			conn.setAutoCommit(false);
-			String query = "insert into genre (NAME) values (?)";
+			String query = "insert into bgenre (NAME) values (?)";
 			
 			String[] keys = new String[1];
-			keys[0] = "genre_id";
+			keys[0] = "bgenre_id";
 			
 			PreparedStatement ps = conn.prepareStatement(query, keys);
 			ps.setString(1, obj.getName());
@@ -82,8 +88,30 @@ public class GenreDao implements Dao<Genre, Integer>{
 	}
 
 	public Genre update(Genre obj) {
-		// TODO Auto-generated method stub
-		return null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			conn.setAutoCommit(false);
+			String query = "INSERT INTO bgenre(Name) " + "VALUES(?)";
+			
+			String[] keys = new String[1];
+			keys[0] = "bGenre_ID";	// column name where keys are
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			
+			ps.setString(1, obj.getName());
+			
+			int rows = ps.executeUpdate();
+			
+			if(rows != 0) {
+				ResultSet pk = ps.getGeneratedKeys();	// generated keys
+				while(pk.next()) {
+					obj.setId(pk.getInt(1));
+				}
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 	@Override

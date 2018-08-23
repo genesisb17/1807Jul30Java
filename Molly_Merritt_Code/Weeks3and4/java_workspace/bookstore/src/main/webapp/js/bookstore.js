@@ -8,9 +8,27 @@ window.onload=function() {
 	loadHomeView();
 	$('#homeNav').on('click', loadHomeView);
 	$('#booksNav').on('click', loadBooksView);
+	$('#genreNav').on('click', loadGenreView);
+	$('#authorNav').on('click', loadAuthorView);
 }
 
 function loadHomeView() {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		// showing what we're getting back for now
+//		console.log(xhr.responseText);
+		
+		if(xhr.readyState == 4 && xhr.status == 200) {
+			$('#view').html(xhr.responseText);
+			// cross origin resource sharing - must add more headers
+		}
+	}
+	xhr.open("GET", "home.view", true);
+	xhr.send();
+	
+}
+
+function loadBooksView() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		// showing what we're getting back for now
@@ -24,9 +42,8 @@ function loadHomeView() {
 			populateBookTable();
 		}
 	}
-	xhr.open("GET", "home.view");
+	xhr.open("GET", "books.view");
 	xhr.send();
-	
 }
 
 function populateBookTable() {
@@ -34,8 +51,9 @@ function populateBookTable() {
 	xhr.onreadystatechange = function() {
 		
 		if(xhr.readyState == 4 && xhr.status == 200) {
-			console.log(xhr.status);
+//			console.log(xhr.status);
 			var books = JSON.parse(xhr.responseText);
+			console.log(books);
 			for(var b of books) {
 				addBook(b);	// helper function to create elements
 			}
@@ -51,6 +69,7 @@ function addBook(b) {
 	var cell2 = document.createElement("td");
 	var cell3 = document.createElement("td");
 	var cell4 = document.createElement("td");
+	console.log(b);
 	
 	cell1.innerHTML = b.isbn;
 	cell2.innerHTML = b.title;
@@ -62,9 +81,33 @@ function addBook(b) {
 	row.appendChild(cell3);
 	row.appendChild(cell4);
 	
-	document.getelementById(bookTable).appendChild(row);
+	document.getElementById("bookTable").appendChild(row);
 }
 
-function loadBooksView() {
-	
+function loadGenreView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		//just showing what we're getting back for now
+		//console.log(xhr.responseText);
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+		}
+		
+	}
+	xhr.open("GET", "genre.view");
+	xhr.send();
+}
+
+function loadAuthorView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		//just showing what we're getting back for now
+		//console.log(xhr.responseText);
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+		}
+		
+	}
+	xhr.open("GET", "author.view");
+	xhr.send();
 }
