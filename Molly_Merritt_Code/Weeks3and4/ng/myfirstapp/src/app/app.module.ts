@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { HomeComponent } from './components/home/home.component';
     listed here: components, directives, and pipes.
     */
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ], /*
   , exports[]
   classes that need to be accessible to the components of other modules. However, we're not making a
