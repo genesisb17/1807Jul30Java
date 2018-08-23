@@ -38,9 +38,8 @@ public class ConnectionFactory {
 	public Connection getConnection() {
 		Connection conn = null; // We will instantiate in a try block.
 		Properties prop = new Properties();
-		String path = "src/main/resources/application.properties";
 		try {
-			prop.load(new FileReader(path));
+			prop.load(getClass().getResourceAsStream("/application.properties"));
 			Class.forName(prop.getProperty("driver"));
 			conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("usr"),
 					prop.getProperty("pwd"));

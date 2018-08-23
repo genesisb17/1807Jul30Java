@@ -12,4 +12,8 @@ public class BookService {
 	public List<Book> getAll() {
 		return bDao.findAll();
 	}
+	
+	public Book getById(int id) {
+		return bDao.findOne(id);
+	}
 }

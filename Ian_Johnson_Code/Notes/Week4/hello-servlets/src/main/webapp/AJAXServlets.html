@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX Request to Servlet</title>
+</head>
+<body>
+	<button id="do-stuff">Click me!</button>
+	<div id="things"></div>
+	<script>
+		window.onload = () => {
+			// Goal: get text from servlet via AJAX.
+			document.getElementById('do-stuff').addEventListener('click', () => {
+				// Send AJAX request.
+				const xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = () => {
+					if (xhr.readyState === 4 && xhr.status === 200) {
+						document.getElementById('things').innerHTML = xhr.responseText;
+					}
+				};
+				xhr.open('GET', 'do-stuff');
+				xhr.send();
+			});
+		};
+	</script>
+</body>
+</html>

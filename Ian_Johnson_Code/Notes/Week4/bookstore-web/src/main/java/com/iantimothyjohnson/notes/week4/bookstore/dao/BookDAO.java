@@ -11,6 +11,8 @@ import java.util.List;
 import com.iantimothyjohnson.notes.week4.bookstore.pojos.Book;
 import com.iantimothyjohnson.notes.week4.bookstore.util.ConnectionFactory;
 
+import oracle.jdbc.internal.OracleTypes;
+
 public class BookDAO implements DAO<Book, Integer> {
 	@Override
 	public List<Book> findAll() {
@@ -20,7 +22,7 @@ public class BookDAO implements DAO<Book, Integer> {
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			final String sql = "{CALL get_all_books(?)}";
 			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, Types.REF_CURSOR);
+			cs.registerOutParameter(1, OracleTypes.CURSOR);
 			cs.execute();
 
 			ResultSet rs = (ResultSet) cs.getObject(1);
