@@ -21,10 +21,14 @@
             text-decoration: none;
         }
         
-        ul {
-            border: 1px solid gray;
+        .innerlist {
+            color: gray;
+            opacity: 0.75;
+            width: 70%;
+            padding: auto;
+            margin: auto;
         }
-        ul li {
+        li, ul {
             background: whitesmoke;
         }
     </style>
@@ -39,11 +43,11 @@
     <div>
         <h1><a class="title" target="_" href="https://www.tutorialspoint.com/java/java_collection_interface.htm">Collections</a></h1>
         <br><br>
-        <div id="accordion" role="tablist" class="col-4 offset-4">
+        <div id="accordion" role="tablist" class="col-6 offset-3">
             <div class="card">
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
-                  <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseTwo">
+                  <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     What are 'Collections'?
                   </a>
                 </h5>
@@ -58,16 +62,80 @@
                   <p>Some methods:</p>
                   <ul class="list-unstyled">
                       <li>boolean add(Object obj)</li>
+                        <ul class="list-unstyled">
+                            <li class="innerlist"><i>This method takes in an object as a parameter and adds it to a collection.</i></li>
+                        </ul>
+                        <br>
+
                       <li>boolean contains(Object obj)</li>
+                        <ul class="list-unstyled">
+                         <li class="innerlist"><i>This method sees if an object is currently in a list, and if so, returns true.</i></li>
+                        </ul>
+                        <br>
+
                       <li>boolean remove(Object obj)</li>
+                      <ul class="list-unstyled">
+                        <li class="innerlist"><i>This method will remove an object in a list, and if it does so successfully, returns true.</i></li>
+                       </ul>
+                       <br>
+
                       <li>int size( )</li>
+                      <ul class="list-unstyled">
+                        <li class="innerlist"><i>This method returns the size of a collection, aka how many objects it contains.</i></li>
+                       </ul>
+                       <br>
                   </ul>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="accordion" role="tablist">
+            <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Example Code Snippet
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="card-body">
+                        <p style="
+                        text-align: left; 
+                        color: gray;
+                        background: whitesmoke; 
+                        opacity: 0.85;">
+                            public static void main(String[] args) { <br>
+                            &nbsp; &nbsp; &nbsp;ArrayList<Integer> nums = new ArrayList<>(); <br>
+                            &nbsp; &nbsp; &nbsp;nums.add(3); <br>
+                            &nbsp; &nbsp; &nbsp;nums.add(1); <br>
+                            &nbsp; &nbsp; &nbsp;nums.add(2); <br>
+                            &nbsp; &nbsp; &nbsp;Collections.sort(nums); <br>
+                            &nbsp; &nbsp; &nbsp;System.out.println(nums.get(0)); // Prints 1 <br>
+                            &nbsp; &nbsp; &nbsp;System.out.println(Collections.max(nums)); // Prints 3 <br>
+                        }
+                        </p>
+                        <p>
+                            As you can see, this code snippet takes advantage of our methods
+                            from the Collections class. First it creates a new List of Integers
+                            then uses the <i>.add()</i> method to populate the list.
+                        </p>
+                        <p>
+                            The sort method is then called from the class to sort the array, while
+                            the get method is then used to retrieve the integers from the now sorted
+                            array. Lastly, we have the <i>.max()</i> method returning the highest
+                            integer in the array.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <br>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Java.util.Collection_hierarchy.svg" alt="Know your collections!" class="col-6">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Java.util.Collection_hierarchy.svg" alt="Know your collections!" class="col-8">
 </body>
 </html>
