@@ -1,14 +1,17 @@
+body {
+    font-family: "Times New Roman", Times, serif
+}
 #title {
     text-align: center;
 }
 #content {
     text-align: center;
-    padding-left: 200px;
-    padding-right: 200px;
+    /* padding-left: 200px;
+    padding-right: 200px; */
 }
 #intro {
-    padding-left: 150px;
-    padding-right: 150px;
+    /* padding-left: 150px;
+    padding-right: 150px; */
     padding-bottom: 25px;
     padding-top: 25px;
 }
@@ -22,8 +25,8 @@
 }
 #characteristics {
     text-align: left;
-    padding-left: 150px;
-    padding-right: 150px;
+    /* padding-left: 50px;
+    padding-right: 50px; */
     padding-bottom: 25px;
     padding-top: 25px;
 }
@@ -37,12 +40,19 @@
 }
 #importantNotes {
     text-align: left;
-    padding-left: 150px;
-    padding-right: 150px;
+    padding-left: 95px;
+    padding-right: 95px;
     padding-bottom: 25px;
     padding-top: 25px;
 }
-
+#withoutLambda {
+    width: 80%;
+    height: 80%;
+}
+#withLambda {
+    width: 80%;
+    height: 80%;
+}
 ul {
     list-style-position: outside;
 }
