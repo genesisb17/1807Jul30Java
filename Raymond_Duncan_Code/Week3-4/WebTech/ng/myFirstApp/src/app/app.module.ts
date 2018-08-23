@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     /* Declaations array - holds chasses that are related to view.
     There can be three types of classes listed here:
      components, directives, and pipes */
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   /* We can also have exports:[]
   Exports are classes that need to be accessible to the components
