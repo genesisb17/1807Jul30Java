@@ -60,19 +60,21 @@
         <!-- class="form-control col-6"> -->
         <table class="table table-sm table-hover table-bordered">
             <thead class="thead-light">
+                <col width="80">
+                <col width="130">
                 <tr>
-                    <th>Term</th>
-                    <th>Definition</th>
+                    <th bgcolor="#eeeeee">Term</th>
+                    <th bgcolor="#eeeeee">Definition</th>
                 </tr>
             </thead>
             <tbody id="definitionsTable">
                 <tr>
-                    <td>Functional Interface</td>
-                    <td>An interface with exactly one abstract method</td>
+                    <td id="term1">Functional Interface</td>
+                    <td id="def1" hidden>An interface with exactly one abstract method</td>
                 </tr>
                 <tr>
-                    <td>Abstract method</td>
-                    <td>A method declared without any implementation</td>
+                    <td id="term2">Abstract method</td>
+                    <td id="def2" hidden>A method declared without any implementation</td>
                 </tr>
                 <!-- <tr>
                     <td>Lambda Expression</td>
@@ -88,8 +90,15 @@
             </nav>
     </footer>
 
-
-    <script type="text/javascript" src="home.js"></script>
+    <script>
+        $('#term1').on('click', function() {
+            $('#def1').attr("hidden", false);
+        });
+        $('#term2').on('click', function() {
+            $('#def2').attr("hidden", false);
+        });
+    </script>
+    <!-- <script type="text/javascript" src="home.js"></script> -->
 </body>
 
 </html>

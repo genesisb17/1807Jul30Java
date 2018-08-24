@@ -55,13 +55,16 @@
     <div id="title" class="jumbotron">
         <h1>Introduction</h1>
     </div>
+    <br>
 
     <div id="introDiv">
         <h4>Lambda Expressions</h4>
         <p>Lambda expressions are anonymous methods which implement the single abstract method
             of a functional interface. They enable you to pass functionality as an argument to
             another method. Lambdas are functions, meaning they do not belong to any class. Lambda
-            expressions are an example of how Java is becoming more "functional."
+            expressions are an example of how Java is becoming more "functional." Lambda expressions
+            are closures; the body of a lambda expression has the same scope as a nested block.
+            Lambda expressions cannot be generic, but the functional interface associated with them can (e.g. Predicate).
         </p>
         <br><br><br>
 
