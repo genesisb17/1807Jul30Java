@@ -98,3 +98,15 @@ class BetterPoint extends Point {
     return super.getDistance(other) + 1;
   }
 }
+
+// Abstract classes
+abstract class Abstract {
+  abstract test(): void;
+}
+
+class ReadOnly {
+  readonly point: Point = new Point(1, 1);
+}
+
+let ro = new ReadOnly();
+ro.point.x = 2;

@@ -1,0 +1,25 @@
+<!-- This example uses both (event binding) and [property binding]. -->
+<button class="btn" [ngClass]="buttonClass" (click)="testEvent()">Click me!</button>
+<input type="text" class="form-control" [(ngModel)]="color">
+<div [style.background-color]="color">
+  {{text}}
+</div>
+<hr>
+<h3>Pipes</h3>
+<input type="text" [(ngModel)]="pipeText">
+<div>
+  {{pipeText | uppercase}}
+</div>
+<div>
+  {{currentTime | date:'medium' | uppercase}}
+</div>
+<div>
+  {{100 | squareroot}}
+</div>
+<hr>
+<h3>TODO List <small>Exploring structural directives</small></h3>
+<input type="text" class="form-control" placeholder="Item description" [(ngModel)]="itemText">
+<button class="btn btn-primary" (click)="addTodoItem(itemText)">Add to list</button>
+<ul>
+  <li *ngFor="let item of todoItems" (click)="removeTodoItem(item.id)" [ngStyle]="item.style">{{item.text}}</li>
+</ul>
