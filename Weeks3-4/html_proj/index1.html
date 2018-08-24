@@ -68,9 +68,10 @@
 			 try to catch. All exceptions and errors are sub classes of the Throwable
 			 class. 
 		 </p>
-		 <h3>Checked vs. Unchecked</h3>
+		 <!-- <h3>Checked vs. Unchecked</h3> -->
 	 <p>
-		 <h4>Checked:</h4>
+		 <h3>Checked:</h3>
+		 <br>
 		 <ul>
 			 <li>Checked at compile time</li>
 			 <li>The method with sketchy code must handle 
@@ -79,7 +80,8 @@
 			 </li>
 			 <li>A try/catch block works as well</li>
 		 </ul>
-		 <h4>Unchecked:</h4>
+		 <h3>Unchecked:</h3>
+		 <br>
 		 <ul>
 			 <li>Not checked at compile time.</li>
 			 <li>A handler is not forced by the compiler
@@ -104,9 +106,30 @@
 				<p>Whenever an exception occurs, an exception object is created and the method hands it off to the JVM. This object contains the name and a description of the exception as well as the current state of the program where the exception occured.</p>
 	
 				<p>Creating the Exception Object and handing it to the run-time system is called "Throwing" an exception. The JVM will attempt to match the exception object to the type of the "handler." This code can be recognized by five keywords: try, catch, throw, throws, and finally. We will discuss these keywords	later.</p>
+				<br>
+				<br>
+				<h3>Try & Catch</h3>
+				<p>A method catches an exception using a "try-catch" block. Your "risky" code (or code you believe will disrupt a program) goes in the try block. Your catch block defines how you want to handle the exception (i.e. returning a message to the user). The finally is a "catchall" block that will be always be excecuted.</p>
+				<img src="../css_proj/try.PNG" alt="Responsive Image" class="try" alt="Responsive image">
+				<br>
+				<h3>Throws vs. Throw Keywords</h3>
+				<p>If a method does not handle a checked exception, the method has to declare it using the <strong>throws</strong> keyword. Throws appears at the end of a method's signature.</p>
+				<p>An exception can be thrown using the <strong>throw</strong> keyword. This can apply to a newly instantiated exception or one that was just caught.</p>
+				<p>For example:</p>
+				<div>
+				<h3>Throw</h3>
+				<br>
+				<img src="../css_proj/throw.PNG" alt="Responsive Image" class="try" alt="Responsive image">
+			</div>
+			<div>
+				<h3>Throws</h3>
+				<br>
+				<img src="../css_proj/throws.PNG" alt="Responsive Image" class="try" alt="Responsive image">
+			</div>
+				<p><strong>Throws</strong> is used to postpone the handling of a checked exception and <strong>throw</strong> is used to invoke an exception explicitly</p>
+				<br>
 				<p role="contentinfo">This site is intended as a summary of Exceptions. Exceptions are difficult to understand, but it's okay.</p>
 				<!-- <p role="contentinfo">By <a href="http://www.mezzoblue.com/">Dave Shea</a>. Bandwidth graciously donated by <a href="http://www.mediatemple.net/">mediatemple</a>. Now available: <a href="http://www.amazon.com/exec/obidos/ASIN/0321303474/mezzoblue-20/">Zen Garden, the book</a>.</p> -->
-				
 			</div>
 
 		<footer>

@@ -1,0 +1,45 @@
+<div id="reimbursementsView">
+	<div id="newReimbursementForm">
+		Amount:<input type="number" id="amount" class="form-control col-4">
+		<br> 
+		Description: <input type="text" id="description"
+			class="form-control col-4"> 
+		<br> 
+		Type: <input
+			type="number" id="price" class="form-control col-4"> 
+			
+		<select name="type" form="newReimbursementForm" class="col-4 form-control">
+		  <option value="lodging">Lodging</option>
+		  <option value="travel">Travel</option>
+		  <option value="food">Food</option>
+		  <option value="other">Other</option>
+		</select>
+	<!-- 	Genre: <input
+			type="text" id="genre" class="col-4 form-control"> -->
+		
+		
+		<button class="btn btn-submit" id="addReimbursement">Add</button>
+		<hr>
+	</div>
+</div>
+<p id="toggleAdd">
+	<i>Add new reimbursement...</i>
+</p>
+<table class="table table-sm table-hover table-bordered thead-light">
+	<thead>
+		<tr>
+			<th scope="col">Reimb ID</th>
+			<th scope="col">Amount</th>
+			<th scope="col">Submitted</th>
+			<th scope="col">Resolved</th>
+			<th scope="col">description</th>
+			<th scope="col">receipt</th>
+			<th scope="col">author</th>
+			<th scope="col">resolver</th>
+			<th scope="col">status id</th>
+			<th scope="col">type id</th>
+		</tr>
+	</thead>
+	<tbody id="reimbursementTable">
+	</tbody>
+</table>

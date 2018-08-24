@@ -1,13 +1,15 @@
 package pojos;
 
 import java.sql.Blob;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Reimbursement {
 	private int reimb_id;
-	private int amount;
-	private Date submitted;
-	private Date resolved;
+	private double amount;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String description;
 	private Blob receipt;
 	private int author;
@@ -17,7 +19,7 @@ public class Reimbursement {
 	
 	public Reimbursement() {}
 	
-	public Reimbursement(int reimb_id, int amount, Date submitted, Date resolved, String description, Blob receipt,
+	public Reimbursement(int reimb_id, int amount, Timestamp submitted, Timestamp resolved, String description, Blob receipt,
 			int author, int resolver, int status_id, int type_id) {
 		super();
 		this.reimb_id = reimb_id;
@@ -37,22 +39,22 @@ public class Reimbursement {
 	public void setReimb_id(int reimb_id) {
 		this.reimb_id = reimb_id;
 	}
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public Date getSubmitted() {
+	public Timestamp getSubmitted() {
 		return submitted;
 	}
-	public void setSubmitted(Date submitted) {
+	public void setSubmitted(Timestamp submitted) {
 		this.submitted = submitted;
 	}
-	public Date getResolved() {
+	public Timestamp getResolved() {
 		return resolved;
 	}
-	public void setResolved(Date resolved) {
+	public void setResolved(Timestamp resolved) {
 		this.resolved = resolved;
 	}
 	public String getDescription() {
