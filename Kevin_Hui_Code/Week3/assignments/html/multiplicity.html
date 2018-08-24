@@ -19,164 +19,172 @@
 
 </head>
 
-<body class="bg-light">
-    <div class="jumbotron">
-        <div class="container">
+<body class="bg-dark">
+
+    <div class="container">
+        <div class="jumbotron mt-3 mb-3">
             <div class="text-center">
                 <h1>Multiplicity</h1>
                 <h6>Database Design</h6>
                 by Kevin Hui
             </div>
         </div>
-    </div>
-    <div class="container">
-        <blockquote class="blockquote text-center">
-            <p class="mb-0">
-                "A specification of the range of allowable cardinality values - the size - that a set may assume."</p>
-            <footer class="blockquote-footer">James Rumbaugh in the <cite title="Source Title">UML Reference Manual</cite>.</footer>
-        </blockquote>
-
-        <h5>What is it?</h5>
-        <p>
-            <b>Multiplicity</b> is simply defined to be the <b>cardinality</b> and the <b>participation</b> between two entities.
-        </p>
-        <p>
-            We can look at relationships more closely during the design of the database, using an
-            <a href="https://www.lucidchart.com/pages/er-diagrams" target="_blank">Entity Relationship Diagram</a>. We would
-            often signify the multiplicity between two entities in a diagram usingeither the UML semantics or using crow's
-            foot notation.
-        </p>
-
-        <div class="row">
-            <div class="col-7">
-                <p>
-                    Let's remember the cardinalities in database design:
-                    <ul>
-                        <li>One-to-one (1:1)</li>
-                        <ul>
-                            <li>One record in table A can reference at most one record of table B.</li>
-                            <li>One record in table B can reference at most one record of table A.</li>
-                            <li><a data-toggle="collapse" href="#one2one" role="button" aria-expanded="false" aria-controls="one2one">How
-                                    is this implemented?</a><br>
-                                <div class="collapse multi-collapse" id="one2one">
-                                    <div class="card card-body">
-                                        The column with the Foreign Key constraint must also have the UNIQUE constraint.
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <li>One-to-many/Many-to-one (1:N/N:1)</li>
-                        <ul>
-                            <li>One record in table A can reference multiple records of table B.</li>
-                            <li>One record in table B can reference at most one record of table A.</li>
-                            <li><a data-toggle="collapse" href="#one2many" role="button" aria-expanded="false" aria-controls="one2many">How
-                                    is this implemented?</a><br>
-                                <div class="collapse multi-collapse" id="one2many">
-                                    <div class="card card-body">
-                                        Use the Primary Key constraint in one table and have a Foreign Key constraint in another table.
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <li>Many-to-many (M:N)</li>
-                        <ul>
-                            <li>One record in table A can reference multiple records of table B.</li>
-                            <li>One record in table B can reference multiple records of table A.</li>
-                            <li><a data-toggle="collapse" href="#many2many" role="button" aria-expanded="false" aria-controls="many2many">How
-                                    is this implemented?</a><br>
-                                <div class="collapse multi-collapse" id="many2many">
-                                    <div class="card card-body">
-                                        Actual database implementation requires the use of a juntion table to enforce this relationship. </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </ul>
-                </p>
-            </div>
-            <div class="col-5">
-                <img class="img-fluid" src="http://3.bp.blogspot.com/-4t71515irAM/ToVZHu4yF-I/AAAAAAAAALY/AJFTZ8FA2AY/s1600/crowsfoot_notation.gif"
-                    alt="Crows Foot with UML">
-            </div>
-        </div>
-        <div>
-            <p>
-                Participation can also be defined in one of two ways:
-                <ul>
-                    <li>Optional</li>
-                    <ul>
-                        <li>The record does not need to have any value in the column with the foreign key constraint.</li>
-                    </ul>
-                    <li>Mandatory</li>
-                    <ul>
-                        <li>The record must always reference a record in another table.</li>
-                        <li><a data-toggle="collapse" href="#participation" role="button" aria-expanded="false" aria-controls="participation">What
-                                constraint enforces this?</a><br>
-                            <div class="collapse multi-collapse" id="participation">
-                                <div class="card card-body">
-                                    The NOT NULL constraint is required alongside the foreign key constraint.</div>
-                            </div>
-                        </li>
-                    </ul>
-                </ul>
-            </p>
-            <h5>
-                Example:
-            </h5>
-            <blockquote class="blockquote text-center bg-white">
+        <div class="p-5 bg-light rounded">
+            <blockquote class="blockquote text-center">
                 <p class="mb-0">
-                    An employee has <span class="text-danger">at most one</span> superior/manager to report to.
-                    <br> A superior/manager has <span class="text-danger">at least one</span> employee to oversee.
-                </p>
+                    "A specification of the range of allowable cardinality values - the size - that a set may assume."</p>
+                <footer class="blockquote-footer">James Rumbaugh in the <cite title="Source Title">UML Reference Manual</cite>.</footer>
             </blockquote>
+
+            <h5>What is it?</h5>
             <p>
-                Here, an employee of a company will often have a manager or superior to report to, and that relationship can be enforced
-                with constraints. The particpation from employee to superior is optional, while the relationship from superior
-                to employee(s) is mandatory.
+                <b>Multiplicity</b> is simply defined to be the <b>cardinality</b> and the <b>participation</b> between two
+                entities.
             </p>
-            <br>
-        </div>
-        <div>
-            <h5>Representing Many-to-Many Relationships</h5>
             <p>
-                Enforcing many-to-many relationships in a database schema can only be resolved using a spearate table, called a junction
-                table (a.k.a. join table, association table, map table, etc.). Junction tables simply have enties that have
-                key pairings of two of the tables' primary keys. This pairing in the junction table serves as both the primary
-                (composite) key of that table, as well as foreign keys referencing to the two entities in the many-to-many
-                relationship.
+                We can look at relationships more closely during the design of the database, using an
+                <a href="https://www.lucidchart.com/pages/er-diagrams" target="_blank">Entity Relationship Diagram</a>. We
+                would often signify the multiplicity between two entities in a diagram using either UML semantics or using
+                crow's foot notation.
             </p>
-            <br>
+
             <div class="row">
-                <div class="col-6">
+                <div class="col-7">
                     <p>
-                        <img class="img-fluid" src="https://www.599cd.com/site/courselist/access2013/expert/x7/images/defaul10.jpg" alt="Junction table">
+                        Let's remember the cardinalities in database design:
+                        <ul>
+                            <li>One-to-one (1:1)</li>
+                            <ul>
+                                <li>One record in table A can reference at most one record of table B.</li>
+                                <li>One record in table B can reference at most one record of table A.</li>
+                                <li><a data-toggle="collapse" href="#one2one" role="button" aria-expanded="false" aria-controls="one2one">How
+                                        is this implemented?</a><br>
+                                    <div class="collapse multi-collapse" id="one2one">
+                                        <div class="card card-body">
+                                            The column with the Foreign Key constraint must also have the UNIQUE constraint.
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <li>One-to-many/Many-to-one (1:N/N:1)</li>
+                            <ul>
+                                <li>One record in table A can reference multiple records of table B.</li>
+                                <li>One record in table B can reference at most one record of table A.</li>
+                                <li><a data-toggle="collapse" href="#one2many" role="button" aria-expanded="false" aria-controls="one2many">How
+                                        is this implemented?</a><br>
+                                    <div class="collapse multi-collapse" id="one2many">
+                                        <div class="card card-body">
+                                            Use the Primary Key constraint in one table and have a Foreign Key constraint in another table.
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <li>Many-to-many (M:N)</li>
+                            <ul>
+                                <li>One record in table A can reference multiple records of table B.</li>
+                                <li>One record in table B can reference multiple records of table A.</li>
+                                <li><a data-toggle="collapse" href="#many2many" role="button" aria-expanded="false" aria-controls="many2many">How
+                                        is this implemented?</a><br>
+                                    <div class="collapse multi-collapse" id="many2many">
+                                        <div class="card card-body">
+                                            Actual database implementation requires the use of a juntion table to enforce this relationship. </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
                     </p>
                 </div>
-                <div class="col-6">
-                    <p>
-                        <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Mapping_table_concept.png" alt="Junction table 2">
-                    </p>
+                <div class="col-5">
+                    <img class="img-fluid" src="http://3.bp.blogspot.com/-4t71515irAM/ToVZHu4yF-I/AAAAAAAAALY/AJFTZ8FA2AY/s1600/crowsfoot_notation.gif"
+                        alt="Crows Foot with UML">
+                        
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <p>
-                        A specific group can have multiple customers at any given time.
-                        <br> A customer can be placed in mutliple groups at any given time.
+            <div>
+                <p>
+                    Participation can also be defined in one of two ways:
+                    <ul>
+                        <li>Optional</li>
+                        <ul>
+                            <li>The record does not need to have any value in the column with the foreign key constraint.</li>
+                        </ul>
+                        <li>Mandatory</li>
+                        <ul>
+                            <li>The record must always reference a record in another table.</li>
+                            <li><a data-toggle="collapse" href="#participation" role="button" aria-expanded="false" aria-controls="participation">What
+                                    constraint enforces this?</a><br>
+                                <div class="collapse multi-collapse" id="participation">
+                                    <div class="card card-body">
+                                        The NOT NULL constraint is required alongside the foreign key constraint.</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </ul>
+                </p>
+                <h5>
+                    Example:
+                </h5>
+                <blockquote class="blockquote text-center bg-white">
+                    <p class="mb-0">
+                        An employee has <span class="text-danger">at most one</span> superior/manager to report to.
+                        <br> A superior/manager has <span class="text-danger">at least one</span> employee to oversee.
                     </p>
+                </blockquote>
+                <p>
+                    Here, an employee of a company will often have a manager or superior to report to, and that relationship can be enforced
+                    with constraints. The particpation from employee to superior is optional, while the relationship from
+                    superior to employee(s) is mandatory.
+                </p>
+                <br>
+            </div>
+            <div>
+                <h5>Representing Many-to-Many Relationships</h5>
+                <p>
+                    Enforcing many-to-many relationships in a database schema can only be resolved using a spearate table, called a junction
+                    table (a.k.a. join table, association table, map table, etc.). Junction tables simply have enties that
+                    have key pairings of two of the tables' primary keys. This pairing in the junction table serves as both
+                    the primary (composite) key of that table, as well as foreign keys referencing to the two entities in
+                    the many-to-many relationship.
+                </p>
+                <br>
+                <div class="row">
+                    <div class="col-6">
+                        <p>
+                            <img class="img-fluid" src="https://www.599cd.com/site/courselist/access2013/expert/x7/images/defaul10.jpg" alt="Junction table">
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p>
+                            <img class="img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Mapping_table_concept.png" alt="Junction table 2">
+                        </p>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <p>
-                        The primary keys of both the 'actor' and 'film' tables are used for pairings in the 'actor_film_mapping' table.
-                    </p>
+                <div class="row">
+                    <div class="col-6">
+                        <p>
+                            A specific group can have multiple customers at any given time.
+                            <br> A customer can be placed in mutliple groups at any given time.
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p>
+                            The primary keys of both the 'actor' and 'film' tables are used for pairings in the 'actor_film_mapping' table.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <footer class="text-right">
             &copy <img style="height: 21px" src="https://media.giphy.com/media/6z8PVQqhOooN2/giphy.gif" alt="elmo">
         </footer>
-    </div>
+    </div> -->
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
 </body>
 
 </html>
