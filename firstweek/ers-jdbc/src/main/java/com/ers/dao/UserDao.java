@@ -11,9 +11,9 @@ import com.ers.pojo.User;
 import com.ers.util.ConnectionFactory;
 
 public class UserDao {
-	
-	public User addOne(User user) {
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+	//new user
+	public User addOne(User user) throws SQLException {
+		Connection conn = ConnectionFactory.getInstance().getConnection();
 			conn.setAutoCommit(false);
 			String sql = "INSERT INTO USERS (USERNAME, UPASSWORD, FIRSTNAME, LASTNAME, EMAIL, UR_ID) VALUES (?,?,?,?,?,1)";
 			String[] keys = {"U_ID"};
@@ -33,19 +33,17 @@ public class UserDao {
 				conn.commit();
 			}
 			conn.commit();
-		} catch (SQLException e) {
-			// try and toss this up to the service layer.
-		}
+		 
 		return user;
 	}
 	
 	
 	//user login method checks username and password in the database
-	public User findOne(String uname, String pwd) {
+	public User findOne(String uname, String pwd) throws SQLException {
 		User u = null;
 		List<User> user = new ArrayList<User>();
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql  = "SELECT * FROM USERS WHERE UPPER(USERNAME) = ? AND UPASSWORD = ?";
+		Connection conn = ConnectionFactory.getInstance().getConnection();
+			String sql  = "SELECT U_ID, USERNAME, UPASSWORD, FIRSTNAME, LASTNAME, EMAIL, UR_ID FROM USERS WHERE UPPER(USERNAME) = ? AND UPASSWORD = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, uname.toUpperCase());
 			ps.setString(2, pwd);
@@ -60,22 +58,8 @@ public class UserDao {
 				u.setUrid(info.getInt(7));
 				user.add(u);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			/* previously caught the exception here
-			 * but this time i will try to pass it 
-			 * up to the service layer 
-			 */
-			
-			
-		}
-		System.out.println(u.getFirstname() + " " + u.getLastname());
 		return u;			
+	
 	}
 	
-	public static void main(String[] args) {
-		UserDao u = new UserDao();
-		u.findOne("admin","Admin");
-		
-	}
 }

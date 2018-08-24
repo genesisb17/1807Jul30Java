@@ -3,35 +3,13 @@
   <display-name>servlets</display-name>
   <!-- Web xml is the file where we configure our web apps.
   Here we indicate which url patterns will send requests to the repective servlets. -->
- <context-param>
-  <param-name>bio</param-name>
-  <param-value>blah blah blah</param-value>
- </context-param>
-  
-  
-  
-  
-  
-  <servlet>
-  <servlet-name>FirstServ</servlet-name>
-  <servlet-class>servlets.servlet.FirstServ</servlet-class>
-  <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>FirstServ</servlet-name>
-  <url-pattern>/test</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  <servlet-name>HttpServlets</servlet-name>
-  <servlet-class>servlets.servlet.HttpServlets</servlet-class>
-  <init-param>
-  	<param-name>info</param-name>
-  	<param-value>servlets are kinda crappy</param-value>
-  </init-param>
-  </servlet>
-  <servlet-mapping>
-  <servlet-name>HttpServlets</servlet-name>
-  <url-pattern>/test1</url-pattern>
-  </servlet-mapping>
+ <servlet>
+	<servlet-name>LoginServlet</servlet-name>
+	<servlet-class>com.ex.servlets.LoginServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+	<servlet-name>LoginServlet</servlet-name>
+	<url-pattern>*.view</url-pattern>
+</servlet-mapping>
 </web-app>
