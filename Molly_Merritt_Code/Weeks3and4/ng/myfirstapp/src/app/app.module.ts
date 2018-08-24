@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SquarerootPipe } from './pipes/squareroot.pipe';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     */
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SquarerootPipe
   ], /*
   , exports[]
   classes that need to be accessible to the components of other modules. However, we're not making a
@@ -22,7 +25,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     /*
     modules whose classes are needed by classes within this current module
     */
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   /*
   Providers - services(@Injectable)

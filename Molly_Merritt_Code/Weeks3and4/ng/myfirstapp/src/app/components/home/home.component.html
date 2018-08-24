@@ -1,2 +1,23 @@
+<h3><i>Binding Types:</i></h3>
+<b>{{currentTime}}</b>
 <button [ngClass]="buttonClass" (click)="testBinding()">Click Me!</button>
-{{text}}
+
+<input type="text" class="form-control" [(ngModel)]="color">
+<div [style.background-color]="color">
+  {{text}}
+</div>
+
+<hr>
+<h3><i>Pipes</i></h3>
+<input type="text" [(ngModel)]="pipeText">
+{{pipeText | uppercase}}
+
+{{100 | sqt}}
+
+<hr>
+<h3><i>To Do List...Exploring Structural Directives</i></h3>
+<input type="text" [(ngModel)]="newItem">
+<button (click)="addItem()" [ngClass]="buttonClass">Add To List...</button>
+<ul>
+  <li *ngFor="let todo of todoList" (click)="strike(todo)" [ngStyle]="listStyle">{{todo}}</li> <!-- structural directives -->
+</ul>

@@ -1,0 +1,52 @@
+body {
+    /* font-family: "Times New Roman", Times, serif; */
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    text-align: center;
+}
+#title {
+    text-align: center;
+}
+#syntaxImg {
+    width: 50%;
+    height: 50%;
+}
+#definitionsTableDiv {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+#lambdaExample {
+    width: 70%;
+    height: 70%;
+}
+#referencesDiv {
+    list-style-position: inside;
+}
+#predicateImg {
+    width: 30%;
+    height: 30%;
+}
+#introDiv {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+#removeIfImg {
+    width: 80%;
+    height: 80%;
+}
+#characteristicsDiv {
+    margin-left: 200px;
+    margin-right: 200px;
+    text-align: left;
+}
+#beforeJava8Div {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+#withoutLambda {
+    width: 70%;
+    height: 70%;
+}
+#withLambda {
+    width: 70%;
+    height: 70%;
+}
