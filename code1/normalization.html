@@ -22,7 +22,7 @@
                             </div>
                         </li>
                     </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav offset-8">
                     <li class="nav-item"><a href="" class="nav-link text-light">Log in <span class="oi oi-account-login"></span></a></li>
                 </ul>
                 </div>
@@ -33,7 +33,7 @@
                 <h1 class="display2">Database Normalization</h1>
                 <p class="lead">This is the process of reducing data redundancy within a database.
                     Reducing data redundancy is important because the cost of storing  extra data is more expensive and
-                    can slow down your database performance.
+                    can slow down your database performance. Normalization aims to eliminate Transitive dependencies. A transitive dependency is a functional dependency which holds by virtue of transitivity. A transitive dependency can occur only in a relation that has three or more attributes. 
                 </p>
             </div>
         </div>
@@ -118,15 +118,15 @@
     <div class="container mt-4">
         <div class="btn btn-group">
             <button class="btn btn-outline-primary" id="nnf">Denormalized Table</button>
-            <button class="btn btn-outline-danger" id="1nf">1st NF table view</button>
+            <button class="btn btn-outline-danger" id="1nf">1NF table view</button>
             <button class="btn btn-outline-warning" id="2nf">2NF table view</button>
-            <button class="btn btn-outline-success" id="3nf">3nf table view</button>
+            <button class="btn btn-outline-success" id="3nf">3NF table view</button>
         </div>
     </div>
         <div class="container mt-2" id="table">
             <table class="table table-hover table-striped">
                 <thead>
-                    <h4>not normalized</h4>
+                    <h4>Denormalized</h4>
                     <tr>
                         <th>Name</th>
                         <th>Team</th>
@@ -182,8 +182,8 @@
                         <th>FirstName</th>
                         <th>Lastname</th>
                         <th>team id</th>
-                        <th>Position id</th>
-                        <th>coach id</th>
+                        <th>coachid</th>
+                        <th>position id</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -192,8 +192,10 @@
                             <td>John</td>
                             <td>Smith</td>
                             <td>1</td>
-                            <td>QB</td>
                             <td>1</td>
+                            <td>QB</td>
+                            
+                            
 
                     </tr>
                 </tbody>
