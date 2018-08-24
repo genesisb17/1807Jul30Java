@@ -17,6 +17,12 @@ public interface ReimbursementDAO extends DAO<Reimbursement> {
     /**
      * Resolves the given reimbursement with the given status and resolver.
      * 
+     * Note that this method does not check to ensure that the reimbursement has
+     * not already been resolved; resolving a reimbursement will overwrite the
+     * previous resolution (this behavior is subject to change, however). The
+     * higher-level ReimbursementService is guaranteed to ensure this important
+     * condition, however.
+     * 
      * @param r          the reimbursement to resolve. The object will be used
      *                   for its ID (to find the reimbursement to update), and
      *                   will be updated with the new status, resolver ID and

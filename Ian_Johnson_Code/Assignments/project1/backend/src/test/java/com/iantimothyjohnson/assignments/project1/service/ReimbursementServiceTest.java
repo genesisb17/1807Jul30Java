@@ -1,6 +1,9 @@
 package com.iantimothyjohnson.assignments.project1.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
@@ -123,6 +126,32 @@ class ReimbursementServiceTest {
             assertEquals(employeeReimbursements,
                 reimbursementService.getAllForUser(testEmployee.getId()),
                 "Employee's reimbursements do not match what was inserted into the database.");
+        }
+
+        @Test
+        @DisplayName("can add a reimbursement")
+        void testCreateReimbursement() throws Exception {
+            Reimbursement r = new Reimbursement();
+            r.setType(ReimbursementType.FOOD);
+            r.setAmount(new BigDecimal("16.73"));
+            r.setDescription("A reimbursement.");
+            // Let's also add some phony properties to make sure they're
+            // rejected.
+            r.setStatus(ReimbursementStatus.APPROVED);
+            r.setAuthorId(testEmployee.getId());
+            r.setResolved(OffsetDateTime.now());
+
+            reimbursementService.create(r);
+            // Make sure phony properties were corrected.
+            assertEquals(ReimbursementStatus.PENDING, r.getStatus());
+            assertEquals(0, r.getResolverId());
+            assertNull(r.getResolved());
+            assertEquals(testManager.getId(), r.getAuthorId());
+            // And make sure that good properties were preserved/added.
+            assertNotEquals(0, r.getId());
+            assertEquals(new BigDecimal("16.73"), r.getAmount());
+            // And finally, make sure that we can retrieve the reimbursement.
+            assertNotNull(reimbursementService.get(r.getId()));
         }
     }
 

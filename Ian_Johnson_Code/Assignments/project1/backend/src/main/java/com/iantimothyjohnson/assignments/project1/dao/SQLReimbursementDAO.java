@@ -49,6 +49,9 @@ public final class SQLReimbursementDAO extends SQLDAO<Reimbursement>
                 obj.setStatus(ReimbursementStatus.PENDING);
                 obj.setSubmitted(cs.getObject(6, OffsetDateTime.class));
                 obj.setId(cs.getInt(7));
+                // Overwrite properties that are invalid for an input object.
+                obj.setResolved(null);
+                obj.setResolverId(0);
                 return true;
             }
         } catch (SQLException e) {

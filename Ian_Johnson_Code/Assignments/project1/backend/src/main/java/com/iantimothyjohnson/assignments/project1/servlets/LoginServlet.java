@@ -58,10 +58,10 @@ public class LoginServlet extends HttpServlet {
                 "Incorrect username or password.");
         } catch (JsonParseException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                "Malformed JSON.");
+                "Malformed JSON: " + e.getMessage());
         } catch (JsonMappingException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                "JSON does not match expected format.");
+                "JSON does not match expected format: " + e.getMessage());
         }
     }
 }

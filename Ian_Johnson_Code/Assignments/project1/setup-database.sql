@@ -134,7 +134,7 @@ END;
 -- status and resolver.
 CREATE OR REPLACE PROCEDURE proc_resolve_reimbursement(
     reimbursement_id IN NUMBER,
-    status IN NUMBER,
+    new_status IN NUMBER,
     resolver_id IN NUMBER,
     resolved_timestamp OUT TIMESTAMP WITH TIME ZONE,
     num_affected OUT NUMBER
@@ -142,7 +142,7 @@ CREATE OR REPLACE PROCEDURE proc_resolve_reimbursement(
 BEGIN
     resolved_timestamp := SYSTIMESTAMP;
     UPDATE reimbursement SET
-        status = status,
+        status = new_status,
         resolver = resolver_id,
         resolved = resolved_timestamp
     WHERE id = reimbursement_id;
@@ -154,5 +154,3 @@ EXCEPTION
         RAISE;
 END;
 /
-
-SELECT * FROM ers_user;

@@ -5,6 +5,8 @@ import java.util.List;
 import com.iantimothyjohnson.assignments.project1.dao.ReimbursementDAO;
 import com.iantimothyjohnson.assignments.project1.dao.SQLReimbursementDAO;
 import com.iantimothyjohnson.assignments.project1.exceptions.PermissionDeniedException;
+import com.iantimothyjohnson.assignments.project1.exceptions.ReimbursementAlreadyResolvedException;
+import com.iantimothyjohnson.assignments.project1.exceptions.ReimbursementNotFoundException;
 import com.iantimothyjohnson.assignments.project1.pojos.Reimbursement;
 import com.iantimothyjohnson.assignments.project1.pojos.User;
 import com.iantimothyjohnson.assignments.project1.pojos.UserRole;
@@ -64,6 +66,48 @@ public class ReimbursementService {
     }
 
     /**
+     * Creates a new reimbursement request.
+     * 
+     * @param reimbursement the reimbursement to serve as the basis for the new
+     *                      reimbursement. Some of the properties of this object
+     *                      will be ignored; in particular, the ID, author,
+     *                      submitted date, resolver and resolved date will be
+     *                      ignored (and overwritten with their proper values).
+     *                      The author is always the actor associated with the
+     *                      ReimbursementService.
+     */
+    public void create(Reimbursement reimbursement) {
+        reimbursement.setAuthorId(actor.getId());
+        reimbursementDao.insert(reimbursement);
+    }
+
+    /**
+     * Gets a reimbursement by its ID.
+     * 
+     * @param id the ID of the reimbursement to get
+     * @return the reimbursement, or null if no reimbursement exists with the
+     *         given ID
+     * @throws PermissionDeniedException      if the actor is not a manager and
+     *                                        the reimbursement was not made by
+     *                                        the actor
+     * @throws ReimbursementNotFoundException if there is no reimbursement with
+     *                                        the given ID
+     */
+    public Reimbursement get(int id)
+        throws PermissionDeniedException, ReimbursementNotFoundException {
+        Reimbursement r = reimbursementDao.selectById(id);
+        if (r == null) {
+            throw new ReimbursementNotFoundException(id);
+        }
+        if (actor.getRole() != UserRole.MANAGER
+            && actor.getId() != r.getAuthorId()) {
+            throw new PermissionDeniedException(
+                "Only managers can retrieve other users' reimbursement data.");
+        }
+        return r;
+    }
+
+    /**
      * Gets a list of all reimbursement requests in the system.
      * 
      * @return a list of all reimbursements
@@ -95,5 +139,36 @@ public class ReimbursementService {
                 "Only managers are allowed to see reimbursement requests from other users.");
         }
         return reimbursementDao.selectAllByAuthor(userId);
+    }
+
+    /**
+     * Resolves the reimbursement with the given ID.
+     * 
+     * @param id       the ID of the reimbursement to resolve
+     * @param approved whether the reimbursement is to be approved (if false, it
+     *                 is to be denied)
+     * @return the reimbursement that was resolved
+     * @throws PermissionDeniedException             if the actor is not a
+     *                                               manager
+     * @throws ReimbursementNotFoundException        if there is no
+     *                                               reimbursement with the
+     *                                               given ID
+     * @throws ReimbursementAlreadyResolvedException if the reimbursement has
+     *                                               already been resolved
+     */
+    public Reimbursement resolve(int id, boolean approved)
+        throws PermissionDeniedException, ReimbursementNotFoundException,
+        ReimbursementAlreadyResolvedException {
+        if (actor.getRole() != UserRole.MANAGER) {
+            throw new PermissionDeniedException(
+                "Only managers can resolve reimbursement requests.");
+        }
+        Reimbursement reimbursement = get(id);
+        // Make sure the reimbursement isn't already resolved.
+        if (reimbursement.getResolved() != null) {
+            throw new ReimbursementAlreadyResolvedException(id);
+        }
+        reimbursementDao.resolve(reimbursement, approved, actor.getId());
+        return reimbursement;
     }
 }

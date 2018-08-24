@@ -22,6 +22,10 @@ public final class MockReimbursementDAO extends MockDAO<Reimbursement>
         r.setId(getNextId());
         r.setStatus(ReimbursementStatus.PENDING);
         r.setSubmitted(OffsetDateTime.now());
+        // Overwrite properties that are invalid for a newly-submitted
+        // reimbursement.
+        r.setResolved(null);
+        r.setResolverId(0);
         entries.add(r);
         return true;
     }

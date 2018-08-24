@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.iantimothyjohnson.assignments.project1.exceptions.PermissionDeniedException;
@@ -22,6 +24,11 @@ import com.iantimothyjohnson.assignments.project1.pojos.ReimbursementStatus;
 import com.iantimothyjohnson.assignments.project1.pojos.User;
 import com.iantimothyjohnson.assignments.project1.service.ReimbursementService;
 
+/**
+ * The servlet that handles getting and creating reimbursements.
+ * 
+ * @author Ian Johnson
+ */
 @WebServlet("/reimbursements")
 public class ReimbursementServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -33,7 +40,7 @@ public class ReimbursementServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        logger.trace("Got request for reimbursements.");
+        logger.trace("Got GET request for reimbursements.");
         String authorParam = req.getParameter("author");
         String statusParam = req.getParameter("status");
 
@@ -82,6 +89,39 @@ public class ReimbursementServlet extends HttpServlet {
             mapper.writeValue(resp.getWriter(), reimbursements);
         } catch (PermissionDeniedException e) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
+        logger.trace("Got POST request for reimbursements.");
+
+        // Make sure the user is logged in.
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN,
+                "Must be logged in to access the API.");
+            return;
+        }
+        User actor = (User) session.getAttribute("user");
+        ReimbursementService reimbursementService = new ReimbursementService(
+            actor);
+
+        try {
+            Reimbursement reimbursement = mapper.readValue(req.getReader(),
+                Reimbursement.class);
+            reimbursementService.create(reimbursement);
+            // Return the new reimbursement data.
+            resp.setStatus(HttpServletResponse.SC_CREATED);
+            resp.setContentType("application/json");
+            mapper.writeValue(resp.getWriter(), reimbursement);
+        } catch (JsonParseException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                "Malformed JSON: " + e.getMessage());
+        } catch (JsonMappingException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                "JSON does not match expected format: " + e.getMessage());
         }
     }
 }
