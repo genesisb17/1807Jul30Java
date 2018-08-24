@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SquarerootPipe } from './pipes/squareroot.pipe';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SquarerootPipe } from './pipes/squareroot.pipe';
     HomeComponent,
     NavbarComponent,
     SquarerootPipe,
+    LoginComponent,
   ],
   // We could have exports here, which are classes that need to be accessible to
   // the components of other modules. However, we will not be making other
