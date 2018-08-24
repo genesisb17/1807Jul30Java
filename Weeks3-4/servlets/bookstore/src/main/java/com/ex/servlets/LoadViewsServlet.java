@@ -23,7 +23,7 @@ public class LoadViewsServlet extends HttpServlet{
 	@Override 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String resource = "partials/" + process(req, resp) + ".html";	
-		resp.addHeader("Access-Control-Allow-Origin", "*");
+		//resp.addHeader("Access-Control-Allow-Origin", "*");
 	
 		req.getRequestDispatcher(resource).forward(req, resp);
 	}

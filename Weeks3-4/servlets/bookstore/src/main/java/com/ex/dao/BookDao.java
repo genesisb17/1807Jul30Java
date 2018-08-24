@@ -64,11 +64,10 @@ public class BookDao implements Dao<Book, Integer> {
 	}
 
 	public Book save(Book obj) {
-		Book book = new Book();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			conn.setAutoCommit(false);
-			String query = "insert into book(isbn, title, price, genre) "
+			String query = "insert into book(isbn, title, price, genre_id) "
 					+ "values(?,?, ?, ?)";
 			
 			String[] keys = new String[1];
@@ -85,7 +84,7 @@ public class BookDao implements Dao<Book, Integer> {
 			if(rows != 0) {
 				ResultSet pk = ps.getGeneratedKeys();
 				while(pk.next()) {
-					book.setId(pk.getInt(1));
+					obj.setId(pk.getInt(1));
 				}
 				
 				conn.commit();
@@ -93,14 +92,14 @@ public class BookDao implements Dao<Book, Integer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return book;
+		return obj;
 	}
 
 	public Book update(Book book) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			conn.setAutoCommit(false);
 			
-			String query = "update book set isbn = ?, title = ?, price=?, genre = ? where book_id = ?";
+			String query = "update book set isbn = ?, title = ?, price=?, genre_id= ? where book_id = ?";
 			PreparedStatement ps = conn.prepareStatement(query);
 			
 			ps.setString(1, book.getIsbn() );

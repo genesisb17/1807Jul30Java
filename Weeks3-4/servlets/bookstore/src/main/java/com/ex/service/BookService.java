@@ -12,5 +12,10 @@ public class BookService {
 	public List<Book> getAllBooks(){
 		return bookdao.getAll();
 	}
+	
+	public Book addBook(Book b){
+		return bookdao.save(b);
+	}
+	
 
 }
