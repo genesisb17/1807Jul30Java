@@ -208,7 +208,7 @@ console.log(emp1.getElevatorPitch()); //works fine
 
 class Car{
     readonly brand: string;
-    readonly numWheels: 4;
+    readonly numWheels = 4;
 }
 
 let c1 = new Car();
@@ -219,7 +219,7 @@ console.log(c1.brand);
 
 class Car2{
     readonly brand: string;
-    readonly numWheels: 4;
+    readonly numWheels= 4;
     constructor(brand: string){
         this.brand = brand;
     }
