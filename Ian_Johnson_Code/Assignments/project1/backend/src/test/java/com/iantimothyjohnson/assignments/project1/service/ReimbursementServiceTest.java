@@ -153,6 +153,24 @@ class ReimbursementServiceTest {
             // And finally, make sure that we can retrieve the reimbursement.
             assertNotNull(reimbursementService.get(r.getId()));
         }
+
+        @Test
+        @DisplayName("can resolve a reimbursement")
+        void testResolveReimbursement() throws Exception {
+            // Let's get a reimbursement that hasn't been resolved.
+            Reimbursement r = employeeReimbursements.stream()
+                .filter(re -> re.getStatus() == ReimbursementStatus.PENDING)
+                .findAny().get();
+            Reimbursement resolved = reimbursementService.resolve(r.getId(),
+                true);
+            assertEquals(ReimbursementStatus.APPROVED, resolved.getStatus());
+            assertNotNull(resolved.getResolved());
+            assertEquals(testManager.getId(), resolved.getResolverId());
+            // Make sure the reimbursement that was returned is actually what
+            // was inserted.
+            assertEquals(resolved,
+                reimbursementDao.selectById(resolved.getId()));
+        }
     }
 
     @Nested
@@ -185,6 +203,18 @@ class ReimbursementServiceTest {
             assertEquals(employeeReimbursements,
                 reimbursementService.getAllForUser(testEmployee.getId()),
                 "Employee's reimbursements do not match what was inserted into the database.");
+        }
+
+        @Test
+        @DisplayName("cannot resolve reimbursements")
+        void testResolveReimbursementPermissionDenied() throws Exception {
+            // Let's get a reimbursement that hasn't been resolved.
+            Reimbursement r = employeeReimbursements.stream()
+                .filter(re -> re.getStatus() == ReimbursementStatus.PENDING)
+                .findAny().get();
+            assertThrows(PermissionDeniedException.class,
+                () -> reimbursementService.resolve(r.getId(), false),
+                "Ordinary employee successfully resolved reimbursement.");
         }
     }
 }
