@@ -1,10 +1,11 @@
 <div class="login-container">
-  <div class="login-form rounded">
+  <form class="login-form rounded" (submit)="login()">
     <h2 class="login-row text-center">ERS Login</h2>
     <label for="username" class="sr-only">Username</label>
-    <input type="text" id="username" class="form-control mb-2" placeholder="Username">
+    <input type="text" id="username" name="username" class="form-control mb-2" placeholder="Username" [(ngModel)]="username">
     <label for="password" class="sr-only">Password</label>
-    <input type="text" id="password" class="form-control mb-2" placeholder="Password">
+    <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Password" [(ngModel)]="password">
     <button class="btn btn-primary w-100">Login</button>
-  </div>
+    <div *ngIf="error" class="text-center text-danger w-100">{{error}}</div>
+  </form>
 </div>

@@ -20,7 +20,6 @@ import com.iantimothyjohnson.assignments.project1.exceptions.UserNotFoundExcepti
 import com.iantimothyjohnson.assignments.project1.pojos.User;
 import com.iantimothyjohnson.assignments.project1.service.LoginService;
 import com.iantimothyjohnson.assignments.project1.servlets.types.LoginCredentials;
-import com.iantimothyjohnson.assignments.project1.servlets.types.ServletMessage;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -51,8 +50,8 @@ public class LoginServlet extends HttpServlet {
             // endpoints and used to check permissions and whatnot.
             req.getSession().setAttribute("user", user);
             resp.setContentType("application/json");
-            mapper.writeValue(resp.getWriter(), new ServletMessage(
-                HttpServletResponse.SC_OK, "Login successful."));
+            // Return the user object to the client.
+            mapper.writeValue(resp.getWriter(), user);
         } catch (AuthenticationFailureException | UserNotFoundException e) {
             resp.sendError(HttpServletResponse.SC_FORBIDDEN,
                 "Incorrect username or password.");
