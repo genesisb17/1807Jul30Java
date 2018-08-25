@@ -28,6 +28,7 @@ create table ERS_USERS(
   primary key (ERS_USERS_ID),
   foreign key (USER_ROLE_ID) references ERS_USER_ROLES(ERS_USER_ROLE_ID)
 );
+select * from ers_users;
 
 create table ERS_REIMBURSEMENT_STATUS(
   REIMB_STATUS_ID number, -- primary key
@@ -55,6 +56,7 @@ CREATE SEQUENCE ers_users_seq
    START WITH 1
    INCREMENT BY 1 
    CACHE 20 NOORDER  NOCYCLE  NOPARTITION;
+select ers_users_seq.nextval from dual;
    
 CREATE SEQUENCE ers_reimbursement_seq
    MINVALUE 1 
@@ -80,3 +82,44 @@ begin
     select ers_reimbursement_seq.nextVal into :new.REIMB_ID from dual;
 end;
 /
+
+
+
+--------------- CREATE PROCEDURES
+create or replace PROCEDURE get_all_users(
+  c_users OUT SYS_REFCURSOR)
+IS
+BEGIN
+  OPEN c_users for SELECT * FROM ers_users;
+END;
+/
+
+create or replace PROCEDURE get_all_reimbursements(
+  c_reimbursements OUT SYS_REFCURSOR)
+IS
+BEGIN
+  OPEN c_reimbursements for SELECT * FROM ers_reimbursement;
+END;
+/
+
+
+
+--------------- POPULATE TABLES
+insert into ERS_REIMBURSEMENT_TYPE values(1, 'Lodging');
+insert into ERS_REIMBURSEMENT_TYPE values(2, 'Travel');
+insert into ERS_REIMBURSEMENT_TYPE values(3, 'Food');
+insert into ERS_REIMBURSEMENT_TYPE values(4, 'Education');
+select * from ERS_REIMBURSEMENT_TYPE;
+
+insert into ERS_REIMBURSEMENT_STATUS values(1, 'Pending');
+insert into ERS_REIMBURSEMENT_STATUS values(2, 'Approved');
+insert into ERS_REIMBURSEMENT_STATUS values(3, 'Denied');
+select * from ERS_REIMBURSEMENT_STATUS;
+commit;
+
+insert into ERS_USER_ROLES values(1, 'Employee');
+insert into ERS_USER_ROLES values(2, 'Manager');
+select * from ERS_USER_ROLES;
+
+
+

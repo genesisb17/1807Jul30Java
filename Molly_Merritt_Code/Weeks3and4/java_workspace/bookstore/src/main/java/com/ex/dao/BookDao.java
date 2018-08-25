@@ -134,5 +134,11 @@ public class BookDao implements Dao<Book, Integer> {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public static void main(String[] args) {
+		BookDao bDao = new BookDao();
+		Book b = new Book("1111155555", "Lord of the Rings", 11.5, 1);
+		bDao.save(b);
+	}
 
 }
