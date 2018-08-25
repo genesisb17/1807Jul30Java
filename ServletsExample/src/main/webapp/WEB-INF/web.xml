@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>ServletsExample</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>DispatcherServlet</display-name>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>com.revature.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>*.ng</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>CoresFilter</display-name>
+    <filter-name>CoresFilter</filter-name>
+    <filter-class>com.revature.servlet.CoresFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CoresFilter</filter-name>
+    <servlet-name>DispatcherServlet</servlet-name>
+  </filter-mapping>
+</web-app>
