@@ -19,17 +19,13 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//REQUEST DISPATCHER! Used for forwarding
-		req.getRequestDispatcher("login.html").
-		forward(req, resp);
+		req.getRequestDispatcher("login.html").forward(req, resp);
 	}
-	
 	
 	static DummyUserService uService = new DummyUserService();
 	
 	@Override
-	protected void doPost(HttpServletRequest req,
-			HttpServletResponse resp) 
-					throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//functionality to get info from login form 
 		
 		String name = req.getParameter("username");
