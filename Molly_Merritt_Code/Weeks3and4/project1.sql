@@ -121,5 +121,5 @@ insert into ERS_USER_ROLES values(1, 'Employee');
 insert into ERS_USER_ROLES values(2, 'Manager');
 select * from ERS_USER_ROLES;
 
-
-
+select * from ERS_USERS;
+update ERS_USERS set USER_FIRST_NAME = 'MyFirstName' where ERS_USERS_ID = 1;

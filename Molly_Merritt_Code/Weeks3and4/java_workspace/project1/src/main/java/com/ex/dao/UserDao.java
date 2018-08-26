@@ -99,7 +99,26 @@ public class UserDao implements Dao<User, Integer> {
 	}
 
 	public User update(User obj) {
-		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String stmt = "update ERS_USERS set ERS_USERNAME = ?, ERS_PASSWORD = ?, "
+					+ "USER_FIRST_NAME = ?, USER_LAST_NAME = ?, USER_EMAIL = ?, "
+					+ "USER_ROLE_ID = ? where ERS_USERS_ID = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(stmt);
+			
+			ps.setString(1, obj.getUsername());
+			ps.setString(2, obj.getPassword());
+			ps.setString(3, obj.getFirstname());
+			ps.setString(4, obj.getLastname());
+			ps.setString(5, obj.getEmail());
+			ps.setInt(6, obj.getUserRoleId());
+			ps.setInt(7, obj.getId());
+			
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -132,9 +151,10 @@ public class UserDao implements Dao<User, Integer> {
 	
 	public static void main(String[] args) {
 		UserDao uDao = new UserDao();
-		User u = new User("iamamanager2", "thisismypassword", "Michael", "Scott",
+		User u = new User(31, "iamamanager2", "thisismypassword", "Michael", "Scott",
 				"email2@email.com", 2);
-		System.out.println(uDao.isUnique(u));
+//		uDao.update(u);
+//		System.out.println(uDao.isUnique(u));
 //		uDao.save(u);
 	}
 
