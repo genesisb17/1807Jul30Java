@@ -29,8 +29,8 @@ public class ConnectionFactory {
 		
 		Properties prop = new Properties();
 		
-		String path = "C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java\\Weeks3-4\\servlets\\bookstore\\src\\main\\resources\\application.properties";
-
+		String path = "C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java\\Zachary_Ritchie_Code\\Week3-4\\Rsystem\\Rsystem\\src\\main\\resources\\application.properties";
+		//getClass().getResourceAsStream("/application.properties"); /// in place of file reader
 		try {
 			prop.load(new FileReader(path));
 			Class.forName(prop.getProperty("driver")); //prop.getproperty("Driver") is returning oracle.jdbc.driver.OracleDriver

@@ -106,10 +106,97 @@ begin
 end;
 /
 
+--Set timestamp after reimburemnet is entered
+create or replace trigger ers_reimbursement_time_trig
+before insert on ers_reimbursement
+for each row
+begin
+  :new.reimb_submitted := current_timestamp();
+end;
+/
+
+create or replace trigger ers_reimbursment_initial
+before insert on ers_reimbursement
+for each row
+begin
+  :new.reimb_status_id := 2;
+end;
+/
+
+--Set timestamp of reimbursement if its been approved or denied
+create or replace trigger ers_reimbursment_resolved
+before update of reimb_status_id on ers_reimbursement
+for each row
+begin
+  :new.reimb_resolved := current_timestamp();
+end;
+/
+
+-----------------------PLSQL-------------------
+
+create or replace procedure get_all_ers_reimbursement(cursorParam out sys_refcursor)
+is 
+begin
+open cursorParam for select * from ers_reimbursement;
+end;
+/
+
+
 -------------------Extra--------------------
 select * from ers_reimbursement_type;
 select * from ers_reimbursement_status;
 select * from ers_user_roles;
 select * from ers_users;
 select * from ers_reimbursement;
+
+select * from ers_users where ers_username = 'username';
+
+--Default user
+insert into ers_users(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) values('username', 'password', 'zack', 'ritchie', 'test@email.com', 2);
+
+--TESTING STATUS TARIGGERS
+insert into ERS_REIMBURSEMENT(reimb_amount, reimb_author, reimb_type_id) values(10, 1, 1);
+update ERS_REIMBURSEMENT set reimb_status_id = 4 where reimb_id = 2;
+
+--Pre set status
+insert into ers_reimbursement_status(reimb_status) 
+values('Pending');
+
+insert into ers_reimbursement_status(reimb_status) 
+values('Approved');
+
+insert into ers_reimbursement_status(reimb_status) 
+values('Denied');
+
+
+--Pre set types
+insert into ers_reimbursement_type(reimb_type) 
+values('Lodging');
+
+insert into ers_reimbursement_type(reimb_type) 
+values('Travel');
+
+insert into ers_reimbursement_type(reimb_type) 
+values('Food');
+
+insert into ers_reimbursement_type(reimb_type) 
+values('Other');
+
+
+--Pre set roles
+insert into ers_user_roles(user_role) 
+values('Employee');
+
+insert into ers_user_roles(user_role) 
+values('Finance_Manager');
+
+
+
+
+
+
+
+
+
+
 

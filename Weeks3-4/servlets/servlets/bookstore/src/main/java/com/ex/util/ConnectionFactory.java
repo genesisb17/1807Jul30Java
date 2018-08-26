@@ -29,7 +29,7 @@ public class ConnectionFactory {
 		
 		Properties prop = new Properties();
 		
-		String path = "C:\\Users\\Owner\\zr_git_repos\\1807Jul30Java\\Weeks3-4\\servlets\\bookstore\\src\\main\\resources\\application.properties";
+		String path = "C:/Users/Genesis/my_git_repos/1807Jul30Java/Weeks3-4/servlets/bookstore/src/main/resources/application.properties";
 
 		try {
 			prop.load(new FileReader(path));

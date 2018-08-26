@@ -1,0 +1,26 @@
+<form (submit)="loginFunction()">
+  <label for="username">Username</label>
+  <!-- () = event binding -->
+  <!-- [] = properties binding -->
+  <!-- [()] = two way binding -->
+  <input type="text" id="username" name="username" required [(ngModel)] = "username"/> <br>
+  <br>
+  <label for="password">Password</label>
+  <input type="text" id="password" name="password" required [(ngModel)] = "password"/> <br>
+  <br>
+  <button class="btn btn-success" value="Login">Submit</button>
+  <!-- <input type="submit" value="Login"> -->
+</form>
+
+<br>
+<br>
+
+<div *ngIf="receivedData">
+  {{receivedData.ers_user_id}}
+  {{receivedData.ers_username}}
+  {{receivedData.ers_first_name}}
+  {{receivedData.ers_last_name}}
+  {{receivedData.user_email}}
+  {{receivedData.user_role_id}}
+</div>
+
