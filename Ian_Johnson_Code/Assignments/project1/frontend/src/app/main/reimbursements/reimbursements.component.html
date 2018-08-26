@@ -1,2 +1,19 @@
 <h2>My reimbursements</h2>
-<div *ngFor="let reimbursement of reimbursements">{{reimbursement.amount}}</div>
+<ul class="nav nav-pills flex-column flex-md-row border-bottom pb-1 mb-1" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'pending'" routerLink="./pending" role="tab" [attr.aria-selected]="selectedStatus === 'pending'">Pending</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'approved'" routerLink="./approved" role="tab" [attr.aria-selected]="selectedStatus === 'approved'">Approved</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'denied'" routerLink="./denied" role="tab" [attr.aria-selected]="selectedStatus === 'denied'">Denied</a>
+  </li>
+  <div class="flex-grow-1"></div>
+  <button class="btn btn-success" aria-label="Submit reimbursement">
+    <span aria-hidden="true">
+      +
+    </span>
+  </button>
+</ul>
+<router-outlet></router-outlet>

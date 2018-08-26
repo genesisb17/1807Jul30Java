@@ -14,12 +14,6 @@ export class AccountComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(
-      user => (this.user = user),
-      err => {
-        console.error(err);
-        this.router.navigate(['/login']);
-      }
-    );
+    this.userService.getCurrentUser().subscribe(user => (this.user = user));
   }
 }
