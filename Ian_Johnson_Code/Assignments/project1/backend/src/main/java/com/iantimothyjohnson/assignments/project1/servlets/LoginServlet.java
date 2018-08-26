@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,11 +28,30 @@ public class LoginServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
     private final ObjectMapper mapper = new ObjectMapper();
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
+        logger.trace("Received GET login request.");
+
+        // Make sure the user is logged in.
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN,
+                "Must be logged in to access the API.");
+            return;
+        }
+        User actor = (User) session.getAttribute("user");
+        
+        // Send back the currently logged-in user.
+        resp.setContentType("application/json");
+        mapper.writeValue(resp.getWriter(), actor);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        logger.trace("Received login request.");
+        logger.trace("Received POST login request.");
         try {
             LoginCredentials credentials = mapper.readValue(req.getReader(),
                 LoginCredentials.class);

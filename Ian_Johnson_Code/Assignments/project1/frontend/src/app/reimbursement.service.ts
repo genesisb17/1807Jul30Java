@@ -1,29 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { User } from './user';
+import { Reimbursement } from './reimbursement';
 import { environment } from '../environments/environment';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
+export class ReimbursementService {
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<User> {
+  getByAuthor(authorId: number): Observable<Reimbursement[]> {
     return this.http
-      .post<User>(
-        environment.apiUrl + '/login',
-        { username, password },
-        { withCredentials: true }
-      )
-      .pipe(catchError(this.handleError));
-  }
-
-  logout(): Observable<void> {
-    return this.http
-      .post<void>(environment.apiUrl + '/logout', undefined, {
+      .get<Reimbursement[]>(environment.apiUrl + '/reimbursements', {
+        params: { author: authorId.toString() },
         withCredentials: true,
       })
       .pipe(catchError(this.handleError));
@@ -33,7 +24,7 @@ export class LoginService {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);
     } else if (error.status === 403) {
-      return throwError('Incorrect username or password.');
+      return throwError('Unauthorized (perhaps not logged in).');
     } else {
       console.error('Server returned an unexpected error:', error.error);
     }

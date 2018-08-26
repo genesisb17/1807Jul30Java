@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { UserRole } from '../user-role.enum';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,16 +14,30 @@ export class LoginComponent implements OnInit {
   password: string;
   error: string;
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Check to see if the user is already logged in.
+    this.userService.getCurrentUser().subscribe(_ => {
+      this.router.navigate(['/home']);
+    });
+  }
 
-  login() {
-    this.loginService
-      .login(this.username, this.password)
-      .subscribe(
-        user => console.log(`Got user: ${JSON.stringify(user)}`),
-        error => (this.error = error)
-      );
+  login(): void {
+    if (!this.username || !this.password) {
+      this.error = 'Must provide a username and password.';
+      return;
+    }
+    this.loginService.login(this.username, this.password).subscribe(
+      user => {
+        console.log(JSON.stringify(user));
+        this.router.navigate(['/home']);
+      },
+      error => (this.error = error)
+    );
   }
 }
