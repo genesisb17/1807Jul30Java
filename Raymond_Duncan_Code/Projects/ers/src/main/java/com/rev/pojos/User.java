@@ -2,15 +2,16 @@ package com.rev.pojos;
 
 public class User {
 	
-	private long userID;
+	private Long userID;
 	private String username;
 	private String password;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String companyRole;
+	private Long creator;
 	public User() {}
-	public User(long userID, String username, String firstname, String lastname, String email, String companyRole) {
+	public User(Long userID, String username, String firstname, String lastname, String email, String companyRole) {
 		super();
 		this.userID = userID;
 		this.username = username;
@@ -19,10 +20,10 @@ public class User {
 		this.email = email;
 		this.companyRole = companyRole;
 	}
-	public long getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
-	public void setUserID(long userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 	public String getUsername() {
@@ -61,6 +62,12 @@ public class User {
 	}
 	public void setCompanyRole(String companyRole) {
 		this.companyRole = companyRole;
+	}
+	public Long getCreator() {
+		return creator;
+	}
+	public void setCreator(Long creator) {
+		this.creator = creator;
 	}
 	
 	

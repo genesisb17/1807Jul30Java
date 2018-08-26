@@ -1,3 +1,22 @@
-<p>
-  home works!
-</p>
+<button [ngClass]="buttonClass" (click)="testBinding()">Click Me!</button>
+
+<h3><i>Binding Types!</i></h3>
+<input type="text" class="form-control" [(ngModel)]="color">
+<div [style.background-color]="color">
+  {{text}}
+</div>
+<hr>
+<h3><i>Pipes!</i></h3>
+<input type="text" [(ngModel)]="pipeText">
+{{pipeText | uppercase}} <br>
+{{currentTime | date:'medium' | uppercase}}
+
+{{100 | sqrt}}
+
+<hr>
+<h3><i>To Do List... Eploring Structural Directives</i></h3>
+<input type="text" [(ngModel)]="item">
+<button [ngClass]="buttonClass" (click)="addItem()">Add to the list</button>
+<ul>
+  <li *ngFor="let item of itemList" (click)="strike(todo)" [ngStyle]="striken">{{item}}</li>
+</ul>

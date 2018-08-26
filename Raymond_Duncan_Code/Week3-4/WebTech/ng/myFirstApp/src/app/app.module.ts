@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SqrtPipe } from './pipes/sqrt.pipe';
+import { LoginComponent } from './src/app/components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,9 @@ import { NavbarComponent } from './navbar/navbar.component';
      components, directives, and pipes */
     AppComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SqrtPipe,
+    LoginComponent
   ],
   /* We can also have exports:[]
   Exports are classes that need to be accessible to the components
@@ -22,7 +28,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     /* 
     Imports are modules whose classes are needed by classes within this 
     current module */
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    CommonModule
   ],
   /* Providers are services that use the @injectible keyword */
   providers: [],

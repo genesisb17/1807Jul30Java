@@ -22,7 +22,8 @@ CREATE TABLE ers_user (
     ers_firstname VARCHAR2(32),
     ers_lastname VARCHAR2(32),
     ers_email VARCHAR(64),
-    ers_company_role NUMBER
+    ers_company_role NUMBER,
+    ers_creator NUMBER
 );
 
 CREATE TABLE ers_reimbursement (
@@ -58,7 +59,7 @@ CREATE TABLE ers_user_role (
 ****************************************************************************/
 
 CREATE SEQUENCE ers_user_id_seq
-MINVALUE 1
+MINVALUE 0
 START WITH 1
 INCREMENT BY 1;
 
@@ -68,18 +69,18 @@ START WITH 1
 INCREMENT BY 1;
 
 CREATE SEQUENCE ers_status_id_seq
-MINVALUE 1
-START WITH 1
+MINVALUE 0
+START WITH 0
 INCREMENT BY 1;
 
 CREATE SEQUENCE ers_reimb_type_id_seq
-MINVALUE 1
-START WITH 1
+MINVALUE 0
+START WITH 0
 INCREMENT BY 1;
 
 CREATE SEQUENCE ers_user_role_id_seq
-MINVALUE 1
-START WITH 1
+MINVALUE 0
+START WITH 0
 INCREMENT BY 1;
 
 /****************************************************************************
@@ -146,11 +147,11 @@ END;
 CREATE OR REPLACE PROCEDURE quick_populate_ers_users
 AS
 BEGIN
-    INSERT INTO ers_user VALUES(NULL,'rayd123','password','Raymond','Duncan','raydunc@gmail.com',1);
-    INSERT INTO ers_user VALUES(NULL,'mrt123','pitydafoo','Laurence','Tureaud','mrt@ateam.go',4);
-    INSERT INTO ers_user VALUES(NULL,'notoriousb','bigpoppa','Chris','Wallace','biggie@uptown.com',2);
-    INSERT INTO ers_user VALUES(NULL,'elonthemusky1','grimes','Elon','Musk','emusk@tsla.wow',3);
-    INSERT INTO ers_user VALUES(NULL,'lennyd44','finallygotthatoscar','Leonardo','DiCaprio','actuallycares@world.us',2);
+    INSERT INTO ers_user VALUES(NULL,'rayd123','password','Raymond','Duncan','raydunc@gmail.com',1,0);
+    INSERT INTO ers_user VALUES(NULL,'mrt123','pitydafoo','Laurence','Tureaud','mrt@ateam.go',4,0);
+    INSERT INTO ers_user VALUES(NULL,'notoriousb','bigpoppa','Chris','Wallace','biggie@uptown.com',2,0);
+    INSERT INTO ers_user VALUES(NULL,'elonthemusky1','grimes','Elon','Musk','emusk@tsla.wow',3,0);
+    INSERT INTO ers_user VALUES(NULL,'lennyd44','finallygotthatoscar','Leonardo','DiCaprio','actuallycares@world.us',2,0);
     COMMIT;
 END;
 /
@@ -185,6 +186,7 @@ BEGIN
     INSERT INTO ers_reimbursement_type VALUES(NULL,'FOOD');
     INSERT INTO ers_reimbursement_type VALUES(NULL,'SUPPLIES');
     INSERT INTO ers_reimbursement_type VALUES(NULL,'EDUCATION');
+    INSERT INTO ers_reimbursement_type VALUES(NULL,'RECREATION');
     INSERT INTO ers_reimbursement_type VALUES(NULL,'OTHER');
     COMMIT;
 END;
@@ -204,7 +206,11 @@ END;
 /****************************************************************************
     POPULATE TABLES
 ****************************************************************************/
-
+EXECUTE quick_populate_ers_users;
+EXECUTE quick_populate_reimbs;
+EXECUTE quick_populate_reimb_statuses;
+EXECUTE quick_populate_reimb_types;
+EXECUTE quick_populate_user_roles;
 
 /****************************************************************************
     DISCONNECT
