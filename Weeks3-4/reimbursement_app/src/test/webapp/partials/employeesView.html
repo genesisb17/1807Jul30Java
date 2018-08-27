@@ -1,25 +1,29 @@
-<div id="employeesView">
+<div id="employeesView" hidden="true">
 	<div id="newEmployeeForm">
-		Username:<input type="text" id="emp_username" class="form-control col-4">
+		Username:<input type="text" id="emp_username"
+			class="form-control col-4"> 
 		<br> 
 		Password: <input type="text" id="emp_password" class="form-control col-4"> 
-			<br> 
+		<br>
 		First Name: <input type="text" id="first_name" class="form-control col-4"> 
-		Last Name: <input type="text" id="last_name" class="col-4 form-control">
+		<br> 
+		Last Name: <input type="text" id="last_name" class="col-4 form-control"> 
+		<br>
 		Last Name: <input type="text" id="email" class="col-4 form-control">
-			
-		<select name="employee_role" form="newEmployeeform" class="col-4 form-control">
-		  <option value="manager">Manager</option>
-		  <option value="regular">Regular</option>
-		</select>
-		<button class="btn btn-submit" id="addBook">Add</button>
+		<br> 
+		<select name="employee_role" form="newEmployeeform"
+			class="col-4 form-control">
+			<option value="manager">Manager</option>
+			<option value="regular">Regular</option>
+		</select> <br>
+		<button class="btn btn-submit" id="addEmployee">Add</button>
 		<hr>
 	</div>
 </div>
 <p id="toggleAdd">
 	<i>Add new employee...</i>
 </p>
-	<table class="table table-sm table-hover table-bordered thead-light">
+<table class="table table-sm table-hover table-bordered thead-light">
 	<thead>
 		<tr>
 			<th scope="col">Employee_ID</th>
@@ -30,7 +34,7 @@
 			<th scope="col">email</th>
 			<th scope="col">Role ID</th>
 		</tr>
-	</thead>	
+	</thead>
 	<tbody id="employeeTable">
 	</tbody>
-	</table>
+</table>

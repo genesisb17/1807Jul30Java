@@ -19,6 +19,7 @@ public class ConnectionUtil {
 		try {
 			Properties props = new Properties();
 			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(props.getProperty("url"),props.getProperty("usr"),props.getProperty("pwd"));
 			return conn;
 		} catch(SQLException sql) {
@@ -26,6 +27,9 @@ public class ConnectionUtil {
 			System.err.println("Error Code: " + sql.getErrorCode());
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 public class LoadViewsServlet extends HttpServlet{
+
 	private static Logger log = 
 			Logger.getLogger(LoadViewsServlet.class);
 	
@@ -33,6 +34,10 @@ public class LoadViewsServlet extends HttpServlet{
 		log.info("REQUEST SENT TO: " + req.getRequestURI());
 		log.info("PATH: " + req.getPathInfo());
 		switch(req.getRequestURI()) {
+		case "/reimbursement_app/login.view":
+			return "loginView";
+//		case "/reimbursement_app/app.view":
+//			return "reimbursementapp";
 		case "/reimbursement_app/home.view":
 			return "homeView";
 		case "/reimbursement_app/employees.view":

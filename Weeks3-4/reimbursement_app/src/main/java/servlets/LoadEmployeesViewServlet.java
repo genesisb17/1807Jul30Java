@@ -1,6 +1,5 @@
 package servlets;
 
-import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,14 +17,13 @@ import service.EmployeeService;
 @WebServlet("/employees")
 public class LoadEmployeesViewServlet extends HttpServlet{
 
-	//SERVICE CLASS! DO NOT CALL DAO METHODS FROM SERVLET
+	static final long serialVersionUID = 1L;
 	static EmployeeService bs = new EmployeeService();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			List<Employee> employees = bs.getAll();
 			if(employees.size()>0) {
-				//return books 
 				
 				//JACKSON API
 				ObjectMapper mapper = new ObjectMapper();
@@ -54,5 +52,13 @@ public class LoadEmployeesViewServlet extends HttpServlet{
 		ObjectMapper mapper = new ObjectMapper();
 		Employee b = mapper.readValue(json, Employee.class);
 		System.out.println(b.toString());
+		
+		b = bs.save(b);
+		System.out.println(b.toString());
+		
+		String ret = mapper.writeValueAsString(b);
+		PrintWriter out = resp.getWriter();
+		resp.setContentType("application/json");
+		out.write(ret);
 	}
 }

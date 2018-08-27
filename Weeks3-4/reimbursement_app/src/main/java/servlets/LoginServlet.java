@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//REQUEST DISPATCHER! Used for forwarding
-		req.getRequestDispatcher("login.html").
+		req.getRequestDispatcher("partials/login.html").
 		forward(req, resp);
 	}
 	

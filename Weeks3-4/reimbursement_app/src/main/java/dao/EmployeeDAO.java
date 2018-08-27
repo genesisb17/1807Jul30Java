@@ -52,7 +52,7 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 			
 			String sql = "select * from employee where username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, obj.getEmp_username());//maybe needs to be changed to something else
+			ps.setInt(1, obj.getEmployee_id());//maybe needs to be changed to something else
 			
 			ResultSet info = ps.executeQuery();
 						
@@ -80,8 +80,15 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
-			String sql = "insert into employee(employee_id,emp_username,emp_password,"
-					+ "first_name,last_name,email,emp_role_id) values(?,?,?,?,?,?,?)";
+			String sql = "insert into employee("
+					+ "employee_id,emp_username,"
+					+ "emp_password,"
+					+ "first_name,"
+					+ "last_name,"
+					+ "email,"
+					+ "emp_role_id"
+					+ ") values("
+					+ "?,?,?,?,?,?,?)";
 			
 			String[] keys = {"employee_ID"};
 			
@@ -107,20 +114,32 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return a;
 	}
 
 	public Employee update(Employee obj) { //--------------------different than gen's
-		Employee c = new Employee();
+
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
-			String sql = "update accounts set(client_id,first_name,last_name,username,user_password) values(?,?,?,?,?)";
-			
-			String[] keys = {"employee_ID"};
-			
-			PreparedStatement ps = conn.prepareStatement(sql, keys);
+			String sql = "update accounts set("
+					+ "employee_id,"
+					+ "emp_username,"
+					+ "emp_password,"
+					+ "first_name,"
+					+ "last_name,"
+					+ "email,"
+					+ "emp_role_id"
+					+ ") values("
+					+ "?,"
+					+ "?,"
+					+ "?,"
+					+ "?,"
+					+ "?,"
+					+ "?,"
+					+ "?)";
+						
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, obj.getEmployee_id());
 			ps.setString(2,  obj.getEmp_username());
 			ps.setString(3, obj.getEmp_password());
@@ -130,21 +149,12 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 			ps.setInt(7,  obj.getEmp_role_id());
 			
 			
-			int rowsUpdated = ps.executeUpdate();
-			if(rowsUpdated != 0) {
-				ResultSet pk = ps.getGeneratedKeys();
-				while(pk.next()) {
-					//System.out.println(pk.getInt(1));
-					c.setEmployee_id(pk.getInt(1));
-				}
-				conn.commit();
-			}			
+			ps.executeUpdate();		
 			conn.commit(); //				Gen's does not have this if/while
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return c;
+		return obj;
 	}
 
 	public void delete(Employee obj) {
@@ -167,7 +177,6 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return !exists;
 	}
 

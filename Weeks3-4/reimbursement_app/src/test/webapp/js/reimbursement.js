@@ -5,14 +5,16 @@
  */
 window.onload=function(){
 	loadHomeView();
-	
 	$('#homeNav').on('click', loadHomeView);
+	
+//	loadReimbursementsView();
 	$('#reimbursementsNav').on('click', loadReimbursementsView);
 	
-	//loadEmployeesView();
+//	loadEmployeesView();
 	$('#employeesNav').on('click', loadEmployeesView);
-	
-	
+//	
+//	loadAppHomeView();
+//	$('#homeNav').on('click', loadAppHomeView);
 }
 
 function loadHomeView(){
@@ -26,6 +28,20 @@ function loadHomeView(){
 		
 	}
 	xhr.open("GET", "home.view", true);
+	xhr.send();
+}
+
+function loadAppHomeView(){
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		//just showing what we're getting back for now
+		//console.log(xhr.responseText);
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+		}
+		
+	}
+	xhr.open("GET", "app.view", true);
 	xhr.send();
 }
 
@@ -69,6 +85,7 @@ function loadReimbursementsView(){
 	xhr.open("GET", "reimbursements.view");
 	xhr.send();
 }
+
 function submitEmployee(){
 	var eu = $('#emp_username').val();
 	var ep = $('#emp_password').val();
@@ -128,21 +145,6 @@ function submitReimbursement(){
 		xhr.open('POST', 'reimbursements', true); //may need to be reimbursement
 		xhr.send(JSON.stringify(reimbursement));
 }
-function loadReimbursementsView(){
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		//just showing what we're getting back for now
-		//console.log(xhr.responseText);
-		if(xhr.readyState == 4 && xhr.status == 200){
-			$('#view').html(xhr.responseText);
-			//once view is loaded, populate table and add eventlisteners
-			populateReimbursementsTable();
-		}
-		
-	}
-	xhr.open("GET", "reimbursements.view");
-	xhr.send();
-}
 
 
 function populateEmployeeTable(){
@@ -173,7 +175,7 @@ function populateReimbursementTable(){
 		}
 
 	}
-	xhr.open("GET", "books");
+	xhr.open("GET", "reimbursements");
 	xhr.send();
 }
 

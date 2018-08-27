@@ -31,9 +31,9 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 				temp.setSubmitted(rs.getTimestamp("submitted")); //int date???
 				temp.setResolved(rs.getTimestamp("resolved"));
 				temp.setDescription(rs.getString("description"));
-				temp.setReceipt(rs.getBlob("receipt")); //int blob???
+//				temp.setReceipt(rs.getBlob("receipt")); //int blob???
 				temp.setAuthor(rs.getInt("author"));
-				temp.setResolver(rs.getInt("resolver"));
+				temp.setResolver(rs.getInt("resolver_id"));
 				temp.setStatus_id(rs.getInt("status_id"));
 				temp.setType_id(rs.getInt("type_id"));
 
@@ -47,6 +47,7 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 		return Reimbursements;
 	}
 
+	
 	public Reimbursement findOne(Reimbursement obj) {
 		Reimbursement temp = null;
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -62,9 +63,9 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 				temp.setSubmitted(info.getTimestamp("submitted")); //int date???
 				temp.setResolved(info.getTimestamp("resolved"));
 				temp.setDescription(info.getString("description"));
-				temp.setReceipt(info.getBlob("receipt")); //int blob???
+//				temp.setReceipt(inf	o.getBlob("receipt")); //int blob???
 				temp.setAuthor(info.getInt("author"));
-				temp.setResolver(info.getInt("resolver"));
+				temp.setResolver(info.getInt("resolver_id"));
 				temp.setStatus_id(info.getInt("status_id"));
 				temp.setType_id(info.getInt("type_id"));
 			}
@@ -81,23 +82,39 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
 			conn.setAutoCommit(false);
-			String sql = "insert into Reimbursement(Reimb_id, amount,submitted,"
-					+ "resolved,description,receipt,author,resolver,status_id,"
-					+ "type_id) values(?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into Reimbursement(amount,"
+//					+ "submitted,"
+//					+ "resolved,"
+					+ "description,"
+//					+ "receipt,"
+					+ "author,"
+//					+ "resolver_id,"
+//					+ "status_id,"
+					+ "type_id) "
+					+ "values("
+					+ "?,"
+//					+ "?,"
+//					+ "?,"
+					+ "?,"
+//					+ "?,"
+					+ "?,"
+//					+ "?,"
+//					+ "?,"
+					+ "?)";
 			
 			String[] keys = {"Reimb_id"};
 			
 			PreparedStatement ps = conn.prepareStatement(sql, keys);
-			ps.setInt(1, obj.getReimb_id());
-			ps.setDouble(2,  obj.getAmount());
-			ps.setTimestamp(3, obj.getSubmitted());
-			ps.setTimestamp(4, obj.getResolved());
-			ps.setString(5,  obj.getDescription());
-			ps.setBlob(6, obj.getReceipt());
-			ps.setInt(7, obj.getAuthor());
-			ps.setInt(8, obj.getResolver());
-			ps.setInt(9, obj.getStatus_id());
-			ps.setInt(10, obj.getType_id());
+//			ps.setInt(1, obj.getReimb_id());
+			ps.setDouble(1,  obj.getAmount());
+//			ps.setTimestamp(3, obj.getSubmitted());
+//			ps.setTimestamp(4, obj.getResolved());
+			ps.setString(2,  obj.getDescription());
+//			ps.setBlob(6, obj.getReceipt());
+			ps.setInt(3, obj.getAuthor());
+//			ps.setInt(8, obj.getResolver());
+//			ps.setInt(9, obj.getStatus_id());
+			ps.setInt(4, obj.getType_id());
 			
 			int rowsUpdated = ps.executeUpdate();
 			if(rowsUpdated != 0) {
@@ -109,7 +126,7 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 					obj.setSubmitted(pk.getTimestamp(3));
 					obj.setResolved(pk.getTimestamp(4));
 					obj.setDescription(pk.getString(5));
-					obj.setReceipt(pk.getBlob(6));
+//					obj.setReceipt(pk.getBlob(6));
 					obj.setAuthor(pk.getInt(7));
 					obj.setResolver(pk.getInt(8));
 					obj.setStatus_id(pk.getInt(9));
@@ -125,37 +142,39 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 		return obj;
 	}
 	
-	public List<Reimbursement> getReimbursements(Employee c) {//MAKE A FUNCTION IN SQL
+	public List<Reimbursement> getAllEmployeeReimbursements(Employee c) {//MAKE A FUNCTION IN SQL
 		List<Reimbursement> Reimbursements = new ArrayList<Reimbursement>();
+		Reimbursement temp = null;
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "{call get_all_employee_Reimbursements(?)}";
-			CallableStatement cs = conn.prepareCall(sql);
-	
-			cs.registerOutParameter(1, OracleTypes.CURSOR);
-			cs.execute();
-			ResultSet rs = (ResultSet) cs.getObject(1);
+			String sql = "SELECT * " + 
+					"FROM EMPLOYEE emp " + 
+					"RIGHT OUTER JOIN REIMBURSEMENT reimb " + 
+					"ON reimb.AUTHOR = emp.?;";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, c.getEmployee_id()); //was a string passed "id"
+			ResultSet info = ps.executeQuery();
 			
-			while(rs.next()) {
-				Reimbursement temp = new Reimbursement();
-				temp.setReimb_id(rs.getInt("reimb_id"));
-				temp.setAmount(rs.getDouble("amount"));
-				temp.setSubmitted(rs.getTimestamp("submitted"));
-				temp.setResolved(rs.getTimestamp("resolved"));
-				temp.setDescription(rs.getString("description"));
-				temp.setReceipt(rs.getBlob("receipt"));
-				temp.setAuthor(rs.getInt("author"));
-				temp.setResolver(rs.getInt("resolver"));
-				temp.setStatus_id(rs.getInt("status_id"));
-				temp.setType_id(rs.getInt("type_id"));
-				Reimbursements.add(temp);
+			while(info.next()) {
+				temp = new Reimbursement();
+				temp.setReimb_id(info.getInt(1));
+				temp.setAmount(info.getDouble(2));
+				temp.setSubmitted(info.getTimestamp("submitted")); //int date???
+				temp.setResolved(info.getTimestamp("resolved"));
+				temp.setDescription(info.getString("description"));
+//				temp.setReceipt(info.getBlob("receipt")); //int blob???
+				temp.setAuthor(info.getInt("author"));
+				temp.setResolver(info.getInt("resolver_id"));
+				temp.setStatus_id(info.getInt("status_id"));
+				temp.setType_id(info.getInt("type_id"));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return Reimbursements;
 	}
-	
+	//-------------------------------------------------------------------------------------------broken
 	public Reimbursement update(Reimbursement obj) {
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			
@@ -168,6 +187,7 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 			ps.setDouble(1, obj.getAmount());
 			ps.setInt(2, obj.getAuthor());//			change from getId
 			ps.setInt(3, obj.getReimb_id());
+//			ps.setInt(4, obj.getStatus_id());
 			
 			ps.executeQuery();
 			conn.commit();			
@@ -178,6 +198,46 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 		return null;
 	}
 
+	public Reimbursement resolveReimbursement(Reimbursement r, Employee e) {
+		Reimbursement temp = null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "{call resolve_reimbursement(?,?,?)}";
+			CallableStatement cs = conn.prepareCall(sql);
+	
+			cs.registerOutParameter(1, r.getReimb_id());
+			cs.registerOutParameter(2, e.getEmp_role_id());
+			cs.registerOutParameter(3, r.getStatus_id());
+			cs.execute();
+			ResultSet rs = (ResultSet) cs.getObject(1);
+			
+			while(rs.next()) {
+				temp = new Reimbursement();
+				
+				temp.setReimb_id(rs.getInt("Reimb_id"));
+				temp.setAmount(rs.getInt("amount"));
+				temp.setSubmitted(rs.getTimestamp("submitted"));
+				temp.setResolved(rs.getTimestamp("resolved"));
+				temp.setDescription(rs.getString("description"));
+//				temp.setReceipt(rs.getBlob("receipt")); 
+				temp.setAuthor(rs.getInt("author"));
+				temp.setResolver(rs.getInt("resolver_id"));
+				temp.setStatus_id(rs.getInt("status_id"));
+				temp.setType_id(rs.getInt("type_id"));
+
+				//System.out.println(temp);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		return temp;
+	}
+	
+	Reimbursement getPendingReimbursements() {
+		return null;
+		
+	}
+	
 	public void delete(Reimbursement obj) {
 		// TODO Auto-generated method stub
 		

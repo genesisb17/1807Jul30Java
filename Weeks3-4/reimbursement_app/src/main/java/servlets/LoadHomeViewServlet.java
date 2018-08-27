@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/loadHome")
 public class LoadHomeViewServlet extends HttpServlet{
-//REPLACING WITH LOADVIEWSERVLET!
+
+	private static final long serialVersionUID = 1L;
+
+	//REPLACING WITH LOADVIEWSERVLET!
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	//	resp.addHeader("Access-Control-Allow-Origin", "*");
