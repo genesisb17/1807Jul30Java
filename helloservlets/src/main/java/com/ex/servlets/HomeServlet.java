@@ -16,8 +16,7 @@ import com.ex.pojos.User;
 public class HomeServlet extends HttpServlet{
 	
 	@Override
-	protected void doGet(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		
 		User u = (User) session.getAttribute("user");

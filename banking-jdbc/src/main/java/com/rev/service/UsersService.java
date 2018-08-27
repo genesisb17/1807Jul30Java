@@ -11,7 +11,7 @@ public class UsersService {
 	public static boolean isUsernameUnique(String username) {
 		boolean isUnique = UsersDAO.isUsernameUnique(username);
 		
-		// Just checks if a match wsa found or not
+		// Just checks if a match was found or not
 		if (isUnique == true) {
 			return true;
 		}
