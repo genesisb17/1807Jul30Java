@@ -12,6 +12,8 @@ import { BooksComponent } from './components/books/books.component';
 import { GenresComponent } from './components/genres/genres.component';
 import { AuthorsComponent } from './components/authors/authors.component';
 import { BookstoreComponent } from './components/bookstore/bookstore.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BookstoreService } from './services/bookstore.service';
 
 
 @NgModule({
@@ -42,12 +44,13 @@ import { BookstoreComponent } from './components/bookstore/bookstore.component';
     */
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   /*
   Providers - services(@Injectable)
   */
-  providers: [],
+  providers: [ BookstoreService ],
   /*
   Refers to the root component which is the main
   view of the angular app
