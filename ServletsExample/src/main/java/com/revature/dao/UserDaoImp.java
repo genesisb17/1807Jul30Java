@@ -23,7 +23,6 @@ public class UserDaoImp implements UserDao {
 	
 	@Override
 	public String getPasswordHash(User user) {
-		
 		int index = 0;
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			PreparedStatement ps = conn.prepareCall(" SELECT get_user_hash(?,?) AS HASH FROM dual");
@@ -59,7 +58,7 @@ public class UserDaoImp implements UserDao {
 	public User getUser(String username) {
 		int index = 0;
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM EXAMPLE_USERs WHERE USERNAME = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM EXAMPLE_USERS WHERE USERNAME = ?");
 			ps.setString(++index,  username);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next())

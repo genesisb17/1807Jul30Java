@@ -11,15 +11,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class CoresFilter implements Filter {
 
 
     public CoresFilter() {
     }
-
-	public void destroy() {
-	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -38,6 +34,9 @@ public class CoresFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
+	}
+	
+	public void destroy() {
 	}
 
 }
