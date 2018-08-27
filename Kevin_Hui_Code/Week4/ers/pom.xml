@@ -4,7 +4,7 @@
   <artifactId>ers</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <description>Employee Reinbursement System</description>
+  <description>Employee Reimbursement System</description>
   <properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
