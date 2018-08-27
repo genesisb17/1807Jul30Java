@@ -51,6 +51,10 @@ function loadBooksView(){
 	xhr.send();
 }
 
+
+
+
+
 function submitBook(){
 	var i = $('#isbn').val();
 	var t = $('#title').val();
@@ -72,8 +76,14 @@ function submitBook(){
 		}
 	}
 		xhr.open('POST', 'books', true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		//set content type here 
 		xhr.send(JSON.stringify(book));
 	}
+
+
+
+
 
 	function populateBookTable(){
 		var xhr = new XMLHttpRequest();

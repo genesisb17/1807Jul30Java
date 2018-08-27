@@ -226,6 +226,7 @@ class Car2{
 }
 
 let c2 = new Car2('Honda');//can be set via constructor
+let c3 = new Car2('Toyota');
 //c2.brand = 'Hyundai'; //still not able to be reassigned
 
 
