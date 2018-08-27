@@ -9,4 +9,25 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <description></description>
+    <display-name>ServletDispatcher</display-name>
+    <servlet-name>ServletDispatcher</servlet-name>
+    <servlet-class>com.servlets.ServletDispatcher</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletDispatcher</servlet-name>
+    <url-pattern>*.ng</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <display-name>CorsFilter</display-name>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>com.servlets.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <servlet-name>ServletDispatcher</servlet-name>
+  </filter-mapping>
 </web-app>

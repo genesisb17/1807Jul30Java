@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,29 +9,44 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  private username: string;
-  private password: string;
+  username: string;
+  password: string;
+
+  servletEmpId: number;
+  servletUsername: string;
+  servletPassword: string;
+  servletFirst: string;
+  servletLast: string;
+  servletEmail: string;
+  servletRoleId: number;
 
   servletData: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    console.log(`Value of username: ${this.username}`);
-    console.log(`Value of password: ${this.password}`);
-
     this.authService.login(this.username, this.password).subscribe(
       data => {
-        console.log(data);
-        // this.servletFirst = data.firstname;
-        // this.servletLast = data.lastname;
-        // this.servletUsername = data.username;
-        // this.servletEmail = data.email;
+        this.servletEmpId = data.emp_id;
+        this.servletUsername = data.username;
+        this.servletFirst = data.first_name;
+        this.servletLast = data.last_name;
+        this.servletEmail = data.email;
+        this.servletRoleId = data.user_role_id;
+        this.navigate();
       }
     );
-}
+  }
+
+  navigate() {
+    // if (this.servletRoleId === 1) {
+    //
+    // }
+    this.router.navigateByUrl('/eview/' + this.servletEmpId);
+  }
 
 }

@@ -1,3 +1,34 @@
-<p>
-  employeeview works!
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Amount</th>
+      <th>Date Submitted</th>
+      <th>Date Resolved</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Resolver</th>
+      <th>Type</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reimb of reimbs">
+      <td>{{ reimb.reimb_id }}</td>
+      <td>{{ reimb.reimb_amount}}</td>
+      <td>{{ reimb.date_submitted }}</td>
+      <td>{{ reimb.date_resolved }}</td>
+      <td>{{ reimb.reimb_description }}</td>
+      <td>{{ reimb.author_id }}</td>
+      <td>{{ reimb.resolver_id }}</td>
+      <td>{{ reimb.reimb_type_id }}</td>
+      <td>{{ reimb.reimb_status_id }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<br>
+
+<button type="button" label="Click" (click)="toggleReimbAddView()">Add New Reimbursement</button>
+<div><app-reimb-add [showMePartially]="showVar"></app-reimb-add></div>

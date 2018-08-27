@@ -1,7 +1,9 @@
 package com.pojo;
 
 import java.sql.Timestamp;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class ReimbursementPOJO {
 
 	private int reimb_id;

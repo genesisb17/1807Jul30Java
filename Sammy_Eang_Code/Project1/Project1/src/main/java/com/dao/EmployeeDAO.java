@@ -42,16 +42,15 @@ public class EmployeeDAO {
 			return employees;
 		}
 	
-	//Finds employees by some parameter and returns them
-	public EmployeePOJO findOne(String type, Integer id){
+	//Finds employees by username and returns them
+	public EmployeePOJO findOne(String username){
 		EmployeePOJO temp = null;
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
 	
-			String sql = "select * from employees where ? = ?";
+			String sql = "select * from employees where username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, type);
-			ps.setInt(2, id);
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery( );
 			
 		while(rs.next()) {

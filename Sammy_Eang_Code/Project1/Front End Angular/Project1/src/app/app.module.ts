@@ -9,6 +9,7 @@ import { EmployeeviewComponent } from './components/employeeview/employeeview.co
 import { ReimbAddComponent } from './components/reimb-add/reimb-add.component';
 import { ManagerviewComponent } from './components/managerview/managerview.component';
 import { AuthService } from './services/auth.service';
+import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

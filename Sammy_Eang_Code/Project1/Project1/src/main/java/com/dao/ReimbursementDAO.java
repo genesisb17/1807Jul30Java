@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +45,7 @@ public class ReimbursementDAO {
 			return reimbursements;
 		}
 	
-	//Finds reimbursement by reimbursement id and returns it. Prepared Statement.
+	//Finds a single reimbursement by reimbursement id and returns it. Prepared Statement.
 	public ReimbursementPOJO findOnebyID(Integer id){
 		ReimbursementPOJO temp = null;
 		try(Connection conn = ConnectionFactory
@@ -77,18 +78,17 @@ public class ReimbursementDAO {
 	
    /*  Finds all reimbursements by some parameter and returns a list of whatever comes back
 	*  For logic, pass in by emp_id (for whoever is calling so they can see their own reimbursements) 
-	*  or pass by pending for managers so they can see what to approve/deny. Prepared Statement.
+	*  or pass by status = pending for managers so they can see what to approve/deny. Prepared Statement.
 	*/
-	public List<ReimbursementPOJO> findBySomeParam(String search, Integer param) {
+	public List<ReimbursementPOJO> findBySomeParam(Integer id) {
 		
 		List<ReimbursementPOJO> reimbursements = new ArrayList<ReimbursementPOJO>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String sql = "select * from reimbursements where ? = ? order reimb_submitted desc";
+			String sql = "select * from reimbursements where reimb_author = ? order by reimb_submitted desc";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, search);
-			ps.setInt(2, param);
+			ps.setInt(1, id);;
 			ResultSet rs = ps.executeQuery( );
 			
 			while(rs.next()) {
@@ -118,17 +118,16 @@ public class ReimbursementDAO {
 	try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 		
 		conn.setAutoCommit(false);
-		String query = "insert into reimbursements(reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values(?, sysdate, ?, ?, ?, ?)";
+		String query = "insert into reimbursements(reimb_amount, reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) values(?, sysdate, ?, ?, 1, ?)";
 		
 		String[] keys = new String[1];
 		keys[0] = "reimb_id";
 		
 		PreparedStatement ps = conn.prepareStatement(query, keys);
 		ps.setDouble(1, obj.getReimb_amount());
-		ps.setString(3, obj.getReimb_description());
-		ps.setInt(4, obj.getAuthor_id());
-		ps.setInt(5, obj.getReimb_status_id());
-		ps.setInt(6, obj.getReimb_type_id());
+		ps.setString(2, obj.getReimb_description());
+		ps.setInt(3, obj.getAuthor_id());
+		ps.setInt(4, obj.getReimb_type_id());
 
 		
 		int rows = ps.executeUpdate();
@@ -149,29 +148,29 @@ public class ReimbursementDAO {
 	return reimbursement;
 }
 	
-	//Updates reimbursement that is handled by manager. Handles columns 4, 8, 9. Callable statement.
-	//Create statement in sql that updates (reimb_resolved, reimb_resolver, reimb_status_id)
-//	public void updateReimb(Integer eid, Integer rsid) {
-//		
-//		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-//			
-//			   conn.setAutoCommit(false);
-//				String query = "{call updateReimb(?, ?)}";
-//				
-//				CallableStatement cs = conn.prepareCall(query);
-//				cs.setInt(1, eid);
-//				cs.setInt(2, rsid);
-//				
-//				int rows = cs.executeUpdate();
-//				
-//				if(rows != 0) {			
-//					conn.commit();
-//				}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
+	//Updates reimbursement that is handled by manager. Takes reimbursement_id and saves manager id, date (in sql), and approve/deny status
+	public void updateReimb(Integer reid, Integer resid, Integer newStatus) {
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			   conn.setAutoCommit(false);
+				String query = "{call updateReimb(?, ?, ?)}";
+				
+				CallableStatement cs = conn.prepareCall(query);
+				cs.setInt(1, reid);
+				cs.setInt(2, resid);
+				cs.setInt(3, newStatus);
+				
+				int rows = cs.executeUpdate();
+				
+				if(rows != 0) {			
+					conn.commit();
+				}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }
