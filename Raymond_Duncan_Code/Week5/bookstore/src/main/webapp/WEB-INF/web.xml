@@ -27,4 +27,8 @@
     <filter-name>CorsFilter</filter-name>
     <url-pattern>/CorsFilter</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+  	<filter-name>CorsFilter</filter-name>
+  	<servlet-name>*</servlet-name>
+  </filter-mapping>
 </web-app>

@@ -1,16 +1,14 @@
 package com.rev.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.rev.pojos.Book;
 import com.rev.util.ConnectionFactory;
-
-import oracle.jdbc.internal.OracleTypes;
 
 public class BookDAO implements DAO<Book, Integer> {
 
@@ -60,13 +58,11 @@ public class BookDAO implements DAO<Book, Integer> {
 		
 		List<Book> books = new ArrayList<Book>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String sql = "{call get_all_books(?)}";
+			String query = "SELECT * FROM Book";
 			
-			CallableStatement cs = conn.prepareCall(sql);
-			cs.registerOutParameter(1, OracleTypes.CURSOR);
-			cs.execute();
+			Statement s = conn.createStatement();
 			
-			ResultSet rs = (ResultSet) cs.getObject(1);
+			ResultSet rs = s.executeQuery(query);
 			while(rs.next()) {
 				Book temp = new Book();
 				temp.setBookID(rs.getInt("Book_ID"));
