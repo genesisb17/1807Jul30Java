@@ -54,10 +54,10 @@ public class BookServlet extends HttpServlet{
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Book b = mapper.readValue(json, Book.class);
-		System.out.println(b.toString());
+		//System.out.println(b.toString());
 		
 		b = bs.addBook(b);
-		System.out.println(b.toString());
+	//	System.out.println(b.toString());
 		
 		String ret = mapper.writeValueAsString(b);
 		PrintWriter out = resp.getWriter();

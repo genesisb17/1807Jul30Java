@@ -5,10 +5,17 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+      <a class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="/bookstore" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Book Store App
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/books">Books</a>
+          <a class="dropdown-item" href="/genres">Genres</a>
+          <a class="dropdown-item" href="/authors">Authors</a>
+        </div>
+      </li>
     </div>
   </div>
 </nav>
