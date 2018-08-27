@@ -16,7 +16,11 @@ export class AuthService {
   }
 
   submitNew(r_amount: number, r_desc: string, raid: number, rtid: number): Observable<any> {
-    return this.http.post<any>('http://localhost:8081/Project1/findBySome.ng',
+    return this.http.post<any>('http://localhost:8081/Project1/submitNew.ng',
       {reimb_amount: r_amount, reimb_description: r_desc, author_id: raid, reimb_type_id: rtid});
+  }
+
+  getAllReimb(): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/getAllReimb.ng', {});
   }
 }

@@ -31,7 +31,7 @@ public class ReimbursementService {
 		return reimbursements;
 	}
 	
-	public static void submitNew(HttpServletRequest request, HttpServletResponse response) {
+	public static ReimbursementPOJO submitNew(HttpServletRequest request, HttpServletResponse response) {
 		ReimbursementPOJO reimbursement = new ReimbursementPOJO();
 		
 		try {
@@ -41,7 +41,15 @@ public class ReimbursementService {
 		
 		}
 		
-		rDao.submitNew(reimbursement);
+		return rDao.submitNew(reimbursement);
+		
+	}
+	
+	public static List<ReimbursementPOJO> getAllReimb(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<ReimbursementPOJO> reimbursements = rDao.findAll();
+		
+		return reimbursements;
 		
 	}
 	

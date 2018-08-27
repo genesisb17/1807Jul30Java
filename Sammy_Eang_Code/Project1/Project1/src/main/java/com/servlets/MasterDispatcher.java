@@ -18,7 +18,9 @@ private MasterDispatcher() {}
 		case "/Project1/findBySome.ng":
 			return ReimbursementService.findBySome(request, response);
 		case "/Project1/submitNew.ng":
-			ReimbursementService.submitNew(request, response);
+			return ReimbursementService.submitNew(request, response);
+		case "/Project1/getAllReimb.ng":
+			return ReimbursementService.getAllReimb(request, response);
 		default:
 			return "not yet implemented";
 		}

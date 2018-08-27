@@ -15,9 +15,9 @@
   <tbody>
     <tr *ngFor="let reimb of reimbs">
       <td>{{ reimb.reimb_id }}</td>
-      <td>{{ reimb.reimb_amount}}</td>
-      <td>{{ reimb.date_submitted }}</td>
-      <td>{{ reimb.date_resolved }}</td>
+      <td>{{ reimb.reimb_amount | currency}}</td>
+      <td>{{ reimb.date_submitted | date}}</td>
+      <td>{{ reimb.date_resolved | date}}</td>
       <td>{{ reimb.reimb_description }}</td>
       <td>{{ reimb.author_id }}</td>
       <td>{{ reimb.resolver_id }}</td>
@@ -30,5 +30,31 @@
 <br>
 <br>
 
-<button type="button" label="Click" (click)="toggleReimbAddView()">Add New Reimbursement</button>
-<div><app-reimb-add [showMePartially]="showVar"></app-reimb-add></div>
+<!-- <button type="button" label="Click" (click)="toggleReimbAddView()">Add New Reimbursement</button>
+<div><app-reimb-add [showMePartially]="showVar"></app-reimb-add></div> -->
+
+<h2> Submit New Reimbursement </h2>
+<h3> Fill in the fields then click 'Submit' </h3>
+
+  <form (submit)="addNewReimb()">
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" required [(ngModel)]='amount' /> <br>
+
+    <label for="description">Description</label>
+    <input type="textarea" id="description" name="description" required [(ngModel)]='description' /> <br>
+
+    <label for="type">Type</label>
+    <select name="type" label="type" [(ngModel)]='type'>
+        <option value="1">Lodging</option>
+        <option value="2">Travel</option>
+        <option value="3">Food</option>
+        <option value="4">Certification</option>
+        <option value="5">Other</option>
+      </select>
+    <input type="submit" value="Submit"/><br>
+  </form>
+
+  {{ amount }} <br>
+  {{ description }} <br>
+  {{ type }} <br>
+  {{ emp_id }} <br>

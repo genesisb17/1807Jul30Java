@@ -11,18 +11,14 @@ import { Location } from '@angular/common';
 })
 export class EmployeeviewComponent implements OnInit {
 
-  servletData: any;
-
   emp_id: number;
+  amount: number;
+  description: string;
+  type: number;
 
   reimbs: Reimbursement[];
 
-  showVar = false;
-  toggleReimbAddView() {
-    this.showVar = !this.showVar;
-  }
-
-  constructor(private route: ActivatedRoute,
+  constructor(private aroute: ActivatedRoute,
               private location: Location,
               private authService: AuthService) { }
 
@@ -33,7 +29,7 @@ export class EmployeeviewComponent implements OnInit {
   }
 
   getEmployeeId(): number {
-    const emp_id = +this.route.snapshot.paramMap.get('servletEmpId');
+    const emp_id = +this.aroute.snapshot.paramMap.get('servletEmpId');
     return emp_id;
   }
 
@@ -43,6 +39,12 @@ export class EmployeeviewComponent implements OnInit {
         this.reimbs = data;
       }
     );
+  }
+
+  addNewReimb() {
+    this.authService.submitNew(this.amount, this.description, this.emp_id, this.type).subscribe(
+    );
+    location.reload();
   }
 }
 

@@ -149,7 +149,7 @@ public class ReimbursementDAO {
 }
 	
 	//Updates reimbursement that is handled by manager. Takes reimbursement_id and saves manager id, date (in sql), and approve/deny status
-	public void updateReimb(Integer reid, Integer resid, Integer newStatus) {
+	public void updateReimb(Integer raid, Integer resid, Integer newStatus) {
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
@@ -157,7 +157,7 @@ public class ReimbursementDAO {
 				String query = "{call updateReimb(?, ?, ?)}";
 				
 				CallableStatement cs = conn.prepareCall(query);
-				cs.setInt(1, reid);
+				cs.setInt(1, raid);
 				cs.setInt(2, resid);
 				cs.setInt(3, newStatus);
 				

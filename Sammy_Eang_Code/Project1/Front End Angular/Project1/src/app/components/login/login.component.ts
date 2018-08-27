@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
   }
 
   navigate() {
-    // if (this.servletRoleId === 1) {
-    //
-    // }
-    this.router.navigateByUrl('/eview/' + this.servletEmpId);
+    if (this.servletRoleId === 1) {
+      this.router.navigateByUrl('/eview/' + this.servletEmpId);
+    } else {
+      this.router.navigateByUrl('/mview/' + this.servletEmpId);
+    }
   }
 
 }
