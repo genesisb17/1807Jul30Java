@@ -1,5 +1,11 @@
 package com.rev.services;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rev.dao.UserDAO;
 import com.rev.exceptions.IncorrectLoginCredentialsException;
 import com.rev.exceptions.IncorrectPasswordException;
@@ -9,7 +15,21 @@ public class UserService {
 	
 	private UserDAO udao = new UserDAO();
 	
-	public User login(String username, String password) throws IncorrectLoginCredentialsException{
+	public User login(HttpServletRequest request, HttpServletResponse response) throws IncorrectLoginCredentialsException {
+		ObjectMapper mapper = new ObjectMapper();
+		User user = null;
+		
+		try {
+			user = mapper.readValue(request.getReader(), User.class);
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		User authorized = login(user.getUsername(),user.getPassword());
+		return null;
+		
+	}
+	
+	private User login(String username, String password) throws IncorrectLoginCredentialsException{
 		User user = validateCredentials(username,password);
 		return user;
 	}
@@ -53,7 +73,7 @@ public class UserService {
 		User user = udao.getOne(username);
 		if(user == null) {
 			throw new IncorrectLoginCredentialsException();
-		} else if(user.getPassword() != password) {
+		} else if(!user.getPassword().equals(password)) {
 			throw new IncorrectLoginCredentialsException();
 		}
 		return user;		

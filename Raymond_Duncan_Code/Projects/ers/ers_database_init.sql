@@ -138,6 +138,22 @@ END;
     FUNCTIONS
 ****************************************************************************/
 
+CREATE OR REPLACE FUNCTION ers_new_user(
+username IN VARCHAR2,
+password IN VARCHAR2,
+firstname IN VARCHAR2,
+lastname IN VARCHAR2,
+email IN VARCHAR2, 
+company_role IN NUMBER,
+creator IN NUMBER)
+RETURN NUMBER AS user_id NUMBER;
+BEGIN
+    INSERT INTO ers_user(ers_username,ers_password,ers_firstname,ers_lastname,ers_email,ers_company_role)
+    VALUES(username,password,firstname,lastname,email,company_role);
+    SELECT ers_user_id INTO user_id FROM ers_user WHERE ers_username=username AND ers_creator=creator;
+    RETURN user_id;
+END;
+/
 
 
 /****************************************************************************
@@ -202,6 +218,8 @@ BEGIN
     COMMIT;
 END;
 /
+
+
 
 /****************************************************************************
     POPULATE TABLES

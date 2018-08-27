@@ -3,6 +3,9 @@ package com.rev.pojos;
 import java.sql.Blob;
 import java.sql.Timestamp;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ReimbTicket {
 	
 	private Long reimbID;

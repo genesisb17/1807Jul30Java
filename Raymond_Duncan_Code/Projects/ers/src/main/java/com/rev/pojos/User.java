@@ -1,10 +1,13 @@
 package com.rev.pojos;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class User {
 	
 	private Long userID;
 	private String username;
-	private String password;
+	private transient String password;
 	private String firstname;
 	private String lastname;
 	private String email;

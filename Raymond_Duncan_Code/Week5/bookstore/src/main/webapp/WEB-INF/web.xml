@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>bookstore</display-name>
+  <servlet>
+    <servlet-name>FrontController</servlet-name>
+    <servlet-class>com.rev.servlets.LoadViewsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FrontController</servlet-name>
+    <url-pattern>*.view</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoadHomeView</servlet-name>
+    <servlet-class>com.rev.servlets.LoadHomeViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadHomeView</servlet-name>
+    <url-pattern>/loadHome</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+    <display-name>CorsFilter</display-name>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>com.rev.filter.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/CorsFilter</url-pattern>
+  </filter-mapping>
+</web-app>
