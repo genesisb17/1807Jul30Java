@@ -1,2 +1,45 @@
 <h2>My account</h2>
-Style user details here.
+<div *ngIf="user" class="w-auto">
+  <table>
+    <tbody>
+      <tr>
+        <th span="row">Username</th>
+        <td><input type="text" class="form-control" [value]="user.username" disabled></td>
+      </tr>
+      <tr>
+        <th span="row">User role</th>
+        <td><input type="text" class="form-control" [value]="formatRole()" disabled></td>
+      </tr>
+      <tr>
+        <th span="row">First name</th>
+        <td><input type="text" class="form-control" [(ngModel)]="user.firstName" required></td>
+      </tr>
+      <tr>
+        <th span="row">Last name</th>
+        <td><input type="text" class="form-control" [(ngModel)]="user.lastName" required></td>
+      </tr>
+      <tr>
+        <th span="row">Email</th>
+        <td><input type="text" class="form-control" [(ngModel)]="user.email" required></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-secondary mt-2" (click)="changePassword()">Change password</button>
+  <button class="btn btn-primary mt-2" (click)="updateInfo()">Save changes</button>
+  <p *ngIf="message" [ngClass]="message.classes">{{message.text}}</p>
+
+  <ng-template #content let-close="close" let-dismiss="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="password-modal-title">Change password</h4>
+      <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Modal contents.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="close()">Save</button>
+    </div>
+  </ng-template>
+</div>

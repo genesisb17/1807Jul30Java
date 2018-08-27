@@ -102,6 +102,40 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
+        logger.trace("Got PUT request for users.");
+
+        // Make sure the user is logged in.
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN,
+                "Must be logged in to access the API.");
+            return;
+        }
+        User actor = (User) session.getAttribute("user");
+        UserService userService = new UserService(actor);
+
+        try {
+            User updated = mapper.readValue(req.getReader(), User.class);
+            userService.update(updated);
+            // Return the updated user.
+            resp.setContentType("application/json");
+            mapper.writeValue(resp.getWriter(), updated);
+        } catch (PermissionDeniedException e) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        } catch (UserNotFoundException e) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+        } catch (JsonParseException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                "Malformed JSON: " + e.getMessage());
+        } catch (JsonMappingException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST,
+                "JSON does not match expected format: " + e.getMessage());
+        }
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         logger.trace("Got POST request for users.");

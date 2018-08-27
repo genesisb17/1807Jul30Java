@@ -1,3 +1,7 @@
 label {
   font-weight: bold;
 }
+
+th {
+  padding-right: 1rem;
+}

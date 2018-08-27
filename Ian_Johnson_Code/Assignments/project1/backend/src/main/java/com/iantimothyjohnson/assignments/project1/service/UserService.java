@@ -171,22 +171,49 @@ public class UserService {
     }
 
     /**
-     * Updates the information in the database for the given user.
+     * Updates the information in the database for the given user. Note that
+     * this method will not update the user's password; the password hash and
+     * salt fields of the given user object will be ignored. To update a user's
+     * password, use the updatePassword method.
      * 
      * @param user the user whose information to update
      * @throws PermissionDeniedException if the actor is not a manager and is
      *                                   not trying to update their own
-     *                                   information
+     *                                   information or if an employee attempts
+     *                                   to change their own role
+     * @throws UserNotFoundException     if the given user object's ID does not
+     *                                   correspond to any user in the database
      */
-    public void update(User user) throws PermissionDeniedException {
+    public void update(User user)
+        throws PermissionDeniedException, UserNotFoundException {
         if (actor.getRole() != UserRole.MANAGER
             && actor.getId() != user.getId()) {
             throw new PermissionDeniedException(
                 "Only managers can update arbitrary user data.");
         }
+        // Check to make sure employees don't elevate themselves to managers.
+        if (actor.getRole() == UserRole.EMPLOYEE
+            && user.getRole() != UserRole.EMPLOYEE) {
+            throw new PermissionDeniedException(
+                "Employees cannot elevate their own permissions.");
+        }
+
+        // We need to store the password fields from the original user object so
+        // that we can replace them once we're done updating everything else
+        // (the DAO would not ignore them, which is why we have to temporarily
+        // set them to known values).
+        User found = get(user.getId());
+        byte[] oldHash = user.getPasswordHash();
+        byte[] oldSalt = user.getPasswordSalt();
+        user.setPasswordHash(found.getPasswordHash());
+        user.setPasswordSalt(found.getPasswordSalt());
 
         if (!userDao.update(user)) {
             logger.error("User was not updated properly.");
         }
+
+        // Restore the original hash and salt.
+        user.setPasswordHash(oldHash);
+        user.setPasswordSalt(oldSalt);
     }
 }

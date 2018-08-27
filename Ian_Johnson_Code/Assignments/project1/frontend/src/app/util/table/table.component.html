@@ -1,0 +1,12 @@
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th *ngFor="let column of columns" span="col">{{column.title}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rowData">
+      <td *ngFor="let column of columns">{{formatEntry(row, column)}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -21,6 +21,17 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  /**
+   * Updates a user using the given user data.
+   *
+   * @param user a user object with the updated data
+   */
+  update(user: User): Observable<User> {
+    return this.http
+      .put<User>(environment.apiUrl + '/users', user, { withCredentials: true })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);

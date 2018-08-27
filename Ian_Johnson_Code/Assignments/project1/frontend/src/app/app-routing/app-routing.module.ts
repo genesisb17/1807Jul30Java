@@ -27,7 +27,7 @@ const appRoutes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'reimbursements' },
     ],
   },
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: '', pathMatch: 'full', redirectTo: '/home/reimbursements/pending' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

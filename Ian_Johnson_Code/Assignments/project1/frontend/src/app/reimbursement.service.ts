@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Reimbursement } from './reimbursement';
 import { environment } from '../environments/environment';
 import { catchError } from 'rxjs/operators';
+import { ReimbursementStatus } from './reimbursement-status.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,17 @@ import { catchError } from 'rxjs/operators';
 export class ReimbursementService {
   constructor(private http: HttpClient) {}
 
-  getByAuthor(authorId: number): Observable<Reimbursement[]> {
+  getByAuthor(
+    authorId: number,
+    status?: ReimbursementStatus
+  ): Observable<Reimbursement[]> {
+    const params = { author: authorId.toString() };
+    if (status) {
+      params['status'] = status;
+    }
     return this.http
       .get<Reimbursement[]>(environment.apiUrl + '/reimbursements', {
-        params: { author: authorId.toString() },
+        params,
         withCredentials: true,
       })
       .pipe(catchError(this.handleError));

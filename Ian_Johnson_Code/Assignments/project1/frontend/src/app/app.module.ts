@@ -6,16 +6,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './login.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { UserService } from './user.service';
-import { ReimbursementService } from './reimbursement.service';
 import { MainComponent } from './main/main.component';
 import { ReimbursementsComponent } from './main/reimbursements/reimbursements.component';
 import { ReimbursementViewComponent } from './main/reimbursements/reimbursement-view/reimbursement-view.component';
 import { AccountComponent } from './main/account/account.component';
 import { NavbarComponent } from './main/navbar/navbar.component';
+import { TableComponent } from './util/table/table.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +25,7 @@ import { NavbarComponent } from './main/navbar/navbar.component';
     ReimbursementViewComponent,
     AccountComponent,
     PageNotFoundComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

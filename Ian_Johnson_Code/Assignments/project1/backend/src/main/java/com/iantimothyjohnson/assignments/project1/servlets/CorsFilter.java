@@ -38,10 +38,10 @@ public class CorsFilter implements Filter {
         httpResponse.addHeader("Access-Control-Allow-Origin",
             "http://localhost:4200");
         httpResponse.addHeader("Access-Control-Allow-Methods",
-            "GET, POST, HEAD, OPTIONS");
+            "GET, POST, PUT, HEAD, OPTIONS");
         httpResponse.addHeader("Access-Control-Allow-Headers", "Content-Type");
         httpResponse.addHeader("Access-Control-Allow-Credentials", "true");
-        
+
         if (httpRequest.getMethod().equals("OPTIONS")) {
             httpResponse.setStatus(HttpServletResponse.SC_ACCEPTED);
         }

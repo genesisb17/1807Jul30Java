@@ -17,9 +17,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iantimothyjohnson.assignments.project1.dao.SQLUserDAO;
 import com.iantimothyjohnson.assignments.project1.exceptions.AuthenticationFailureException;
+import com.iantimothyjohnson.assignments.project1.exceptions.PermissionDeniedException;
 import com.iantimothyjohnson.assignments.project1.exceptions.UserNotFoundException;
 import com.iantimothyjohnson.assignments.project1.pojos.User;
 import com.iantimothyjohnson.assignments.project1.service.LoginService;
+import com.iantimothyjohnson.assignments.project1.service.UserService;
 import com.iantimothyjohnson.assignments.project1.servlets.types.LoginCredentials;
 
 @WebServlet("/login")
@@ -28,7 +30,7 @@ public class LoginServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger();
 
     private final ObjectMapper mapper = new ObjectMapper();
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
@@ -42,7 +44,17 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         User actor = (User) session.getAttribute("user");
-        
+        UserService userService = new UserService(actor);
+        // Update the actor value.
+        try {
+            actor = userService.get(actor.getId());
+            session.setAttribute("user", actor);
+        } catch (PermissionDeniedException | UserNotFoundException e) {
+            logger.error(
+                "Encountered impossible exception when getting same user information.",
+                e);
+        }
+
         // Send back the currently logged-in user.
         resp.setContentType("application/json");
         mapper.writeValue(resp.getWriter(), actor);

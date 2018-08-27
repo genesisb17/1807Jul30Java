@@ -30,10 +30,10 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     private int authorId;
     private int resolverId;
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-        pattern = "yyyy-MM-dd'T'hh:mm'Z'", timezone = "UTC")
+        pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "UTC")
     private OffsetDateTime submitted;
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-        pattern = "yyyy-MM-dd'T'hh:mm'Z'", timezone = "UTC")
+        pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "UTC")
     private OffsetDateTime resolved;
 
     public Reimbursement() {
