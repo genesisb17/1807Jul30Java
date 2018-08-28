@@ -14,7 +14,7 @@ import com.ex.pojos.User;
 import com.ex.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/user")
+@WebServlet("/account")
 public class UserServlet extends HttpServlet {
 	
 	// SERVICE CLASS! DO NOT CALL DAO METHODS FROM SERVLET

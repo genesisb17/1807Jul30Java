@@ -6,7 +6,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SquarerootPipe } from './pipes/squareroot.pipe';
-import { LoginComponent } from './pipes/components/login/login.component';
+import { AuthorsComponent } from './components/authors/authors.component';
+import { BooksComponent } from './components/books/books.component';
+import { BookstoreComponent } from './components/bookstore/bookstore.component';
+import { GenresComponent } from './components/genres/genres.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { BookstoreService } from 'src/app/services/bookstore.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,10 @@ import { LoginComponent } from './pipes/components/login/login.component';
     HomeComponent,
     NavbarComponent,
     SquarerootPipe,
-    LoginComponent
+    AuthorsComponent,
+    BooksComponent,
+    BookstoreComponent,
+    GenresComponent
   ], /*
   , exports[]
   classes that need to be accessible to the components of other modules. However, we're not making a
@@ -28,12 +37,14 @@ import { LoginComponent } from './pipes/components/login/login.component';
     modules whose classes are needed by classes within this current module
     */
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
   ],
   /*
   Providers - services(@Injectable)
   */
-  providers: [],
+  providers: [ BookstoreService ],
   /*
   Refers to the root component which is the main view of the angular app=
   */

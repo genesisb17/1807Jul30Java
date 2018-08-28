@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todoList = [new Todo('Test', false)];
+    console.log('home page');
+    this.todoList = [new Todo('test', false)];
   }
 
   testBinding() {
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
   }
 
   addItem() {
-    this.todoList.push(this.newItem);
+    // this.todoList.push(this.newItem);
   }
 
   strike(item) {

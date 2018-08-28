@@ -1,0 +1,19 @@
+<h3>Here is your listing of books:</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ISBN</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Genre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of books">
+      <td>{{b.isbn}}</td>
+      <td>{{b.title}}</td>
+      <td>{{b.price | currency}}</td> <!-- what is this doing? -->
+      <td>{{getGenreById(b.genreId)}}</td>
+    </tr>
+  </tbody>
+</table>
