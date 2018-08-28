@@ -123,6 +123,15 @@ begin
 end;
 /
 
+--SET to the role to employee automatically
+create or replace trigger ers_user_role_trig
+before insert on ers_users
+for each row
+begin
+  :new.user_role_id := 1;
+end;
+/
+
 --Set timestamp of reimbursement if its been approved or denied
 create or replace trigger ers_reimbursment_resolved
 before update of reimb_status_id on ers_reimbursement
@@ -150,7 +159,7 @@ select * from ers_users;
 select * from ers_reimbursement;
 
 select * from ers_users where ers_username = 'username';
-
+select * from ers_users where user_email = 'test6@email.com';
 --Default user
 insert into ers_users(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id) values('username', 'password', 'zack', 'ritchie', 'test@email.com', 2);
 

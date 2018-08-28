@@ -3,24 +3,28 @@
   <!-- () = event binding -->
   <!-- [] = properties binding -->
   <!-- [()] = two way binding -->
-  <input type="text" id="username" name="username" required [(ngModel)] = "username"/> <br>
-  <br>
+  <input type="text" name="username" required [(ngModel)] = "username"> 
+  <br><br>
   <label for="password">Password</label>
-  <input type="text" id="password" name="password" required [(ngModel)] = "password"/> <br>
-  <br>
-  <button class="btn btn-success" value="Login">Submit</button>
-  <!-- <input type="submit" value="Login"> -->
+  <input type="text" name="password" required [(ngModel)] = "password"> 
+  <br><br>
+  <button type="submit" class="btn btn-success" value="Login">Submit</button>
 </form>
+<br><br>
 
-<br>
-<br>
-
-<div *ngIf="receivedData">
-  {{receivedData.ers_user_id}}
-  {{receivedData.ers_username}}
-  {{receivedData.ers_first_name}}
-  {{receivedData.ers_last_name}}
-  {{receivedData.user_email}}
-  {{receivedData.user_role_id}}
+<div *ngIf="message">
+  {{message}}
 </div>
 
+<br><br>
+
+<!--
+  <div *ngIf="userData">
+  {{userData.ers_user_id}}
+  {{userData.ers_username}}
+  {{userData.ers_first_name}}
+  {{userData.ers_last_name}}
+  {{userData.user_email}}
+  {{userData.user_role_id}}
+</div>
+-->

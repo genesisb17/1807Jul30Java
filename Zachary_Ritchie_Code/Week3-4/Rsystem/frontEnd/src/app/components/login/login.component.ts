@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth.service';
 import { User } from '../../user';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -9,11 +11,12 @@ import { User } from '../../user';
 })
 export class LoginComponent implements OnInit 
 {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  public receivedData: User;
+  private userData: User;
   private username: string;
   private password: string;  
+  private message: string;
 
   ngOnInit() 
   {
@@ -25,7 +28,19 @@ export class LoginComponent implements OnInit
     //console.log(`value of username: ${this.username}`);
     //console.log(`value of username: ${this.password}`);
 
-    this.authService.login(this.username, this.password).subscribe(data => {this.authService.servletData = data;});
-    this.receivedData = this.authService.servletData; 
+    this.authService.login(this.username, this.password).subscribe(
+      data => {
+        this.authService.servletData = data; 
+        this.userData = this.authService.servletData;
+        
+        if(this.userData != null)
+        {
+          this.router.navigate(["/home"]);
+        }
+        else
+        {
+          this.message = "(Incorrect username or password)";
+        }
+      });    
   }
 }

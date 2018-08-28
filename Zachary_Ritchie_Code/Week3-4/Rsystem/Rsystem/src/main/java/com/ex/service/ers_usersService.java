@@ -9,36 +9,88 @@ public class ers_usersService
 	static DAO<ers_users, Integer> aDao = new ers_usersDAO();
 	static ers_usersDAO ers = new ers_usersDAO();
 	
-	public ers_users save(ers_users obj)
+	public ers_users findOne(String[] obj)
 	{
-		return aDao.save(obj);
-	}
-	
-	public ers_users findOne(String obj)
-	{
-		System.out.println("IN SEVICE LAYER");
-		ers_users user = ers.findOne(obj);
-		return user;
-	}
-	
 
-	/*public static ers_users login(HttpServletRequest req, HttpServletResponse resp)
+		ers_users output = new ers_users();
+		
+		String username = obj[0];
+		String password = obj[1];
+		
+		if (!username.equals("") && !password.equals(""))
+		{			
+			output = ers.findOne(username);
+			
+			if (output.getErs_password().equals(password))
+			{
+				return output;
+			}
+			else
+			{
+				return output = null;
+			}
+		}
+		else
+		{
+			return output = null;
+		}	
+		
+	}
+	
+	public ers_users saving(String[] userInformation)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		String json;
-		ers_users user = null;
-		try {
-			//user = mapper.readValue(req.getReader(), ers_users.class);
-			String[] userInfo = mapper.readValue(json, String[].class);
-			String username = userInfo[0];
-			String password = userInfo[1];
-		} catch (IOException e) {
-			e.printStackTrace();
+		ers_users newUser = new ers_users();
+		ers_users uniqueUsername = new ers_users();
+		ers_users uniqueEmail = new ers_users();
+		String username = userInformation[0];
+		String password = userInformation[1];
+		String firstname = userInformation[2];
+		String lastname = userInformation[3];
+		String email = userInformation[4];
+		String role = userInformation[5];
+		
+		
+		if (!username.equals("") && !password.equals("") && !firstname.equals("") && !lastname.equals("") && !email.equals(""))
+		{
+			
+			//create user object and store values
+			//System.out.println(username + " " + password + " " + firstname + " " + lastname + " " + email);
+			newUser.setErs_first_name(firstname);
+			newUser.setErs_last_name(lastname);
+			newUser.setErs_username(username);
+			newUser.setErs_password(password);
+			newUser.setUser_email(email);
+			newUser.setUser_role_id(Integer.parseInt(role));
+			
+			uniqueUsername = ers.findOne(username);
+			uniqueEmail = ers.findOneEmail(email);
+			
+			//Checks to see if entered username is unique
+
+			if(uniqueUsername != null)
+			{
+				newUser.setErs_username(null);
+				return newUser;				
+			}			
+			else if(uniqueEmail != null)
+			{
+				newUser.setUser_email(null);
+				return newUser;
+			}
+			else
+			{
+				aDao.save(newUser);
+				//Gets the user id and role id
+				newUser = ers.findOne(username);
+				
+				return newUser;
+			}
+			
+			
 		}
-		ers_users authorized = findOne(username);
-		if (userDao.getPasswordHash(user).equals(authorized.getPassword())) {
-			return userDao.getUserInformation(user.getUsername());
+		else 
+		{
+			return newUser = null;
 		}
-		return null;
-	}*/
+	}
 }

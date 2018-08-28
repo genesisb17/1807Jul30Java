@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">R-System</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -8,19 +8,23 @@
       <li class="nav-item">
         <a class="nav-link" href="/home">Home <!--  <span class="sr-only">(current)</span> --></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+      <li class="nav-item" *ngIf="!authService.servletData">
+        <a class="nav-link"  routerLink="/login">Login</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" routerLink="/create-account">Create Account</a>
+      <li class="nav-item" *ngIf="authService.servletData && authService.servletData.user_role_id == 2">
+          <a class="nav-link" routerLink="/createuser">Create Account</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://google.com">Google</a>
+      <li class="nav-item" *ngIf="authService.servletData && authService.servletData.user_role_id == 1" >
+        <a class="nav-link" routerLink="/createReimbursements">Create Reimbursement</a>
       </li>
-      <li class="nav-item">
-        <!-- (click)="logoutFunction()" -->
-        <a class="nav-link" routerLing="/login">Logout</a>
+      <li class="nav-item" *ngIf="authService.servletData" >
+        <a class="nav-link" routerLink="/reimbursements">View Reimbursements</a>
+      </li>
+      <li class="nav-item" *ngIf="authService.servletData">
+        <a class="nav-link" routerLink="/login" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
+
+<!--<li *ngIf="authService.servletData">{{authService.servletData.ers_first_name}}</li>-->

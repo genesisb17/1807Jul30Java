@@ -1,0 +1,26 @@
+<form (submit)="createAccount()">
+  <label>First Name </label> 
+  <input type="text" id="firstname" name="firstname" required [(ngModel)] = "firstname"/>
+  <br><br>
+  <label>Last Name </label> 
+  <input type="text"  id="lastname" name="lastname" required [(ngModel)] = "lastname"/>
+  <br><br>
+  <label>Username </label> 
+  <input type="text"  id="username" name="username" required [(ngModel)] = "username"/>
+  <br><br>
+  <label>Password</label> 
+  <input type="text"  id="password" name="password" required [(ngModel)] = "password"/>
+  <br><br>
+  <label>Email</label> 
+  <input type="text"  id="email" name="email" required [(ngModel)] = "email"/>
+  <br><br>
+  <input type="radio" value="1" name="type" required [(ngModel)] = "typeVal"><label>Employee</label>
+  <br>
+  <input type="radio" value="2" name="type" required [(ngModel)] = "typeVal"><label>Manager</label>
+  <br>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+<div *ngIf="message">
+  {{message}}
+</div>
+

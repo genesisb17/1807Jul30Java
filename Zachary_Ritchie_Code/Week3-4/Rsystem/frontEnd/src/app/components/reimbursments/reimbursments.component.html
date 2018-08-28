@@ -1,0 +1,22 @@
+<form (submit)="createReimbursement()">
+  <label>Amount:</label>
+  <input type="number" name="amount" step="1" required [(ngModel)] = "amount">
+  <br><br>
+  <label>Description:</label>
+  <input type="text" name="description" required [(ngModel)] = "description">
+  <br><br>
+  <label>Type</label>
+  <br>
+  <!--                value = what typeVal variable on ts side is equal too
+                                name = group of radio buttons
+                                            name of the variable on the ts side-->
+  <input type="radio" value="1" name="type" required [(ngModel)] = "typeVal"><label>Lodging</label>
+  <br>
+  <input type="radio" value="2" name="type" required [(ngModel)] = "typeVal"><label>Travel</label>
+  <br>
+  <input type="radio" value="3" name="type" required [(ngModel)] = "typeVal"><label>Food</label>
+  <br>
+  <input type="radio" value="4" name="type" required [(ngModel)] = "typeVal"><label>Other</label>
+  <br><br>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>

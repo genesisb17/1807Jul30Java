@@ -12,30 +12,38 @@ import com.ex.pojos.ers_users;
 import com.ex.service.ers_usersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
-	
-
+@WebServlet("/createAccount")
+public class createAccount extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
+	
 	static ers_usersService service = new ers_usersService();
+	
+	
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	{		
+	{
+		
 		/*
 		 * 1. username
 		 * 2. password
+		 * 3. firstname
+		 * 4. password
+		 * 5. email 
+		 * 6. role
 		 */
 		
-		
-		// 1. Initiate jackson mapper
+		// 2. Initiate jackson mapper
 		ObjectMapper mapper = new ObjectMapper();
 		
-		// 2. Convert received JSON to String array
+		// 3. Convert received JSON to String array
 		String[] userInfo = mapper.readValue(req.getReader(), String[].class);
 		
-		//get the user by username
-		ers_users temp = service.findOne(userInfo);
+		//call service layer and return object
+		ers_users temp = service.saving(userInfo);
+		
+		//TODO: check to see if user is null or not. If null input was invalid
 		
 		//I am going to send in "type" json to "front end"
 		resp.setContentType("application/json");

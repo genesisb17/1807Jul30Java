@@ -86,7 +86,9 @@ public class ers_reimbursementDAO implements DAO<ers_reimbursement , Integer>
 			ps.setInt(5, obj.getReimb_status_id());
 			ps.setInt(6, obj.getReimb_type_id());
 			
-			int numsRowsAffected = ps.executeUpdate();
+			ps.executeUpdate();
+			
+			/*int numsRowsAffected = ps.executeUpdate();
 			
 			if(numsRowsAffected > 0)
 			{
@@ -96,7 +98,7 @@ public class ers_reimbursementDAO implements DAO<ers_reimbursement , Integer>
 				{
 					obj.setReimb_id(pk.getInt(1));
 				}
-			}
+			}*/
 			
 			conn.commit();			
 			
