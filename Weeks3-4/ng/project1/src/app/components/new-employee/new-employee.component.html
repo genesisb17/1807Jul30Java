@@ -1,3 +1,14 @@
-<p>
-  new-employee works!
-</p>
+<input type="text" [(ngModel)]="firstname" placeholder="First name">
+<input type="text" [(ngModel)]="lastname" placeholder="Last name">
+<input type="text" [(ngModel)]="username" placeholder="Username">
+<input type="password" [(ngModel)]="password" placeholder="Password">
+<input type="text" [(ngModel)]="email" (change)="validateEmail()" placeholder="Email address">
+
+<select name="role_id">
+  <option value="1">Manager</option>
+  <option value="2">Regular</option>
+</select>
+
+<button (click)="register()" [disabled] = 'valid' *ngIf="registered==false">Register</button>
+<button (click)="toLogin()" *ngIf="registered==true">Log In</button>
+{{message}}

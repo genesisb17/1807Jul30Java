@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({ //shows up in app.component.html as tag
   selector: 'app-login',
@@ -14,23 +14,32 @@ export class LoginComponent implements OnInit {
 
   servletData: any;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
-    this.authService.subscribeToLogin(()=>{
+    this.loginService.subscribeToLogin(()=>{
       this.router.navigate([" "])
     });
   }
 
 
-  login() {
-    console.log(`Value of username: ${this.username}`);
-    console.log(`Value of password: ${this.password}`);
+  // login() {
+  //   console.log(`Value of username: ${this.username}`);
+  //   console.log(`Value of password: ${this.password}`);
 
-    this.authService.login(this.username, this.password).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
-  }
+  //   this.loginService.login(this.username, this.password).subscribe(
+  //     data => {
+  //       console.log(data);
+  //     }
+  //   );
+  // }
+  login(){
+    console.log("in login method" + this.username);
+      this.loginService.validate(this.username, this.password);
+    }
+  
+    register(){//-  -   -   - - - - - - - - - - - - - - was "register"
+      this.router.navigate(["new-employee"])
+    }
+
 }

@@ -22,9 +22,9 @@ export class EmployeeService {
   return this.http.post<Employee>(API_URL, user, httpOptions);
   }
 
-  public validatePassword(password: string){
-    console.log("validating user with password " + password);
-    return this.http.post<string>(API_URL+"/email", password, httpOptions);
+  public validateUsername(username: string){
+    console.log("validating user with username" + username);
+    return this.http.post<string>(API_URL+"/username", username, httpOptions);
   }
 
   public getEmployee(username: string){

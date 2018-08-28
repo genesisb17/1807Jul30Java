@@ -1,13 +1,17 @@
-<form (submit)="login()" >
+<!-- <form (submit)="login()" >
   <label for="username">Username</label>
   <input type="text" id="username" name="username" required [(ngModel)]='username' /> <br>
   <label for="password">Password</label>
   <input type="password" id="password" name="password" required [(ngModel)]='password' ><br>
   <input type="submit" value="Log In!">
-</form>
+</form> -->
+<input type="text" [(ngModel)]="username" placeholder="Username">
+<input type="password" [(ngModel)]="password" placeholder="Password">
+<button (click)="login()">Login</button>
+<button (click)="register()">Add New Employee</button>
 
-<br><br>
+<!-- <br><br>
 {{ servletUsername }}
 {{ servletFirst }}
 {{ servletLast }}
-{{ servletEmail }}
+{{ servletEmail }} -->

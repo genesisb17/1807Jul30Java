@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Logout
+ * Servlet implementation class ManagerGetReimbursements
  */
-public class Logout extends HttpServlet {
+public class ManagerGetReimbursements extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Logout() {
+    public ManagerGetReimbursements() {
         super();
         // TODO Auto-generated constructor stub
     }

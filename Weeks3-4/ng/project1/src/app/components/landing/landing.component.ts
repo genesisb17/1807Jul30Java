@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Employee } from '../../models/employee.model';
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  employee: Employee;
+
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.employee = this.loginService.currentEmployee;
   }
 
 }

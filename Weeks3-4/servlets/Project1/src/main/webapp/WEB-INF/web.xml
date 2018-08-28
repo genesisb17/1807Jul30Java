@@ -43,6 +43,30 @@
   	<description></description>
   	<servlet-class>servlets.Employee</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>createEmployee</servlet-name>
+  	<display-name>createEmployee</display-name>
+  	<description></description>
+  	<servlet-class>servlets.createEmployee</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>CreateReimbursement</servlet-name>
+  	<display-name>CreateReimbursement</display-name>
+  	<description></description>
+  	<servlet-class>servlets.CreateReimbursement</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>EmployeeGetReimbursment</servlet-name>
+  	<display-name>EmployeeGetReimbursment</display-name>
+  	<description></description>
+  	<servlet-class>servlets.EmployeeGetReimbursment</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ManagerGetReimbursements</servlet-name>
+  	<display-name>ManagerGetReimbursements</display-name>
+  	<description></description>
+  	<servlet-class>servlets.ManagerGetReimbursements</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletDispatcher</servlet-name>
   	<url-pattern>*.ng</url-pattern>
@@ -62,5 +86,21 @@
   <servlet-mapping>
   	<servlet-name>Employee</servlet-name>
   	<url-pattern>/Employee</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>createEmployee</servlet-name>
+  	<url-pattern>/createEmployee</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CreateReimbursement</servlet-name>
+  	<url-pattern>/CreateReimbursement</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EmployeeGetReimbursment</servlet-name>
+  	<url-pattern>/EmployeeGetReimbursment</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManagerGetReimbursements</servlet-name>
+  	<url-pattern>/ManagerGetReimbursements</url-pattern>
   </servlet-mapping>
 </web-app>
