@@ -12,14 +12,21 @@ import { ReimbursementStatus } from './reimbursement-status.enum';
 export class ReimbursementService {
   constructor(private http: HttpClient) {}
 
+  getAll(status: ReimbursementStatus): Observable<Reimbursement[]> {
+    const params = { status };
+    return this.http
+      .get<Reimbursement[]>(environment.apiUrl + '/reimbursements', {
+        params,
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   getByAuthor(
     authorId: number,
-    status?: ReimbursementStatus
+    status: ReimbursementStatus
   ): Observable<Reimbursement[]> {
-    const params = { author: authorId.toString() };
-    if (status) {
-      params['status'] = status;
-    }
+    const params = { author: authorId.toString(), status };
     return this.http
       .get<Reimbursement[]>(environment.apiUrl + '/reimbursements', {
         params,

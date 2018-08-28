@@ -1,0 +1,14 @@
+<h2>All reimbursements</h2>
+<ul class="nav nav-pills flex-column flex-md-row border-bottom pb-1 mb-1" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'pending'" routerLink="./pending" role="tab" [attr.aria-selected]="selectedStatus === 'pending'">Pending</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'approved'" routerLink="./approved" role="tab" [attr.aria-selected]="selectedStatus === 'approved'">Approved</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [class.active]="selectedStatus === 'denied'" routerLink="./denied" role="tab" [attr.aria-selected]="selectedStatus === 'denied'">Denied</a>
+  </li>
+  <div class="flex-grow-1"></div>
+</ul>
+<router-outlet></router-outlet>

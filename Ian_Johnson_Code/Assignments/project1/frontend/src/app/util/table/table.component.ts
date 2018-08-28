@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, PipeTransform } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  PipeTransform,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface TableColumn {
@@ -17,6 +24,8 @@ export class TableComponent<T> implements OnInit {
   columns: TableColumn[];
   @Input()
   data: Observable<T[]>;
+  @Output()
+  rowClick = new EventEmitter<T>();
 
   rowData: T[];
 
@@ -29,5 +38,9 @@ export class TableComponent<T> implements OnInit {
   formatEntry(row: T, column: TableColumn): string {
     const formatter = column.formatter || (d => d.toString());
     return formatter(row[column.property]);
+  }
+
+  handleRowClick(data: T): void {
+    this.rowClick.emit(data);
   }
 }

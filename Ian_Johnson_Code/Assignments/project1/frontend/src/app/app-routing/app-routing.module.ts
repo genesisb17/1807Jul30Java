@@ -8,6 +8,9 @@ import { MainComponent } from '../main/main.component';
 import { AccountComponent } from '../main/account/account.component';
 import { ReimbursementViewComponent } from '../main/reimbursements/reimbursement-view/reimbursement-view.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { AdminReimbursementsComponent } from '../main/admin-reimbursements/admin-reimbursements.component';
+import { AdminUsersComponent } from '../main/admin-users/admin-users.component';
+import { AdminReimbursementViewComponent } from '../main/admin-reimbursements/admin-reimbursement-view/admin-reimbursement-view.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +27,15 @@ const appRoutes: Routes = [
         ],
       },
       { path: 'account', component: AccountComponent },
+      {
+        path: 'admin-reimbursements',
+        component: AdminReimbursementsComponent,
+        children: [
+          { path: ':status', component: AdminReimbursementViewComponent },
+          { path: '', pathMatch: 'full', redirectTo: 'pending' },
+        ],
+      },
+      { path: 'admin-users', component: AdminUsersComponent },
       { path: '', pathMatch: 'full', redirectTo: 'reimbursements' },
     ],
   },

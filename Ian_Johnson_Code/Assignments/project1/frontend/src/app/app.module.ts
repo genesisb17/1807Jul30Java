@@ -15,6 +15,10 @@ import { AccountComponent } from './main/account/account.component';
 import { NavbarComponent } from './main/navbar/navbar.component';
 import { TableComponent } from './util/table/table.component';
 import { AddReimbursementModalComponent } from './main/reimbursements/add-reimbursement-modal/add-reimbursement-modal.component';
+import { AdminReimbursementsComponent } from './main/admin-reimbursements/admin-reimbursements.component';
+import { AdminUsersComponent } from './main/admin-users/admin-users.component';
+import { AdminReimbursementViewComponent } from './main/admin-reimbursements/admin-reimbursement-view/admin-reimbursement-view.component';
+import { ReimbursementDetailsModalComponent } from './main/reimbursements/reimbursement-details-modal/reimbursement-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,10 @@ import { AddReimbursementModalComponent } from './main/reimbursements/add-reimbu
     PageNotFoundComponent,
     TableComponent,
     AddReimbursementModalComponent,
+    AdminReimbursementsComponent,
+    AdminUsersComponent,
+    AdminReimbursementViewComponent,
+    ReimbursementDetailsModalComponent,
   ],
   imports: [
     BrowserModule,

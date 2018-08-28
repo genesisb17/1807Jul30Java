@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, merge } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { UserService } from '../../../user.service';
 import { ReimbursementStatus } from '../../../reimbursement-status.enum';
 import { TableColumn } from '../../../util/table/table.component';
 import { MessagingService } from '../../../util/messaging.service';
+import { ReimbursementDetailsModalComponent } from '../reimbursement-details-modal/reimbursement-details-modal.component';
 
 /**
  * The columns to use for the pending table.
@@ -48,7 +49,10 @@ const resolvedColumns = pendingColumns.concat([
 export class ReimbursementViewComponent implements OnInit {
   reimbursements$: Observable<Reimbursement[]>;
   selectedStatus: ReimbursementStatus;
+  @ViewChild(ReimbursementDetailsModalComponent)
+  detailsModal: ReimbursementDetailsModalComponent;
 
+  detailedReimbursement: Reimbursement;
   tableColumns = pendingColumns;
 
   constructor(
@@ -78,5 +82,10 @@ export class ReimbursementViewComponent implements OnInit {
         this.reimbursementService.getByAuthor(user.id, this.selectedStatus)
       )
     );
+  }
+
+  openDetailsModal(r: Reimbursement): void {
+    this.detailedReimbursement = r;
+    this.detailsModal.open();
   }
 }

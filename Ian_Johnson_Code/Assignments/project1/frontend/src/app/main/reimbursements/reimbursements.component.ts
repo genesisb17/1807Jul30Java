@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Reimbursement } from '../../reimbursement';
-import { UserService } from '../../user.service';
 import { ReimbursementService } from '../../reimbursement.service';
-import { switchMap } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ReimbursementStatus } from '../../reimbursement-status.enum';
+import { ActivatedRoute } from '@angular/router';
 import { AddReimbursementModalComponent } from './add-reimbursement-modal/add-reimbursement-modal.component';
 import { MessagingService } from '../../util/messaging.service';
 

@@ -13,6 +13,15 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/home/account">Account</a>
         </li>
+        <li *ngIf="isAdmin()" ngbDropdown class="nav-item">
+          <a ngbDropdownToggle id="navbar-dropdown" class="nav-link">
+            Manager tools
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbar-dropdown">
+            <a class="dropdown-item" routerLink="/home/admin-reimbursements">View/resolve reimbursements</a>
+            <a class="dropdown-item" routerLink="/home/admin-users">View/create users</a>
+          </div>
+        </li>
       </ul>
       <button class="btn btn-secondary" (click)="logout()">Logout</button>
     </div>
