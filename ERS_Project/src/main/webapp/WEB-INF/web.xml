@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>ERS_Project</display-name>
+  
   <servlet>
     <description></description>
-    <display-name>LogInServlet</display-name>
     <servlet-name>LogInServlet</servlet-name>
     <servlet-class>com.ex.servlets.LogInServlet</servlet-class>
   </servlet>
@@ -13,17 +13,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>HomeServlet</display-name>
-    <servlet-name>HomeServlet</servlet-name>
-    <servlet-class>com.ex.servlets.HomeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HomeServlet</servlet-name>
-    <url-pattern>/welcome</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>EmployeeWelcome</display-name>
     <servlet-name>EmployeeWelcome</servlet-name>
     <servlet-class>com.ex.servlets.EmployeeWelcome</servlet-class>
   </servlet>
@@ -33,22 +22,11 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ViewHistory</display-name>
-    <servlet-name>ViewHistory</servlet-name>
-    <servlet-class>com.ex.servlets.ViewHistory</servlet-class>
+    <servlet-name>ManagerWelcome</servlet-name>
+    <servlet-class>com.ex.servlets.ManagerWelcome</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ViewHistory</servlet-name>
-    <url-pattern>/ViewHistory</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>NewSubmission</display-name>
-    <servlet-name>NewSubmission</servlet-name>
-    <servlet-class>com.ex.servlets.NewSubmission</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>NewSubmission</servlet-name>
-    <url-pattern>/NewSubmission</url-pattern>
+    <servlet-name>ManagerWelcome</servlet-name>
+    <url-pattern>/ManagerWelcome</url-pattern>
   </servlet-mapping>
 </web-app>
