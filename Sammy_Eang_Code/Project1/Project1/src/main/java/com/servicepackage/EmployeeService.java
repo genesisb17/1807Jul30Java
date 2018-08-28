@@ -1,6 +1,7 @@
 package com.servicepackage;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,13 @@ public class EmployeeService {
 			return eDao.findOne(employee.getUsername());
 		}
 		return null;
+	}
+	
+	public static List<EmployeePOJO> getAllEmp(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<EmployeePOJO> employees = eDao.findAll();
+		
+		return employees;
 	}
 
 }

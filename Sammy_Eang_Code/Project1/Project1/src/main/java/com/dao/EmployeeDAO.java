@@ -8,8 +8,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.connectionfactory.ConnectionFactory;
 import com.pojo.EmployeePOJO;
+import com.pojo.EmployeeRolesPOJO;
+import com.pojo.ReimbursementTypePOJO;
 
 public class EmployeeDAO {
 
@@ -71,6 +76,31 @@ public class EmployeeDAO {
 		return temp;
 	}
 
-	//Shouldn't need save since you don't need to add employees or managers for now
+	//Shouldn't need save since you don't need to add employees
 	//Shouldn't need update since you can't demote managers or promote employees
+	
+	//Here are all the less useful Daos
+	public List<EmployeeRolesPOJO> findAllRoles() {
+		
+		List<EmployeeRolesPOJO> roles = new ArrayList<EmployeeRolesPOJO>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String query = "select * from user_roles";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				EmployeeRolesPOJO temp = new EmployeeRolesPOJO();
+				temp.setEmp_role_id(rs.getInt(1));
+				temp.setEmp_role(rs.getString(2));
+				roles.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return roles;
+	}
+	
 }

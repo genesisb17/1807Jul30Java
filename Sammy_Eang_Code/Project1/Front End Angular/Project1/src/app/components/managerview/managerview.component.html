@@ -17,17 +17,22 @@
     <tr *ngFor="let reimb of reimbs">
       <td>{{ reimb.reimb_id }}</td>
       <td>{{ reimb.reimb_amount | currency}}</td>
-      <td>{{ reimb.date_submitted | date}}</td>
-      <td>{{ reimb.date_resolved | date}}</td>
+      <td>{{ reimb.date_submitted | date}} {{ reimb.date_submitted | date: 'shortTime'}}</td>
+      <td>{{ reimb.date_resolved | date}} {{ reimb.date_resolved | date: 'shortTime'}}</td>
       <td>{{ reimb.reimb_description }}</td>
       <td>{{ reimb.author_id }}</td>
       <td>{{ reimb.resolver_id }}</td>
       <td>{{ reimb.reimb_type_id }}</td>
       <td>{{ reimb.reimb_status_id }}</td>
-      <td><a href="google.com">Approve</a>/<a href="google.com">Deny</a></td>
+      <td>
+        <button (click)='updateReimb(reimb.reimb_id, 2)'>Approve</button> | 
+        <button (click)='updateReimb(reimb.reimb_id, 3)'>Deny</button>
+      </td>
     </tr>
   </tbody>
 </table>
 
 <br>
 <br>
+
+<button (click)='logout()'>Logout</button>

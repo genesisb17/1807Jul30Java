@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Reimbursement } from '../../objects/reimbursement.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-managerview',
@@ -12,11 +13,14 @@ import { Location } from '@angular/common';
 export class ManagerviewComponent implements OnInit {
 
   emp_id: number;
+  status_id: number;
+  reimb_id: number;
 
   reimbs: Reimbursement[];
   constructor(private aroute: ActivatedRoute,
               private location: Location,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() { this.emp_id = this.getEmployeeId();
                this.reimbs = [new Reimbursement(1, 2, 3, 4, 'hello', 1, 1, 1, 1)];
@@ -34,6 +38,15 @@ export class ManagerviewComponent implements OnInit {
         this.reimbs = data;
       }
     );
+  }
+
+  updateReimb(reid: number, status_id: number) {
+    this.authService.updateReimb(reid, this.emp_id, status_id).subscribe();
+    location.reload();
+  }
+
+  logout() {
+    this.router.navigateByUrl('/login');
   }
 
 }

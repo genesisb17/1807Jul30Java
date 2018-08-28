@@ -11,6 +11,8 @@ import java.util.List;
 
 import com.connectionfactory.ConnectionFactory;
 import com.pojo.ReimbursementPOJO;
+import com.pojo.ReimbursementStatusPOJO;
+import com.pojo.ReimbursementTypePOJO;
 
 public class ReimbursementDAO {
 	
@@ -106,7 +108,8 @@ public class ReimbursementDAO {
 			}
 			
 		} catch (SQLException e) {
-}
+
+		}
 		return reimbursements;
 	}
 	
@@ -149,7 +152,7 @@ public class ReimbursementDAO {
 }
 	
 	//Updates reimbursement that is handled by manager. Takes reimbursement_id and saves manager id, date (in sql), and approve/deny status
-	public void updateReimb(Integer raid, Integer resid, Integer newStatus) {
+	public void updateReimb(Integer rid, Integer resid, Integer newStatus) {
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
@@ -157,7 +160,7 @@ public class ReimbursementDAO {
 				String query = "{call updateReimb(?, ?, ?)}";
 				
 				CallableStatement cs = conn.prepareCall(query);
-				cs.setInt(1, raid);
+				cs.setInt(1, rid);
 				cs.setInt(2, resid);
 				cs.setInt(3, newStatus);
 				
@@ -172,5 +175,53 @@ public class ReimbursementDAO {
 		}
 		
 	}
+	
+	//Here are all the less useful Daos
+	public List<ReimbursementStatusPOJO> getAllStatus() {
+		
+		List<ReimbursementStatusPOJO> statuses = new ArrayList<ReimbursementStatusPOJO>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String query = "select * from reimbursement_status";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				ReimbursementStatusPOJO temp = new ReimbursementStatusPOJO();
+				temp.setReimb_status_id(rs.getInt(1));
+				temp.setReimb_status(rs.getString(2));
+				statuses.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return statuses;
+	}
+	
+	public List<ReimbursementTypePOJO> getAllTypes() {
+		
+		List<ReimbursementTypePOJO> types = new ArrayList<ReimbursementTypePOJO>();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			
+			String query = "select * from reimbursement_type";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				ReimbursementTypePOJO temp = new ReimbursementTypePOJO();
+				temp.setReimb_type_id(rs.getInt(1));
+				temp.setReimb_type(rs.getString(2));
+				types.add(temp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return types;
+	}
+
 
 }

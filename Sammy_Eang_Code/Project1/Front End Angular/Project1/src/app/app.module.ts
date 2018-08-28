@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { EmployeeviewComponent } from './components/employeeview/employeeview.component';
-import { ReimbAddComponent } from './components/reimb-add/reimb-add.component';
 import { ManagerviewComponent } from './components/managerview/managerview.component';
 import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 import { AppRoutingModule } from './/app-routing.module';
 
 @NgModule({
@@ -16,7 +16,6 @@ import { AppRoutingModule } from './/app-routing.module';
     AppComponent,
     LoginComponent,
     EmployeeviewComponent,
-    ReimbAddComponent,
     ManagerviewComponent
   ],
   imports: [
@@ -25,7 +24,8 @@ import { AppRoutingModule } from './/app-routing.module';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, DataService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -23,4 +23,9 @@ export class AuthService {
   getAllReimb(): Observable<any> {
     return this.http.post<any>('http://localhost:8081/Project1/getAllReimb.ng', {});
   }
+
+  updateReimb(reid: number, resid: number, statusid: number): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/updateReimb.ng', {
+      reimb_id: reid, resolver_id: resid, reimb_status_id: statusid});
+  }
 }

@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Reimbursement } from '../../objects/reimbursement.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-employeeview',
@@ -20,7 +21,8 @@ export class EmployeeviewComponent implements OnInit {
 
   constructor(private aroute: ActivatedRoute,
               private location: Location,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
     this.emp_id = this.getEmployeeId();
@@ -42,9 +44,12 @@ export class EmployeeviewComponent implements OnInit {
   }
 
   addNewReimb() {
-    this.authService.submitNew(this.amount, this.description, this.emp_id, this.type).subscribe(
-    );
+    this.authService.submitNew(this.amount, this.description, this.emp_id, this.type).subscribe();
     location.reload();
+  }
+
+  logout() {
+    this.router.navigateByUrl('/login');
   }
 }
 
