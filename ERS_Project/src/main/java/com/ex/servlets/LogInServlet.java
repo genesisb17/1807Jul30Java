@@ -36,10 +36,19 @@ public class LogInServlet extends HttpServlet {
 			response.sendRedirect("login.html");
 		}
 		else {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-			System.out.println(session.getId());
-			response.sendRedirect("/ERS_Project/welcome");
+			if (user.getRoleid() == 100) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				System.out.println(session.getId());
+				response.sendRedirect("/ERS_Project/EmployeeWelcome");
+			}
+			else if (user.getRoleid() == 110) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				System.out.println(session.getId());
+				response.sendRedirect("/ERS_Project/ManagerWelcome");
+				// TODO: IMPLEMENT THIS
+			}
 		}
 	}
 }

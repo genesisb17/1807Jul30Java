@@ -21,4 +21,34 @@
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EmployeeWelcome</display-name>
+    <servlet-name>EmployeeWelcome</servlet-name>
+    <servlet-class>com.ex.servlets.EmployeeWelcome</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EmployeeWelcome</servlet-name>
+    <url-pattern>/EmployeeWelcome</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewHistory</display-name>
+    <servlet-name>ViewHistory</servlet-name>
+    <servlet-class>com.ex.servlets.ViewHistory</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewHistory</servlet-name>
+    <url-pattern>/ViewHistory</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewSubmission</display-name>
+    <servlet-name>NewSubmission</servlet-name>
+    <servlet-class>com.ex.servlets.NewSubmission</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewSubmission</servlet-name>
+    <url-pattern>/NewSubmission</url-pattern>
+  </servlet-mapping>
 </web-app>
