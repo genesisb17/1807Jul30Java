@@ -216,4 +216,33 @@ public class UserService {
         user.setPasswordHash(oldHash);
         user.setPasswordSalt(oldSalt);
     }
+    
+    /**
+     * Updates the given user's password, generating a new salt and computing the hash from it.
+     * @param user the user whose password to update. The object will be updated to contain the new hash and salt upon success.
+     * @param password the new (unhashed) password to use
+     * @throws PermissionDeniedException if the given user is not the actor and the actor is not a manager
+     * @throws UserNotFoundException if the given user does not correspond to a user in the database
+     */
+    public void updatePassword(User user, char[] password) throws PermissionDeniedException, UserNotFoundException {
+        if (actor.getRole() != UserRole.MANAGER
+            && actor.getId() != user.getId()) {
+            throw new PermissionDeniedException(
+                "Only managers can change an arbitrary user's password.");
+        }
+        
+        byte[] salt = Passwords.generateSalt();
+        byte[] hashed = Passwords.hashPassword(password, salt);
+        // We should only update the user object upon success, so we need to
+        // make a temporary object here for the update.
+        User updated = new User(user);
+        updated.setPasswordSalt(salt);
+        updated.setPasswordHash(hashed);
+        if (!userDao.update(updated)) {
+            throw new UserNotFoundException(user.getId());
+        }
+        // Now we can update the original object.
+        user.setPasswordSalt(salt);
+        user.setPasswordHash(hashed);
+    }
 }

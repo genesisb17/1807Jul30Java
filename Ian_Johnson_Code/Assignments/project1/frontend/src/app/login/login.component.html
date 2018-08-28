@@ -5,7 +5,7 @@
     <input type="text" id="username" name="username" class="form-control mb-2" placeholder="Username" [(ngModel)]="username">
     <label for="password" class="sr-only">Password</label>
     <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Password" [(ngModel)]="password">
-    <button class="btn btn-primary w-100">Login</button>
+    <button class="btn btn-primary w-100" type="submit">Login</button>
     <div *ngIf="error" class="text-center text-danger mt-2 w-100">{{error}}</div>
   </form>
 </div>

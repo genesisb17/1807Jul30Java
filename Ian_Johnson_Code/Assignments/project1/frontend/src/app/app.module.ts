@@ -14,6 +14,7 @@ import { ReimbursementViewComponent } from './main/reimbursements/reimbursement-
 import { AccountComponent } from './main/account/account.component';
 import { NavbarComponent } from './main/navbar/navbar.component';
 import { TableComponent } from './util/table/table.component';
+import { AddReimbursementModalComponent } from './main/reimbursements/add-reimbursement-modal/add-reimbursement-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TableComponent } from './util/table/table.component';
     AccountComponent,
     PageNotFoundComponent,
     TableComponent,
+    AddReimbursementModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,11 @@ import { tap } from 'rxjs/operators';
 import { UserService } from '../../user.service';
 import { User } from '../../user';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbActiveModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-account',
@@ -13,8 +17,14 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AccountComponent implements OnInit {
   user: User;
   message: { text: string; classes: string[] };
+  passwordMessage: { text: string; classes: string[] };
   @ViewChild('content')
   content: NgbActiveModal;
+  passwordModal: NgbModalRef;
+
+  // For the password change modal.
+  newPassword: string;
+  confirmPassword: string;
 
   constructor(
     private userService: UserService,
@@ -28,9 +38,28 @@ export class AccountComponent implements OnInit {
   }
 
   changePassword(): void {
-    this.modalService.open(this.content, {
+    this.passwordModal = this.modalService.open(this.content, {
       ariaLabelledBy: 'password-modal-title',
     });
+  }
+
+  closeChangePassword(): void {
+    if (!this.validateChangePassword()) {
+      return;
+    }
+    this.userService
+      .updatePassword(this.user.username, this.newPassword)
+      .subscribe(
+        () => {
+          this.passwordModal.close();
+        },
+        err => {
+          this.passwordMessage = {
+            text: err,
+            classes: ['text-danger'],
+          };
+        }
+      );
   }
 
   fetchUser(): void {
@@ -51,7 +80,7 @@ export class AccountComponent implements OnInit {
     this.userService.update(this.user).subscribe(
       user => {
         this.message = {
-          text: 'User info updated successfully.',
+          text: 'User information updated successfully.',
           classes: ['text-success'],
         };
         this.user = user;
@@ -74,6 +103,24 @@ export class AccountComponent implements OnInit {
     if (!this.user.firstName || !this.user.lastName || !this.user.email) {
       this.message = {
         text: 'Please fill in all required fields.',
+        classes: ['text-danger'],
+      };
+      return false;
+    }
+    return true;
+  }
+
+  private validateChangePassword(): boolean {
+    if (!this.newPassword || !this.confirmPassword) {
+      this.passwordMessage = {
+        text: 'Please fill in all fields.',
+        classes: ['text-danger'],
+      };
+      return false;
+    }
+    if (this.newPassword !== this.confirmPassword) {
+      this.passwordMessage = {
+        text: 'Given passwords do not match.',
         classes: ['text-danger'],
       };
       return false;

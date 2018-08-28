@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Reimbursement } from '../../reimbursement';
 import { UserService } from '../../user.service';
 import { ReimbursementService } from '../../reimbursement.service';
 import { switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReimbursementStatus } from '../../reimbursement-status.enum';
+import { AddReimbursementModalComponent } from './add-reimbursement-modal/add-reimbursement-modal.component';
+import { MessagingService } from '../../util/messaging.service';
 
 @Component({
   selector: 'app-reimbursements',
@@ -12,9 +14,16 @@ import { ReimbursementStatus } from '../../reimbursement-status.enum';
   styleUrls: ['./reimbursements.component.css'],
 })
 export class ReimbursementsComponent implements OnInit {
+  @ViewChild(AddReimbursementModalComponent)
+  addReimbursementModal: AddReimbursementModalComponent;
+
   selectedStatus: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private reimbursementService: ReimbursementService,
+    private messages: MessagingService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     // Subscribe to the child's routes so that we can choose the right tab based
@@ -22,5 +31,16 @@ export class ReimbursementsComponent implements OnInit {
     this.route.firstChild.paramMap.subscribe(
       params => (this.selectedStatus = params.get('status'))
     );
+  }
+
+  addReimbursement(r: Reimbursement) {
+    this.reimbursementService.submit(r).subscribe(_ => {
+      // Refresh the current view.
+      this.messages.send('status', this.selectedStatus);
+    });
+  }
+
+  openAddReimbursementModal(): void {
+    this.addReimbursementModal.open();
   }
 }

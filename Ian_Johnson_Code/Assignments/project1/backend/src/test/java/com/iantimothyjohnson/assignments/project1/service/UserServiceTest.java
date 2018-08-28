@@ -194,5 +194,25 @@ class UserServiceTest {
             assertEquals(testEmployee, userDao.selectById(testEmployee.getId()),
                 "Employee information not successfully updated.");
         }
+
+        @Test
+        @DisplayName("cannot update another user's password")
+        final void testUpdateOtherPasswordPermissionDenied() throws Exception {
+            assertThrows(PermissionDeniedException.class,
+                () -> userService.updatePassword(testManager,
+                    "newPassword".toCharArray()),
+                "Successfully changed the manager's password.");
+        }
+
+        @Test
+        @DisplayName("can update own password")
+        final void testUpdateOwnPassword() throws Exception {
+            userService.updatePassword(testEmployee, "p@ssw0rd".toCharArray());
+            // Make sure we can log in.
+            User loggedIn = new LoginService(userDao)
+                .login(testEmployee.getUsername(), "p@ssw0rd".toCharArray());
+            assertEquals(testEmployee, loggedIn,
+                "Password was not successfully updated.");
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.iantimothyjohnson.notes.week4.bookstore.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,26 +16,14 @@ import com.iantimothyjohnson.notes.week4.bookstore.service.BookService;
 @WebServlet("/books")
 public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BookService bs;
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		bs = new BookService();
-	}
+	private ObjectMapper mapper = new ObjectMapper();
+	private BookService bs = new BookService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Book> books = bs.getAll();
-		if (books.size() > 0) {
-			// Return books; use the Jackson API to convert to JSON.
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(books);
-			PrintWriter out = resp.getWriter();
-			resp.setContentType("application/json");
-			out.print(json);
-		} else {
-			resp.setStatus(404);
-		}
+		// Return books; use the Jackson API to convert to JSON.
+		resp.setContentType("application/json");
+		mapper.writeValue(resp.getWriter(), books);
 	}
 }

@@ -10,10 +10,11 @@
     <a class="nav-link" [class.active]="selectedStatus === 'denied'" routerLink="./denied" role="tab" [attr.aria-selected]="selectedStatus === 'denied'">Denied</a>
   </li>
   <div class="flex-grow-1"></div>
-  <button class="btn btn-success" aria-label="Submit reimbursement">
+  <button class="btn btn-success" aria-label="Submit reimbursement" (click)="openAddReimbursementModal()">
     <span aria-hidden="true">
       +
     </span>
   </button>
 </ul>
 <router-outlet></router-outlet>
+<app-add-reimbursement-modal (close)="addReimbursement($event)"></app-add-reimbursement-modal>

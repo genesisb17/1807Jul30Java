@@ -32,6 +32,22 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  /**
+   * Updates a user's password.
+   *
+   * @param username the user's username
+   * @param password the user's password
+   */
+  updatePassword(username: string, password: string): Observable<void> {
+    return this.http
+      .post<void>(
+        environment.apiUrl + '/change-password',
+        { username, password },
+        { withCredentials: true }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);

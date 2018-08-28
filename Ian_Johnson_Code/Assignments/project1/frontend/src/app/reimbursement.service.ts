@@ -28,6 +28,14 @@ export class ReimbursementService {
       .pipe(catchError(this.handleError));
   }
 
+  submit(r: Reimbursement): Observable<Reimbursement> {
+    return this.http
+      .post<Reimbursement>(environment.apiUrl + '/reimbursements', r, {
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);

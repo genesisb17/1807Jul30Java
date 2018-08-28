@@ -30,10 +30,10 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     private int authorId;
     private int resolverId;
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-        pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "UTC")
+        pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private OffsetDateTime submitted;
     @JsonFormat(shape = JsonFormat.Shape.STRING,
-        pattern = "yyyy-MM-dd'T'hh:mm:ss'Z'", timezone = "UTC")
+        pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
     private OffsetDateTime resolved;
 
     public Reimbursement() {
@@ -79,6 +79,10 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
                 "Amount is greater than the maximum of "
                     + StringUtils.formatMoney(amount) + ".");
         }
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException(
+                "Reimbursement amounts must be non-negative.");
+        }
         if (amount.scale() > 2) {
             throw new IllegalArgumentException(
                 "Fractional cents are not allowed in reimbursement amounts.");
@@ -91,6 +95,9 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     }
 
     public void setDescription(String description) {
+        if (description == null) {
+            description = "";
+        }
         if (description.length() > MAX_DESCRIPTION_LEN) {
             throw new IllegalArgumentException(
                 "Description length is greater than the maximum of "

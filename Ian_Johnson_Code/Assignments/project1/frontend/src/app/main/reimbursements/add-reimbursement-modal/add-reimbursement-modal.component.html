@@ -1,0 +1,39 @@
+<ng-template #content let-dismiss="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Submit reimbursement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="form-group row">
+        <label for="type" class="col-12 col-md-6">Type:</label>
+        <select id="type" class="form-control custom-select" [(ngModel)]="type" required>
+          <option value="lodging">Lodging</option>
+          <option value="travel">Travel</option>
+          <option value="food">Food</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group row mt-2 mt-md-0">
+        <label for="amount" class="col-12 col-md-6">Amount:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span id="amount-unit" class="input-group-text">$</span>
+          </div>
+          <input type="number" step="0.01" min="0" id="amount" class="col-12 col-md form-control" [(ngModel)]="amount" aria-describedby="amount-unit"
+            required>
+        </div>
+      </div>
+      <div class="form-group row mt-2 mt-md-0">
+        <label for="description" class="col-12">Description:</label>
+        <input type="text" maxlength="500" id="description" class="col-12 form-control" [(ngModel)]="description">
+      </div>
+      <div *ngIf="message" class="row mt-2" [ngClass]="message.classes">{{message.text}}</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Submit</button>
+  </div>
+</ng-template>

@@ -8,6 +8,7 @@ export enum ReimbursementStatus {
 export namespace ReimbursementStatus {
   /**
    * Parses a ReimbursementStatus from a string.
+   *
    * @param s the string to be parsed as a (case-insensitive) status value
    */
   export function parse(s: string): ReimbursementStatus | null {

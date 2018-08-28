@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { Observable, merge } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 import { Reimbursement } from '../../../reimbursement';
 import { ReimbursementService } from '../../../reimbursement.service';
 import { UserService } from '../../../user.service';
 import { ReimbursementStatus } from '../../../reimbursement-status.enum';
 import { TableColumn } from '../../../util/table/table.component';
+import { MessagingService } from '../../../util/messaging.service';
 
 /**
  * The columns to use for the pending table.
@@ -53,16 +54,22 @@ export class ReimbursementViewComponent implements OnInit {
   constructor(
     private reimbursementService: ReimbursementService,
     private userService: UserService,
+    private messages: MessagingService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.reimbursements$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        const status = ReimbursementStatus.parse(params.get('status'));
-        this.selectedStatus = status;
+    // Make sure we listen both for real status changes and fake ones.
+    const statuses = merge(
+      this.route.paramMap.pipe(map(params => params.get('status'))),
+      this.messages.getMessages('status')
+    );
+
+    this.reimbursements$ = statuses.pipe(
+      switchMap(status => {
+        this.selectedStatus = ReimbursementStatus.parse(status);
         this.tableColumns =
-          status === ReimbursementStatus.Pending
+          this.selectedStatus === ReimbursementStatus.Pending
             ? pendingColumns
             : resolvedColumns;
         return this.userService.getCurrentUser();

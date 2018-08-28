@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // Check to see if the user is already logged in.
     this.userService.getCurrentUser().subscribe(_ => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['home']);
     });
   }
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.username, this.password).subscribe(
       user => {
         console.log(JSON.stringify(user));
-        this.router.navigate(['/home']);
+        this.router.navigate(['home']);
       },
       error => (this.error = error)
     );
