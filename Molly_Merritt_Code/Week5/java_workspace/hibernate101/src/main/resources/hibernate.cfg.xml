@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.Oracle10gDialect
+		</property>
+		<property name="driver_class">
+			oracle.jdbc.driver.OracleDriver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:oracle:thin:@demo1807jul30java.cghkpmgiod7j.us-east-1.rds.amazonaws.com:1521/ORCL
+		</property>
+		<property name="hibernate.connection.username">demo1807jul30java</property>
+		<property name="hibernate.connection.password">myp4ssw0rd</property>
+		
+		<property name="show_sql">true</property>	<!-- shows you the SQL code in console -->
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		
+		<mapping class="com.ex.pojos.Bear"/>
+		
+	</session-factory>
+</hibernate-configuration>
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
@@ -11,14 +37,17 @@
 			oracle.jdbc.driver.OracleDriver
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:oracle:thin:@localhost:1521:xe	<!-- CHANGE THIS TO AWS -->
+			jdbc:oracle:thin:@demo1807jul30java.cghkpmgiod7j.us-east-1.rds.amazonaws.com:1521/ORCL
 		</property>
-		<property name="hibernate.connection.username">demo</property>
-		<property name="hibernate.connection.password">demo</property>
+		<property name="hibernate.connection.username">demo1807jul30java</property>
+		<property name="hibernate.connection.password">myp4ssw0rd</property>
 		
-		<property name="show_sql">true</property>	<!-- shows you the SQL code in console -->
-		<property name="hibernate.hbm2ddl.auto">create</property>	<!-- first time you
+		<property name="show_sql">true</property>	 shows you the SQL code in console
+		<property name="hibernate.hbm2ddl.auto">create</property>	first time you
 													update, do create. after first
-													time, change to update -->
+													time, change to update
+													
+		Tell hibernate where to find classes configured with annotations
+		<mapping class="com.ex.pojos.Bear"></mapping>
 	</session-factory>
-</hibernate-configuration>
+</hibernate-configuration> -->

@@ -10,6 +10,7 @@ public class ConnectionUtil {
 			new Configuration().configure().buildSessionFactory();
 	
 	public static Session getSession() {
+		System.out.println("opening session");
 		return sf.openSession();
 	}
 
