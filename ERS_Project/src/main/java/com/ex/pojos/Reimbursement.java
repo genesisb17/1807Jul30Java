@@ -3,7 +3,7 @@ package com.ex.pojos;
 public class Reimbursement {
 	
 	private int id;
-	private int amount;
+	private double amount;
 	private String submitted;
 	private String resolved;
 	private String description;
@@ -13,8 +13,8 @@ public class Reimbursement {
 	private int typeid;
 	
 	public Reimbursement() {}
-	
-	public Reimbursement(int id, int amount, String submitted, String resolved, String description, int author,
+
+	public Reimbursement(int id, double amount, String submitted, String resolved, String description, int author,
 			int resolver, int statusid, int typeid) {
 		super();
 		this.id = id;
@@ -36,11 +36,11 @@ public class Reimbursement {
 		this.id = id;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
