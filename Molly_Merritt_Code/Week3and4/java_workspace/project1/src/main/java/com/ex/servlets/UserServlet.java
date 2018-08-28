@@ -1,6 +1,8 @@
 package com.ex.servlets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class UserServlet extends HttpServlet {
 //		int userId = 1;
 //		User users = uService.getUser(userId);
 		List<User> users = uService.getAllUsers();
-//		User user = uService.getAllUsers();
 		if(users.size()>0) {
 			// return users
 			
@@ -40,4 +41,27 @@ public class UserServlet extends HttpServlet {
 		}
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//TAKE BOOK JSON STRING AND TURN TO JAVA OBJ
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+		String json = "";
+		if(br != null){
+			json = br.readLine();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		User u = mapper.readValue(json, User.class);
+		//System.out.println(b.toString());
+		
+		u = uService.addUser(u);
+	//	System.out.println(b.toString());
+		
+		String ret = mapper.writeValueAsString(u);
+		PrintWriter out = resp.getWriter();
+		resp.setContentType("application/json");
+		out.write(ret);
+	}
+	
 }

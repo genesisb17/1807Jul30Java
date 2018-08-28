@@ -9,7 +9,6 @@ window.onload=function() {
 	$('#homeNav').on('click', loadHomeView);
 	$('#accountNav').on('click', loadAccountView);
 	$('#reimbNav').on('click', loadReimbursementsView);
-//	$('#authorNav').on('click', loadAuthorView);
 }
 
 function loadHomeView() {
@@ -49,22 +48,11 @@ function loadReimbursementsView() {
 	
 }
 
-function loadBooksView() {
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		// showing what we're getting back for now
-//		console.log(xhr.responseText);
-		
-		if(xhr.readyState == 4 && xhr.status == 200) {
-			$('#view').html(xhr.responseText);
-			// cross origin resource sharing - must add more headers
-			
-			// once view is loaded, populate table and add eventlisteners
-			populateBookTable();
-		}
-	}
-	xhr.open("GET", "books.view");
-	xhr.send();
+function submitReimbursement() {
+//	var rAmount = $('#amount').val();
+//	var rDescription = $('#description').val();
+//	var rReceipt = $('receipt').val();
+//	var rType = $('#reimbType').val();
 }
 
 function populateUserTable() {
@@ -102,32 +90,4 @@ function addUser(u) {
 	row.appendChild(cell4);
 	
 	document.getElementById("userTable").appendChild(row);
-}
-
-function loadGenreView(){
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		//just showing what we're getting back for now
-		//console.log(xhr.responseText);
-		if(xhr.readyState == 4 && xhr.status == 200){
-			$('#view').html(xhr.responseText);
-		}
-		
-	}
-	xhr.open("GET", "genre.view");
-	xhr.send();
-}
-
-function loadAuthorView(){
-	var xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		//just showing what we're getting back for now
-		//console.log(xhr.responseText);
-		if(xhr.readyState == 4 && xhr.status == 200){
-			$('#view').html(xhr.responseText);
-		}
-		
-	}
-	xhr.open("GET", "author.view");
-	xhr.send();
 }

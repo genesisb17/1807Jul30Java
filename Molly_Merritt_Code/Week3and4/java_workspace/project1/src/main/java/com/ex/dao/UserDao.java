@@ -29,10 +29,10 @@ public class UserDao implements Dao<User, Integer> {
 				User temp = new User();
 				temp.setUsername(rs.getString("ERS_USERNAME"));
 				temp.setPassword(rs.getString("ERS_PASSWORD"));
-				temp.setFirstname(rs.getString("ERS_FIRST_NAME"));
-				temp.setLastname(rs.getString("ERS_LAST_NAME"));
-				temp.setEmail(rs.getString("ERS_EMAIL"));
-				temp.setUserRoleId(rs.getInt("ERS_ROLE_ID"));
+				temp.setFirstname(rs.getString("USER_FIRST_NAME"));
+				temp.setLastname(rs.getString("USER_LAST_NAME"));
+				temp.setEmail(rs.getString("USER_EMAIL"));
+				temp.setUserRoleId(rs.getInt("USER_ROLE_ID"));
 				users.add(temp);
 			}
 			
