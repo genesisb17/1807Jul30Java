@@ -1,5 +1,9 @@
 package com.ex.dao;
 
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -55,7 +59,47 @@ public class BearDao {
 	 * will happen 
 	 */
 	public Bear persistBear(Bear b) {
+		//TODO
 		return b;
+	}
+	
+	//GET
+	public Bear getById(int id) {
+		Session session = ConnectionUtil.getSession();
+		Bear b = session.get(Bear.class, id);
+		session.close();
+		return b;
+	}
+	
+	//LOAD
+	public Bear loadById(int id) {
+		/*
+		 * We must actually access the data in our entity or 
+		 * we are just loading a proxy.
+		 * LazyInitializationException will be thrown if we try
+		 * to access our proxy with the session closed
+		 */
+		Session session = ConnectionUtil.getSession();
+		Bear b = session.load(Bear.class, id);
+		System.out.println("Just loaded Bear");
+		System.out.println(b);
+		session.close();
+		return b;
+	}
+	
+	
+	//UPDATE
+	//MERGE
+	
+	
+	/*
+	 * Criteria 
+	 * API for querying data programatically 
+	 * We dont need to speak any language but Java 
+	 */
+	public List<Bear> findAllCriteria(){
+		Session session = ConnectionUtil.getSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
 	}
 
 }

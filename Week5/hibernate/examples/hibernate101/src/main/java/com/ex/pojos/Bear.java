@@ -36,15 +36,15 @@ public class Bear {
 	@Column(nullable=false)
 	private String breed;
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="BEAR_CAVE")
 	private Cave home;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="HONEY_POT")
 	private Honey potOfHoney;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="PARENT_CUB",
 			joinColumns=@JoinColumn(name="PARENT_ID"),
 			inverseJoinColumns=@JoinColumn(name="CUB_ID"))
@@ -118,6 +118,12 @@ public class Bear {
 
 	public void setBearCubs(Set<Bear> bearCubs) {
 		this.bearCubs = bearCubs;
+	}
+
+	@Override
+	public String toString() {
+		return "Bear [bearId=" + bearId + ", furColor=" + furColor + ", height=" + height + ", breed=" + breed
+				+ ", home=" + home + ", potOfHoney=" + potOfHoney + ", bearCubs=" + bearCubs + "]";
 	}
 	
 	

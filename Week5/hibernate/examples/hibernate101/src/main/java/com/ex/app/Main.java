@@ -23,10 +23,12 @@ public class Main {
 //		b.setFurColor("white");
 //		b.setHeight(80.9);
 //
-//		BearDao bd = new BearDao();
+		BearDao bd = new BearDao();
 //		bd.saveBear(b);
+		//addBearDemo();
+		Bear b = bd.loadById(100);
+		//System.out.println(b);
 		
-		addBearDemo();
 	}
 
 
