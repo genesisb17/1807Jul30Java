@@ -1,10 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>project1</display-name>
+  <filter>
+  	<filter-name>CorsFilter</filter-name>
+  	<display-name>CorsFilter</display-name>
+  	<description></description>
+  	<filter-class>com.ex.servlets.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>CorsFilter</filter-name>
+  	<servlet-name>UserServlet</servlet-name>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>UserServlet</servlet-name>
+  	<display-name>UserServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.ex.servlets.UserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserServlet</servlet-name>
+  	<url-pattern>*.ng</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
-  <display-name>project1</display-name>
-  
+	<display-name>project1</display-name>
+
+	<filter>
+		<filter-name>CorsFilter</filter-name>
+		<display-name>CorsFilter</display-name>
+		<description></description>
+		<filter-class>com.rev.servlet.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<servlet-name>ServletDispatcher</servlet-name>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>FrontController</servlet-name>
 		<servlet-class>com.ex.servlets.LoadViewsServlet</servlet-class>
@@ -12,7 +51,7 @@
 
 	<servlet-mapping>
 		<servlet-name>FrontController</servlet-name>
-		<url-pattern>*.ng</url-pattern>	<!-- any request that ends in .view will be sent to this servlet -->
+		<url-pattern>*.ng</url-pattern>	any request that ends in .view will be sent to this servlet
 	</servlet-mapping>
-	
-</web-app>
+
+</web-app> -->

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ex.pojos.Reimbursement;
+import com.ex.pojos.User;
+import com.ex.pojos.UserInformation;
 import com.ex.util.ConnectionFactory;
 
 import oracle.jdbc.internal.OracleTypes;
@@ -60,6 +62,26 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer> {
 
 	public boolean isUnique(Reimbursement obj) {
 		return false;
+	}
+
+	
+	// not supposed to be here; fix this later
+	@Override
+	public User getUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPasswordHash(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserInformation getUserInformation(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

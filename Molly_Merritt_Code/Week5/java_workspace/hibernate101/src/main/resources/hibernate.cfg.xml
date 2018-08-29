@@ -20,6 +20,10 @@
 		<property name="hibernate.hbm2ddl.auto">create</property>
 		
 		<mapping class="com.ex.pojos.Bear"/>
+		<mapping class="com.ex.pojos.Cave"/>
+		<mapping class="com.ex.pojos.Honey"/>
+		
+		<mapping resource="Person.hbm.xml"/>
 		
 	</session-factory>
 </hibernate-configuration>

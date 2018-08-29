@@ -16,7 +16,7 @@ import com.ex.pojos.User;
 import com.ex.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/account")
+@WebServlet("/login")
 public class UserServlet extends HttpServlet {
 	
 	// SERVICE CLASS! DO NOT CALL DAO METHODS FROM SERVLET
@@ -44,6 +44,8 @@ public class UserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//TAKE BOOK JSON STRING AND TURN TO JAVA OBJ
+		
+		System.out.println("in doPost method");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		String json = "";

@@ -123,3 +123,35 @@ select * from ERS_USER_ROLES;
 
 select * from ERS_USERS;
 update ERS_USERS set USER_FIRST_NAME = 'MyFirstName' where ERS_USERS_ID = 1;
+
+
+
+--------------- PASSWORD HASH
+CREATE OR REPLACE FUNCTION GET_USER_HASH(ERS_USERNAME VARCHAR2, ERS_PASSWORD VARCHAR2) RETURN VARCHAR2
+IS
+EXTRA VARCHAR2(10) := 'SALT';
+BEGIN
+  RETURN TO_CHAR(DBMS_OBFUSCATION_TOOLKIT.MD5(
+  INPUT => UTL_I18N.STRING_TO_RAW(DATA => ERS_USERNAME || ERS_PASSWORD || EXTRA)));
+END;
+/
+
+-- BEFORE TRIGGER THAT HASHES USER PASSWORD
+CREATE OR REPLACE TRIGGER before_insert_ers_user
+BEFORE INSERT
+ON ERS_USERS
+FOR EACH ROW 
+BEGIN 
+    SELECT GET_USER_HASH(:new.ers_username, :new.ers_password) INTO :new.ers_password FROM dual;
+END;
+/
+
+select * from ers_users;
+delete from ers_users;
+commit;
+insert into ERS_USERS(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
+  values('mollymerritt', 'password', 'Molly', 'Merritt', 'merritt.mry@gmail.com', 1);
+insert into ERS_USERS(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
+  values('myUsername', 'myPassword', 'myFirstname', 'myLastname', 'myEmail@email.com', 1);
+insert into ERS_USERS(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
+  values('iamamanager2', 'thisismypassword', 'Michael', 'Scott', 'email2@email.com', 2);

@@ -22,6 +22,32 @@ public class Honey {
 	private double weight;
 	
 	@Column
-	private String honey;	
+	private String honey;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getAmount() {
+		return weight;
+	}
+
+	public void setAmount(double weight) {
+		this.weight = weight;
+	}
+
+	public String getHoney() {
+		return honey;
+	}
+
+	public void setHoney(String honey) {
+		this.honey = honey;
+	}	
+	
+	
 
 }
