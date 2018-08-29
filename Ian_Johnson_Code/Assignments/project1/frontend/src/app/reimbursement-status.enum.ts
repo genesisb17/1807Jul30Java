@@ -23,4 +23,16 @@ export namespace ReimbursementStatus {
         return null;
     }
   }
+
+  /**
+   * Formats a ReimbursementStatus as a user-readable string.
+   *
+   * @param s the ReimbursementStatus to format
+   */
+  export function format(s: ReimbursementStatus): string {
+    if (!s) {
+      return '';
+    }
+    return s.charAt(0).toUpperCase() + s.substring(1).toLowerCase();
+  }
 }

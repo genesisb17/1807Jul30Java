@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, merge } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
@@ -22,7 +22,11 @@ const pendingColumns: TableColumn[] = [
     formatter: (t: string) =>
       t.charAt(0).toUpperCase() + t.substring(1).toLowerCase(),
   },
-  { title: 'Amount', property: 'amount' },
+  {
+    title: 'Amount',
+    property: 'amount',
+    formatter: (t: string) => new CurrencyPipe('en-US').transform(t, 'USD'),
+  },
   {
     title: 'Submitted',
     property: 'submitted',
@@ -48,11 +52,9 @@ const resolvedColumns = pendingColumns.concat([
 })
 export class ReimbursementViewComponent implements OnInit {
   reimbursements$: Observable<Reimbursement[]>;
-  selectedStatus: ReimbursementStatus;
   @ViewChild(ReimbursementDetailsModalComponent)
   detailsModal: ReimbursementDetailsModalComponent;
 
-  detailedReimbursement: Reimbursement;
   tableColumns = pendingColumns;
 
   constructor(
@@ -69,23 +71,21 @@ export class ReimbursementViewComponent implements OnInit {
       this.messages.getMessages('status')
     );
 
+    let status: ReimbursementStatus;
     this.reimbursements$ = statuses.pipe(
-      switchMap(status => {
-        this.selectedStatus = ReimbursementStatus.parse(status);
+      switchMap(statusString => {
+        status = ReimbursementStatus.parse(statusString);
         this.tableColumns =
-          this.selectedStatus === ReimbursementStatus.Pending
+          status === ReimbursementStatus.Pending
             ? pendingColumns
             : resolvedColumns;
         return this.userService.getCurrentUser();
       }),
-      switchMap(user =>
-        this.reimbursementService.getByAuthor(user.id, this.selectedStatus)
-      )
+      switchMap(user => this.reimbursementService.getByAuthor(user.id, status))
     );
   }
 
   openDetailsModal(r: Reimbursement): void {
-    this.detailedReimbursement = r;
-    this.detailsModal.open();
+    this.detailsModal.open(r);
   }
 }

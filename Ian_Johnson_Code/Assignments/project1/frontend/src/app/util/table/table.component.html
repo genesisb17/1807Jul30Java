@@ -5,7 +5,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of rowData" (click)="handleRowClick(row)">
+    <tr *ngFor="let row of rowData" (click)="handleRowClick(row)" class="clickable">
       <td *ngFor="let column of columns">{{formatEntry(row, column)}}</td>
     </tr>
   </tbody>

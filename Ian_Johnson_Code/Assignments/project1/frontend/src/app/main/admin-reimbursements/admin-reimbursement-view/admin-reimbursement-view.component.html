@@ -1,1 +1,2 @@
-<app-table [columns]="tableColumns" [data]="reimbursements$"></app-table>
+<app-table [columns]="tableColumns" [data]="reimbursements$" (rowClick)="openDetailsModal($event)"></app-table>
+<app-reimbursement-details-modal [showAdminControls]="true" (resolve)="resolve($event)"></app-reimbursement-details-modal>

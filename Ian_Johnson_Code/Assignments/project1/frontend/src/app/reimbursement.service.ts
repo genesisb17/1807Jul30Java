@@ -35,6 +35,15 @@ export class ReimbursementService {
       .pipe(catchError(this.handleError));
   }
 
+  resolve(id: number, approved: boolean) {
+    const body = { id, approved };
+    return this.http
+      .post<void>(environment.apiUrl + '/resolve', body, {
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   submit(r: Reimbursement): Observable<Reimbursement> {
     return this.http
       .post<Reimbursement>(environment.apiUrl + '/reimbursements', r, {

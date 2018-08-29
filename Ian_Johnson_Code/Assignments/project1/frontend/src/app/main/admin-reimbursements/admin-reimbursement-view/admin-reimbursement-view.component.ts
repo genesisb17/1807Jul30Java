@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DatePipe, CurrencyPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, merge } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 import { TableColumn } from '../../../util/table/table.component';
 import { Reimbursement } from '../../../reimbursement';
 import { ReimbursementService } from '../../../reimbursement.service';
-import { ActivatedRoute } from '@angular/router';
 import { ReimbursementStatus } from '../../../reimbursement-status.enum';
-import { switchMap } from 'rxjs/operators';
+import { ReimbursementDetailsModalComponent } from '../../reimbursements/reimbursement-details-modal/reimbursement-details-modal.component';
+import { MessagingService } from '../../../util/messaging.service';
 
 /**
  * The columns to use for the pending table.
@@ -19,7 +21,11 @@ const pendingColumns: TableColumn[] = [
     formatter: (t: string) =>
       t.charAt(0).toUpperCase() + t.substring(1).toLowerCase(),
   },
-  { title: 'Amount', property: 'amount' },
+  {
+    title: 'Amount',
+    property: 'amount',
+    formatter: (t: string) => new CurrencyPipe('en-US').transform(t, 'USD'),
+  },
   {
     title: 'Submitted',
     property: 'submitted',
@@ -45,18 +51,27 @@ const resolvedColumns = pendingColumns.concat([
 })
 export class AdminReimbursementViewComponent implements OnInit {
   reimbursements$: Observable<Reimbursement[]>;
+  @ViewChild(ReimbursementDetailsModalComponent)
+  detailsModal: ReimbursementDetailsModalComponent;
 
+  detailedReimbursement: Reimbursement;
   tableColumns = pendingColumns;
 
   constructor(
     private reimbursementService: ReimbursementService,
+    private messages: MessagingService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.reimbursements$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        const status = ReimbursementStatus.parse(params.get('status'));
+    // Make sure we listen both for real status changes and fake ones.
+    const statuses = merge(
+      this.route.paramMap.pipe(map(params => params.get('status'))),
+      this.messages.getMessages('admin-status')
+    );
+    this.reimbursements$ = statuses.pipe(
+      switchMap(statusString => {
+        const status = ReimbursementStatus.parse(statusString);
         this.tableColumns =
           status === ReimbursementStatus.Pending
             ? pendingColumns
@@ -64,5 +79,22 @@ export class AdminReimbursementViewComponent implements OnInit {
         return this.reimbursementService.getAll(status);
       })
     );
+  }
+
+  openDetailsModal(r: Reimbursement): void {
+    this.detailedReimbursement = r;
+    this.detailsModal.open(r);
+  }
+
+  resolve(approved: boolean): void {
+    this.reimbursementService
+      .resolve(this.detailedReimbursement.id, approved)
+      .subscribe(() => {
+        // Make sure we refresh the current view.
+        this.messages.send(
+          'admin-status',
+          this.route.snapshot.paramMap.get('status')
+        );
+      });
   }
 }

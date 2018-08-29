@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { User } from './user';
 import { environment } from '../environments/environment';
@@ -11,6 +11,21 @@ import { environment } from '../environments/environment';
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
+  /**
+   * Gets a single user by ID.
+   *
+   * @param id the ID of the user to get
+   */
+  get(id: number): Observable<User> {
+    const params = { id: id.toString() };
+    return this.http
+      .get<User>(environment.apiUrl + '/users', {
+        params,
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   /**
    * Gets the currently logged-in user.

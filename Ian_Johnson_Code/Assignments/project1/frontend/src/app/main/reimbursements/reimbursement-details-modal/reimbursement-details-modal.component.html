@@ -6,9 +6,49 @@
     </button>
   </div>
   <div *ngIf="reimbursement" class="modal-body">
-    {{reimbursement.amount}}
+    <div class="container-fluid">
+      <div class="row">
+        <label for="id" class="col-6 col-sm-3 font-weight-bold">ID</label>
+        <div id="id" class="col">{{reimbursement.id}}</div>
+      </div>
+      <div class="row">
+        <label for="type" class="col-6 col-sm-3 font-weight-bold">Type</label>
+        <div id="type" class="col">{{formatReimbursementType()}}</div>
+      </div>
+      <div class="row">
+        <label for="status" class="col-6 col-sm-3 font-weight-bold">Status</label>
+        <div id="status" class="col">{{formatReimbursementStatus()}}</div>
+      </div>
+      <div class="row">
+        <label for="amount" class="col-6 col-sm-3 font-weight-bold">Amount</label>
+        <div id="amount" class="col">{{reimbursement.amount | currency : 'USD'}}</div>
+      </div>
+      <div *ngIf="authorName" class="row">
+        <label for="author" class="col-6 col-sm-3 font-weight-bold">Author</label>
+        <div id="author" class="col">{{authorName}}</div>
+      </div>
+      <div class="row">
+        <label for="submitted" class="col-6 col-sm-3 font-weight-bold">Submitted</label>
+        <div id="submitted" class="col">{{reimbursement.submitted | date : 'medium'}}</div>
+      </div>
+      <div *ngIf="resolverName" class="row">
+        <label for="resolver" class="col-6 col-sm-3 font-weight-bold">Resolver</label>
+        <div id="resolver" class="col">{{resolverName}}</div>
+      </div>
+      <div *ngIf="reimbursement.resolved" class="row">
+        <label for="resolved" class="col-6 col-sm-3 font-weight-bold">Resolved</label>
+        <div id="resolved" class="col">{{reimbursement.resolved | date : 'medium'}}</div>
+      </div>
+      <div *ngIf="reimbursement.description" class="row">
+        <label for="description" class="col-6 col-sm-3 font-weight-bold">Description</label>
+        <div id="description" class="col">{{reimbursement.description}}</div>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">OK</button>
+    <button *ngIf="shouldShowResolutionControls()" class="btn btn-outline-success" (click)="handleResolution(true)">Approve</button>
+    <button *ngIf="shouldShowResolutionControls()" class="btn btn-outline-danger" (click)="handleResolution(false)">Deny</button>
+    <div *ngIf="shouldShowResolutionControls()" class="w-100"></div>
+    <button class="btn btn-outline-dark" (click)="closeModal()">OK</button>
   </div>
 </ng-template>

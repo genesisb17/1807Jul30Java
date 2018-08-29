@@ -25,4 +25,16 @@ export namespace ReimbursementType {
         return null;
     }
   }
+
+  /**
+   * Formats a reimbursement type in a user-readable string.
+   *
+   * @param t the reimbursement type to format
+   */
+  export function format(t: ReimbursementType): string {
+    if (!t) {
+      return '';
+    }
+    return t.charAt(0).toUpperCase() + t.substring(1).toLowerCase();
+  }
 }
