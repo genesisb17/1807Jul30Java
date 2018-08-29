@@ -12,7 +12,7 @@
 
 	<servlet-mapping>
 		<servlet-name>FrontController</servlet-name>
-		<url-pattern>*.view</url-pattern>	<!-- any request that ends in .view will be sent to this servlet -->
+		<url-pattern>*.ng</url-pattern>	<!-- any request that ends in .view will be sent to this servlet -->
 	</servlet-mapping>
 	
 </web-app>
