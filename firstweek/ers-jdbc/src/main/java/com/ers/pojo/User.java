@@ -1,82 +1,74 @@
 package com.ers.pojo;
 
-public class User {
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.ers.pojo.User;
+
 	
-	private int uid, urid;
-	private String uname;
-	private String pwd;
-	private String firstname;
-	private String lastname;
-	private String email;
-	
-	//constructors
-	
-	public User() {}
-	
-	public User (int uid, String uname) {
-		this.uid = uid;
-		this.uname = uname;
+	@XmlRootElement
+	public class User {
+		private String username;
+		private String password;
+		
+		public User() {};
+		
+		public User(String username, String password) {
+			super();
+			this.username = username;
+			this.password = password;
+			
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((password == null) ? 0 : password.hashCode());
+			result = prime * result + ((username == null) ? 0 : username.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			User other = (User) obj;
+			if (password == null) {
+				if (other.password != null)
+					return false;
+			} else if (!password.equals(other.password))
+				return false;
+			if (username == null) {
+				if (other.username != null)
+					return false;
+			} else if (!username.equals(other.username))
+				return false;
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "User [username=" + username + ", password=" + password + "]";
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
 	}
-	
-	
-	//user id
-	public int getUid() {
-		return uid;
-	}
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
-	
-	//user role
-	public int getUrid() {
-		return urid;
-	}
-	public void setUrid(int urid) {
-		this.urid = urid;
-	}
-	
-	//username
-	public String getUname() {
-		return uname;
-	}
-	public void setUname(String uname) {
-		this.uname = uname;
-	}
-	
-	//user password
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	
-	//user firstname
-	public String getFirstname() {
-		return firstname;
-	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-	
-	//user lastname
-	public String getLastname() {
-		return lastname;
-	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-	
-	//user email
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	@Override
-	public String toString() {
-		return uid + " user " + firstname  + " " + lastname + " " + email;
-	}
-}
+

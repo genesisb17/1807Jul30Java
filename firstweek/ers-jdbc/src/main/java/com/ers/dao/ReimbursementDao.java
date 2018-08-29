@@ -20,7 +20,7 @@ public class ReimbursementDao {
 //			conn.setAutoCommit(false);
 //			String sql = "INSERT INTO REIMBURSEMENT(R_AMOUNT, R_SUBMIT_TIME, R_RESOLVED_TIME, R_DESC, R_RECIEPT, U_ID, R_RESOLVER, RS_ID, RT_ID)\r\n" + 
 //					"VALUES (?, TO_DATE('?', 'YYYY-MM-DD HH24:MI'), TO_DATE('?', 'YYYY-MM-DD HH24:MI'), '?', UTL_RAW.CAST_TO_RAW('C:\\Users\\Dylan\\Desktop\\enthuware proof.PNG'),?,?,?,?)";
-//			String[] keys = {"U_ID"};
+//			String[] keys = {"R_ID"};
 //			PreparedStatement ps = conn.prepareStatement(sql, keys);
 //			ps.setInt(1, reimbur.getAmount());
 //			ps.setTimestamp(2, reimbur.getSdate());
@@ -30,6 +30,7 @@ public class ReimbursementDao {
 //			int rowsUpdated = ps.executeUpdate();
 //			if(rowsUpdated >0) {
 //				ResultSet pk = ps.getGeneratedKeys();
+	
 //				
 //				while(pk.next()) {
 //					user.setUid(pk.getInt(1));
@@ -52,7 +53,7 @@ public class ReimbursementDao {
 					"R_TYPE RT ON R.RT_ID=RT.RT_ID\r\n" + 
 					"WHERE U.U_ID = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, u.getUid());
+//			ps.setInt(1, u.getUid());
 			ResultSet info = ps.executeQuery();
 			while(info.next()) {
 				Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Costa_Rica"));

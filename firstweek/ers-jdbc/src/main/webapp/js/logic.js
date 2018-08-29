@@ -28,17 +28,31 @@ function loadHomeView(){
 }
 
 function loadAccntView(){
+
+const username = document.getElementById('username').value;
+const password = document.getElementById('password').value;
+
+var user = {
+	uname: username,
+	pwd: password
+};
+	if ( username == '' && password == '') {
+		alert("please enter valid credentials");
+	} else {
+
+	console.log(username + " " + password)
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		
 		if(xhr.readyState == 4 && xhr.status == 200){
-			$('#view').html(xhr.responseText);
-			$('#logoutLink').removeAttr('hidden');
+			accountView();
+
 		}
 		
 	}
-	xhr.open("GET", "account.view", true);
-	xhr.send();
+	xhr.open("POST", "verify.view", true);
+	xhr.send(JSON.stringify(user));
+
 
 	var xhr2 = new XMLHttpRequest();
 	xhr2.onreadystatechange = function(){
@@ -51,7 +65,7 @@ function loadAccntView(){
 	}
 	xhr2.open("GET", "menu.view", true);
 	xhr2.send();
-	
+	}
 }
 
 function loadCreateView() {
@@ -80,4 +94,21 @@ function back2LoginView(){
 	xhr.open("GET", "login.view", true);
 	xhr.send();
 	
+}
+
+function accountView() {
+
+
+var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#view').html(xhr.responseText);
+			$('#logoutLink').removeAttr('hidden');
+			
+		}
+		
+	}
+	xhr.open("GET", "account.view", true);
+	xhr.send();
 }
