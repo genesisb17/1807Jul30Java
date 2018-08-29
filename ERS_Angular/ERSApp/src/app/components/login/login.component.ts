@@ -20,13 +20,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.username == null || this.password == null) {
-      alert('please enter in something.');
+      alert('Input boxes cannot be empty.');
     } else {
-      this.authService.login(this.username, this.password).subscribe(
-        user => {
-          this.authService.user = user;
-          console.log(user);
-        });
+      this.authService.login(this.username, this.password)
+      .subscribe(user => { this.authService.user = user;
+      });
       }
   }
 }
