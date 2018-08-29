@@ -58,10 +58,13 @@ function submitReimbursement() {
 function populateUserTable() {
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
+		console.log(xhr.readyState);
+		console.log(xhr.status);
 		
 		if(xhr.readyState == 4 && xhr.status == 200) {
 			var users = JSON.parse(xhr.responseText);
 			console.log(users);
+			console.log(xhr);
 			for(var u of users) {
 				addUser(u);	// helper function to create elements
 			}
@@ -72,6 +75,9 @@ function populateUserTable() {
 }
 
 function addUser(u) {
+	// remove children from table before adding anything
+	// worry about this later
+	
 	var row = document.createElement("tr");
 	var cell1 = document.createElement("td");
 	var cell2 = document.createElement("td");
