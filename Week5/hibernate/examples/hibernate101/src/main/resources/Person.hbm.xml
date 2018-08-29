@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.ex.pojos.Person" table="PEOPLE">
+	<!-- The generator element is used to generate PKs 
+	automatically. The class atribute is set to native to let hibernate
+	pick its generation strategy depending upon capabilities
+	of the underlying database -->
+		<id name="id" type="int" column="P_ID">
+			<generator class="native"/>
+		</id>
+		
+		<property name="firstName" type="string" column="FIRST_NAME"/>
+		<property name="lastName" type="string" column="LAST_NAME"/>
+	</class>
+</hibernate-mapping>

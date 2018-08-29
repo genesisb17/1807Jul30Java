@@ -8,10 +8,10 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.ex.dao.BearDao;
 import com.ex.pojos.Bear;
 import com.ex.pojos.Cave;
 import com.ex.pojos.Honey;
+import com.ex.pojos.Person;
 import com.ex.util.ConnectionUtil;
 
 public class Main {
@@ -23,12 +23,27 @@ public class Main {
 //		b.setFurColor("white");
 //		b.setHeight(80.9);
 //
-		BearDao bd = new BearDao();
+	//	BearDao bd = new BearDao();
 //		bd.saveBear(b);
 		//addBearDemo();
-		Bear b = bd.loadById(100);
+		//Bear b = bd.loadById(100);
 		//System.out.println(b);
+	
 		
+		addPersonDemo();
+		
+		
+	}
+	
+	static void addPersonDemo() {
+		Person p = new Person();
+		p.setFirstName("Genesis");
+		p.setLastName("Bonds");
+		try(Session s = ConnectionUtil.getSession()){
+			Transaction tx = s.beginTransaction();
+			s.save(p);
+			tx.commit();
+		}
 	}
 
 

@@ -17,12 +17,14 @@
 		<property name="hibernate.connection.password">p4ssw0rd</property>
 		
 		<property name="show_sql">true</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
 		
 		<!-- Tell hibernate where to find classes configured w annotations -->
 		<mapping class="com.ex.pojos.Bear"/>
 		<mapping class="com.ex.pojos.Cave"/>
 		<mapping class="com.ex.pojos.Honey"/>
+		
+		<mapping resource="Person.hbm.xml"/>
 		
 	</session-factory>
 </hibernate-configuration>
