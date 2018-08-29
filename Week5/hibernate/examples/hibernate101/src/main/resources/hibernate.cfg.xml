@@ -21,6 +21,8 @@
 		
 		<!-- Tell hibernate where to find classes configured w annotations -->
 		<mapping class="com.ex.pojos.Bear"/>
+		<mapping class="com.ex.pojos.Cave"/>
+		<mapping class="com.ex.pojos.Honey"/>
 		
 	</session-factory>
 </hibernate-configuration>

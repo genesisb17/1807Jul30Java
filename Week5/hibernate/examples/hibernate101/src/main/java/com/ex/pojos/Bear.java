@@ -53,10 +53,9 @@ public class Bear {
 	
 	public Bear() {}
 
-	public Bear(int bearId, String furColor, double height, String breed, Cave home, Honey potOfHoney,
+	public Bear(String furColor, double height, String breed, Cave home, Honey potOfHoney,
 			Set<Bear> bearCubs) {
 		super();
-		this.bearId = bearId;
 		this.furColor = furColor;
 		this.height = height;
 		this.breed = breed;
