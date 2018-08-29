@@ -12,7 +12,7 @@ public class Main {
 		b.setHeight(80.9);
 		
 		BearDao bd = new BearDao();
-		bd.addBear(b);
+		bd.saveBear(b);
 	}
 
 }

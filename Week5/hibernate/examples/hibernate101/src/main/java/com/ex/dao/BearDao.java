@@ -11,7 +11,19 @@ public class BearDao {
 	 * CRUD DAO using hibernate methods. 
 	 */
 
-	public Bear addBear(Bear b) {
+	
+	
+	/*
+	 * SAVE
+	 * - adds instance to db
+	 * - persists transient instance, returns whatever Serializable
+	 * identifier is used for the instance 
+	 * - saving a persisted instance does nothing 
+	 * - saving a detached instance creates a new persistant instance
+	 * and assigns it a new identifier, which results in a duplicate
+	 * record. do not do!
+	 */
+	public Bear saveBear(Bear b) {
 		Session session = ConnectionUtil.getSession();
 		try {
 			Transaction tx = session.beginTransaction(); //start of tx w db
@@ -24,6 +36,25 @@ public class BearDao {
 		finally {
 			session.close();
 		}
+		return b;
+	}
+	
+	/*
+	 * PERSIST
+	 * - intended to add a new entity to the persistence context, ie
+	 * transitioning an instance from the transient to persistent state
+	 * - usually called to add a record to the db(persist an instance)
+	 * - after persist(obj) is called, obj is in the persistence context
+	 * but not added to the db until the tx is commited, flushed, or the 
+	 * session is closed. 
+	 * - has void return type. the object passed is what gets changed.
+	 * - the ID is not guaranteed to be not null after this method 
+	 * - if an instance is detached, calling this method will throw an 
+	 * exception
+	 * - persist may be called on an already persistent instance, nothing
+	 * will happen 
+	 */
+	public Bear persistBear(Bear b) {
 		return b;
 	}
 
