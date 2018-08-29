@@ -1,0 +1,7 @@
+<div class="jumbotron" style="text-align:center">
+  <h3 class="text-center">Welcome</h3>
+  <h5 class="text-center">Please log in.</h5>
+  <input class="form-control col-4 offset-4 mb-1" type="text" placeholder="username" name="username" required [(ngModel)]='username'/>
+  <input class="form-control col-4 offset-4 mb-1" type="password" placeholder="password" name="password" required [(ngModel)] = 'password'/>
+  <button (click)="login()" class="btn btn-success">Login <span class="oi oi-account-login"></span></button>
+</div>

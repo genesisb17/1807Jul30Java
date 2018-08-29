@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">ERS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarERS" aria-controls="navbarERS" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarERS">
+      <div class="navbar-nav" id="navMenu">
+        <a *ngIf="this.authService.isLoggedIn" class="nav-item nav-link" routerLink="/userinfo">Account Info</a>
+        <a class="nav-item nav-link" *ngIf="this.authService.isLoggedIn" (click)="getReimbursemnts()" routerLink="/reimbursements">Reimbursement History</a>
+      </div>
+      
+    </div>
+    <ul class="navbar-nav offset-4">
+        <li *ngIf="this.authService.isLoggedIn" class="nav-item" id="logoutLink"><a (click)="logout()" href="/login" class="nav-link text-light" id="logoutIcon">Log out <span class="oi oi-account-logout"></span></a></li>
+    </ul>
+</nav>
+    

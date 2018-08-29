@@ -1,0 +1,26 @@
+<div class="jumbotron" style="text-align:center">
+<h5 class="text-center">Add a new employee.</h5>
+<div class="form-row">
+    <div class="col">
+        <input class="form-control col-4 offset-8" type="text" placeholder="firstname" required [(ngModel)]="newUser.firstname">  
+    </div>
+    <div class="col">
+        <input class="form-control col-4" type="text" placeholder="lastname" required [(ngModel)]="newUser.lastname">
+    </div>
+</div>
+<div class="form-row">
+    <div class="col">
+        <input class="form-control col-4 offset-8 mt-2" type="text" placeholder="username" required [(ngModel)]="newUser.username">
+    </div>
+    <div class="col">
+        <input class="form-control col-4 mt-2" type="password" placeholder="password" required [(ngModel)]="newUser.password">
+    </div>
+</div>
+<div class="form-row">
+    <div class="col">
+        <input class="form-control col-4 offset-4 mt-2" type="text" placeholder="email" required [(ngModel)]="newUser.email">
+    </div>
+</div>
+<button (click)="createUser()" class="btn btn-success mt-2">submit <span class="oi oi-account-login"></span></button>
+<button routerLink="/userinfo" class="btn btn-danger ml-1 mt-2"><span class="oi oi-plus"></span> Cancel</button>
+</div>

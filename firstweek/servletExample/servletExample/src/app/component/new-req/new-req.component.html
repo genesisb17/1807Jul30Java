@@ -1,0 +1,32 @@
+<div class="jumbotron" style="text-align:center">
+  <h5 class="text-center">New Reimbursement Request</h5>
+  <div class="form-row">
+      <div class="col">
+          <input class="form-control col-4 offset-8" type="number" placeholder="Amount" required [(ngModel)]='newReq.amount'>  
+      </div>
+      <div class="col">
+          <input class="form-control col-4" type="text" placeholder="Desciption" [(ngModel)]='newReq.info'>
+      </div>
+  </div>
+  <div class="form-row">
+    <div class="container">
+        <select id="type" class="form-control col-4 mt-2 custom-select" [(ngModel)]="newReq.type" required>
+            <option value="LODGING">Lodging</option>
+            <option value="TRAVEL">Travel</option>
+            <option value="FOOD">Food</option>
+            <option value="OTHER">Other</option>
+        </select>
+    </div>    
+        
+    
+  </div>
+  <div class="form-row">
+    <div class="container offset-4 mt-2"></div>
+    <div class="col">
+        <input type="file" class="custom-file-input offset-4" [(ngModel)]='newReq.recpt' id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+        <label class="custom-file-label col-4 offset-4" for="inputGroupFile01">Upload Receipt</label>
+      </div>
+  </div>
+  <button (click)="newRequest()" class="btn btn-success mt-2">submit <span class="oi oi-account-login"></span></button>
+  <button routerLink="/reimbursements" class="btn btn-danger ml-1 mt-2"><span class="oi oi-plus"></span> Cancel</button>
+  </div>
