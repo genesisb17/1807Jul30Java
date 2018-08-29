@@ -1,10 +1,19 @@
 package com.ex.pojos;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,6 +35,20 @@ public class Bear {
 	
 	@Column(nullable=false)
 	private String breed;
+	
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="BEAR_CAVE")	// bringing in data from another table
+	private Cave home;
+	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="HONEY_POT")
+	private Honey potOfHoney;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="PARENT_CUB", joinColumns=@JoinColumn(name="PARENT_ID"),
+			inverseJoinColumns=@JoinColumn(name="CUB_ID"))
+	private Set<Bear> bearCubs;
+	// self referencing Many to Many relationship
 	
 	public Bear() {}
 	
