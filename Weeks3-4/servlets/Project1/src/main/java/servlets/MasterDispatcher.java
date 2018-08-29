@@ -13,7 +13,7 @@ public class MasterDispatcher {
 		switch(request.getRequestURI()) {
 		case "/Project1/login.ng":
 			return EmployeeService.login(request, response);
-		
+//		case "/Project1/
 		default:
 			return "not yet implemented";
 		}

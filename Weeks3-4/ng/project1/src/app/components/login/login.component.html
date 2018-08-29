@@ -5,10 +5,15 @@
   <input type="password" id="password" name="password" required [(ngModel)]='password' ><br>
   <input type="submit" value="Log In!">
 </form> -->
-<input type="text" [(ngModel)]="username" placeholder="Username">
-<input type="password" [(ngModel)]="password" placeholder="Password">
-<button (click)="login()">Login</button>
-<button (click)="register()">Add New Employee</button>
+<br>
+<input type="text" [(ngModel)]="username" placeholder="Username" class="form-control col-4">
+<br>
+<input type="password" [(ngModel)]="password" placeholder="Password" class="form-control col-4">
+<br>
+<button (click)="login()" class="btn btn-primary">Login</button>
+<br>
+<br>
+<button (click)="register()" class="btn">Add New Employee</button>
 
 <!-- <br><br>
 {{ servletUsername }}

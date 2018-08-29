@@ -14,93 +14,15 @@
 <!--   	<filter-name>CorsFilter</filter-name> -->
 <!--   	<servlet-name>ServletDispatcher</servlet-name> -->
 <!--   </filter-mapping> -->
-  <servlet>
+<!-- <servlet>
   	<servlet-name>ServletDispatcher</servlet-name>
   	<display-name>ServletDispatcher</display-name>
-  	<servlet-class>servlet.ServletDispatcher</servlet-class>
+  	<servlet-class>servlets.ServletDispatcher</servlet-class>
   </servlet>
-  <servlet>
-  	<servlet-name>Login</servlet-name>
-  	<display-name>Login</display-name>
-  	<description></description>
-  	<servlet-class>servlets.Login</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>Logout</servlet-name>
-  	<display-name>Logout</display-name>
-  	<description></description>
-  	<servlet-class>servlets.Logout</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>Resolve</servlet-name>
-  	<display-name>Resolve</display-name>
-  	<description></description>
-  	<servlet-class>servlets.Resolve</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>Employee</servlet-name>
-  	<display-name>Employee</display-name>
-  	<description></description>
-  	<servlet-class>servlets.Employee</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>createEmployee</servlet-name>
-  	<display-name>createEmployee</display-name>
-  	<description></description>
-  	<servlet-class>servlets.createEmployee</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>CreateReimbursement</servlet-name>
-  	<display-name>CreateReimbursement</display-name>
-  	<description></description>
-  	<servlet-class>servlets.CreateReimbursement</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>EmployeeGetReimbursment</servlet-name>
-  	<display-name>EmployeeGetReimbursment</display-name>
-  	<description></description>
-  	<servlet-class>servlets.EmployeeGetReimbursment</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>ManagerGetReimbursements</servlet-name>
-  	<display-name>ManagerGetReimbursements</display-name>
-  	<description></description>
-  	<servlet-class>servlets.ManagerGetReimbursements</servlet-class>
-  </servlet>
+
   <servlet-mapping>
   	<servlet-name>ServletDispatcher</servlet-name>
   	<url-pattern>*.ng</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>Login</servlet-name>
-  	<url-pattern>/Login</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>Logout</servlet-name>
-  	<url-pattern>/Logout</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>Resolve</servlet-name>
-  	<url-pattern>/Resolve</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>Employee</servlet-name>
-  	<url-pattern>/Employee</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>createEmployee</servlet-name>
-  	<url-pattern>/createEmployee</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>CreateReimbursement</servlet-name>
-  	<url-pattern>/CreateReimbursement</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>EmployeeGetReimbursment</servlet-name>
-  	<url-pattern>/EmployeeGetReimbursment</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>ManagerGetReimbursements</servlet-name>
-  	<url-pattern>/ManagerGetReimbursements</url-pattern>
-  </servlet-mapping>
+ -->  
 </web-app>

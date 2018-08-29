@@ -17,6 +17,11 @@ public class ServletDispatcher extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("estamos en el post");
+		
+		
+		
 		response.setContentType("application/json");
 		
 		ObjectMapper mapper = new ObjectMapper();

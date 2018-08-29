@@ -25,6 +25,10 @@ public class EmployeeService {
 		return eDAO.findOne(obj);
 	}
 
+	public Employee findOne(int id) {
+		return eDAO.findOne(id);
+	}
+	
 	public Employee save(Employee obj) {
 		return eDAO.save(obj);
 	}

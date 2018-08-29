@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import pojos.Employee;
+
 import java.io.Serializable;
 
 public interface DAO<T, I extends Serializable> {
@@ -14,4 +16,5 @@ public interface DAO<T, I extends Serializable> {
 //	default boolean isUnique(T obj) {
 //		return true;
 //	}
+	T findOne(int id);
 }

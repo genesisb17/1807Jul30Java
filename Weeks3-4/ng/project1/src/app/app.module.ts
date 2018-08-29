@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+//import { HttpClientModule } from '@angular/common/http'; 
+import { HttpModule } from '@angular/http';
+import {enableProdMode} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -17,9 +19,12 @@ import { NewEmployeeComponent } from './components/new-employee/new-employee.com
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { LandingComponent } from './components/landing/landing.component'
+import { EmployeeService } from './services/employee.service';
+import { HttpeeService } from './services/httpee.service';
 // import { RouterModule, Routes} from '@angular/router';
 // import { EmployeeService } from './services/employee.service';
 
+enableProdMode();
 
 @NgModule({
   declarations: [
@@ -29,7 +34,7 @@ import { LandingComponent } from './components/landing/landing.component'
     HomeComponent,
     ReimbursementComponent,
     NewEmployeeComponent,
-    // LogoutComponent,
+    LogoutComponent,
     LandingComponent
   ],
   imports: [
@@ -39,7 +44,9 @@ import { LandingComponent } from './components/landing/landing.component'
     AppRoutingModule
   ],
   providers: [LoginService,
-  ReimbursementService],
+  ReimbursementService, 
+  EmployeeService,
+  HttpeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,18 +19,18 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 	private static EmployeeDAO instance;
 	
 	public static void main(String[] args) {
-		EmployeeDAO e = new EmployeeDAO();
-		Employee ee = new Employee();
+//		EmployeeDAO e = new EmployeeDAO();
+//		Employee ee = new Employee();
 		
 //		System.out.println(e.getAll());		
 //		System.out.println(e.findOne(e.getAll().get(0)));
 		
-		ee.setEmp_username("demo");
-		ee.setEmp_password("demo");
-		ee.setFirst_name("demo");
-		ee.setLast_name("demo");
-		ee.setEmail("demo@demo");
-		ee.setEmp_role_id(1);
+//		ee.setEmp_username("demo");
+//		ee.setEmp_password("demo");
+//		ee.setFirst_name("demo");
+//		ee.setLast_name("demo");
+//		ee.setEmail("demo@demo");
+//		ee.setEmp_role_id(1);
 
 //		System.out.println(EmployeeDAO.getInstance().findOne("test"));
 //		System.out.println(e.isUnique(ee));
@@ -90,6 +90,7 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 			String sql = "select * from employee where emp_username = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
+			
 			ps.setString(1, obj.getEmp_username());//maybe needs to be changed to something else
 			
 			ResultSet info = ps.executeQuery();
@@ -109,6 +110,36 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 //				temp.setLast_name(info.getString("last_name"));
 //				temp.setEmail(info.getString("email"));
 //				temp.setEmp_role_id(info.getInt("emp_role_id"));
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("SQL State: " + e.getSQLState());
+			System.err.println("Error Code: " + e.getErrorCode());
+		}
+		return temp;
+	}
+	
+	public Employee findOne(int id) { //----------------THIS TOOK IN A STRING
+		Employee temp = new Employee();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			
+			String sql = "select * from employee where employee_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			
+			ps.setInt(1, id);//maybe needs to be changed to something else
+			
+			ResultSet info = ps.executeQuery();
+						
+			while(info.next()) {
+				temp.setEmployee_id(info.getInt(1));
+				temp.setEmp_username(info.getString(2));
+				temp.setEmp_password(info.getString(3));
+				temp.setFirst_name(info.getString(4));
+				temp.setLast_name(info.getString(5));
+				temp.setEmail(info.getString(6));
+				temp.setEmp_role_id(info.getInt(7));
 			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
