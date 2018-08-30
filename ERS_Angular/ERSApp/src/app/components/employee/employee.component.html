@@ -1,0 +1,41 @@
+<h1>Welcome employee!</h1>
+
+<h2 *ngIf="isAdmin">ADMIN ONLY</h2>
+
+<h2>Reimbursement History</h2>
+
+<p>First Name: {{ this.authService.user.firstname }}</p>
+<p>Last Name: {{ this.authService.user.lastname }}</p>
+<p>Email: {{ this.authService.user.email }}</p>
+
+<table>
+  <thead>
+    <th>Amount</th>
+    <th>Description</th>
+    <th>Username</th>
+    <th>Status ID</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let empRows of emps" >
+      <td>{{ empRows.amount | currency }}</td>
+      <td>{{ empRows.description }}</td>
+      <td>{{ empRows.author }}</td>
+      <td>{{ empRows.statusid }}</td>
+      </tr>
+  </tbody>
+</table>
+
+<form (submit)="submit()">
+    <label for="amount">Reimbursement Amount</label>
+    <input type="text" id="amount" name="amount" required [(ngModel)]="amount" /> <br>
+    <label for="description">Description</label>
+    <input type="description" id="description" name="description" required [(ngModel)]="description" /><br>
+    <select id="type" required [(ngModel)]="requestTypeStr" >
+      <option value="1">Lodging</option>
+      <option value="2">Food</option>
+      <option value="3">Travel</option>
+      <option value="4">Other</option>
+    </select>
+    <input type="submit" value="submit!">
+</form>
+

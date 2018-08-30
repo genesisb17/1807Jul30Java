@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.ex.dao.UserDao;
-import com.ex.dao.UserDaoImp;
+import com.ex.pojos.Reimbursement;
+import com.ex.pojos.RequestForm;
 import com.ex.pojos.User;
 import com.ex.pojos.UserInformation;
 import com.ex.util.ConnectionFactory;
@@ -78,6 +80,67 @@ public class UserDaoImp implements UserDao {
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getEmpTables(String username) {
+		List<Reimbursement> empList = new ArrayList<>();
+		Reimbursement temp = null;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM REIMBURSEMENT WHERE USERNAME = ?");
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getString(3));
+				temp.setResolved(rs.getString(4));
+				temp.setDescription(rs.getString(5));
+				temp.setReciept(rs.getBytes(6));
+				temp.setAuthor(rs.getString(7));
+				temp.setResolver(rs.getString(8));
+				temp.setStatusid(rs.getInt(9));
+				temp.setTypeid(rs.getInt(10));
+				empList.add(temp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return empList;
+	}
+
+	@Override
+	public int submitRequest(RequestForm requestForm) {
+		int x = 0;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "INSERT INTO REIMBURSEMENT"
+					+ " VALUES (REIMBURSEMENT_SEQ.nextval, ?, SYSDATE, null, ?, null, ?, null, 1, ?)";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setDouble(1, requestForm.getAmount());
+			ps.setString(2, requestForm.getDescription());
+			ps.setString(3, requestForm.getUsername());
+			ps.setInt(4,  requestForm.getRequestType());
+			System.out.println(requestForm.getAmount());
+			System.out.println(requestForm.getDescription());
+			System.out.println(requestForm.getUsername());
+			System.out.println(requestForm.getRequestType());
+			int i = ps.executeUpdate();
+			
+			// To show that the SQL statement executed correctly
+			// 1 means that "one row was inserted"
+			if (i == 1) {
+				return i;
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		// Returning false means something wrong happened
+		// "no rows were inserted"
+		return x;
 	}
 }
 

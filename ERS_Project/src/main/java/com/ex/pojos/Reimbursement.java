@@ -1,5 +1,8 @@
 package com.ex.pojos;
 
+import java.sql.Blob;
+import java.util.Arrays;
+
 public class Reimbursement {
 	
 	private int id;
@@ -7,21 +10,23 @@ public class Reimbursement {
 	private String submitted;
 	private String resolved;
 	private String description;
-	private int author;
-	private int resolver;
+	private byte[] reciept;
+	private String author;
+	private String resolver;
 	private int statusid;
 	private int typeid;
 	
 	public Reimbursement() {}
 
-	public Reimbursement(int id, double amount, String submitted, String resolved, String description, int author,
-			int resolver, int statusid, int typeid) {
+	public Reimbursement(int id, double amount, String submitted, String resolved, String description, byte[] reciept,
+			String author, String resolver, int statusid, int typeid) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.submitted = submitted;
 		this.resolved = resolved;
 		this.description = description;
+		this.reciept = reciept;
 		this.author = author;
 		this.resolver = resolver;
 		this.statusid = statusid;
@@ -68,19 +73,27 @@ public class Reimbursement {
 		this.description = description;
 	}
 
-	public int getAuthor() {
+	public byte[] getReciept() {
+		return reciept;
+	}
+
+	public void setReciept(byte[] reciept) {
+		this.reciept = reciept;
+	}
+
+	public String getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(int author) {
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 
-	public int getResolver() {
+	public String getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(int resolver) {
+	public void setResolver(String resolver) {
 		this.resolver = resolver;
 	}
 
@@ -103,8 +116,7 @@ public class Reimbursement {
 	@Override
 	public String toString() {
 		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
-				+ ", description=" + description + ", author=" + author + ", resolver=" + resolver + ", statusid="
-				+ statusid + ", typeid=" + typeid + "]";
+				+ ", description=" + description + ", reciept=" + Arrays.toString(reciept) + ", author=" + author
+				+ ", resolver=" + resolver + ", statusid=" + statusid + ", typeid=" + typeid + "]";
 	}
-
 }

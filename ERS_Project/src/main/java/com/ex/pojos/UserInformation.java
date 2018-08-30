@@ -15,7 +15,11 @@ public class UserInformation {
 		this.email = email;
 		this.ur_id = ur_id;
 	}
-
+	
+	public UserInformation() {
+		super();
+	}
+	
 	public String getUsername() {
 		return username;
 	}
