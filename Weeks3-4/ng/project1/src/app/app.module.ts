@@ -15,13 +15,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReimbursementService} from './services/reimbursement.service';
 import { ReimbursementComponent } from './components/reimbursement/reimbursement.component';
-import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
+
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { LandingComponent } from './components/landing/landing.component'
 import { EmployeeService } from './services/employee.service';
 import { HttpeeService } from './services/httpee.service';
-// import { RouterModule, Routes} from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewReimbursementComponent } from './components/new-reimbursement/new-reimbursement.component';
+import { TransitionComponent } from './components/transition/transition.component';
+// import { AppMaterialModule } from './app-material/app-material.module';
 // import { EmployeeService } from './services/employee.service';
 
 enableProdMode();
@@ -33,11 +37,15 @@ enableProdMode();
     NavbarComponent,
     HomeComponent,
     ReimbursementComponent,
-    NewEmployeeComponent,
     LogoutComponent,
-    LandingComponent
+    LandingComponent,
+    NewReimbursementComponent,
+    TransitionComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    // AppMaterialModule
     BrowserModule,
     HttpClientModule,
     FormsModule, // Gives us ngModel

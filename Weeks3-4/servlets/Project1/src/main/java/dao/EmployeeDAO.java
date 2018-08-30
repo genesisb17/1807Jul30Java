@@ -267,5 +267,40 @@ public class EmployeeDAO implements DAO<Employee, Integer> {
 		}
 		return null;
 	}
+	@Override
+	public Employee findOne(String username) {
+Employee temp = new Employee();
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			
+			String sql = "select * from employee where emp_username = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			
+			ps.setString(1, username);//maybe needs to be changed to something else
+			
+			ResultSet info = ps.executeQuery();
+						
+			while(info.next()) {
+				temp.setEmployee_id(info.getInt(1));
+				temp.setEmp_username(info.getString(2));
+				temp.setEmp_password(info.getString(3));
+				temp.setFirst_name(info.getString(4));
+				temp.setLast_name(info.getString(5));
+				temp.setEmail(info.getString(6));
+				temp.setEmp_role_id(info.getInt(7));
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("SQL State: " + e.getSQLState());
+			System.err.println("Error Code: " + e.getErrorCode());
+		}
+		return temp;
+	}
+	@Override
+	public Employee resolveReimbursement(int r, int e, int s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

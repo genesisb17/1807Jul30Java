@@ -143,7 +143,7 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 			System.err.println("SQL State: " + e.getSQLState());
 			System.err.println("Error Code: " + e.getErrorCode());
 		}
-		
+		System.out.println(obj.toString() + " bottom of save");
 		return obj;
 	}
 	//--------------------------------------------------------------------DOES NOT WORK
@@ -207,17 +207,17 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 		return obj;
 	}
 //-------------------------------------------------------------------------------BROKEN
-	public Reimbursement resolveReimbursement(Reimbursement r, Employee e, int s) {
+	public Reimbursement resolveReimbursement(int r, int e, int s) {
 //		Reimbursement temp = new Reimbursement();
-		System.out.println(r.getReimb_id());
-		System.out.println(e.getEmployee_id());
-		System.out.println(r.getStatus_id());
+//		System.out.println(r.getReimb_id());
+//		System.out.println(e.getEmployee_id());
+//		System.out.println(r.getStatus_id());
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 			String sql = "{call resolve_reimbursement(?,?,?)}";
 			CallableStatement cs = conn.prepareCall(sql);
 	
-			cs.setInt(1, r.getReimb_id());
-			cs.setInt(2, e.getEmp_role_id());
+			cs.setInt(1, r);
+			cs.setInt(2, e);
 			cs.setInt(3, s);
 			
 //			cs.registerOutParameter(1, OracleTypes.NUMBER);
@@ -225,15 +225,15 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 //			cs.registerOutParameter(2, OracleTypes.NUMBER);
 			
 			cs.execute();
-			r.setResolver(e.getEmployee_id());
-			r.setStatus_id(s);
+//			r.setResolver(e);
+//			r.setStatus_id(s);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.err.println("SQL State: " + ex.getSQLState());
 			System.err.println("Error Code: " + ex.getErrorCode());
 		}
 		
-		return r;
+		return null;
 	}
 	
 	Reimbursement getPendingReimbursements() {
@@ -273,6 +273,11 @@ public class ReimbursementDAO implements DAO<Reimbursement, Integer>{
 			System.err.println("Error Code: " + e.getErrorCode());
 		}
 		return temp;
+	}
+	@Override
+	public Reimbursement findOne(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

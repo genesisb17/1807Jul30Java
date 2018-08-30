@@ -2,24 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Employee } from '../models/employee.model';
 import { Reimbursement } from '../models/reimbursement.model';
-import { Observable } from 'rxjs';
-//import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
-
-// import 'rxjs/Rx';
+import { HttpeeService } from './httpee.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ReimbursementService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private httpService: HttpeeService) { }
 
   public handleError(error: Response){
     return Observable.throw(error.statusText);
   }
 
-  // public getEmployees() {
-  //   return this.http.get<Employee[]>('http://localhost:8888/Project1/employees');
-  // }
-    public getReimbursements() {
-      return this.http.get<Reimbursement[]>('http://localhost:8888/Project1/reimbursements');
-    }
+  public getAllReimbursements() {
+    this.httpService.getReimbursements();
+  }
+
 }

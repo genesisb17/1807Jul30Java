@@ -1,14 +1,16 @@
 package pojos;
 
 import java.sql.Blob;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Reimbursement {
 	private int reimb_id;
 	private double amount;
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
 	private Timestamp submitted;
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
 	private Timestamp resolved;
 	private String description;
 	private Blob receipt;

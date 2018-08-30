@@ -24,33 +24,34 @@ public class Resolve extends HttpServlet {
 	
 	static ReimbursementService bs = new ReimbursementService();
 	static EmployeeService es = new EmployeeService();
-	static Employee employeee;
+	static int employeee;
+	static int temp_reimb;
+	static int temp_status;
 
     public Resolve() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
+		
+		//JACKSON API
 		ObjectMapper mapper = new ObjectMapper();
-
-		Reimbursement b = mapper.readValue(request.getReader(), Reimbursement.class);
-		System.out.println(b.toString());
 		
-		b = bs.save(b);
-		System.out.println(b.toString());
+		String[] info = mapper.readValue(request.getReader(), String[].class);
+		System.out.println(info[1]);
+		temp_reimb = Integer.parseInt(info[0]);
+		employeee = Integer.parseInt(info[1]);
+		temp_status = Integer.parseInt(info[2]);
 		
-		String ret = mapper.writeValueAsString(b);
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		out.write(ret);
+		bs.resolveReimbursement(temp_reimb, employeee,temp_status);
+	
 	}
-
-
 }
+//for testing
+//{
+//	"reimb_id":41,
+//	"resolver_id":9,
+//	"status_id": 3
+//}	

@@ -28,17 +28,15 @@ public class FindUpdateEmployeeServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
-		
+
 		//JACKSON API
 		ObjectMapper mapper = new ObjectMapper();
 		
-		String[] info = mapper.readValue(request.getReader(), String[].class);
+		String info = mapper.readValue(request.getReader(), String.class);
 		
-		int emp_id = Integer.parseInt((info[0]));
+		String emp_username = (info);
 		
-		Employee employee = bs.findOne(emp_id);
+		Employee employee = bs.findOne(emp_username);
 		
 		response.setContentType("application/json");		
 		mapper.writeValue(response.getWriter(), employee);		

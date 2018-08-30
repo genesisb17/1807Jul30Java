@@ -1,3 +1,36 @@
-<p>
-  reimbursement works!
-</p>
+  <!-- div to add new book. could and likely should be another component but lazy... -->
+  
+<h3>All Reimbursements:</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Amount</th>
+      <th scope="col">Submitted</th>
+      <th scope="col">Resolved</th>
+      <th scope="col">Description</th>
+      <th scope="col">Author</th>
+      <th scope="col">Resolver</th>
+      <th scope="col">Status</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of reimbursements">
+      <td>{{b.amount}}</td>
+      <td>{{b.submitted | date: 'medium' }}</td>
+      <td>{{b.resolved | date: 'medium'}}</td>
+      <td>{{b.description}}</td>
+      <td>{{b.author}}</td>
+      <td>{{b.resolver}}</td>
+      <!-- <td>{{b.status_id}}</td> -->
+      <td>
+          {{b.status_id}}
+          <button *ngIf="b.status_id ==1" (click)="setApproved(b.reimb_id)" class="btn btn-primary">Approve</button>
+          <button *ngIf="b.status_id ==1" (click)="setApproved(b.reimb_id)" class="btn btn-primary">Deny</button>
+      </td>
+      <td>{{b.type_id}}</td>
+
+    </tr>
+  </tbody>
+
+</table>

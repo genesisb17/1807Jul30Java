@@ -1,0 +1,25 @@
+<!-- <p *ngIf="!addNewVisible" (click)="addNewView()"><i>Click Here to Add a Reimbursement</i></p> -->
+<!-- <div *ngIf="addNewVisible" class="jumbotron"> -->
+    
+  <div class="jumbotron">
+    <!-- <div (submit)="createReimbursement()"> -->
+    <div>
+      <label>Amount:</label>
+      <input type="number" [(ngModel)]="amount" name="amount" class="col-4 form-control" placeholder="$ Amount">
+      
+      <label>Description:</label> 
+      <input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Brief Description">
+      
+      <label>Type:</label>
+      <select [(ngModel)]="type_id" name="type_id" class="form-control col-4">
+        <option>Lodging</option>
+        <option>Travel</option>
+        <option>Food</option>
+        <option>Other</option>
+      </select>
+      <!-- <button type="submit" class="btn btn-submit">Add Reimbursement!</button> -->
+      <button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
+    
+    </div>
+    
+  </div>

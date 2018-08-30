@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { Employee } from '../../models/employee.model';
+import { HttpeeService } from '../../services/httpee.service';
 
 @Component({ //shows up in app.component.html as tag
   selector: 'app-login',
@@ -11,35 +13,39 @@ export class LoginComponent implements OnInit {
 
   private username: string;
   private password: string;
+  private message: string;
+  private emp: Employee;
 
-  servletData: any;
-
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private httpService: HttpeeService) { }
 
   ngOnInit() {
-    this.loginService.subscribeToLogin(()=>{
-      this.router.navigate([" "])
-    });
+
   }
 
+  getCurrentEmployee(){
+    return this.httpService.temp;
+  }
 
-  // login() {
-  //   console.log(`Value of username: ${this.username}`);
-  //   console.log(`Value of password: ${this.password}`);
-
-  //   this.loginService.login(this.username, this.password).subscribe(
-  //     data => {
-  //       console.log(data);
-  //     }
-  //   );
-  // }
   login(){
-    console.log("in login method" + this.username);
-      this.loginService.validate(this.username, this.password);
+    console.log("in login method for " + this.username);
+//      this.loginService.validate(this.username, this.password);
+      this.loginService.validate(this.username, this.password).subscribe(
+        temp => {
+          this.emp = temp;
+          console.log(temp + " in login component");
+          console.log(this.emp);
+         if(this.emp != null){
+            this.router.navigate(["landing"]);
+            console.log("logged in")
+          } else {
+            console.log("not correct")
+           }
+          
+        }
+      )
     }
-  
+      
     register(){//-  -   -   - - - - - - - - - - - - - - was "register"
-      this.router.navigate(["new-employee"])
+      this.router.navigate(["home"])
     }
-
-}
+  }

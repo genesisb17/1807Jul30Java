@@ -1,5 +1,5 @@
 export class Employee {
-    // employee_id: number;
+    employee_id: number;
     emp_username: string;
     emp_password: string;
     first_name: string;

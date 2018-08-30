@@ -17,4 +17,6 @@ public interface DAO<T, I extends Serializable> {
 //		return true;
 //	}
 	T findOne(int id);
+	T findOne(String username);
+	T resolveReimbursement(int r, int e, int s);
 }

@@ -60,4 +60,8 @@ public class EmployeeService {
 			return eDAO.findOne(emp);
 		return null;
 	}
+
+	public Employee findOne(String emp_username) {
+		return eDAO.findOne(emp_username);
+	}
 }

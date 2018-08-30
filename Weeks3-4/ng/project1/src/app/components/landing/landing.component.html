@@ -1,4 +1,54 @@
-<p>
-  you are logged in {{employee.username}}
- </p>
- 
+<div *ngIf="!httpService.temp" >
+<h2>Welcome!</h2>
+<p>This application is to service employees and managers with
+  handling reimbursement requests. . .
+</p>
+<p>Please, login!</p>
+  
+</div>
+
+<!-- <p *ngIf="!httpService.temp" ><i>Add new Book...</i></p> -->
+<div *ngIf="httpService.temp" class="jumbotron">
+    <h3>Your Reimbursements:</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Amount</th>
+          <th scope="col">Submitted</th>
+          <th scope="col">Resolved</th>
+          <th scope="col">Description</th>
+          <th scope="col">Author</th>
+          <th scope="col">Resolver</th>
+          <th scope="col">Status</th>
+          <th scope="col">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of reimbursements">
+          <td>{{b.amount}}</td>
+          <td>{{b.submitted | date: 'medium' }}</td>
+          <td>{{b.resolved | date: 'medium'}}</td>
+          <td>{{b.description}}</td>
+          <td>{{b.author}}</td>
+          <td>{{b.resolver}}</td>
+          <!-- <td>{{b.status_id}}</td> -->
+          <td>
+              {{b.status_id}}
+              <label class="radio-inline"><input type="radio" name="status_id" value="1">Pending</label>
+              <label class="radio-inline"><input type="radio" name="status_id" value="2">Approved</label>
+              <label class="radio-inline"><input type="radio" name="status_id" value="3">Denied</label>
+    
+              
+          </td>
+          <td>{{b.type_id}}</td>
+    
+        </tr>
+      </tbody>
+    
+    </table>
+  </div>
+
+  <!-- <tr *ngFor="let r of reimbursements; let i = index" (click)="setCurrentReimb(i)">
+      <ng-container *ngIf="fid == false || fid == r.id">
+        <ng-container *ngIf="fauthor == false || fauthor == r.author">
+          <ng-container *ngIf="fstatus == false || fstatus == r.status"> -->

@@ -24,6 +24,7 @@ public class AllSaveReimbursementServlet extends HttpServlet {
 	
 	static ReimbursementService bs = new ReimbursementService();
 	static EmployeeService es = new EmployeeService();
+	static Reimbursement temp = new Reimbursement();
 	
     public AllSaveReimbursementServlet() {
         super();
@@ -32,7 +33,7 @@ public class AllSaveReimbursementServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Reimbursements -- Served at: ").append(request.getContextPath());
 		
 		List<Reimbursement> reimbursements = bs.getAll();
 		if(reimbursements.size()>0) {
@@ -54,16 +55,20 @@ public class AllSaveReimbursementServlet extends HttpServlet {
 		
 		ObjectMapper mapper = new ObjectMapper();
 
-		Reimbursement b = mapper.readValue(request.getReader(), Reimbursement.class);
-		System.out.println(b.toString());
+		String[] info = mapper.readValue(request.getReader(), String[].class);
+//		System.out.println(b.toString());
+		temp.setAmount(Double.parseDouble(info[0]));
+		temp.setDescription(info[1]);
+		temp.setAuthor(Integer.parseInt(info[2]));
+		temp.setType_id(Integer.parseInt(info[3]));
 		
-		b = bs.save(b);
-		System.out.println(b.toString());
-		
-		String ret = mapper.writeValueAsString(b);
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		out.write(ret);
+		bs.save(temp);
+//		System.out.println(temp.toString());
+//		
+//		String ret = mapper.writeValueAsString(temp);
+//		PrintWriter out = response.getWriter();
+//		response.setContentType("application/json");
+//		out.write(ret);
 	}
 
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

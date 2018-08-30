@@ -29,7 +29,7 @@ public class AllSaveEmployeeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
 		
 		List<Employee> employees = bs.getAll();
 		if(employees.size()>0) {
