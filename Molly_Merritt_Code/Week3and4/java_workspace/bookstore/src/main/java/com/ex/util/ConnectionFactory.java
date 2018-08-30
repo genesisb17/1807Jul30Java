@@ -27,7 +27,7 @@ public class ConnectionFactory {
 		Connection conn = null;
 		Properties prop = new Properties();
 		String path = "/Users/mollymerritt/my_git_repos/1807Jul30Java/"
-				+ "Molly_Merritt_Code/Weeks3and4/java_workspace/bookstore/src/main/"
+				+ "Molly_Merritt_Code/Week3and4/java_workspace/bookstore/src/main/"
 				+ "resources/application.properties";
 		try {
 			prop.load(new FileReader(path));

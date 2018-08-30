@@ -27,6 +27,13 @@ export class LoginComponent implements OnInit {
     console.log(`Value of username: ${this.username}`);
     console.log(`Value of password: ${this.password}`);
 
+    // askForSomething();
+    // this.authService.askForSomething().subscribe(
+    //   function(myParam) {
+    //     console.log('---> ' + myParam);
+    //   }
+    // );
+
     this.authService.login(this.username, this.password).subscribe(
       data => {
         console.log(data);

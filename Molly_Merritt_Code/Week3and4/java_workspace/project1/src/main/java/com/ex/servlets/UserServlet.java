@@ -44,40 +44,40 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//TAKE BOOK JSON STRING AND TURN TO JAVA OBJ
 		
-		System.out.println("in doPost method");
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
-		String json = "";
-		if(br != null){
-			json = br.readLine();
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		User u = mapper.readValue(json, User.class);
-		
-		u = uService.addUser(u);
-		
-		String ret = mapper.writeValueAsString(u);
+//		System.out.println("in doPost method");
+//		
+//		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+//		String json = "";
+//		if(br != null){
+//			json = br.readLine();
+//		}
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		User u = mapper.readValue(json, User.class);
+//		
+//		u = uService.addUser(u);
+//		
+//		String ret = mapper.writeValueAsString(u);
 //		PrintWriter out = resp.getWriter();
-		resp.setContentType("application/json");
+//		resp.setContentType("application/json");
 //		out.write(ret);
 		
 		//
 		
-//		String name = req.getParameter("username");
-//		String pass = req.getParameter("password");
+		String name = req.getParameter("username");
+		String pass = req.getParameter("password");
 		
-		String name = u.getUsername();
-		String pass = u.getPassword();
+//		String name = u.getUsername();
+//		String pass = u.getPassword();
 				
-//		User u = uService.getUser(name);
+		User u = uService.getUser(name);
 		
 		System.out.println("LOGGING IN USER " + name  + ":" + pass);
 		
 		PrintWriter out = resp.getWriter();
 		if(u == null) {
-//			out.println("Sorry, invalid username");
-//			resp.sendRedirect("login");
+			out.println("Sorry, invalid username");
+			resp.sendRedirect("login");
 		}
 		else if(!u.getPassword().equals(pass)) {
 			out.println("Sorry, invalid passsword");

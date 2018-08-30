@@ -9,8 +9,20 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
+  login(name: string, pw: string): Observable<any> {
     console.log('calling login method');
-    return this.http.post<any>('http://localhost:8080/project1/login.ng', {username: username, password: password});
+    const user = {
+      username: name,
+      password: pw
+    };
+
+    // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
+    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(user));
+
   }
+
+  // askForSomething() {
+  //   return this.http.get<any>('http://localhost:8080/project1v1/users?pol=val');
+  // }
+
 }

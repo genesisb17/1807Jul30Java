@@ -18,12 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 //@WebServlet("/login")
 public class ServletDispatcher extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 	static UserService uService = new UserService();
        
-    public ServletDispatcher() {
-        super();
-    }
+//    public ServletDispatcher() {
+//        super();
+//    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
