@@ -14,8 +14,4 @@ public interface Dao<T, I extends Serializable> {
 	T update(T obj);
 	boolean isUnique(T obj);
 	
-	User getUser(String username);
-	String getPasswordHash(User user);
-	UserInformation getUserInformation(String username);
-	
 }

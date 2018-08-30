@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ex.dao.Dao;
 import com.ex.dao.UserDao;
+import com.ex.dao.UserInfoDao;
 import com.ex.pojos.User;
 import com.ex.pojos.UserInformation;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserService {
 
 	private static Dao<User, Integer> userDao = new UserDao();
+	private static Dao<UserInformation, Integer> userInfoDao = new UserInfoDao();
 
 	// 1. Read the request body (JSON) and set it to the `json` String variable
 	// 2. Using the ObjectMapper, map the json into an object of type User
@@ -27,9 +29,9 @@ public class UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		User authorized = userDao.getUser(user.getUsername());
-		if (userDao.getPasswordHash(user).equals(authorized.getPassword())) {
-			return userDao.getUserInformation(user.getUsername());
+		User authorized = ((UserDao) userDao).getUser(user.getUsername());
+		if (((UserDao) userDao).getPasswordHash(user).equals(authorized.getPassword())) {
+			return ((UserDao) userDao).getUserInformation(user.getUsername());
 		}
 		return null;
 	}
@@ -38,11 +40,11 @@ public class UserService {
 		return userDao.findAll();
 	}
 	
-	public User addUser(User u) {
+	public UserInformation addUser(UserInformation u) {
 		// check if username and email are unique
-		boolean isUniq = userDao.isUnique(u);
+		boolean isUniq = userInfoDao.isUnique(u);
 		if (isUniq) {
-			return userDao.save(u);
+			return userInfoDao.save(u);
 		} else {
 			// create custom exception?
 		}
