@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class
+		name="com.iantimothyjohnson.notes.week5.hellohibernate.pojos.Person"
+		table="people">
+		<id name="id" type="int" column="p_id">
+			<!-- The generator element is used to generate PKs automatically. The 
+				class attribute is set to "native" to let Hibernate pick its generation strategy 
+				depending on the capabilities of the underlying database. -->
+			<generator class="native" />
+		</id>
+		<property name="firstName" type="string" column="first_name" />
+		<property name="lastName" type="string" column="last_name" />
+	</class>
+</hibernate-mapping>

@@ -25,13 +25,8 @@
 
 		<!-- Tell Hibernate where to find classes configured with annotations. -->
 		<mapping
-			class="com.iantimothyjohnson.notes.week5.hellohibernate.pojos.Bear" />
+			class="com.iantimothyjohnson.notes.week5.models.Account" />
 		<mapping
-			class="com.iantimothyjohnson.notes.week5.hellohibernate.pojos.Cave" />
-		<mapping
-			class="com.iantimothyjohnson.notes.week5.hellohibernate.pojos.Honey" />
-
-		<!-- Here's how we can make a mapping from an XML file. -->
-		<mapping resource="Person.hbm.xml" />
+			class="com.iantimothyjohnson.notes.week5.models.User" />
 	</session-factory>
 </hibernate-configuration>

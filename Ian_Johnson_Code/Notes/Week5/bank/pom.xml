@@ -3,10 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.iantimothyjohnson.notes.week5</groupId>
-	<artifactId>hello-hibernate</artifactId>
+	<artifactId>bank</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Hello, Hibernate!</name>
-	<description>Intro to Hibernate.</description>
+	<packaging>war</packaging>
+	<name>Hibernate Bank App</name>
+	<description>A bank written using Hibernate.</description>
 	<build>
 		<plugins>
 			<plugin>
@@ -34,6 +35,16 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -58,10 +69,10 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.8.2</version>
 		</dependency>
-		<dependency>
+<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.12.Final</version>
+			<version>5.3.6.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

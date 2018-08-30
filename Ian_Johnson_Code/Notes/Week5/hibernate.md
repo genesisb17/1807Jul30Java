@@ -19,7 +19,8 @@ dialect-agnostic.
   of configuration file (`hibernate.cfg.xml`).
 - `Transaction`: used for managing ACID-compliant transactions.
 - `Query`: used to carry out complex queries with HQL.
-- `Criteria`: used to create complex queries programmatically.
+- `Criteria`: used to create complex queries programmatically. Uses builders
+  rather than HQL.
 
 ## Object state
 
@@ -69,3 +70,47 @@ It is `SessionFactory`-scoped, and can operate according to two strategies:
   updates.
 - Read-write: good for persistent objects that will be updated by your
   Hibernate app.
+
+## Inheritance strategies
+
+- Table-per-hierarchy: one table for all objects related through a common
+  ancestor class.
+- Table-per-subclass: one table for each subclass; superclass has its own
+  table and contains columns for each of the superclass properties.
+- Table-per-concrete-class: one table for each concrete subclass; subclass
+  tables have a column for each property, even inherited ones.
+
+## Similar method pairs
+
+### Save vs persist
+
+#### Save
+
+#### Persist
+
+### Merge vs update
+
+#### Merge
+
+- Behavior defined by JPA specification.
+- When called on a transient entity, copies values to a new entity.
+- When called on a detached entity, copies values to the existing entity.
+- Does not change the state of the entity you pass to it.
+
+#### Update
+
+- Original Hibernate method.
+- When called on a transient entity, throws an exception.
+- When called on a detached entity, "reattaches" it to make it persistent again.
+
+### Get vs load
+
+#### Get
+
+- Returns `null` if the requested entity does not exist.
+- Accesses the database immediately (eager).
+
+#### Load
+
+- Throws an exception if the requested entity does not exist.
+- Returns a proxy object by default (lazy).
