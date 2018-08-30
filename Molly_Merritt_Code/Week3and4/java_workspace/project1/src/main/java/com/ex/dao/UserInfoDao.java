@@ -11,23 +11,8 @@ import com.ex.pojos.UserInformation;
 import com.ex.util.ConnectionFactory;
 
 public class UserInfoDao implements Dao<UserInformation, Integer> {
-	
-	public String getPasswordHash(User user) {
-		int index = 0;
-		try (Connection conn = ConnectionFactory.getConnection()) {	// try with resources
-			PreparedStatement stmt = conn.prepareStatement("select GET_USER_HASH(?,?) AS HASH from dual");
-			stmt.setString(++index, user.getUsername());
-			stmt.setString(++index, user.getPassword());
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) { return rs.getString("HASH"); }
-		} catch (SQLException sql) {
-			System.err.println("SQL State: " +sql.getSQLState());
-			System.err.println("Error Code: " + sql.getErrorCode());
-		}
-		return null;
-	}
 
-	public UserInformation getUserInformation(String username) {
+	public UserInformation findOne(String username) {
 		int index = 0;
 		try (Connection conn = ConnectionFactory.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM example_user_information "
@@ -43,59 +28,43 @@ public class UserInfoDao implements Dao<UserInformation, Integer> {
 		}
 		return null;
 	}
-
-	public User getUser(String username) {
-		int index = 0;
-		try (Connection conn = ConnectionFactory.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM example_users WHERE username = ?");
-			stmt.setString(++index, username);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {	// very important, DO NOT FORGET THIS
-				return new User(rs.getString(1), rs.getString(2));
-			}
-		} catch (SQLException sql) {
-			System.err.println("SQL State: " + sql.getSQLState());
-			System.err.println("Error Code: " + sql.getErrorCode());
-		}
-		return null;
-	}
+	
+//	public static void main(String[] args) {
+//		UserDao uDao = new UserDao();
+//		UserInformation u = new UserInformation("iamamanager2", "thisismypassword", "Michael", "Scott", "email2@email.com", 2);
+//		uDao.update(u);
+////		System.out.println(uDao.isUnique(u));
+//		uDao.save(u);
+//	}
 
 	@Override
-	public List<User> findAll() {
+	public UserInformation findOne(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User findOne(Integer id) {
+	public UserInformation save(UserInformation obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User save(User obj) {
+	public UserInformation update(UserInformation obj) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User update(User obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isUnique(User obj) {
+	public boolean isUnique(UserInformation obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	public static void main(String[] args) {
-		UserDao uDao = new UserDao();
-		UserInformation u = new UserInformation("iamamanager2", "thisismypassword", "Michael", "Scott", "email2@email.com", 2);
-		uDao.update(u);
-//		System.out.println(uDao.isUnique(u));
-		uDao.save(u);
+
+	@Override
+	public List<UserInformation> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 //	public List<User> findAll() {
