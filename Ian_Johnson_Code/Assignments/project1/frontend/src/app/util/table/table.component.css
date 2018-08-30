@@ -1,3 +1,12 @@
 .clickable {
   cursor: pointer;
+  user-select: none;
+}
+
+.placeholder-caret {
+  height: 8px;
+  width: 8px;
+  min-height: 8px;
+  min-width: 8px;
+  display: inline-block;
 }

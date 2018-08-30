@@ -63,12 +63,11 @@ BEGIN
 END;
 /
 
-
 CREATE TABLE reimbursement (
     id NUMBER(10, 0) PRIMARY KEY,
     type NUMBER(10, 0) NOT NULL REFERENCES reimbursement_type(id),
     status NUMBER(10, 0) NOT NULL REFERENCES reimbursement_status(id),
-    amount NUMBER(10, 2) NOT NULL,
+    amount NUMBER(10, 2) NOT NULL CHECK (amount > 0),
     description VARCHAR2(500),
     receipt BLOB,
     author NUMBER(10, 0) NOT NULL REFERENCES ers_user(id),

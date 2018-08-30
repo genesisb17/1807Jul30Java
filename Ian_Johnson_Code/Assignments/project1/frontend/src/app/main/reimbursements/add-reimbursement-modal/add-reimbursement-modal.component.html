@@ -23,7 +23,7 @@
           <div class="input-group-prepend">
             <span id="amount-unit" class="input-group-text">$</span>
           </div>
-          <input type="number" step="0.01" min="0" id="amount" class="col-12 col-md form-control" [(ngModel)]="amount" aria-describedby="amount-unit"
+          <input type="number" step="0.01" min="0.01" id="amount" class="col-12 col-md form-control" [(ngModel)]="amount" aria-describedby="amount-unit"
             aria-describedby="amount-error">
         </div>
         <div *ngIf="amountError" id="amount-error"><small class="text-danger">{{amountError}}</small></div>

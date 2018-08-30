@@ -1,7 +1,13 @@
 <table class="table table-hover table-striped table-responsive-md">
   <thead class="thead-light">
     <tr>
-      <th *ngFor="let column of columns" span="col">{{column.title}}</th>
+      <th *ngFor="let column of columns" span="col" class="clickable" (click)="handleColumnClick(column.property)">{{column.title}}
+        <img *ngIf="sortedColumn && column.property === sortedColumn.property && !sortedColumn.ascending" height="8" width="8" src="https://unpkg.com/@icon/open-iconic/icons/caret-bottom.svg"
+        />
+        <img *ngIf="sortedColumn && column.property === sortedColumn.property && sortedColumn.ascending" height="8" width="8" src="https://unpkg.com/@icon/open-iconic/icons/caret-top.svg"
+        />
+        <span *ngIf="!sortedColumn || column.property !== sortedColumn.property" class="placeholder-caret"></span>
+      </th>
     </tr>
   </thead>
   <tbody>

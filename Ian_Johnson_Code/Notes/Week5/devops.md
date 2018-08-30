@@ -70,7 +70,10 @@ AWS is a broad set of computing resources hosted by Amazon:
 
 AWS cloud infrastructure is built around Regions and Availability Zones
 (AZs). A Region is a physical location with multiple AZs. AZs consist of one
-or more discrete data centers housed in separate facilities.
+or more discrete data centers housed in separate facilities, with redundant
+power, networking and connectivity. AZs offer high-availability fault
+tolerance and scalability, and are strategically placed to service areas with
+high Internet usage.
 
 ### EC2
 
@@ -84,7 +87,7 @@ and can connect to Linux via SSH or to Windows via RDP.
 ### EBS
 
 Elastic Block Store provides persistent block-level storage volumes for EC2.
-It uses encryption for secure transfer between EC2 and EBS. EBSs are
+It uses encryption for secure transfer between EC2 and EBS. EBS volumes are
 automatically replicated within their AZs, to protect from component failure
 and provide high availability and durability. They also offer consistent and
 low-latency performance, striping multiple volumes for higher I/O
@@ -99,3 +102,14 @@ Auto-scaling ensures that you have enough EC2 instances to handle application
 load. You create collections of EC2 instances, called _auto-scaling groups_.
 You can specify scaling policies, and auto-scaling can launch or terminate
 instances depending on the demand on your application.
+
+### IAM (Identity and Access Management)
+
+IAM allows fine-grained control of access to AWS functionality, with support
+for advanced security features such as MFA (Multi-Factor Authentication).
+
+You can add IAM users and provide roles to each user, so that they can access
+certain features but not others.
+
+## CI (Continuous Integration)
+
