@@ -12,7 +12,10 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
   username: string;
   password: string;
-  error: string;
+
+  usernameError = '';
+  passwordError = '';
+  error = '';
 
   constructor(
     private loginService: LoginService,
@@ -28,16 +31,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    if (!this.username || !this.password) {
-      this.error = 'Must provide a username and password.';
+    if (!this.username) {
+      this.usernameError = 'Please enter your username.';
       return;
     }
-    this.loginService.login(this.username, this.password).subscribe(
-      user => {
-        console.log(JSON.stringify(user));
-        this.router.navigate(['home']);
-      },
-      error => (this.error = error)
-    );
+    this.usernameError = '';
+    if (!this.password) {
+      this.passwordError = 'Please enter your password.';
+      return;
+    }
+    this.passwordError = '';
+    this.loginService
+      .login(this.username, this.password)
+      .subscribe(
+        _ => this.router.navigate(['home']),
+        error => (this.error = error)
+      );
   }
 }

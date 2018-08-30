@@ -1,13 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { UserService } from '../../user.service';
 import { User } from '../../user';
-import { ActivatedRoute } from '@angular/router';
-import {
-  NgbModal,
-  NgbActiveModal,
-  NgbModalRef,
-} from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordModalComponent } from './change-password-modal/change-password-modal.component';
 
 @Component({
   selector: 'app-account',
@@ -15,21 +11,15 @@ import {
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent implements OnInit {
+  @ViewChild(ChangePasswordModalComponent)
+  changePasswordModal: ChangePasswordModalComponent;
+
   user: User;
   message: { text: string; classes: string[] };
-  passwordMessage: { text: string; classes: string[] };
-  @ViewChild('content')
-  content: NgbActiveModal;
-  passwordModal: NgbModalRef;
-
-  // For the password change modal.
-  newPassword: string;
-  confirmPassword: string;
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute,
-    private modalService: NgbModal
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -37,28 +27,19 @@ export class AccountComponent implements OnInit {
     this.route.params.subscribe(() => this.fetchUser());
   }
 
-  changePassword(): void {
-    this.passwordModal = this.modalService.open(this.content, {
-      ariaLabelledBy: 'password-modal-title',
-    });
+  openChangePasswordModal(): void {
+    this.changePasswordModal.open();
   }
 
-  closeChangePassword(): void {
-    if (!this.validateChangePassword()) {
-      return;
-    }
+  changePassword(newPassword: string): void {
     this.userService
-      .updatePassword(this.user.username, this.newPassword)
+      .updatePassword(this.user.username, newPassword)
       .subscribe(
-        () => {
-          this.passwordModal.close();
-        },
-        err => {
-          this.passwordMessage = {
-            text: err,
-            classes: ['text-danger'],
-          };
-        }
+        _ =>
+          (this.message = {
+            text: 'Password changed successfully.',
+            classes: ['text-success'],
+          })
       );
   }
 
@@ -103,24 +84,6 @@ export class AccountComponent implements OnInit {
     if (!this.user.firstName || !this.user.lastName || !this.user.email) {
       this.message = {
         text: 'Please fill in all required fields.',
-        classes: ['text-danger'],
-      };
-      return false;
-    }
-    return true;
-  }
-
-  private validateChangePassword(): boolean {
-    if (!this.newPassword || !this.confirmPassword) {
-      this.passwordMessage = {
-        text: 'Please fill in all fields.',
-        classes: ['text-danger'],
-      };
-      return false;
-    }
-    if (this.newPassword !== this.confirmPassword) {
-      this.passwordMessage = {
-        text: 'Given passwords do not match.',
         classes: ['text-danger'],
       };
       return false;

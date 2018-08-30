@@ -21,6 +21,7 @@ import { AdminReimbursementViewComponent } from './main/admin-reimbursements/adm
 import { ReimbursementDetailsModalComponent } from './main/reimbursements/reimbursement-details-modal/reimbursement-details-modal.component';
 import { UserDetailsModalComponent } from './main/admin-users/user-details-modal/user-details-modal.component';
 import { AddUserModalComponent } from './main/admin-users/add-user-modal/add-user-modal.component';
+import { ChangePasswordModalComponent } from './main/account/change-password-modal/change-password-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AddUserModalComponent } from './main/admin-users/add-user-modal/add-use
     ReimbursementDetailsModalComponent,
     UserDetailsModalComponent,
     AddUserModalComponent,
+    ChangePasswordModalComponent,
   ],
   imports: [
     BrowserModule,

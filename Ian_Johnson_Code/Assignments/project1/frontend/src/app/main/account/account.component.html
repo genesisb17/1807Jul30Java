@@ -26,34 +26,10 @@
   </table>
   <p *ngIf="message" class="mt-2" [ngClass]="message.classes">{{message.text}}</p>
   <div class="row mt-2">
-    <button class="btn btn-secondary col-12 col-md-3" (click)="changePassword()">Change password</button>
+    <button class="btn btn-secondary col-12 col-md-3" (click)="openChangePasswordModal()">Change password</button>
   </div>
   <div class="row mt-2">
     <button class="btn btn-primary col-12 col-md-3" (click)="updateInfo()">Save changes</button>
   </div>
-
-  <ng-template #content let-dismiss="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="password-modal-title">Change password</h4>
-      <button type="button" class="close" aria-label="Close" (click)="dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="container-fluid">
-        <div class="row align-items-baseline mt-2 mt-md-0">
-          <label for="new-password" class="col-12 col-md-6">New password:</label>
-          <input type="password" id="new-password" class="col-12 col-md form-control" [(ngModel)]="newPassword" required>
-        </div>
-        <div class="row align-items-baseline mt-2 mt-md-0">
-          <label for="confirm-password" class="col-12 col-md-6">Confirm new password:</label>
-          <input type="password" id="confirm-password" class="col-12 col-md form-control" [(ngModel)]="confirmPassword" required>
-        </div>
-        <div *ngIf="passwordMessage" class="row mt-2" [ngClass]="passwordMessage.classes">{{passwordMessage.text}}</div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="closeChangePassword()">Change password</button>
-    </div>
-  </ng-template>
+  <app-change-password-modal (close)="changePassword($event)"></app-change-password-modal>
 </div>
