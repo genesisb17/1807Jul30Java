@@ -11,31 +11,43 @@ import com.iantimothyjohnson.notes.week5.util.SessionUtil;
 
 public class AccountRepository {
 	public Account findById(int id) {
-		try (Session s = SessionUtil.getSession()) {
+		Session s = SessionUtil.getSession();
+		try {
 			return s.get(Account.class, id);
+		} finally {
+			s.close();
 		}
 	}
 
 	public List<Account> findAll() {
-		try (Session s = SessionUtil.getSession()) {
+		Session s = SessionUtil.getSession();
+		try {
 			Query<Account> q = s.createQuery("from Account", Account.class);
 			return q.getResultList();
+		} finally {
+			s.close();
 		}
 	}
 
 	public void save(Account a) {
-		try (Session s = SessionUtil.getSession()) {
+		Session s = SessionUtil.getSession();
+		try {
 			Transaction tx = s.beginTransaction();
 			s.save(a);
 			tx.commit();
+		} finally {
+			s.close();
 		}
 	}
 
 	public void update(Account a) {
-		try (Session s = SessionUtil.getSession()) {
+		Session s = SessionUtil.getSession();
+		try {
 			Transaction tx = s.beginTransaction();
 			s.update(a);
 			tx.commit();
+		} finally {
+			s.close();
 		}
 	}
 }
