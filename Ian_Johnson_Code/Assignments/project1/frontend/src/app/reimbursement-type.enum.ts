@@ -12,6 +12,9 @@ export namespace ReimbursementType {
    * @param s the string to be parsed as a (case-insensitive) type value
    */
   export function parse(s: string): ReimbursementType | null {
+    if (!s) {
+      return null;
+    }
     switch (s.toLowerCase()) {
       case 'lodging':
         return ReimbursementType.Lodging;
@@ -27,9 +30,9 @@ export namespace ReimbursementType {
   }
 
   /**
-   * Formats a reimbursement type in a user-readable string.
+   * Formats a ReimbursementType in a user-readable string.
    *
-   * @param t the reimbursement type to format
+   * @param t the ReimbursementType to format
    */
   export function format(t: ReimbursementType): string {
     if (!t) {

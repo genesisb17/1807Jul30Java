@@ -1,0 +1,9 @@
+.generated-password {
+  padding: 0.5rem;
+
+  font-size: 1.2rem;
+  font-family: 'Courier New', Courier, monospace;
+
+  background-color: #eee;
+  border: 1px solid #ddd;
+}

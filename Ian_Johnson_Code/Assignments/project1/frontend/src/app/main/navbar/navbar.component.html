@@ -13,7 +13,7 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/home/account">Account</a>
         </li>
-        <li *ngIf="isAdmin()" ngbDropdown class="nav-item">
+        <li *ngIf="isAdmin()" ngbDropdown class="nav-item" routerLinkActive="active">
           <a ngbDropdownToggle id="navbar-dropdown" class="nav-link">
             Manager tools
           </a>

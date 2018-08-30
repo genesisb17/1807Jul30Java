@@ -13,17 +13,55 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   /**
+   * Creates a new user.
+   *
+   * @param user the user information of the new user
+   * @param password the password of the new user
+   */
+  create(user: User, password: string): Observable<User> {
+    return this.http.post<User>(
+      environment.apiUrl + '/users',
+      { user, password },
+      { withCredentials: true }
+    );
+  }
+
+  /**
    * Gets a single user by ID.
    *
    * @param id the ID of the user to get
    */
-  get(id: number): Observable<User> {
+  getById(id: number): Observable<User> {
     const params = { id: id.toString() };
     return this.http
       .get<User>(environment.apiUrl + '/users', {
         params,
         withCredentials: true,
       })
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Gets a single user by username.
+   *
+   * @param username the username of the user to get
+   */
+  getByUsername(username: string): Observable<User> {
+    const params = { username };
+    return this.http
+      .get<User>(environment.apiUrl + '/users', {
+        params,
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  /**
+   * Gets a list of all users in the system.
+   */
+  getAll(): Observable<User[]> {
+    return this.http
+      .get<User[]>(environment.apiUrl + '/users', { withCredentials: true })
       .pipe(catchError(this.handleError));
   }
 
@@ -66,8 +104,8 @@ export class UserService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);
-    } else if (error.status === 403) {
-      return throwError('Unauthorized (perhaps not logged in).');
+    } else if (400 <= error.status && error.status < 500) {
+      return throwError(error.error);
     } else {
       console.error('Server returned an unexpected error:', error.error);
     }

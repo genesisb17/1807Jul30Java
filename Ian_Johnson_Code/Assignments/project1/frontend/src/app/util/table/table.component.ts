@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  PipeTransform,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface TableColumn {

@@ -11,6 +11,7 @@ import { ReimbursementStatus } from '../../../reimbursement-status.enum';
 import { TableColumn } from '../../../util/table/table.component';
 import { MessagingService } from '../../../util/messaging.service';
 import { ReimbursementDetailsModalComponent } from '../reimbursement-details-modal/reimbursement-details-modal.component';
+import { ReimbursementType } from '../../../reimbursement-type.enum';
 
 /**
  * The columns to use for the pending table.
@@ -19,8 +20,7 @@ const pendingColumns: TableColumn[] = [
   {
     title: 'Type',
     property: 'type',
-    formatter: (t: string) =>
-      t.charAt(0).toUpperCase() + t.substring(1).toLowerCase(),
+    formatter: ReimbursementType.format,
   },
   {
     title: 'Amount',

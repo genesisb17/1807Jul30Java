@@ -1,3 +1,7 @@
-<p>
-  admin-users works!
-</p>
+<div class="d-flex align-items-baseline justify-content-between mb-2 w-100">
+  <h2>All users</h2>
+  <button class="btn btn-success" (click)="openAddUserModal()">Add user</button>
+</div>
+<app-table [data]="users$" [columns]="tableColumns" (rowClick)="openDetailsModal($event)"></app-table>
+<app-user-details-modal></app-user-details-modal>
+<app-add-user-modal (close)="addUser($event)"></app-add-user-modal>

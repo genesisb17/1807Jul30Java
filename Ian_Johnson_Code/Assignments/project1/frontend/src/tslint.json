@@ -5,6 +5,9 @@
     "component-selector": [true, "element", "app", "kebab-case"],
     "max-line-length": {
       "severity": "off"
+    },
+    "quotemark": {
+      "severity": "off"
     }
   }
 }

@@ -67,14 +67,14 @@ export class ReimbursementDetailsModalComponent implements OnInit {
     // before opening the modal.
     const getAuthorName: Observable<string> = this.showAdminControls
       ? this.userService
-          .get(this.reimbursement.authorId)
+          .getById(this.reimbursement.authorId)
           .pipe(map(author => `${author.firstName} ${author.lastName}`))
       : of('');
     // Make sure we only get the resolver name if there is one.
     const getResolverName: Observable<string> =
       this.showAdminControls && this.reimbursement.resolverId
         ? this.userService
-            .get(this.reimbursement.resolverId)
+            .getById(this.reimbursement.resolverId)
             .pipe(map(resolver => `${resolver.firstName} ${resolver.lastName}`))
         : of('');
     // Wait until prerequisites are complete before opening the modal.

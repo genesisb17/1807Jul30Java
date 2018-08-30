@@ -55,7 +55,7 @@ export class ReimbursementService {
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error(`An internal error occurred: ${error.error.message}`);
-    } else if (error.status === 403) {
+    } else if (400 <= error.status && error.status < 500) {
       return throwError('Unauthorized (perhaps not logged in).');
     } else {
       console.error('Server returned an unexpected error:', error.error);

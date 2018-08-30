@@ -19,6 +19,8 @@ import { AdminReimbursementsComponent } from './main/admin-reimbursements/admin-
 import { AdminUsersComponent } from './main/admin-users/admin-users.component';
 import { AdminReimbursementViewComponent } from './main/admin-reimbursements/admin-reimbursement-view/admin-reimbursement-view.component';
 import { ReimbursementDetailsModalComponent } from './main/reimbursements/reimbursement-details-modal/reimbursement-details-modal.component';
+import { UserDetailsModalComponent } from './main/admin-users/user-details-modal/user-details-modal.component';
+import { AddUserModalComponent } from './main/admin-users/add-user-modal/add-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ReimbursementDetailsModalComponent } from './main/reimbursements/reimbu
     AdminUsersComponent,
     AdminReimbursementViewComponent,
     ReimbursementDetailsModalComponent,
+    UserDetailsModalComponent,
+    AddUserModalComponent,
   ],
   imports: [
     BrowserModule,

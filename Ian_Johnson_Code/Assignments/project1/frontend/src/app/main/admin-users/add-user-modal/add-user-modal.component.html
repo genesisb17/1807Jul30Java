@@ -1,0 +1,51 @@
+<ng-template #content let-dismiss="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Create user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="form-group row">
+        <label for="username">Username:</label>
+        <input type="text" id="username" class="col-12 form-control" [class.is-invalid]="usernameError" [(ngModel)]="username" aria-describedby="username-error">
+        <div *ngIf="usernameError" id="username-error" class="invalid-feedback">{{usernameError}}</div>
+      </div>
+      <div class="form-group row">
+        <label for="role">User role:</label>
+        <select id="role" class="col-12 form-control custom-select" [class.is-invalid]="roleError" [(ngModel)]="role" aria-describedby="role-error">
+          <option value="employee">Employee</option>
+          <option value="manager">Manager</option>
+        </select>
+        <div *ngIf="roleError" id="role-error" class="invalid-feedback">{{roleError}}</div>
+      </div>
+      <div class="form-group row">
+        <label for="first-name">First name:</label>
+        <input type="text" id="first-name" class="col-12 form-control" [class.is-invalid]="firstNameError" [(ngModel)]="firstName"
+          aria-describedby="first-name-error">
+        <div *ngIf="firstNameError" id="first-name-error" class="invalid-feedback">{{firstNameError}}</div>
+      </div>
+      <div class="form-group row">
+        <label for="last-name">Last name:</label>
+        <input type="text" id="last-name" class="col-12 form-control" [class.is-invalid]="lastNameError" [(ngModel)]="lastName" aria-describedby="last-name-error">
+        <div *ngIf="lastNameError" id="last-name-error" class="invalid-feedback">{{lastNameError}}</div>
+      </div>
+      <div class="form-group row">
+        <label for="email">Email:</label>
+        <input type="text" id="email" class="col-12 form-control" [class.is-invalid]="emailError" [(ngModel)]="email" aria-describedby="email-error">
+        <div *ngIf="emailError" id="email-error" class="invalid-feedback">{{emailError}}</div>
+      </div>
+      <div class="row">
+        <label for="generated-password col-12">Generated password:</label>
+        <div class="generated-password rounded col-12">{{generatedPassword}}</div>
+        <div class="alert alert-warning mt-2 mb-0">Please give this password to the new user and request that they change
+          it after their first login. If you lose this password, your user will not be able to log in.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Submit</button>
+  </div>
+</ng-template>

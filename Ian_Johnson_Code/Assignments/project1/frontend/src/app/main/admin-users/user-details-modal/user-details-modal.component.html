@@ -1,0 +1,39 @@
+<ng-template #content let-dismiss="dismiss" let-close="close">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">User details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="user" class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <label for="id" class="col-6 col-sm-3 font-weight-bold">ID</label>
+        <div id="id" class="col">{{user.id}}</div>
+      </div>
+      <div class="row">
+        <label for="role" class="col-6 col-sm-3 font-weight-bold">Role</label>
+        <div id="role" class="col">{{formatUserRole()}}</div>
+      </div>
+      <div class="row">
+        <label for="username" class="col-6 col-sm-3 font-weight-bold">Username</label>
+        <div id="username" class="col">{{user.username}}</div>
+      </div>
+      <div class="row">
+        <label for="first-name" class="col-6 col-sm-3 font-weight-bold">First name</label>
+        <div id="first-name" class="col">{{user.firstName}}</div>
+      </div>
+      <div class="row">
+        <label for="last-name" class="col-6 col-sm-3 font-weight-bold">Last name</label>
+        <div id="last-name" class="col">{{user.lastName}}</div>
+      </div>
+      <div class="row">
+        <label for="email" class="col-6 col-sm-3 font-weight-bold">Email</label>
+        <a id="email" class="col" href="mailto:{{user.email}}">{{user.email}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-dark" (click)="close()">OK</button>
+  </div>
+</ng-template>

@@ -12,6 +12,9 @@ export namespace ReimbursementStatus {
    * @param s the string to be parsed as a (case-insensitive) status value
    */
   export function parse(s: string): ReimbursementStatus | null {
+    if (!s) {
+      return null;
+    }
     switch (s.toLowerCase()) {
       case 'pending':
         return ReimbursementStatus.Pending;
