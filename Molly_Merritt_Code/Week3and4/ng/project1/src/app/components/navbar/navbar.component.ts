@@ -12,4 +12,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  accountView() {
+    console.log('switching to account view');
+  }
+
 }
