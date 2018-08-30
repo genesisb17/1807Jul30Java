@@ -8,29 +8,32 @@
   <div class="modal-body">
     <div class="container-fluid">
       <div class="form-group row">
-        <label for="type" class="col-12">Type:</label>
-        <select id="type" class="form-control custom-select" [(ngModel)]="type" required>
+        <label for="type">Type:</label>
+        <select id="type" class="form-control custom-select" [class.is-invalid]="typeError" [(ngModel)]="type" aria-describedby="type-error">
           <option value="lodging">Lodging</option>
           <option value="travel">Travel</option>
           <option value="food">Food</option>
           <option value="other">Other</option>
         </select>
+        <div *ngIf="typeError" id="type-error" class="invalid-feedback">{{typeError}}</div>
       </div>
       <div class="form-group row">
-        <label for="amount" class="col-12">Amount:</label>
+        <label for="amount">Amount:</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span id="amount-unit" class="input-group-text">$</span>
           </div>
           <input type="number" step="0.01" min="0" id="amount" class="col-12 col-md form-control" [(ngModel)]="amount" aria-describedby="amount-unit"
-            required>
+            aria-describedby="amount-error">
         </div>
+        <div *ngIf="amountError" id="amount-error"><small class="text-danger">{{amountError}}</small></div>
       </div>
       <div class="form-group row">
-        <label for="description" class="col-12">Description:</label>
-        <textarea maxlength="500" id="description" class="col-12 form-control" [(ngModel)]="description"></textarea>
+        <label for="description">Description:</label>
+        <textarea maxlength="500" id="description" class="col-12 form-control" [class.is-invalid]="descriptionError" [(ngModel)]="description"
+          aria-describedby="description-error"></textarea>
+        <div *ngIf="descriptionError" id="description-error" class="invalid-feedback">{{descriptionError}}</div>
       </div>
-      <div *ngIf="message" class="row mt-2" [ngClass]="message.classes">{{message.text}}</div>
     </div>
   </div>
   <div class="modal-footer">

@@ -79,9 +79,9 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
                 "Amount is greater than the maximum of "
                     + StringUtils.formatMoney(amount) + ".");
         }
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException(
-                "Reimbursement amounts must be non-negative.");
+                "Reimbursement amounts must be positive.");
         }
         if (amount.scale() > 2) {
             throw new IllegalArgumentException(

@@ -123,7 +123,7 @@ export class AddUserModalComponent implements OnInit {
     }
     this.lastNameError = '';
     // Validate email.
-    if (!this.email || !this.email.match('@')) {
+    if (!this.email || !/@/.test(this.email)) {
       this.emailError = 'Please enter a valid email address.';
       return throwError(this.emailError);
     }

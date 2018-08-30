@@ -32,15 +32,13 @@ export class AccountComponent implements OnInit {
   }
 
   changePassword(newPassword: string): void {
-    this.userService
-      .updatePassword(this.user.username, newPassword)
-      .subscribe(
-        _ =>
-          (this.message = {
-            text: 'Password changed successfully.',
-            classes: ['text-success'],
-          })
-      );
+    this.userService.updatePassword(this.user.username, newPassword).subscribe(
+      _ =>
+        (this.message = {
+          text: 'Password changed successfully.',
+          classes: ['text-success'],
+        })
+    );
   }
 
   fetchUser(): void {
@@ -84,6 +82,13 @@ export class AccountComponent implements OnInit {
     if (!this.user.firstName || !this.user.lastName || !this.user.email) {
       this.message = {
         text: 'Please fill in all required fields.',
+        classes: ['text-danger'],
+      };
+      return false;
+    }
+    if (!/@/.test(this.user.email)) {
+      this.message = {
+        text: 'Please enter a valid email address.',
         classes: ['text-danger'],
       };
       return false;

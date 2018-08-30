@@ -31,7 +31,9 @@ export class AddReimbursementModalComponent implements OnInit {
   amount = '0.00';
   description = '';
 
-  message: { text: string; classes: string[] };
+  typeError = '';
+  amountError = '';
+  descriptionError = '';
 
   constructor(private modalService: NgbModal) {}
 
@@ -42,13 +44,6 @@ export class AddReimbursementModalComponent implements OnInit {
       return;
     }
     const type = ReimbursementType.parse(this.type);
-    if (!type) {
-      this.message = {
-        text: 'Invalid reimbursement type.',
-        classes: ['text-danger'],
-      };
-      return;
-    }
     const reimbursement: Reimbursement = {
       type,
       amount: new Decimal(this.amount),
@@ -75,20 +70,30 @@ export class AddReimbursementModalComponent implements OnInit {
   }
 
   private validate(): boolean {
-    if (!this.type || !this.amount) {
-      this.message = {
-        text: 'Please fill in all required fields.',
-        classes: ['text-danger'],
-      };
+    if (!this.type || !ReimbursementType.parse(this.type)) {
+      this.typeError = 'Please provide a valid reimbursement type.';
       return false;
     }
+    this.typeError = '';
+    if (!this.amount) {
+      this.amountError = 'Please provide an amount.';
+      return false;
+    }
+    if (
+      !/^[0-9]+(\.[0-9]{1,2})?$/.test(this.amount) ||
+      parseFloat(this.amount) <= 0
+    ) {
+      this.amountError =
+        'Please specify a positive amount with no fractional cents.';
+      return false;
+    }
+    this.amountError = '';
     if (this.description.length > 500) {
-      this.message = {
-        text: 'Please limit descriptions to 500 characters or fewer.',
-        classes: ['text-danger'],
-      };
+      this.descriptionError =
+        'Please limit descriptions to 500 characters or fewer.';
       return false;
     }
+    this.descriptionError = '';
     return true;
   }
 }
