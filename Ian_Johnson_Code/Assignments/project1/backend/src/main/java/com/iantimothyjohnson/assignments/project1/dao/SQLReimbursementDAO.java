@@ -1,6 +1,5 @@
 package com.iantimothyjohnson.assignments.project1.dao;
 
-import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,18 +29,17 @@ public final class SQLReimbursementDAO extends SQLDAO<Reimbursement>
 
     @Override
     public boolean insert(Reimbursement obj) {
-        final String sql = "{CALL proc_submit_reimbursement(?, ?, ?, ?, ?, ?, ?, ?)}";
+        final String sql = "{CALL proc_submit_reimbursement(?, ?, ?, ?, ?, ?, ?)}";
         try (
             Connection conn = ConnectionFactory.getInstance().getConnection()) {
             CallableStatement cs = conn.prepareCall(sql);
             cs.setInt(1, obj.getType().getId());
             cs.setBigDecimal(2, obj.getAmount());
             cs.setString(3, obj.getDescription());
-            cs.setBlob(4, (Blob) null);
-            cs.setInt(5, obj.getAuthorId());
-            cs.registerOutParameter(6, Types.TIMESTAMP_WITH_TIMEZONE);
+            cs.setInt(4, obj.getAuthorId());
+            cs.registerOutParameter(5, Types.TIMESTAMP_WITH_TIMEZONE);
+            cs.registerOutParameter(6, Types.NUMERIC);
             cs.registerOutParameter(7, Types.NUMERIC);
-            cs.registerOutParameter(8, Types.NUMERIC);
             cs.execute();
             int affected = cs.getInt(8);
             if (affected == 1) {

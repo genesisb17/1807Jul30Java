@@ -26,7 +26,6 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
     private ReimbursementStatus status;
     private BigDecimal amount;
     private String description;
-    // TODO: figure out a way to put a receipt here.
     private int authorId;
     private int resolverId;
     @JsonFormat(shape = JsonFormat.Shape.STRING,
@@ -235,7 +234,6 @@ public class Reimbursement implements Copiable<Reimbursement>, Identifiable {
         status = r.status;
         amount = r.amount;
         description = r.description;
-        // TODO: initialize receipt field here.
         authorId = r.authorId;
         resolverId = r.resolverId;
         submitted = r.submitted;

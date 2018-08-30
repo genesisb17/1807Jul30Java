@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, merge } from 'rxjs';
@@ -61,7 +61,8 @@ export class ReimbursementViewComponent implements OnInit {
     private reimbursementService: ReimbursementService,
     private userService: UserService,
     private messages: MessagingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -79,6 +80,10 @@ export class ReimbursementViewComponent implements OnInit {
           status === ReimbursementStatus.Pending
             ? pendingColumns
             : resolvedColumns;
+        // If we don't do this, Angular will perhaps throw an error complaining
+        // about the table columns changing:
+        // https://stackoverflow.com/a/35243106
+        this.cdr.detectChanges();
         return this.userService.getCurrentUser();
       }),
       switchMap(user => this.reimbursementService.getByAuthor(user.id, status))

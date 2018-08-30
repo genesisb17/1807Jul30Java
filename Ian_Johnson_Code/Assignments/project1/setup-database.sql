@@ -1,6 +1,8 @@
 -- To completely set up an empty database for the project, run the commands in
 -- this file as your database's admin.
 
+DROP USER ers CASCADE;
+
 CREATE USER ers IDENTIFIED BY password;
 GRANT CONNECT TO ers;
 GRANT RESOURCE TO ers;
@@ -95,7 +97,6 @@ CREATE OR REPLACE PROCEDURE proc_submit_reimbursement(
     type IN NUMBER,
     amount IN NUMBER,
     description IN VARCHAR2,
-    receipt IN NUMBER,
     author IN NUMBER,
     submitted_timestamp OUT TIMESTAMP WITH TIME ZONE,
     new_id OUT NUMBER,
@@ -108,7 +109,6 @@ BEGIN
         status,
         amount,
         description,
-        receipt,
         author,
         submitted
     ) VALUES (
@@ -116,7 +116,6 @@ BEGIN
         1, -- Pending
         amount,
         description,
-        receipt,
         author,
         submitted_timestamp
     ) RETURNING id INTO new_id;
