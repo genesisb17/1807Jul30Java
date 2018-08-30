@@ -17,23 +17,27 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private route: Router) { }
 
   ngOnInit() {
+    this.authService.getCurrentUser().subscribe(data => { this.authService.user = data;
+    if (this.authService.user !== null) {
+      this.route.navigate(['successful']);
+    } });
   }
 
   login() {
     if (this.username == null || this.password == null) {
       alert('Input boxes cannot be empty.');
     } else {
-      this.authService.login(this.username, this.password)
-      .subscribe(user => { this.authService.user = user;
+        this.authService.login(this.username, this.password)
+          .subscribe(user => { this.authService.user = user;
         // Routes user based on what they put in
-        if (this.authService.user.username === 'test1' ||
-          this.authService.user.username === 'admin') {
+        if (this.authService.user.username === 'test1') {
           this.route.navigate(['successful']);
-        } else {
-          alert('Log in unsuccessful');
-          this.route.navigate(['']);
+        } else if (this.authService.user.username === 'admin' ) {
+          this.route.navigate(['admin']);
         }
-      });
+      }
+    , error => { alert('Incorrect login credentials.');
+  });
     }
   }
 }

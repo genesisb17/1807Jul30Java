@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ex.pojos.Reimbursement;
 import com.ex.pojos.RequestForm;
+import com.ex.pojos.UpdateForm;
 import com.ex.pojos.User;
 import com.ex.pojos.UserInformation;
 import com.ex.util.ConnectionFactory;
@@ -142,5 +144,57 @@ public class UserDaoImp implements UserDao {
 		// "no rows were inserted"
 		return x;
 	}
+
+	@Override
+	public List<Reimbursement> getAllTables() {
+		List<Reimbursement> allList = new ArrayList<>();
+		Reimbursement temp = null;
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String query = "SELECT * FROM REIMBURSEMENT";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getString(3));
+				temp.setResolved(rs.getString(4));
+				temp.setDescription(rs.getString(5));
+				temp.setReciept(rs.getBytes(6));
+				temp.setAuthor(rs.getString(7));
+				temp.setResolver(rs.getString(8));
+				temp.setStatusid(rs.getInt(9));
+				temp.setTypeid(rs.getInt(10));
+				allList.add(temp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allList;
+	}
+
+	@Override
+	public int updateForm(UpdateForm updateForm) {
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "UPDATE REIMBURSEMENT SET R_RESOLVED_TIME = SYSDATE, R_RESOLVER = ?, RS_ID = ? WHERE R_ID = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, "admin");
+			ps.setInt(2, updateForm.getStatusId());
+			ps.setInt(3, updateForm.getId());			
+			int i = ps.executeUpdate();
+			
+			if (i == 1) {
+				return 1;
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
 }
 

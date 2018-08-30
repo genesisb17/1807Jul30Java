@@ -1,0 +1,41 @@
+<h1 class="h1 text-center">Welcome {{this.authService.user.firstname}}!</h1>
+
+<h2 class="h2 text-center">Account Information</h2>
+<p class="AccountInformation h6 text-center">First Name: {{ this.authService.user.firstname }}</p>
+<p class="AccountInformation h6 text-center">Last Name: {{ this.authService.user.lastname }}</p>
+<p class="AccountInformation h6 text-center">Email: {{ this.authService.user.email }}</p>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary">Approve</button>
+  <button type="button" class="btn btn-secondary">Disapprove</button>
+</div>
+
+<div class="ReimbursementHistory">
+  <h2 class="text-center h2">Total Reimbursement List</h2>
+  <table class="table table-sm">
+    <thead>
+      <th scope="col">ID</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Submitted Time</th>
+      <th scope="col">Resolved Time</th>
+      <th scope="col">Description</th>
+      <th scope="col">Username</th>
+      <th scope="col">Resolved By</th>
+      <th scope="col">Status ID</th>
+      <th scope="col">Reimbursement Type ID</th>
+    </thead>
+    <tbody>
+      <tr scope="row" *ngFor="let empRows of emps" >
+        <td>{{ empRows.id }}</td>
+        <td>{{ empRows.amount | currency }}</td>
+        <td>{{ empRows.submitted }}</td>
+        <td>{{ empRows.resolved }}</td>
+        <td>{{ empRows.description }}</td>
+        <td>{{ empRows.author }}</td>
+        <td>{{ empRows.resolver }}</td>
+        <td>{{ empRows.statusid }}</td>
+        <td>{{ empRows.typeid }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,41 +1,65 @@
-<h1>Welcome employee!</h1>
+<h1 class="h1 text-center">Welcome  {{this.authService.user.firstname}}!</h1>
 
-<h2 *ngIf="isAdmin">ADMIN ONLY</h2>
+<h2 class="h2 text-center">Account Information</h2>
+<p class="AccountInformation h6 text-center">First Name: {{ this.authService.user.firstname }}</p>
+<p class="AccountInformation h6 text-center">Last Name: {{ this.authService.user.lastname }}</p>
+<p class="AccountInformation h6 text-center">Email: {{ this.authService.user.email }}</p>
 
-<h2>Reimbursement History</h2>
+<div class="ReimbursementHistory">
+  <h2 class="text-center h2">Reimbursement History</h2>
+  <table class="table table-sm">
+    <thead>
+      <th scope="col">Amount</th>
+      <th scope="col">Description</th>
+      <th scope="col">Username</th>
+      <th scope="col">Resolver</th>
+      <th scope="col">Status ID</th>
+    </thead>
+    <tbody>
+      <tr scope="row" *ngFor="let empRows of emps" >
+        <td>{{ empRows.amount | currency }}</td>
+        <td>{{ empRows.description }}</td>
+        <td>{{ empRows.author }}</td>
+        <td>{{ empRows.resolver }}</td>
+        <td>{{ empRows.statusid }}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 
-<p>First Name: {{ this.authService.user.firstname }}</p>
-<p>Last Name: {{ this.authService.user.lastname }}</p>
-<p>Email: {{ this.authService.user.email }}</p>
-
-<table>
-  <thead>
-    <th>Amount</th>
-    <th>Description</th>
-    <th>Username</th>
-    <th>Status ID</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let empRows of emps" >
-      <td>{{ empRows.amount | currency }}</td>
-      <td>{{ empRows.description }}</td>
-      <td>{{ empRows.author }}</td>
-      <td>{{ empRows.statusid }}</td>
-      </tr>
-  </tbody>
-</table>
-
-<form (submit)="submit()">
-    <label for="amount">Reimbursement Amount</label>
-    <input type="text" id="amount" name="amount" required [(ngModel)]="amount" /> <br>
-    <label for="description">Description</label>
-    <input type="description" id="description" name="description" required [(ngModel)]="description" /><br>
-    <select id="type" required [(ngModel)]="requestTypeStr" >
-      <option value="1">Lodging</option>
-      <option value="2">Food</option>
-      <option value="3">Travel</option>
-      <option value="4">Other</option>
-    </select>
-    <input type="submit" value="submit!">
-</form>
+<div>
+  <form (submit)="submit()">
+    <div class="form-group">
+      <p class="h6 col-2">Reimbursement Form</p>
+      <div class="col-sm-2">
+        <label for="amount">Reimbursement Amount:</label>
+        <input type="number" class="form-control" id="amount" name="amount" required [(ngModel)]="amount" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-2">
+        <label for="description">Description:</label>
+        <input type="description" class="form-control" id="description" 
+      name="description" required [(ngModel)]="description" />
+      </div>  
+    </div>
+    <div class="form-dropdown">
+      <div class="col-sm-2">
+        <label for="description">Request Type:</label>
+        <select id="type" name="dropdown" required [(ngModel)]="requestTypeStr" >
+          <option value="4" selected disabled hidden>Choose here</option>
+          <option value="1">Lodging</option>
+          <option value="2">Food</option>
+          <option value="3">Travel</option>
+          <option value="4">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-1">
+        <input type="submit" class="btn btn-primary mb-2" value="submit!">
+      </div>
+    </div>
+  </form>
+</div>
 

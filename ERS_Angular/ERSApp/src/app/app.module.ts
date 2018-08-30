@@ -9,14 +9,16 @@ import { AuthService } from './services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeetableService } from './services/employeetable/employeetable.service';
-import { NavbarComponent } from './components/navbar/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     EmployeeComponent,
-    NavbarComponent
+    NavbarComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,15 @@ public class MasterDispatcher {
 			return UserServices.login(request, response);
 		case "/ERS_Project/emptable.ng":
 			return UserServices.employeeTable(request, response);
+		case "/ERS_Project/alltable.ng":
+			return UserServices.allTable(request, response);
 		case "/ERS_Project/submitrequest.ng":
+			return UserServices.submitRequest(request, response);
+		case "/ERS_Project/sessioncheck.ng":
+			return UserServices.sessionCheck(request, response);
+		case "/ERS_Project/logout.ng":
+			return UserServices.logout(request, response);
+		case "/ERS_Project/updaterequest.ng":
 			return UserServices.submitRequest(request, response);
 		default:
 			return "not yet implemented";

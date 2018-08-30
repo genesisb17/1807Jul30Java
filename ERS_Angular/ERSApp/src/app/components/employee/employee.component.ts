@@ -10,23 +10,23 @@ import { Reimbursement } from '../../model/reimbursement.model';
 })
 export class EmployeeComponent implements OnInit {
 
-  isAdmin: boolean;
   user: User;
   emps: Reimbursement[];
 
   private amount: number;
   private description: string;
-  private requestTypeStr: string;
   private requestType: number;
+  private requestTypeStr: string;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.user = this.authService.user;
-     if (this.authService.user.username === 'admin') {
-       this.isAdmin = true;
-     }
-     this.displayEmpTable();
+    this.authService.getCurrentUser()
+    .subscribe(data => { this.authService.user = data;
+    if (this.authService.user !== null) {
+      this.user = this.authService.user;
+      this.displayEmpTable();
+    } });
   }
 
   displayEmpTable() {
@@ -38,18 +38,21 @@ export class EmployeeComponent implements OnInit {
 
   submit() {
     this.requestType = +this.requestTypeStr;
-
+    console.log(this.requestType);
     if (this.amount < 0) {
-      alert('Please no negative numbers.');
-    } else if (this.requestType === null) {
+      alert('Please enter a non-negative number in the Reimbursement Amount textbox.');
+    } else if (typeof this.amount === 'string') {
+      alert('Please enter numbers only in the Reimbursement Amount textbox.');
+    } else if (this.requestType === 0) {
+      alert('You cannot enter a request amount of $0.00.');
+    } else if (this.requestType === NaN) {
       alert('Please select a request type.');
     } else {
       this.authService.submit(this.amount, this.description,
          this.requestType, this.authService.user.username)
-         .subscribe(data => {this.authService.user = data;
-
-        });
+         .subscribe(data => {
+          this.displayEmpTable();
+      });
     }
-    this.displayEmpTable();
   }
 }
