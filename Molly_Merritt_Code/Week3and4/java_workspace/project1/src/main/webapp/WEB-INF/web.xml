@@ -4,7 +4,7 @@
 
 <web-app>
   <display-name>project1</display-name>
-  <filter>
+<!--   <filter>
   	<filter-name>CorsFilter</filter-name>
   	<display-name>CorsFilter</display-name>
   	<description></description>
@@ -12,16 +12,16 @@
   </filter>
   <filter-mapping>
   	<filter-name>CorsFilter</filter-name>
-  	<servlet-name>UserServlet</servlet-name>
-  </filter-mapping>
+  	<servlet-name>ServletDispatcher</servlet-name>
+  </filter-mapping> -->
   <servlet>
-  	<servlet-name>UserServlet</servlet-name>
-  	<display-name>UserServlet</display-name>
+  	<servlet-name>ServletDispatcher</servlet-name>
+  	<display-name>ServletDispatcher</display-name>
   	<description></description>
-  	<servlet-class>com.ex.servlets.UserServlet</servlet-class>
+  	<servlet-class>com.ex.servlets.ServletDispatcher</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>UserServlet</servlet-name>
+  	<servlet-name>ServletDispatcher</servlet-name>
   	<url-pattern>*.ng</url-pattern>
   </servlet-mapping>
 </web-app>

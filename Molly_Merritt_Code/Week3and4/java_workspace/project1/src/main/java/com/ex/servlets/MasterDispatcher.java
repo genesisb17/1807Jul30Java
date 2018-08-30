@@ -11,7 +11,8 @@ public class MasterDispatcher {
 	
 	public static Object process(HttpServletRequest request, HttpServletResponse resp) {
 		switch(request.getRequestURI()) {
-		case "/ServletsExample/login.ng":
+		case "/project1/login.ng":
+			System.out.println("in master dispatcher");
 			return UserService.login(request, resp);
 		default:
 			return "not yet implemented";

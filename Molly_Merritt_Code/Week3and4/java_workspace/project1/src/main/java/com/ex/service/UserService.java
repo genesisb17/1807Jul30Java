@@ -44,6 +44,10 @@ public class UserService {
 		return userDao.findOne(id);
 	}
 	
+	public User getUser(String username) {
+		return ((UserDao) userDao).getUser(username);
+	}
+	
 	public UserInformation getUserInfo(String username) {
 		return ((UserInfoDao) userInfoDao).findOne(username);
 	}
@@ -57,6 +61,17 @@ public class UserService {
 		boolean isUniq = userInfoDao.isUnique(u);
 		if (isUniq) {
 			return userInfoDao.save(u);
+		} else {
+			// create custom exception?
+		}
+		return null;
+	}
+	
+	public User addUser(User u) {
+		// check if username and email are unique
+		boolean isUniq = userDao.isUnique(u);
+		if (isUniq) {
+			return userDao.save(u);
 		} else {
 			// create custom exception?
 		}

@@ -10,6 +10,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>('http://localhost:8080/Project1/login.ng', {username: username, password: password});
+    console.log('calling login method');
+    return this.http.post<any>('http://localhost:8080/project1/login.ng', {username: username, password: password});
   }
 }
