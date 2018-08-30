@@ -68,8 +68,21 @@ public class UserDao implements Dao<User, Integer> {
 
 	@Override
 	public User findOne(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		User u = new User();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String sql = "select * from ERS_USERS where ERS_USERS_ID = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet info = ps.executeQuery();
+			
+			info.next();
+			u.setUsername(info.getString(1));
+			u.setPassword(info.getString(2));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override
@@ -86,16 +99,28 @@ public class UserDao implements Dao<User, Integer> {
 
 	@Override
 	public boolean isUnique(User obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+		String query = "select * from ERS_USERS where ERS_USERNAME = ?";
+		
+		String[] keys = new String[1];
+		keys[0] = "ERS_USERS_ID";	// column name where keys are
+		
+		PreparedStatement ps = conn.prepareStatement(query, keys);
+		
+		ps.setString(1, obj.getUsername());
+		
+		ResultSet info = ps.executeQuery();
+		
+		if(info.next()) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
 	}
-	
-	public static void main(String[] args) {
-		UserDao uDao = new UserDao();
-		UserInformation u = new UserInformation("iamamanager2", "thisismypassword", "Michael", "Scott", "email2@email.com", 2);
-		uDao.update(u);
-//		System.out.println(uDao.isUnique(u));
-		uDao.save(u);
+	return false;
 	}
 	
 //	public List<User> findAll() {

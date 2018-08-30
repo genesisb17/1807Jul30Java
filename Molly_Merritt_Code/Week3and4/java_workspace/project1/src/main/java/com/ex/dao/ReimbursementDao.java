@@ -64,24 +64,4 @@ public class ReimbursementDao implements Dao<Reimbursement, Integer> {
 		return false;
 	}
 
-	
-	// not supposed to be here; fix this later
-	@Override
-	public User getUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPasswordHash(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public UserInformation getUserInformation(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

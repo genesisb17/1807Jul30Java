@@ -40,6 +40,18 @@ public class UserService {
 		return userDao.findAll();
 	}
 	
+	public User getUser(Integer id) {
+		return userDao.findOne(id);
+	}
+	
+	public UserInformation getUserInfo(String username) {
+		return ((UserInfoDao) userInfoDao).findOne(username);
+	}
+	
+	public UserInformation getUserInfo(Integer id) {
+		return userInfoDao.findOne(id);
+	}
+	
 	public UserInformation addUser(UserInformation u) {
 		// check if username and email are unique
 		boolean isUniq = userInfoDao.isUnique(u);
