@@ -1,35 +1,16 @@
 package com.rev.services;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rev.dao.UserDAO;
 import com.rev.exceptions.IncorrectLoginCredentialsException;
 import com.rev.exceptions.IncorrectPasswordException;
+import com.rev.exceptions.UserNotFoundException;
 import com.rev.pojos.User;
 
 public class UserService {
 	
 	private UserDAO udao = new UserDAO();
 	
-	public User login(HttpServletRequest request, HttpServletResponse response) throws IncorrectLoginCredentialsException {
-		ObjectMapper mapper = new ObjectMapper();
-		User user = null;
-		
-		try {
-			user = mapper.readValue(request.getReader(), User.class);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		User authorized = login(user.getUsername(),user.getPassword());
-		return null;
-		
-	}
-	
-	private User login(String username, String password) throws IncorrectLoginCredentialsException{
+	public User login(String username, String password) throws IncorrectLoginCredentialsException, UserNotFoundException{
 		User user = validateCredentials(username,password);
 		return user;
 	}
@@ -44,6 +25,8 @@ public class UserService {
 		newUser.setCompanyRole(companyRole);
 		newUser.setCreator(creator.getUserID());
 		
+		
+		
 		return udao.saveNew(newUser);
 	}
 	
@@ -53,7 +36,11 @@ public class UserService {
 			user.setPassword(newPassword);
 			user = udao.save(user);
 		} catch (IncorrectLoginCredentialsException e) {
+			e.printStackTrace();
 			throw new IncorrectPasswordException();
+		} catch (UserNotFoundException e) {
+			//Should never happen
+			e.printStackTrace();
 		}
 		return user;
 	}
@@ -64,15 +51,19 @@ public class UserService {
 			user.setEmail(newEmail);
 			user = udao.save(user);
 		} catch (IncorrectLoginCredentialsException e) {
+			e.printStackTrace();
 			throw new IncorrectPasswordException();
+		} catch (UserNotFoundException e) {
+			//Should never happen
+			e.printStackTrace();
 		}
 		return user;
 	}
 	
-	private User validateCredentials(String username, String password) throws IncorrectLoginCredentialsException{
+	private User validateCredentials(String username, String password) throws IncorrectLoginCredentialsException, UserNotFoundException{
 		User user = udao.getOne(username);
 		if(user == null) {
-			throw new IncorrectLoginCredentialsException();
+			throw new UserNotFoundException();
 		} else if(!user.getPassword().equals(password)) {
 			throw new IncorrectLoginCredentialsException();
 		}

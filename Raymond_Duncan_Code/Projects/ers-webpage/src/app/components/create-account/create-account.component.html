@@ -1,0 +1,8 @@
+<div class="form-group col-4" (keyup.enter)="createAccount()">
+  <span><input type="text" name="username" [(ngModel)]="this.username" placeholder="Enter Username" class="form-control"></span> 
+  <span ><input type="password" name="password" [(ngModel)]="this.password" placeholder="Password" class="form-control"></span> 
+  <span><input type="text" name="firstname" [(ngModel)]="this.firstname" placeholder="Firstname" class="form-control"></span> 
+  <span><input type="text" name="lastname" [(ngModel)]="this.lastname" placeholder="Lastname" class="form-control"></span> 
+  <span><input type="text" name="email" [(ngModel)]="this.email" placeholder="Email" class="form-control"></span>
+  <input type="submit" value="Create Account" (click)="createAccount()" class="btn btn-primary">
+</div>

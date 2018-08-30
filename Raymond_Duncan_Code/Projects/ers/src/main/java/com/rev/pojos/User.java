@@ -72,6 +72,11 @@ public class User {
 	public void setCreator(Long creator) {
 		this.creator = creator;
 	}
+	@Override
+	public String toString() {
+		return "User [userID=" + userID + ", username=" + username + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", email=" + email + ", companyRole=" + companyRole + ", creator=" + creator + "]";
+	}
 	
 	
 }

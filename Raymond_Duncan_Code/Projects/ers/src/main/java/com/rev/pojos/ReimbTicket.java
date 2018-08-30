@@ -91,4 +91,11 @@ public class ReimbTicket {
 	public void setReimbType(int reimbType) {
 		this.reimbType = reimbType;
 	}
+	@Override
+	public String toString() {
+		return "ReimbTicket [reimbID=" + reimbID + ", reimbAmount=" + reimbAmount + ", reimbSubmitted=" + reimbSubmitted
+				+ ", reimbResolved=" + reimbResolved + ", reimbDescription=" + reimbDescription + ", receipt=" + receipt
+				+ ", reimbAuthor=" + reimbAuthor + ", reimbResolver=" + reimbResolver + ", reimbStatus=" + reimbStatus
+				+ ", reimbType=" + reimbType + "]";
+	}
 }

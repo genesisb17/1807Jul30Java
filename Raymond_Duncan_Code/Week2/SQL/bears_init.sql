@@ -1,0 +1,10 @@
+CREATE USER bear_db
+IDENTIFIED BY bears;
+
+GRANT CONNECT TO bear_db;
+GRANT RESOURCE TO bear_db;
+
+CONN bear_db/bears
+
+COMMIT;
+EXIT;

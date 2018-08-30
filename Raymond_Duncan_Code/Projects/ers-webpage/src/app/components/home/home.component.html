@@ -1,0 +1,6 @@
+<div class="container-fluid">
+    <app-login *ngIf="!createAccount"></app-login>
+    <div *ngIf="!createAccount" (click)="createAccount = true">Create Account</div>
+    <app-create-account *ngIf="createAccount"></app-create-account> <br>
+    <div *ngIf="createAccount" (click)="createAccount = false">Existing User</div>
+</div>

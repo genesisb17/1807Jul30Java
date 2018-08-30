@@ -137,10 +137,23 @@ BEGIN
     OPEN cursorParam FOR SELECT * FROM genre;
 END;
 /
-DECLARE my_cursor SYS_REFCURSOR;
+--DECLARE my_cursor SYS_REFCURSOR;
 
-EXECUTE get_all_genres(my_cursor);
-SELECT * FROM my_cursor;
+--EXECUTE get_all_genres(my_cursor);
+--SELECT * FROM my_cursor;
+--
+--
+--EXECUTE get_all_books();
+
+INSERT INTO book VALUES(NULL,1234567890,'The Best Book', 9.99, 1);
+INSERT INTO book VALUES(NULL,9876554345,'Jhonnnys Wonderful World', 9.99, 5);
+INSERT INTO book VALUES(NULL,4567898765,'Pizza Land', 9.99, 1);
+INSERT INTO book VALUES(NULL,2934769473,'The Kendrick Lamar Anthology', 99.99, 7);
+INSERT INTO book VALUES(NULL,1919367593,'Which which', 15, 1);
+INSERT INTO book VALUES(NULL,5879342809,'Something from Nothing', 90, 8);
+
+COMMIT;
 
 
-EXECUTE get_all_books();
+select * from book;
+
