@@ -1,15 +1,47 @@
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Amount</th>
-      <th>Date Submitted</th>
-      <th>Date Resolved</th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(0)' class="sort">
+          ID
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(1)' class="sort">
+          Amount
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(2)' class="sort">
+          Date Submitted
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(3)' class="sort">
+          Date Resolved
+        </a>
+      </th>
       <th>Description</th>
-      <th>Author</th>
-      <th>Resolver</th>
-      <th>Type</th>
-      <th>Status</th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(4)' class="sort">
+          Author
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(5)' class="sort">
+          Resolver
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(7)' class="sort">
+          Type
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(6)' class="sort">
+          Status
+        </a> 
+      </th>
       <th>Action</th>
     </tr>
   </thead>
@@ -22,11 +54,11 @@
       <td>{{ reimb.reimb_description }}</td>
       <td>{{ reimb.author_id }}</td>
       <td>{{ reimb.resolver_id }}</td>
-      <td>{{ reimb.reimb_type_id }}</td>
-      <td>{{ reimb.reimb_status_id }}</td>
+      <td>{{ getType(reimb.reimb_type_id) }}</td>
+      <td>{{ getStatus(reimb.reimb_status_id) }}</td>
       <td>
-        <button (click)='updateReimb(reimb.reimb_id, 2)'>Approve</button> | 
-        <button (click)='updateReimb(reimb.reimb_id, 3)'>Deny</button>
+        <button (click)='updateReimb(reimb.reimb_id, 2)' class="btn btn-success">Approve</button> 
+        <button (click)='updateReimb(reimb.reimb_id, 3)' class="btn btn-danger">Deny</button>
       </td>
     </tr>
   </tbody>
@@ -35,4 +67,4 @@
 <br>
 <br>
 
-<button (click)='logout()'>Logout</button>
+<button (click)='logout()' class="btn btn-info">Logout</button>

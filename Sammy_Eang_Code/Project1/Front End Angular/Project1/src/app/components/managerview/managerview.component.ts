@@ -17,6 +17,7 @@ export class ManagerviewComponent implements OnInit {
   reimb_id: number;
 
   reimbs: Reimbursement[];
+
   constructor(private aroute: ActivatedRoute,
               private location: Location,
               private authService: AuthService,
@@ -40,6 +41,14 @@ export class ManagerviewComponent implements OnInit {
     );
   }
 
+  returnReimbSort(num: number) {
+    this.authService.sortReimb(num).subscribe(
+      data => {
+        this.reimbs = data;
+      }
+    );
+  }
+
   updateReimb(reid: number, status_id: number) {
     this.authService.updateReimb(reid, this.emp_id, status_id).subscribe();
     location.reload();
@@ -49,4 +58,29 @@ export class ManagerviewComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  getType(id: number) {
+    switch (id) {
+      case 1:
+        return 'Lodging';
+      case 2:
+        return 'Travel';
+      case 3:
+        return 'Food';
+      case 4:
+        return 'Certification';
+      default:
+        return 'Other';
+    }
+  }
+
+  getStatus(id: number) {
+    switch (id) {
+      case 1:
+        return 'Pending';
+      case 2:
+        return 'Approved';
+      default:
+        return 'Denied';
+    }
+  }
 }

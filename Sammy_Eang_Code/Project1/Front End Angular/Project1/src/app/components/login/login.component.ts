@@ -49,5 +49,4 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/mview/' + this.servletEmpId);
     }
   }
-
 }

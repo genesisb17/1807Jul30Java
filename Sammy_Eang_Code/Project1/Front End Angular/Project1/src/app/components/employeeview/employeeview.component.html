@@ -1,15 +1,47 @@
-<table>
-  <thead>
+<table class="table">
+  <thead >
     <tr>
-      <th>ID</th>
-      <th>Amount</th>
-      <th>Date Submitted</th>
-      <th>Date Resolved</th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(0)' class="sort">
+          ID
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(1)' class="sort">
+          Amount
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(2)' class="sort">
+          Date Submitted
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(3)' class="sort">
+          Date Resolved
+        </a>
+      </th>
       <th>Description</th>
-      <th>Author</th>
-      <th>Resolver</th>
-      <th>Type</th>
-      <th>Status</th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(4)' class="sort">
+          Author
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(5)' class="sort">
+          Resolver
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(7)' class="sort">
+          Type
+        </a>
+      </th>
+      <th>
+        <a href='javascript:void(0)' (click)='returnReimbSort(6)' class="sort">
+          Status
+        </a> 
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -21,8 +53,8 @@
       <td>{{ reimb.reimb_description }}</td>
       <td>{{ reimb.author_id }}</td>
       <td>{{ reimb.resolver_id }}</td>
-      <td>{{ reimb.reimb_type_id }}</td>
-      <td>{{ reimb.reimb_status_id }}</td>
+      <td>{{ getType(reimb.reimb_type_id) }}</td>
+      <td>{{ getStatus(reimb.reimb_status_id) }}</td>
     </tr>
   </tbody>
 </table>
@@ -34,26 +66,26 @@
 <div><app-reimb-add [showMePartially]="showVar"></app-reimb-add></div> -->
 
 <h2> Submit New Reimbursement </h2>
-<h3> Fill in the fields then click 'Submit' </h3>
+<h4> Fill in the fields then click 'Submit' </h4>
 
-  <form (submit)="addNewReimb()">
-    <label for="amount">Amount</label>
-    <input type="number" id="amount" name="amount" required [(ngModel)]='amount' /> <br>
+  <form (submit)="addNewReimb()" class="form">
+    <label for="amount">Amount: </label>
+    <input type="number" id="amount" name="amount" required [(ngModel)]='amount' class="form-control" style="width: 15%;"/> <br>
 
-    <label for="description">Description</label>
-    <input type="textarea" id="description" name="description" required [(ngModel)]='description' /> <br>
+    <label for="description">Description: </label>
+    <textarea id="description" name="description" required [(ngModel)]='description' class="form-control" style="height: 150px; width: 40%; vertical-align: top;"></textarea> <br>
 
-    <label for="type">Type</label>
-    <select name="type" label="type" [(ngModel)]='type'>
+    <label for="type">Type: </label>
+    <select name="type" label="type" [(ngModel)]='type' class="form-control" style="width: 10%;">
         <option value="1">Lodging</option>
         <option value="2">Travel</option>
         <option value="3">Food</option>
         <option value="4">Certification</option>
         <option value="5">Other</option>
       </select> <br>
-    <input type="submit" value="Submit"/><br>
+    <button type="submit" value="Submit" class="btn btn-light">Submit</button><br>
   </form>
 
   <br><br>
-  <button (click)='logout()'>Logout</button>
+  <button (click)='logout()' class="btn btn-info">Logout</button>
   

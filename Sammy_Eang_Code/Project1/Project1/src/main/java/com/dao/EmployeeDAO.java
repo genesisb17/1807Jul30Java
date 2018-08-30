@@ -48,7 +48,7 @@ public class EmployeeDAO {
 		}
 	
 	//Finds employees by username and returns them
-	public EmployeePOJO findOne(String username){
+	public EmployeePOJO findOneByUname(String username){
 		EmployeePOJO temp = null;
 		try(Connection conn = ConnectionFactory
 				.getInstance().getConnection()){
@@ -78,29 +78,5 @@ public class EmployeeDAO {
 
 	//Shouldn't need save since you don't need to add employees
 	//Shouldn't need update since you can't demote managers or promote employees
-	
-	//Here are all the less useful Daos
-	public List<EmployeeRolesPOJO> findAllRoles() {
-		
-		List<EmployeeRolesPOJO> roles = new ArrayList<EmployeeRolesPOJO>();
-		
-		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			
-			String query = "select * from user_roles";
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(query);
-			
-			while(rs.next()) {
-				EmployeeRolesPOJO temp = new EmployeeRolesPOJO();
-				temp.setEmp_role_id(rs.getInt(1));
-				temp.setEmp_role(rs.getString(2));
-				roles.add(temp);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return roles;
-	}
 	
 }

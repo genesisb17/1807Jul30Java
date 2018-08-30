@@ -51,5 +51,39 @@ export class EmployeeviewComponent implements OnInit {
   logout() {
     this.router.navigateByUrl('/login');
   }
+
+  returnReimbSort(num: number) {
+    this.authService.sortEmpReimb(this.emp_id, num).subscribe(
+      data => {
+        this.reimbs = data;
+      }
+    );
+  }
+
+  getType(id: number) {
+    switch (id) {
+      case 1:
+        return 'Lodging';
+      case 2:
+        return 'Travel';
+      case 3:
+        return 'Food';
+      case 4:
+        return 'Certification';
+      default:
+        return 'Other';
+    }
+  }
+
+  getStatus(id: number) {
+    switch (id) {
+      case 1:
+        return 'Pending';
+      case 2:
+        return 'Approved';
+      default:
+        return 'Denied';
+    }
+  }
 }
 

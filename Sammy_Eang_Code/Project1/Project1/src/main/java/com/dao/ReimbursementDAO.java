@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.connectionfactory.ConnectionFactory;
+import com.pojo.EmployeePOJO;
 import com.pojo.ReimbursementPOJO;
 import com.pojo.ReimbursementStatusPOJO;
 import com.pojo.ReimbursementTypePOJO;
@@ -176,52 +178,65 @@ public class ReimbursementDAO {
 		
 	}
 	
-	//Here are all the less useful Daos
-	public List<ReimbursementStatusPOJO> getAllStatus() {
+	public List<ReimbursementPOJO> reimbSort(String param) {
 		
-		List<ReimbursementStatusPOJO> statuses = new ArrayList<ReimbursementStatusPOJO>();
+		List<ReimbursementPOJO> reimbursements = new ArrayList<ReimbursementPOJO>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String query = "select * from reimbursement_status";
+			String query = "select * from reimbursements order by " + param;
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			
 			while(rs.next()) {
-				ReimbursementStatusPOJO temp = new ReimbursementStatusPOJO();
-				temp.setReimb_status_id(rs.getInt(1));
-				temp.setReimb_status(rs.getString(2));
-				statuses.add(temp);
+				ReimbursementPOJO temp = new ReimbursementPOJO();
+				temp.setReimb_id(rs.getInt(1));
+				temp.setReimb_amount(rs.getDouble(2));
+				temp.setDate_submitted(rs.getTimestamp(3));
+				temp.setDate_resolved(rs.getTimestamp(4));
+				temp.setReimb_description(rs.getString(5));
+				temp.setAuthor_id(rs.getInt(7));
+				temp.setResolver_id(rs.getInt(8));
+				temp.setReimb_status_id(rs.getInt(9));
+				temp.setReimb_type_id(rs.getInt(10));
+				reimbursements.add(temp);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return statuses;
+		return reimbursements;
 	}
 	
-	public List<ReimbursementTypePOJO> getAllTypes() {
+	public List<ReimbursementPOJO> findBySomeParamSort(Integer id, String param) {
 		
-		List<ReimbursementTypePOJO> types = new ArrayList<ReimbursementTypePOJO>();
+		List<ReimbursementPOJO> reimbursements = new ArrayList<ReimbursementPOJO>();
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
 			
-			String query = "select * from reimbursement_type";
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(query);
+			String sql = "select * from reimbursements where reimb_author = ? order by " + param;
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);;
+			ResultSet rs = ps.executeQuery( );
 			
 			while(rs.next()) {
-				ReimbursementTypePOJO temp = new ReimbursementTypePOJO();
-				temp.setReimb_type_id(rs.getInt(1));
-				temp.setReimb_type(rs.getString(2));
-				types.add(temp);
+				ReimbursementPOJO temp = new ReimbursementPOJO();
+				temp.setReimb_id(rs.getInt(1));
+				temp.setReimb_amount(rs.getDouble(2));
+				temp.setDate_submitted(rs.getTimestamp(3));
+				temp.setDate_resolved(rs.getTimestamp(4));
+				temp.setReimb_description(rs.getString(5));
+				temp.setAuthor_id(rs.getInt(7));
+				temp.setResolver_id(rs.getInt(8));
+				temp.setReimb_status_id(rs.getInt(9));
+				temp.setReimb_type_id(rs.getInt(10));
+				reimbursements.add(temp);
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return types;
-	}
 
+		}
+		return reimbursements;
+	}
 
 }

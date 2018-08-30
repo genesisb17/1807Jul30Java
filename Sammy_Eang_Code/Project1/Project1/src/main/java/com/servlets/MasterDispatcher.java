@@ -23,12 +23,12 @@ private MasterDispatcher() {}
 			return ReimbursementService.getAllReimb(request, response);
 		case "/Project1/updateReimb.ng":
 			return ReimbursementService.updateReimb(request, response);
-		case "Project/getAllEmp.ng":
+		case "/Project1/getReimbSort.ng":
+			return ReimbursementService.getReimbSort(request, response);
+		case "/Project1/findReimbByIdSort.ng":
+			return ReimbursementService.findReimbByIdSort(request, response);
+		case "/Project1/getAllEmp.ng":
 			return EmployeeService.getAllEmp(request, response);
-		case "Project1/getAllStatuses.ng":
-			return ReimbursementService.getAllStatuses(request, response);
-		case "Project1/getAllTypes.ng":
-			return ReimbursementService.getAllTypes(request, response);
 		default:
 			return "not yet implemented";
 		}

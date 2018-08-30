@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.ReimbursementDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pojo.EmployeePOJO;
+import com.pojo.EmployeeRolesPOJO;
 import com.pojo.ReimbursementPOJO;
-import com.pojo.ReimbursementStatusPOJO;
-import com.pojo.ReimbursementTypePOJO;
 
 public class ReimbursementService {
 	
@@ -68,21 +67,94 @@ public class ReimbursementService {
 		return reimbursement;
 	}
 	
-	//Less useful daos for finding type and status
-	public static List<ReimbursementStatusPOJO> getAllStatuses(HttpServletRequest request, HttpServletResponse response) {
+	public static List<ReimbursementPOJO> getReimbSort(HttpServletRequest request, HttpServletResponse response) {
+		EmployeeRolesPOJO param = null;
+		int i = 0;
+		String param2 = null;
 		
-		List<ReimbursementStatusPOJO> statuses = rDao.getAllStatus();
+		try {
+			
+			param = mapper.readValue(request.getReader(), EmployeeRolesPOJO.class);
+			i = param.getEmp_role_id();
+
+		} catch (IOException ioe) {
 		
-		return statuses;
+		}
+		
+		switch(i) {
+		case 1:
+			param2 = "reimb_amount";
+			break;
+		case 2:
+			param2 = "reimb_submitted";
+			break;
+		case 3:
+			param2 = "reimb_resolved";
+			break;
+		case 4:
+			param2 = "reimb_author";
+			break;
+		case 5:
+			param2 = "reimb_resolver";
+			break;
+		case 6:
+			param2 = "reimb_status_id";
+			break;
+		case 7: 
+			param2 = "reimb_type_id";
+			break;
+		default:
+			param2 = "reimb_id";
+			break;
+		}
+		
+		List<ReimbursementPOJO> reimbursementssorted = rDao.reimbSort(param2);
+
+		return reimbursementssorted;
 	}
 	
-	public static List<ReimbursementTypePOJO> getAllTypes(HttpServletRequest request, HttpServletResponse response) {
+	public static List<ReimbursementPOJO> findReimbByIdSort(HttpServletRequest request, HttpServletResponse response) {
+		EmployeePOJO employee = null;
+		String param2;
+		int i = 0;
 		
-		List<ReimbursementTypePOJO> types = rDao.getAllTypes();
+		try {
+			employee = mapper.readValue(request.getReader(), EmployeePOJO.class);
+			i = employee.getUser_role_id();
+		} catch (IOException ioe) {
 		
-		return types;
+		}
+		
+		switch(i) {
+		case 1:
+			param2 = "reimb_amount";
+			break;
+		case 2:
+			param2 = "reimb_submitted";
+			break;
+		case 3:
+			param2 = "reimb_resolved";
+			break;
+		case 4:
+			param2 = "reimb_author";
+			break;
+		case 5:
+			param2 = "reimb_resolver";
+			break;
+		case 6:
+			param2 = "reimb_status_id";
+			break;
+		case 7: 
+			param2 = "reimb_type_id";
+			break;
+		default:
+			param2 = "reimb_id";
+			break;
+		}
+		
+		List<ReimbursementPOJO> reimbursementssorted = rDao.findBySomeParamSort(employee.getEmp_id(), param2);
+
+		return reimbursementssorted;
 	}
-	
-	
 	
 }

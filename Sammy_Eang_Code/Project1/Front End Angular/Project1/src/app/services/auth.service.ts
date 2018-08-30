@@ -28,4 +28,12 @@ export class AuthService {
     return this.http.post<any>('http://localhost:8081/Project1/updateReimb.ng', {
       reimb_id: reid, resolver_id: resid, reimb_status_id: statusid});
   }
+
+  sortReimb(eid: number) {
+    return this.http.post<any>('http://localhost:8081/Project1/getReimbSort.ng', {emp_role_id: eid});
+  }
+
+  sortEmpReimb(eid: number, sid: number) {
+    return this.http.post<any>('http://localhost:8081/Project1/findReimbByIdSort.ng', {emp_id: eid, user_role_id: sid});
+  }
 }
