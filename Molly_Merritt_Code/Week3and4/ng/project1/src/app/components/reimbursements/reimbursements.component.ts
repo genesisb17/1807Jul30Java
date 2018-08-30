@@ -10,6 +10,7 @@ export class ReimbursementsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('reimbursement view');
   }
 
 }

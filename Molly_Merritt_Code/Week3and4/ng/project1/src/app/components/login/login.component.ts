@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  public loggedIn: boolean;
+
   private username: string;
   private password: string;
 
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.loggedIn = false;
   }
 
   login() {
@@ -41,6 +44,7 @@ export class LoginComponent implements OnInit {
         this.servletLast = data.lastname;
         this.servletUsername = data.username;
         this.servletEmail = data.email;
+        this.loggedIn = true;
       }
     );
   }

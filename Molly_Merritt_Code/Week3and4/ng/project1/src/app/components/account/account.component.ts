@@ -14,4 +14,8 @@ export class AccountComponent implements OnInit {
     console.log('account view');
   }
 
+  getUser() {
+    
+  }
+
 }
