@@ -37,6 +37,12 @@ public class ers_usersService
 		
 	}
 	
+	public ers_users findEmployee(String[] obj)
+	{
+		String temp = obj[0];
+		return ers.find(temp);
+	}
+	
 	public ers_users saving(String[] userInformation)
 	{
 		ers_users newUser = new ers_users();

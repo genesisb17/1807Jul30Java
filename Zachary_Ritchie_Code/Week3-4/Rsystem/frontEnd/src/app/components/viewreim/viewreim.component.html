@@ -1,3 +1,26 @@
-<p>
-  viewreim works!
-</p>
+<form ><!-- (submit)="loadReim()" -->
+<h3>List of Reimbursements:</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Employee</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Submitted</th>
+    </tr>
+  </thead>
+ <tbody>
+    <tr *ngFor="let r of reimb" (click)="openModal(r)">
+      <td>{{r.reimb_author}}</td>      
+      <td>{{r.reimb_amount | currency}}</td>
+      <td>{{r.reimb_submitted}}</td>
+    </tr>
+  </tbody>
+
+</table>
+
+<!-- <br><br>
+
+<button type="submit" class="btn btn-success" value="Login">Submit</button> -->
+</form>
+
+<app-reimmodal></app-reimmodal>

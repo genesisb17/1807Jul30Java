@@ -54,6 +54,43 @@ public class ers_usersDAO implements DAO<ers_users, Integer>
 		return user;
 	}
 	
+	public ers_users find(String name) 
+	{
+		//System.out.println("IN DAO");
+		ers_users user = null;
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection())
+		{
+			
+			String sql = "select * from ers_users where ers_users_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			ResultSet info =  ps.executeQuery();
+		
+			if(info.next())
+			{
+				user = new ers_users();
+				user.setErs_user_id(info.getInt("ers_users_id"));
+				user.setErs_username(info.getString("ers_username"));
+				user.setErs_password(info.getString("ers_password"));
+				user.setErs_first_name(info.getString("user_first_name"));
+				user.setErs_last_name(info.getString("user_last_name"));
+				user.setUser_email(info.getString("user_email"));
+				user.setUser_role_id(info.getInt("user_role_id"));
+			}
+			else
+			{
+				//System.out.println("null");
+			} 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
 	public ers_users findOneEmail(String name) 
 	{
 		//System.out.println("IN DAO");

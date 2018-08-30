@@ -12,7 +12,8 @@ import { User } from '../user';
 export class AuthService 
 {
   public servletData: User;
-  public reimData: Reim;
+  public reimSingle: Reim;
+  public reimData : Reim[] = [];
   public temp: User;
 
   constructor(private http: HttpClient) { }
@@ -32,14 +33,19 @@ export class AuthService
     return this.http.put<Reim>("http://localhost:8085/Rsystem/employeeCreateReim", [amount, description, author, typeId])
   }
 
-  employeeGetReim(id: number)
+  employeeGetReim(id: number): Observable<Reim[]> 
   {
-    return this.http.post<User>("http://localhost:8085/Rsystem/employeeGetReim", [id])
+    return this.http.post<Reim[]>("http://localhost:8085/Rsystem/employeeGetReim", [id]).pipe(tap( data => {this.reimData = data}))
   }
 
-  managerGetReim()
+  getEmployee(id: number): Observable<User> 
   {
-    return this.http.get<User>("http://localhost:8085/Rsystem/managerGetReim")
+    return this.http.post<User>("http://localhost:8085/Rsystem/getEmployee", [id]).pipe(tap( data => {this.temp = data; console.log(this.temp)}))
+  }
+
+  managerGetReim() : Observable<Reim[]> 
+  {
+    return this.http.get<Reim[]>("http://localhost:8085/Rsystem/managerGetReim")//.pipe(tap( data => {this.reimData = data}))
   }
 
   managerUpdateReim(id: number, resolver: number, status: number)

@@ -11,9 +11,38 @@ public class ers_reimbursementService
 {
 	static DAO<ers_reimbursement, Integer> aDao = new ers_reimbursementDAO();
 
+	private static List<ers_reimbursement> formatTime(List<ers_reimbursement> objList)
+	{
+		for (ers_reimbursement obj : objList)
+		{
+			String nightDay = "am";
+			String[] dateTime =  obj.getReimb_submitted().split(" ");		  
+			String[] time = dateTime[1].split(":");
+			
+			int hour = Integer.parseInt(time[0]);
+			int min = Integer.parseInt(time[1]);
+			
+			if(hour >= 12)
+			{
+				nightDay = "pm";
+				hour=hour-12;
+			}
+			
+			obj.setReimb_submitted(dateTime[0] + ",  " + hour + ":" + min + " " + nightDay);
+		}
+		
+		return objList;
+	}
+	
 	public List<ers_reimbursement> getAll()
 	{
-		return aDao.getAll();
+		List<ers_reimbursement> temp = new ArrayList<ers_reimbursement>();
+		
+		temp = aDao.getAll();
+		
+		temp = formatTime(temp);
+		
+		return temp;
 	}
 	
 	public List<ers_reimbursement> getEmployeeReim(String obj)
@@ -31,6 +60,8 @@ public class ers_reimbursementService
 				filtered.add(ers);
 			}
 		}
+		
+		filtered = formatTime(filtered);
 		
 		return filtered;
 	}
@@ -65,6 +96,7 @@ public class ers_reimbursementService
 		ers.setReimb_resolver(obj[1]);
 		ers.setReimb_status_id(obj[2]);		
 		
+		System.out.println(ers.toString());
 		return aDao.update(ers);
 	}
 	

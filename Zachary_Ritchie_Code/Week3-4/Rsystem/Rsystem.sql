@@ -26,6 +26,8 @@ create table ers_reimbursement
   constraint ers_reimbursement_type_fk foreign key (reimb_type_id) references ers_reimbursement_type(reimb_type_id)
 );
 
+delete from ers_reimbursement;
+
 create table ers_users
 (
   ers_users_id number primary key,

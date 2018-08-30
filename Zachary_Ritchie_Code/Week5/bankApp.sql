@@ -1,0 +1,1 @@
+select * from  BANK_USERS;

@@ -12,6 +12,9 @@ import { CreateuserComponent } from './components/createuser/createuser.componen
 import { AppRoutingModule } from './app-module-routing';
 import { ReimbursmentsComponent } from './components/reimbursments/reimbursments.component';
 import { ViewreimComponent } from './components/viewreim/viewreim.component';
+import { ReimmodalComponent } from './components/reimmodal/reimmodal.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   declarations: [
@@ -21,11 +24,13 @@ import { ViewreimComponent } from './components/viewreim/viewreim.component';
     HomeComponent,
     CreateuserComponent,
     ReimbursmentsComponent,
-    ViewreimComponent
+    ViewreimComponent,
+    ReimmodalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    NgbModule,
     AppRoutingModule,
     HttpClientModule
   ],

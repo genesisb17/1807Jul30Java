@@ -1,0 +1,28 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Reimbursement</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      <span *ngIf="authService.temp">{{authService.temp.ers_first_name}} {{authService.temp.ers_last_name}}</span>
+      <br>
+      {{reimburse.reimb_amount | currency}}
+      <br>
+      {{reimburse.reimb_submitted}}
+      <br>
+      {{reimburse.reimb_description}}
+      <!-- {{reimburse.reimb_resolved}} -->
+    </p>
+  </div>
+  <div class="modal-footer">
+    <!-- (click)="c('Close click')" -->
+    <div *ngIf="authService.servletData.user_role_id == 2">
+      <button type="button" class="btn btn-success" (click)="approved()" (click)="c('Close click')">Approved</button>
+    <button type="button" class="btn btn-warning" (click)="denied()" (click)="c('Close click')">Denied</button>
+    </div>
+    
+  </div>
+</ng-template>

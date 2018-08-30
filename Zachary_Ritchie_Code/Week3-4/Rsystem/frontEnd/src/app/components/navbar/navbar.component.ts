@@ -13,6 +13,10 @@ export class NavbarComponent implements OnInit
 
   ngOnInit() 
   {
+    if(this.authService.servletData == null)
+    {
+      this.router.navigate(["/home"]);
+    }
   }
 
   logout()

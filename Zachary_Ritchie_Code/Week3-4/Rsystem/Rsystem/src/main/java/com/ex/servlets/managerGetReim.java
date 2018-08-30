@@ -31,10 +31,10 @@ public class managerGetReim extends HttpServlet
 		
 		List<ers_reimbursement> ersObj = service.getAll();
 		
-		String temp = mapper.writeValueAsString(ersObj);
+		//String temp = mapper.writeValueAsString(ersObj);
 		
 		resp.setContentType("application/json");
 		
-		mapper.writeValue(resp.getWriter(), temp);
+		mapper.writeValue(resp.getWriter(), ersObj);
 	}
 }

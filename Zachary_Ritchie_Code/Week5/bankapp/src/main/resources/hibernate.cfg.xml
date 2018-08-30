@@ -16,11 +16,11 @@
 		</property>
 		<property name="hibernate.connection.username">demo</property>
 		<property name="hibernate.connection.password">demo</property>
-		<property name="show_sql">true</property>
-		<property name="hibernate.hbm2ddl.auto">create</property>
 		
-		<mapping class="com.ex.pojos.Bear"/>
-		<mapping class="com.ex.pojos.Cave"/>
-		<mapping class="com.ex.pojos.Honey"/>
+		<property name="show_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<mapping class="com.ex.models.Account"/>
+		<mapping class="com.ex.models.User"/>
 	</session-factory>
 </hibernate-configuration>
