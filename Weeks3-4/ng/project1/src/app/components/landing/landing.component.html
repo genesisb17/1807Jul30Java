@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let b of reimbursements">
+        <tr *ngFor="let b of empReimbursements">
           <td>{{b.amount}}</td>
           <td>{{b.submitted | date: 'medium' }}</td>
           <td>{{b.resolved | date: 'medium'}}</td>

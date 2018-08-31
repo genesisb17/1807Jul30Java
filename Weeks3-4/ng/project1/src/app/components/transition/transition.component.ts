@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpeeService } from '../../services/httpee.service';
 
 @Component({
   selector: 'app-transition',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransitionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private httpee: HttpeeService) { }
 
   ngOnInit() {
+  }
+
+  backToAllReimbursements(){
+    this.router.navigate(['reimbursement']);
+  }
+
+  backToEmployeeReimbursements(){
+    this.router.navigate(['landing']);
   }
 
 }

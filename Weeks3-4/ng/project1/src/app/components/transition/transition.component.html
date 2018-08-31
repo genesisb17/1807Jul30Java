@@ -1,3 +1,12 @@
-<p>
-  transition works!
-</p>
+<div *ngIf="this.httpee.temp.emp_role_id == 2">
+    <div>
+        <h1>Reimbursment Updated!</h1>
+        <button (click)="backToAllReimbursements()" class="btn btn-primary">Back To All Reimbursements</button>
+    </div>
+</div>
+<div *ngIf="httpee.temp.emp_role_id == 1">
+  <div>
+    <h1>Reimbursement Created!</h1>
+    <button (click)="backToEmployeeReimbursements()" class="btn btn-primary">Back To Reimbursements</button>
+  </div>
+</div>

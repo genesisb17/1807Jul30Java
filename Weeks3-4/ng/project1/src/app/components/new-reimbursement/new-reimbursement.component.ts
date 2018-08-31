@@ -24,7 +24,7 @@ export class NewReimbursementComponent implements OnInit {
   //get current employee
   //use httpeeservice for current employee
 
-  constructor(private loginService: LoginService, private router: Router, private httpService: HttpeeService) {} 
+  constructor(private router: Router, private httpService: HttpeeService) {} 
 
   ngOnInit() {
   }
@@ -54,6 +54,10 @@ export class NewReimbursementComponent implements OnInit {
     this.amount = null;
     this.description = null;
     this.type_id = null;
+    return this.goToTransition();
+  }
+  goToTransition(){
+    this.router.navigate(['transition']);
   }
 
   addNewView(){

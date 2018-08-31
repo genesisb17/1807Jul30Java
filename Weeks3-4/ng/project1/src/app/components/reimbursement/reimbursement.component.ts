@@ -49,8 +49,11 @@ export class ReimbursementComponent implements OnInit {
 
     console.log(reim + "approved");
     
-    this.router.navigate(["test"]);
-    return this.approved;
+
+    return this.goToTransition();
+  }
+  goToTransition(){
+    this.router.navigate(["transition"]);
   }  
   setDenied(){
     this.isHidden=true;
