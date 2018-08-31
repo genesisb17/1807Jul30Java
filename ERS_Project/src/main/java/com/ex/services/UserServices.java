@@ -56,6 +56,18 @@ public class UserServices {
 	public static List<Reimbursement> allTable(HttpServletRequest request, HttpServletResponse response) {
 		return userDao.getAllTables();
 	}
+	
+	public static List<Reimbursement> pendingTable(HttpServletRequest request, HttpServletResponse response) {
+		return userDao.getPendingTables();
+	}
+	
+	public static List<Reimbursement> approvedTable(HttpServletRequest request, HttpServletResponse response) {
+		return userDao.getApprovedTables();
+	}
+	
+	public static List<Reimbursement> deniedTable(HttpServletRequest request, HttpServletResponse response) {
+		return userDao.getDeniedTables();
+	}
 
 	public static int submitRequest(HttpServletRequest request, HttpServletResponse response) {
 		ObjectMapper mapper = new ObjectMapper();

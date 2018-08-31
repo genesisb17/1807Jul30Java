@@ -15,6 +15,9 @@ public interface UserDao {
 	UserInformation getUserInformation(String username);
 	List<Reimbursement> getEmpTables(String username);
 	List<Reimbursement> getAllTables();
+	List<Reimbursement> getPendingTables();
+	List<Reimbursement> getApprovedTables();
+	List<Reimbursement> getDeniedTables();
 	int updateForm(UpdateForm updateForm);
 	int submitRequest(RequestForm requestForm);
 	

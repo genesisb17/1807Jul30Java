@@ -35,6 +35,24 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  filterByPending() {
+    this.authService.pendingTable()
+    .subscribe(data => {this.emps = data;
+    });
+  }
+
+  filterByApproved() {
+    this.authService.approvedTable()
+    .subscribe(data => {this.emps = data;
+    });
+  }
+
+  filterByDenied() {
+    this.authService.deniedTable()
+    .subscribe(data => {this.emps = data;
+    });
+  }
+
   updateRequestApprove() {
     this.statusid = 2;
     if (this.id === undefined) {

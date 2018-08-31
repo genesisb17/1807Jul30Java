@@ -17,6 +17,12 @@ public class MasterDispatcher {
 			return UserServices.employeeTable(request, response);
 		case "/ERS_Project/alltable.ng":
 			return UserServices.allTable(request, response);
+		case "/ERS_Project/pendingtable.ng":
+			return UserServices.pendingTable(request, response);
+		case "/ERS_Project/approvedtable.ng":
+			return UserServices.approvedTable(request, response);
+		case "/ERS_Project/deniedtable.ng":
+			return UserServices.deniedTable(request, response);
 		case "/ERS_Project/submitrequest.ng":
 			return UserServices.submitRequest(request, response);
 		case "/ERS_Project/sessioncheck.ng":

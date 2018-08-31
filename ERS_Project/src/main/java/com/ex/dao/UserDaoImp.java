@@ -89,7 +89,7 @@ public class UserDaoImp implements UserDao {
 		List<Reimbursement> empList = new ArrayList<>();
 		Reimbursement temp = null;
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM REIMBURSEMENT WHERE USERNAME = ?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM REIMBURSEMENT WHERE USERNAME = ? ORDER BY R_SUBMIT_TIME DESC");
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -119,7 +119,7 @@ public class UserDaoImp implements UserDao {
 		Reimbursement temp = null;
 		
 		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
-			String query = "SELECT * FROM REIMBURSEMENT";
+			String query = "SELECT * FROM REIMBURSEMENT ORDER BY R_SUBMIT_TIME DESC";
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
 			while(rs.next()) {
@@ -193,6 +193,96 @@ public class UserDaoImp implements UserDao {
 		// Returning false means something wrong happened
 		// "no rows were inserted"
 		return x;
+	}
+
+	@Override
+	public List<Reimbursement> getPendingTables() {
+		List<Reimbursement> allList = new ArrayList<>();
+		Reimbursement temp = null;
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String query = "SELECT * FROM REIMBURSEMENT WHERE RS_ID = 1 ORDER BY R_SUBMIT_TIME DESC";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getString(3));
+				temp.setResolved(rs.getString(4));
+				temp.setDescription(rs.getString(5));
+				temp.setReciept(rs.getBytes(6));
+				temp.setAuthor(rs.getString(7));
+				temp.setResolver(rs.getString(8));
+				temp.setStatusid(rs.getInt(9));
+				temp.setTypeid(rs.getInt(10));
+				allList.add(temp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allList;
+	}
+
+	@Override
+	public List<Reimbursement> getApprovedTables() {
+		List<Reimbursement> allList = new ArrayList<>();
+		Reimbursement temp = null;
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String query = "SELECT * FROM REIMBURSEMENT WHERE RS_ID = 2 ORDER BY R_SUBMIT_TIME DESC";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getString(3));
+				temp.setResolved(rs.getString(4));
+				temp.setDescription(rs.getString(5));
+				temp.setReciept(rs.getBytes(6));
+				temp.setAuthor(rs.getString(7));
+				temp.setResolver(rs.getString(8));
+				temp.setStatusid(rs.getInt(9));
+				temp.setTypeid(rs.getInt(10));
+				allList.add(temp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allList;
+	}
+
+	@Override
+	public List<Reimbursement> getDeniedTables() {
+		List<Reimbursement> allList = new ArrayList<>();
+		Reimbursement temp = null;
+		
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()){
+			String query = "SELECT * FROM REIMBURSEMENT WHERE RS_ID = 3 ORDER BY R_SUBMIT_TIME DESC";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(query);
+			while(rs.next()) {
+				temp = new Reimbursement();
+				temp.setId(rs.getInt(1));
+				temp.setAmount(rs.getDouble(2));
+				temp.setSubmitted(rs.getString(3));
+				temp.setResolved(rs.getString(4));
+				temp.setDescription(rs.getString(5));
+				temp.setReciept(rs.getBytes(6));
+				temp.setAuthor(rs.getString(7));
+				temp.setResolver(rs.getString(8));
+				temp.setStatusid(rs.getInt(9));
+				temp.setTypeid(rs.getInt(10));
+				allList.add(temp);
+				}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allList;
 	}
 	
 	

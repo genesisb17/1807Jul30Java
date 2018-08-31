@@ -1,65 +1,68 @@
-<h1 class="h1 text-center">Welcome  {{this.authService.user.firstname}}!</h1>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome {{this.authService.user.firstname}}!</h1>
+    <div class="row">
+        <div class="col-md-auto h2">
+          Account Information:
+        </div>
+        <div class="col-md-auto align-items-center">
+            <h6 class="text-center-justify-left">First Name: {{ this.authService.user.firstname }}</h6>
+            <h6 class="text-center-justify-left">Last Name: {{ this.authService.user.lastname }}</h6>
+            <h6 class="text-center-justify-left">Email: {{ this.authService.user.email }}</h6>
+        </div>
+      </div>
+  </div>
 
-<h2 class="h2 text-center">Account Information</h2>
-<p class="AccountInformation h6 text-center">First Name: {{ this.authService.user.firstname }}</p>
-<p class="AccountInformation h6 text-center">Last Name: {{ this.authService.user.lastname }}</p>
-<p class="AccountInformation h6 text-center">Email: {{ this.authService.user.email }}</p>
-
-<div class="ReimbursementHistory">
-  <h2 class="text-center h2">Reimbursement History</h2>
-  <table class="table table-sm">
-    <thead>
-      <th scope="col">Amount</th>
-      <th scope="col">Description</th>
-      <th scope="col">Username</th>
-      <th scope="col">Resolver</th>
-      <th scope="col">Status ID</th>
-    </thead>
-    <tbody>
-      <tr scope="row" *ngFor="let empRows of emps" >
-        <td>{{ empRows.amount | currency }}</td>
-        <td>{{ empRows.description }}</td>
-        <td>{{ empRows.author }}</td>
-        <td>{{ empRows.resolver }}</td>
-        <td>{{ empRows.statusid }}</td>
-        </tr>
-    </tbody>
-  </table>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h2 class="text-left">Reimbursement History</h2>
+      <table class="table table-sm">
+        <thead>
+          <th scope="col">Amount</th>
+          <th scope="col">Description</th>
+          <th scope="col">Submission Timestamp</th>
+          <th scope="col">Username</th>
+          <th scope="col">Resolver</th>
+          <th scope="col">Status ID</th>
+        </thead>
+        <tbody>
+          <tr scope="row" *ngFor="let empRows of emps" >
+            <td>{{ empRows.amount | currency }}</td>
+            <td>{{ empRows.description }}</td>
+            <td>{{ empRows.submitted }}</td>
+            <td>{{ empRows.author }}</td>
+            <td>{{ empRows.resolver }}</td>
+            <td>{{ empRows.statusid }}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4">
+      <div class="row">
+        <form (submit)="submit()">
+          <div class="form-group">
+            <h2>Reimbursement Form</h2>
+            <label for="amount">Reimbursement Amount:</label>
+            <input type="number" class="form-control" id="amount" name="amount" required [(ngModel)]="amount" />
+          </div>
+          <div class="form-group">
+              <label for="description">Description:</label>
+              <input type="description" class="form-control" id="description" 
+            name="description" required [(ngModel)]="description" />      
+          </div>
+          <div class="form-dropdown">
+              <label for="description">Request Type:</label>
+              <select id="type" name="dropdown" required [(ngModel)]="requestTypeStr" >
+                <option value="4" selected disabled hidden>Choose here</option>
+                <option value="1">Lodging</option>
+                <option value="2">Travel</option>
+                <option value="3">Food</option>
+                <option value="4">Other</option>
+              </select>
+          </div>
+          <input type="submit" class="btn btn-primary mb-2" value="submit!">
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div>
-  <form (submit)="submit()">
-    <div class="form-group">
-      <p class="h6 col-2">Reimbursement Form</p>
-      <div class="col-sm-2">
-        <label for="amount">Reimbursement Amount:</label>
-        <input type="number" class="form-control" id="amount" name="amount" required [(ngModel)]="amount" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-2">
-        <label for="description">Description:</label>
-        <input type="description" class="form-control" id="description" 
-      name="description" required [(ngModel)]="description" />
-      </div>  
-    </div>
-    <div class="form-dropdown">
-      <div class="col-sm-2">
-        <label for="description">Request Type:</label>
-        <select id="type" name="dropdown" required [(ngModel)]="requestTypeStr" >
-          <option value="4" selected disabled hidden>Choose here</option>
-          <option value="1">Lodging</option>
-          <option value="2">Food</option>
-          <option value="3">Travel</option>
-          <option value="4">Other</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-1">
-        <input type="submit" class="btn btn-primary mb-2" value="submit!">
-      </div>
-    </div>
-  </form>
-</div>
-

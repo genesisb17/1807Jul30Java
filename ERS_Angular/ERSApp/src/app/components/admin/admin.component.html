@@ -1,16 +1,20 @@
-<h1 class="h1 text-center">Welcome {{this.authService.user.firstname}}!</h1>
-
-<h2 class="h2 text-center">Account Information</h2>
-<p class="AccountInformation h6 text-center">First Name: {{ this.authService.user.firstname }}</p>
-<p class="AccountInformation h6 text-center">Last Name: {{ this.authService.user.lastname }}</p>
-<p class="AccountInformation h6 text-center">Email: {{ this.authService.user.email }}</p>
-
-<div class="btn-group" role="group" aria-label="Basic example">
+<div class="jumbotron">
+  <h1 class="display-4">Welcome {{this.authService.user.firstname}}!</h1>
+  <div class="row">
+      <div class="col-md-auto h2">
+        Account Information:
+      </div>
+      <div class="col-md-auto align-items-center">
+          <h6 class="text-center-justify-left">First Name: {{ this.authService.user.firstname }}</h6>
+          <h6 class="text-center-justify-left">Last Name: {{ this.authService.user.lastname }}</h6>
+          <h6 class="text-center-justify-left">Email: {{ this.authService.user.email }}</h6>
+      </div>
+    </div>
 </div>
 
-<div class="ReimbursementHistory">
-  <h2 class="text-center h2">Total Reimbursement List</h2>
-  <table class="table table-sm table-hover">
+<div class="container">
+  <h2 class="text-left">Reimbursement List</h2>
+  <table class="table table-sm">
     <thead>
       <th scope="col">ID</th>
       <th scope="col">Amount</th>
@@ -36,7 +40,16 @@
       </tr>
     </tbody>
   </table>
-  <button type="button" (click)="updateRequestApprove(value)">Approve!</button>
-  <button type="button" (click)="updateRequestDeny(value)">Deny!</button>
-
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-primary" (click)="updateRequestApprove(value)">Approve!</button>
+      <button type="button" class="btn btn-primary" (click)="updateRequestDeny(value)">Deny!</button>
+    </div>
+    <div >
+      <button type="button" class="btn btn-info" (click)="filterByPending()">Filter by Pending</button>
+      <button type="button" class="btn btn-info" (click)="filterByApproved()">Filter by Approved</button>
+      <button type="button" class="btn btn-info" (click)="filterByDenied()">Filter by Denied</button>
+      <button type="button" class="btn btn-info" (click)="displayAllTable()">Show All Reimbursements</button>
+    </div>
+  </div>
 </div>

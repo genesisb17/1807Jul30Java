@@ -28,6 +28,21 @@ export class AuthService {
   {withCredentials : true});
   }
 
+  pendingTable(): Observable<any> {
+    return this.http.post<Reimbursement[]>('http://localhost:8888/ERS_Project/pendingtable.ng',
+  {withCredentials : true});
+  }
+
+  approvedTable(): Observable<any> {
+    return this.http.post<Reimbursement[]>('http://localhost:8888/ERS_Project/approvedtable.ng',
+  {withCredentials : true});
+  }
+
+  deniedTable(): Observable<any> {
+    return this.http.post<Reimbursement[]>('http://localhost:8888/ERS_Project/deniedtable.ng',
+  {withCredentials : true});
+  }
+
   submit(amount: number, description: string, requestType: number, username: string): Observable<any> {
     return this.http.post<any>('http://localhost:8888/ERS_Project/submitrequest.ng',
       {amount: amount, description: description,
