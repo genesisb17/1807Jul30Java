@@ -87,6 +87,11 @@ export class AddReimbursementModalComponent implements OnInit {
         'Please specify a positive amount with no fractional cents.';
       return false;
     }
+    if (parseFloat(this.amount) >= 100000000) {
+      this.amountError =
+        'Reimbursements for amounts of $100,000,000 or larger are not accepted.';
+      return false;
+    }
     this.amountError = '';
     if (this.description.length > 500) {
       this.descriptionError =
