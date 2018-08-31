@@ -1,6 +1,9 @@
 package com.revature.pojo;
 
-public class ErsUser {
+import java.io.Serializable;
+
+public class ErsUser implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String username;
 	private String password;

@@ -13,13 +13,13 @@ import com.revature.util.ConnectionFactory;
 
 public class ErsReimbursementDao implements DAO<ErsReimbursement, Integer> {
 	
-	private final String baseQuery = "SELECT rb.REIMB_ID, rb.REIMB_AMOUNT, rb.REIMB_SUBMITTED, rb.REIMB_RESOLVED, rb.REIMB_DESCRIPTION, rb.REIMB_RECIPT,\r\n" + 
+	private final String baseQuery = "SELECT rb.REIMB_ID, rb.REIMB_AMOUNT, rb.REIMB_SUBMITTED, rb.REIMB_RESOLVED, rb.REIMB_DESCRIPTION, rb.REIMB_RECEIPT, ua.ERS_USERNAME,\r\n" + 
 			"ua.USER_FIRST_NAME || ' ' || ua.USER_LAST_NAME AS AUTHOR, ur.USER_FIRST_NAME || ' ' || ur.USER_LAST_NAME AS RESOLVER, rt.REIMB_TYPE, st.REIMB_STATUS\r\n" + 
 			"FROM ERS_REIMBURSEMENT rb\r\n" + 
 			"INNER JOIN ERS_REIMBURSEMENT_STATUS st ON st.REIMB_STATUS_ID = rb.REIMB_STATUS_ID\r\n" + 
 			"INNER JOIN ERS_REIMBURSEMENT_TYPE rt ON rt.REIMB_TYPE_ID = rb.REIMB_TYPE_ID\r\n" + 
 			"INNER JOIN ERS_USERS ua ON ua.ERS_USER_ID = rb.REIMB_AUTHOR\r\n" + 
-			"INNER JOIN ERS_USERS ur ON ur.ERS_USER_ID = rb.REIMB_RESOLVER";
+			"LEFT OUTER JOIN ERS_USERS ur ON ur.ERS_USER_ID = rb.REIMB_RESOLVER";
 	
 	@Override
 	public List<ErsReimbursement> findAll() {
@@ -66,15 +66,15 @@ public class ErsReimbursementDao implements DAO<ErsReimbursement, Integer> {
 		return reimb;
 	}
 	
-	public List<ErsReimbursement> findByUserId(Integer id) {
+	public List<ErsReimbursement> findByUserId(String username) {
 		List<ErsReimbursement> reimbList = new ArrayList<ErsReimbursement>();
 
 		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-			String query = baseQuery + " WHERE rb.REIMB_AUTHOR = ?";
+			String query = "SELECT * FROM (" + baseQuery + ") WHERE ERS_USERNAME = ?";
 
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setInt(1, id);
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

@@ -20,7 +20,7 @@ CREATE TABLE ers_reimbursement (
     reimb_submitted     DATE NOT NULL,
     reimb_resolved      DATE,
     reimb_description   VARCHAR2(250),
-    reimb_recipt        BLOB,
+    reimb_receipt        BLOB,
     reimb_author        NUMBER,
     reimb_resolver      NUMBER,
     reimb_status_id     NUMBER NOT NULL,

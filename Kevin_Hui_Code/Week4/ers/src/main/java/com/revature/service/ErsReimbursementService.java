@@ -19,16 +19,17 @@ public class ErsReimbursementService {
 		return rd.insert(r);
 	}
 
-	public static ErsReimbursement getReimbursement(HttpServletRequest request, HttpServletResponse response) {
+	public static List<ErsReimbursement> getReimbursementsByUser(HttpServletRequest request, HttpServletResponse response) {
 
 		ObjectMapper mapper = new ObjectMapper();
-		ErsUser user = null;
+		ErsUser user = (ErsUser) request.getSession().getAttribute("user");
+		System.out.println(request.getSession().getAttribute("user"));
 		try {
 			user = mapper.readValue(request.getReader(), ErsUser.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return (rd.findOne(user.getUserId()));
+		return (rd.findByUserId(user.getUsername()));
 
 	}
 

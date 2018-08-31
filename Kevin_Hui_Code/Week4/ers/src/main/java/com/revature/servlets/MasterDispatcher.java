@@ -12,13 +12,15 @@ public class MasterDispatcher {
 
 	public static Object process(HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("TEST: " + request.getRequestURI());
 		switch (request.getRequestURI()) {
 		case "/ers/login.ng":
 			return ErsUserService.login(request, response);
-
-		case "/ers/getReimbursement.ng":
-			return  ErsReimbursementService.getReimbursement(request,response);
+		case "/ers/logout.ng":
+			return ErsUserService.logout(request, response);
+		case "/ers/getReimbursementsByUser.ng":
+			return  ErsReimbursementService.getReimbursementsByUser(request,response);
+		case "/ers/getAllEmployee.ng":
+			return  ErsUserService.getAll();
 		default:
 			return "bad";
 		}
