@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '../../../node_modules/@angular/common/http';
-import { Observable } from '../../../node_modules/rxjs';
+import { Observable, of } from '../../../node_modules/rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Employee } from '../model/employee.model';
+import { catchError, map, tap } from 'rxjs/operators';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Reimbursement } from '../model/reimbursement.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+ };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  username;
-  password;
+  private username: string;
+  private password: string;
+  private emp: Employee;
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +31,32 @@ export class AuthService {
 
     // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
     return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(user));
+
+  }
+
+  public getReimbursements() {
+    return this.http.get<Reimbursement[]>('http://localhost:8085/project1v1/reimbursements');
+  }
+
+  public getEmployee(username: String): Observable<Employee> {
+    return this.http.post<Employee>('http://localhost:4200/project1v1/users',
+      JSON.stringify(username), httpOptions).pipe(tap(data => { this.emp = data; }));
+  }
+
+  validate(username: string, password: string): Observable<Employee> {
+    // console.log("in login service 'validate' with " + username)
+
+    return this.getEmployee(username).pipe(switchMap(temp => {
+      if (temp.employee_id === 0) {
+        return of(null); // creates new observable that does nothing except sent 1 null values
+      } else {
+        if (temp.emp_password === password) {
+          return of(temp); // returning user object of the newly logged in user
+        } else {
+          return of(null);
+        }
+      }
+    })); // returning an observable
 
   }
 

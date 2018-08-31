@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ex.pojos.Reimbursement;
 import com.ex.pojos.User;
+import com.ex.service.ReimbService;
 import com.ex.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/users")
-public class UserServlet extends HttpServlet {
+@WebServlet("/reimbursements")
+public class ReimbServlet extends HttpServlet {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static UserService uService = new UserService();
+	static ReimbService rService = new ReimbService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,13 +33,13 @@ public class UserServlet extends HttpServlet {
 //		PrintWriter pw = resp.getWriter();
 //		System.out.println("in doGet method");
 		
-		List<User> users = uService.findAllUsers();
-		if(users.size()>0) {
+		List<Reimbursement> reimbs = rService.findAllReimbursements();
+		if(reimbs.size()>0) {
 			// return books
 			
 			// JACKSON API
 			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(users);
+			String json = mapper.writeValueAsString(reimbs);
 			PrintWriter out = resp.getWriter();
 			resp.setContentType("application/json");
 			out.write(json);
@@ -53,23 +55,29 @@ public class UserServlet extends HttpServlet {
 
 		System.out.println("This is post data!");
         
-        String json = "";
-        ObjectMapper mapper = null;
-        BufferedReader br = new BufferedReader(new InputStreamReader( req.getInputStream() ));
-        
-        if (br != null) {
-            json = br.readLine();
-        }
-        
-        System.out.println(json);
-        
-        mapper = new ObjectMapper();
-        
-        User userObj = mapper.readValue(json, User.class);	// json must be all on one line
-        
-        System.out.println(userObj.toString());
-        
-        uService.addUser(userObj);
+//        String json = "";
+//        ObjectMapper mapper = null;
+//        BufferedReader br = new BufferedReader(new InputStreamReader( req.getInputStream() ));
+//        
+//        if (br != null) {
+//            json = br.readLine();
+//        }
+//        
+//        System.out.println(json);
+//        
+//        mapper = new ObjectMapper();
+//        
+//        Reimbursement reimbObj = mapper.readValue(json, Reimbursement.class);	// json must be all on one line
+//        
+//        System.out.println(reimbObj.toString());
+//        
+//        rService.addReimbursement(reimbObj);
+		
+		List<Reimbursement> r = rService.findAllReimbursements();
+        ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(r);
+		PrintWriter writer = resp.getWriter();
+		writer.write(json);
 		
 	}
 	

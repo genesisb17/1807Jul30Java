@@ -155,3 +155,37 @@ insert into ERS_USERS(ers_username, ers_password, user_first_name, user_last_nam
   values('myUsername', 'myPassword', 'myFirstname', 'myLastname', 'myEmail@email.com', 1);
 insert into ERS_USERS(ers_username, ers_password, user_first_name, user_last_name, user_email, user_role_id)
   values('iamamanager2', 'thisismypassword', 'Michael', 'Scott', 'email2@email.com', 2);
+  
+insert into ERS_REIMBURSEMENT(reimb_amount, reimb_author, reimb_status_id, reimb_type_id)
+  values(10, 41, 1, 2);
+select * from ERS_REIMBURSEMENT;
+
+
+CREATE OR REPLACE TRIGGER submitted_time
+   BEFORE INSERT ON ERS_REIMBURSEMENT FOR EACH ROW
+ BEGIN
+   :new.reimb_submitted := current_timestamp();
+ END;
+ /
+
+CREATE OR REPLACE TRIGGER set_default_status
+   BEFORE INSERT ON ers_reimbursement FOR EACH ROW
+ BEGIN
+   :new.reimb_status_id := 1;
+ END;
+ /
+ 
+CREATE OR REPLACE TRIGGER set_default_status
+   BEFORE INSERT ON ers_reimbursement FOR EACH ROW
+ BEGIN
+   :new.reimb_status_id := 1;
+ END;
+ /
+ 
+ delete from ers_reimbursement where reimb_author = 41;
+ insert into ERS_REIMBURSEMENT(reimb_amount, reimb_author, reimb_status_id, reimb_type_id)
+  values(10, 41, 1, 2);
+  insert into ERS_REIMBURSEMENT(reimb_amount, reimb_author, reimb_status_id, reimb_type_id)
+  values(7.5, 42, 1, 3);
+select * from ERS_REIMBURSEMENT;
+commit;

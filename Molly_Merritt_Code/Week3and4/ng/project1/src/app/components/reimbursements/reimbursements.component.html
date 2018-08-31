@@ -1,3 +1,37 @@
-<p>
-  reimbursements works!
-</p>
+<div id="reimbDiv">
+	<table class="table table-sm table-hover table-bordered thead-light">
+			<thead>
+					<tr>
+					  <th scope="col">Amount</th>
+					  <th scope="col">Submitted</th>
+					  <th scope="col">Resolved</th>
+					  <th scope="col">Description</th>
+					  <th scope="col">Author</th>
+					  <th scope="col">Resolver</th>
+					  <th scope="col">Status</th>
+					  <th scope="col">Type</th>
+					</tr>
+				  </thead>
+		<tbody id="userTable">
+				<tr *ngFor="let b of reimbursements">
+						<td>{{b.amount | currency}}</td>
+						<td>{{b.submitted | date: 'medium' }}</td>
+						<td>{{b.resolved | date: 'medium'}}</td>
+						<td>{{b.description}}</td>
+						<td>{{b.author}}</td>
+						<td>{{b.resolver}}</td>
+						<!-- <td>{{b.status_id}}</td> -->
+						<td>
+							{{b.status_id}}
+							<!-- <button *ngIf="b.status_id ==1" (click)="setApproved(b.reimb_id)" class="btn btn-primary">Approve</button>
+							<button *ngIf="b.status_id ==1" (click)="setDenied(b.reimb_id)" class="btn btn-warn">Deny</button> -->
+						</td>
+						<td>{{b.type_id}}</td>
+				   
+					  </tr>
+		</tbody>
+	</table>
+
+	<button id="newReimb">New Reimbursement</button>
+</div>
+

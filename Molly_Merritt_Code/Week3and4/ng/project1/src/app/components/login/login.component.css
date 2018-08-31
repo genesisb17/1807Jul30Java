@@ -1,3 +1,13 @@
-#loginForm {
+#loginDiv {
     text-align: center;
+    margin: 50px;
+}
+#username {
+    margin: 10px;
+}
+#password {
+    margin: 10px;
+}
+#loginButton {
+    margin: 10px;
 }

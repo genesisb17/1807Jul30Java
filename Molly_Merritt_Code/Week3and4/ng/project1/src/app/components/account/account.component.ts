@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -12,12 +13,48 @@ export class AccountComponent implements OnInit {
   private loginComp: LoginComponent;
   private isLoggedIn: boolean;
 
-  constructor() { }
+  private loggedFirstname: string;
+  private loggedLastname: string;
+  private loggedUsername: string;
+  private loggedEmail: string;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     console.log('account view');
-    this.isLoggedIn = LoginComponent.loggedIn;
-    console.log(this.isLoggedIn);
+    // this.isLoggedIn = LoginComponent.isLoggedIn();
+    // console.log(this.isLoggedIn);
+    this.route.params.subscribe(
+      params => {
+        this.loggedUsername = params['loggedUsername'];
+        this.loggedFirstname = params['loggedFirstname'];
+        this.loggedLastname = params['loggedLastname'];
+        this.loggedEmail = params['loggedEmail'];
+      });
+    console.log('loggedFirstname -> ' + this.loggedFirstname);
+    console.log('loggedUsername -> ' + this.loggedUsername);
+    this.populateUserTable();
+    // call filter
+  }
+
+  populateUserTable() {
+    const row = document.createElement('tr');
+    const cell1 = document.createElement('td');
+    const cell2 = document.createElement('td');
+    const cell3 = document.createElement('td');
+    const cell4 = document.createElement('td');
+
+    cell1.innerHTML = this.loggedUsername;
+    cell2.innerHTML = this.loggedFirstname;
+    cell3.innerHTML = this.loggedLastname;
+    cell4.innerHTML = this.loggedEmail;
+
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+    row.appendChild(cell4);
+
+    document.getElementById('userTable').appendChild(row);
   }
 
   getUser() {

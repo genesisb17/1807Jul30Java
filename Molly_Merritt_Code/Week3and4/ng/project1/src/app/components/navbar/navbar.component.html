@@ -7,10 +7,36 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
+        <!-- <div class="navbar-nav">
           <a class="nav-item nav-link" id="accountNav" href="/account">Account</a>
           <a class="nav-item nav-link" id="reimbNav" href="/reimbursements">Reimbursements</a>
-        </div>
+        </div> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-item nav-link" *ngIf="hService.emp" routerLink="/landing">Home</a>
+              </li>
+              <!-- <li class="nav-item">
+                  <a class="nav-item nav-link" *ngIf="hService.temp" routerLink="/newreimbursement">New Reimbursement</a>
+              </li> -->
+              <li class="nav-item">
+                  <a class="nav-item nav-link" routerLink="/account">Account</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-item nav-link" routerLink="/reimbursements">Reimbursements</a>
+              </li>
+              <!-- <li class="nav-item">
+                  <a class="nav-item nav-link" *ngIf="hService.emp && hService.temp.emp_role_id == 2" routerLink="/reimbursements">All Employee Reimbursements</a>
+              </li> -->
+              <!-- <li class="nav-item">
+                  <a class="nav-item nav-link" *ngIf="hService.emp" (click)="logout()" routerLink="/landing">Logout</a>
+              </li> -->
+              <li class="nav-item">
+                  <a class="nav-item nav-link" *ngIf="!hService.emp" routerLink="/login">Login</a>
+              </li>
+       
+              </ul>
+          </div>
       </div>
     </nav>
   

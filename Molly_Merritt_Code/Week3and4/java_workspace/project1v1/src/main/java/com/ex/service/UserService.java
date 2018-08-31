@@ -23,7 +23,9 @@ public class UserService {
 	}
 
 	public User addUser(User u) {
-		return uDao.save(u);
+		if(uDao.isUnique(u)) {
+			return uDao.save(u);
+		} else return null;
 	}
 
 	public List<User> findAllUsers() {
