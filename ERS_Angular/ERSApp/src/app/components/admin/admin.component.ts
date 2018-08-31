@@ -35,10 +35,29 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateRequest() {
-    this.authService.updateRequest(this.id, this.statusid)
-    .subscribe(data => {
-      this.displayAllTable();
-    });
+  updateRequestApprove() {
+    this.statusid = 2;
+    if (this.id === undefined) {
+      alert('Please select a row');
+    } else { this.authService.updateRequest(this.id, this.statusid)
+        .subscribe(data => {
+          this.displayAllTable();
+      });
+    }
+  }
+
+  updateRequestDeny() {
+    this.statusid = 3;
+    if (this.id === undefined) {
+      alert('Please select a row');
+    } else { this.authService.updateRequest(this.id, this.statusid)
+        .subscribe(data => {
+          this.displayAllTable();
+      });
+    }
+  }
+
+  onSelect( id: number ) {
+    this.id = id;
   }
 }

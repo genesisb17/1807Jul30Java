@@ -2,34 +2,31 @@ package com.ex.pojos;
 
 public class UpdateForm {
 	
-	private int statusId;
+	private int statusid;
 	private int id;
 	
-	public UpdateForm(int statusId, int id) {
-		super();
-		this.statusId = statusId;
-		this.id = id;
+	public UpdateForm() {}
+	
+	public int getStatusid() {
+		return statusid;
 	}
-
-	public int getStatusId() {
-		return statusId;
+	public void setStatusid(int statusid) {
+		this.statusid = statusid;
 	}
-
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
-	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	public UpdateForm(int statusid, int id) {
+		super();
+		this.statusid = statusid;
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return "UpdateForm [statusId=" + statusId + ", id=" + id + "]";
+		return "UpdateForm [statusid=" + statusid + ", id=" + id + "]";
 	}
 
 }

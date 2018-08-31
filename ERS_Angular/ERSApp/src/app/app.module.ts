@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { EmployeeComponent } from './components/employee/employee.component';
-import { EmployeetableService } from './services/employeetable/employeetable.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminComponent } from './components/admin/admin.component';
 
@@ -26,7 +25,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [AuthService, EmployeetableService],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

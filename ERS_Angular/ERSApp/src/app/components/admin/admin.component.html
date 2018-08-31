@@ -6,13 +6,11 @@
 <p class="AccountInformation h6 text-center">Email: {{ this.authService.user.email }}</p>
 
 <div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-secondary">Approve</button>
-  <button type="button" class="btn btn-secondary">Disapprove</button>
 </div>
 
 <div class="ReimbursementHistory">
   <h2 class="text-center h2">Total Reimbursement List</h2>
-  <table class="table table-sm">
+  <table class="table table-sm table-hover">
     <thead>
       <th scope="col">ID</th>
       <th scope="col">Amount</th>
@@ -25,7 +23,7 @@
       <th scope="col">Reimbursement Type ID</th>
     </thead>
     <tbody>
-      <tr scope="row" *ngFor="let empRows of emps" >
+      <tr [class.active]="id === empRows.id" *ngFor="let empRows of emps" (click)="onSelect(empRows.id)">
         <td>{{ empRows.id }}</td>
         <td>{{ empRows.amount | currency }}</td>
         <td>{{ empRows.submitted }}</td>
@@ -38,4 +36,7 @@
       </tr>
     </tbody>
   </table>
+  <button type="button" (click)="updateRequestApprove(value)">Approve!</button>
+  <button type="button" (click)="updateRequestDeny(value)">Deny!</button>
+
 </div>

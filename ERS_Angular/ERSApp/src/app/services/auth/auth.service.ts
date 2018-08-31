@@ -44,8 +44,8 @@ export class AuthService {
      null, {withCredentials : true});
   }
 
-  updateRequest(id: number, typeid: number): Observable<any> {
-    return this.http.post<any>('http://localhost:8888/ERS_Project/logout.ng',
-    {id: id, typeid: typeid});
+  updateRequest(id: number, statusid: number): Observable<any> {
+    return this.http.post<any>('http://localhost:8888/ERS_Project/updaterequest.ng',
+    {id: id, statusid: statusid});
   }
 }

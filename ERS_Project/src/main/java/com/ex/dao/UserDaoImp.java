@@ -114,38 +114,6 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public int submitRequest(RequestForm requestForm) {
-		int x = 0;
-		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-			String sql = "INSERT INTO REIMBURSEMENT"
-					+ " VALUES (REIMBURSEMENT_SEQ.nextval, ?, SYSDATE, null, ?, null, ?, null, 1, ?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setDouble(1, requestForm.getAmount());
-			ps.setString(2, requestForm.getDescription());
-			ps.setString(3, requestForm.getUsername());
-			ps.setInt(4,  requestForm.getRequestType());
-			System.out.println(requestForm.getAmount());
-			System.out.println(requestForm.getDescription());
-			System.out.println(requestForm.getUsername());
-			System.out.println(requestForm.getRequestType());
-			int i = ps.executeUpdate();
-			
-			// To show that the SQL statement executed correctly
-			// 1 means that "one row was inserted"
-			if (i == 1) {
-				return i;
-			}
-			
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		
-		// Returning false means something wrong happened
-		// "no rows were inserted"
-		return x;
-	}
-
-	@Override
 	public List<Reimbursement> getAllTables() {
 		List<Reimbursement> allList = new ArrayList<>();
 		Reimbursement temp = null;
@@ -181,7 +149,7 @@ public class UserDaoImp implements UserDao {
 			String sql = "UPDATE REIMBURSEMENT SET R_RESOLVED_TIME = SYSDATE, R_RESOLVER = ?, RS_ID = ? WHERE R_ID = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, "admin");
-			ps.setInt(2, updateForm.getStatusId());
+			ps.setInt(2, updateForm.getStatusid());
 			ps.setInt(3, updateForm.getId());			
 			int i = ps.executeUpdate();
 			
@@ -193,6 +161,38 @@ public class UserDaoImp implements UserDao {
 			ex.printStackTrace();
 		}
 		return 0;
+	}
+
+	@Override
+	public int submitRequest(RequestForm requestForm) {
+		int x = 0;
+		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String sql = "INSERT INTO REIMBURSEMENT"
+					+ " VALUES (REIMBURSEMENT_SEQ.nextval, ?, SYSDATE, null, ?, null, ?, null, 1, ?)";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setDouble(1, requestForm.getAmount());
+			ps.setString(2, requestForm.getDescription());
+			ps.setString(3, requestForm.getUsername());
+			ps.setInt(4,  requestForm.getRequestType());
+			System.out.println(requestForm.getAmount());
+			System.out.println(requestForm.getDescription());
+			System.out.println(requestForm.getUsername());
+			System.out.println(requestForm.getRequestType());
+			int i = ps.executeUpdate();
+			
+			// To show that the SQL statement executed correctly
+			// 1 means that "one row was inserted"
+			if (i == 1) {
+				return i;
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
+		// Returning false means something wrong happened
+		// "no rows were inserted"
+		return x;
 	}
 	
 	

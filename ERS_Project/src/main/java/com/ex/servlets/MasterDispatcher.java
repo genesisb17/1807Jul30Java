@@ -24,7 +24,7 @@ public class MasterDispatcher {
 		case "/ERS_Project/logout.ng":
 			return UserServices.logout(request, response);
 		case "/ERS_Project/updaterequest.ng":
-			return UserServices.submitRequest(request, response);
+			return UserServices.updateTable(request, response);
 		default:
 			return "not yet implemented";
 		}    	
