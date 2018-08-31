@@ -1,0 +1,19 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+	<class name="Person" table="PEOPLE">
+		<id name="id" type="int" column="P_ID">
+		<!-- Generator element is used to generate primary keys automatically
+		the class attribute is set to native to let hibernate pick its 
+		generation strategy depending on 
+		capabilities of underlying database -->
+			<generator class="native"></generator>
+		</id>
+		<property name="firstName" type="string" column="FIRST_NAME"></property>
+		<property name="lastName" type="string" column="LAST_NAME"></property>
+	</class>
+</hibernate-mapping>

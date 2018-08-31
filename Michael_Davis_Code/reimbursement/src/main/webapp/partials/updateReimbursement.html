@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Reimbursement</title>
+</head>
+<body>
+<div class="jumbotron">
+		<h1>Approve Or Deny Reimbursements Portal</h1>
+		<br>
+		<form method="post" action="setStatus">
+		<!-- amount,submitted,resolved,description,receipt,author,resolver,statusid,typeid -->
+		<input type=number id=selected name=selected style="visibility:hidden" />
+	
+ <fieldset>
+        <legend>Approve or Deny this Reimbursement</legend>
+       
+        
+        <div>
+            <input type="radio" id="pending" name="status" value='1' />
+            <label for="pending">Pending</label>
+        </div>
+
+        <div>
+            <input type="radio" id="approval" name="status" value='2' />
+            <label for="approval">Approve</label>
+        </div>
+
+        <div>
+            <input type="radio" id="deny" name="status" value='3' />
+            <label for="deny">Deny</label>
+        </div>
+
+
+    </fieldset>
+				<input type="submit" value="setReimbursementStatus">
+		</form>
+	</div>
+</body>
+</html>

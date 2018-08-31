@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>helloservlets</display-name>
+	<!-- Web.xml aka Deployment Descriptor is the file with which we configure 
+		our web apps Here we indicate which url-patterns(endpoints) will sends requests 
+		to respective servlets and configure other details like parameters and when 
+		to initialize our servlets -->
+		
+		<context-param>
+		<param-name>Bio</param-name>
+		<param-value>Michael Davis is a Fighter Jet Pilot, philanthropist, and astrophysicist.</param-value>
+		</context-param>
+
+	<servlet>
+		<servlet-name>HS</servlet-name>
+		<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<!-- The number one signifies that i want this to be the first servlet to load on startup -->
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>HS</servlet-name>
+		<url-pattern>/test</url-pattern>
+		
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Hellohttpservlet</servlet-name>
+		<servlet-class>com.ex.servlets.hellohttpservlet</servlet-class>
+		<init-param>
+		<param-name>Info</param-name>
+		<param-value>Servlets are Awsome!</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Hellohttpservlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>FrontController</servlet-name>
+		<servlet-class>*.view</servlet-class>
+	
+	</servlet>
+
+
+
+
+
+</web-app>

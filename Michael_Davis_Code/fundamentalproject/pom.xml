@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>maven</groupId>
+  <artifactId>fundamentalproject</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>mavenproject</name>
+  <description>Into to Maven</description>
+  
+  <!-- Pom.xml
+  
+  The Pom or project object model is the fndamental unit of work in Maven. 
+  It is an xml file that contains information about the project and configuration details 
+  used by Maven to build the project
+  
+  Build means to take your source code and compile it into object code or whatever form is used for actually running
+   
+   
+   XML- extensible markup language. it is a markup language that is typically used
+   to define a set of rules for documents and frameworks. It has elements denoted in <tags> and between openeing and closing
+   tags holds the value of the element.
+   
+   related topics: valid vs well formed,DTD,XMLNS,XML parsing,
+   
+   
+   Makrup Language- a system for annotating a doc in a way that is syntactially different from text
+   
+   
+   final calsses cannot be extended
+   final variables cannot be changed
+   
+   a thread is a single path of execution
+   
+   to spin of the thread you must extend thread or implement runnable
+   
+   fileNot found is checked
+   IO exception is checked
+  checked exceptions are compile time exception
+  
+  runetime exception
+  divide by 0
+  
+  arrayindex out of bounds
+  
+  must have a catching method if checked exception
+  
+  if a try is present must have a catch or FINALLY
+  
+  try with resources does not require finally
+  
+  StringBuffers is slower but threadsafe
+  
+  StringBuilder is faster but is not threadsafe
+  if you dont want to serialize a field make it transient
+  
+  3 major collectoins
+  
+  List 
+  Set
+  QUEUE
+  these are all interfaces^
+  
+  instantiating an object to its parent object is polymorphism
+  animal a=new dog
+  
+  autoboxing is changing an object to its wrapper class
+  casting is changing the reference type of an object
+  maps hold key value pairs and does not extend collection
+  
+  a set does not hold duplicate values
+  
+  
+  collections class is utility class with static methods to apply to functions
+  
+   -->
+   
+   <properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+	</dependencies>
+   
+   
+</project>
+
