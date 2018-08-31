@@ -7,17 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import oracle.jdbc.OracleTypes;
 import pojos.Employee;
-import pojos.User;
 import util.ConnectionFactory;
 import util.ConnectionUtil;
 
 public class EmployeeDAO implements DAO<Employee, Integer> {
 	
 	private static EmployeeDAO instance;
-	
+//	
+
 	public static void main(String[] args) {
 //		EmployeeDAO e = new EmployeeDAO();
 //		Employee ee = new Employee();

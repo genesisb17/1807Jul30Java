@@ -1,6 +1,10 @@
 package pojos;
 
+import java.util.logging.Logger;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.log4j.BasicConfigurator;
 
 @XmlRootElement
 public class Employee {
@@ -12,6 +16,8 @@ public class Employee {
 	private String last_name;
 	private String email;
 	private int emp_role_id;
+	
+	static final Logger logger = Logger.getAnonymousLogger();
 	
 	public Employee() {
 		super();

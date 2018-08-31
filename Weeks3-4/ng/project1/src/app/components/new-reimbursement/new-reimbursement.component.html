@@ -21,5 +21,10 @@
       <button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
     
     </div>
+    <div class="jumbotron" *ngIf="message">
+      <label> 
+        {{message}}
+      </label>
+    </div>
     
   </div>

@@ -11,6 +11,10 @@
 <input type="password" [(ngModel)]="password" placeholder="Password" class="form-control col-4">
 <br>
 <button (click)="login()" class="btn btn-primary">Login</button>
+<br>
+<div *ngIf="message">
+  <br>
+  <label>{{message}}</label></div>
 <!-- <br>
 <br>
 <button (click)="register()" class="btn">Add New Employee</button> -->

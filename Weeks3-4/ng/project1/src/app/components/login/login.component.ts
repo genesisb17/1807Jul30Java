@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(["landing"]);
             console.log("logged in")
           } else {
-            console.log("not correct")
+            this.message="Incorrect Username or Password";
            }
           
         }

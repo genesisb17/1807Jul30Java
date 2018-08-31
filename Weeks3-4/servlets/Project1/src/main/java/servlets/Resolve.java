@@ -34,7 +34,6 @@ public class Resolve extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.getWriter().append("Employees -- Served at: ").append(request.getContextPath());
 		
 		//JACKSON API
 		ObjectMapper mapper = new ObjectMapper();

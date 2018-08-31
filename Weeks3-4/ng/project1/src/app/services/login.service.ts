@@ -17,7 +17,7 @@ export class LoginService {
   // API_URL = environment.apiUrl + "/Project1";
 
   subscribers: Function[] = [];
-
+  message: string;
 
   constructor(private http: HttpClient, private httpService: HttpeeService) { }
 

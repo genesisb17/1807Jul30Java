@@ -14,12 +14,11 @@ export class NewReimbursementComponent implements OnInit {
   private amount: number;
   private description: string;
   private type_id: string;
+  message: string;
 
   types: String[] = ["Lodging","Travel","Food","Other"];
   statuses: String[] = ["Pending","Approved","Denied"];
   addNewVisible = false;
-
-  public questions: Array<{ text: string, answer: number, choices: Array<{typeId: number, typeText: string}> }>
 
   //get current employee
   //use httpeeservice for current employee
@@ -27,6 +26,9 @@ export class NewReimbursementComponent implements OnInit {
   constructor(private router: Router, private httpService: HttpeeService) {} 
 
   ngOnInit() {
+    if(this.httpService.temp != null){
+      return "hello there";
+    }
   }
 
   typeConvert(type: string){
@@ -47,14 +49,19 @@ export class NewReimbursementComponent implements OnInit {
     }
   }
   addNewReimbursement(){
-    console.log("in add NewReimbursement")
-    console.log(this.typeConvert(this.type_id) + " type");
-    console.log(this.amount + this.description + this.httpService.temp.employee_id, this.typeConvert(this.type_id));
-    this.httpService.addReimbursement(this.amount,this.description,this.httpService.temp.employee_id,this.typeConvert(this.type_id)).subscribe();
-    this.amount = null;
-    this.description = null;
-    this.type_id = null;
-    return this.goToTransition();
+    // console.log("in add NewReimbursement")
+    // console.log(this.typeConvert(this.type_id) + " type");
+    // console.log(this.amount + this.description + this.httpService.temp.employee_id, this.typeConvert(this.type_id));
+    if(this.amount <= 0){
+      this.message = "Please, enter a positive amount";
+    } else{
+      this.httpService.addReimbursement(this.amount,this.description,this.httpService.temp.employee_id,this.typeConvert(this.type_id)).subscribe();
+      this.amount = null;
+      this.description = null;
+      this.type_id = null;
+      return this.goToTransition();
+    }
+    
   }
   goToTransition(){
     this.router.navigate(['transition']);

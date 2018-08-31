@@ -25,22 +25,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let b of empReimbursements">
-          <td>{{b.amount}}</td>
+          <td>{{b.amount | currency}}</td>
           <td>{{b.submitted | date: 'medium' }}</td>
           <td>{{b.resolved | date: 'medium'}}</td>
           <td>{{b.description}}</td>
-          <td>{{b.author}}</td>
-          <td>{{b.resolver}}</td>
+          <td>{{getAuthor(b.author)}}</td>
+          <td>{{getResolver(b.resolver)}}</td>
           <!-- <td>{{b.status_id}}</td> -->
-          <td>
-              {{b.status_id}}
-              <label class="radio-inline"><input type="radio" name="status_id" value="1">Pending</label>
-              <label class="radio-inline"><input type="radio" name="status_id" value="2">Approved</label>
-              <label class="radio-inline"><input type="radio" name="status_id" value="3">Denied</label>
-    
-              
-          </td>
-          <td>{{b.type_id}}</td>
+          <td>{{statusConvert(b.status_id)}}</td>
+          <td>{{typeConvertString(b.type_id)}}</td>
     
         </tr>
       </tbody>
