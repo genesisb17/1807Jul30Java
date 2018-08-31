@@ -1,16 +1,19 @@
 package com.revature.pojo;
 
 public class ErsUser {
-	private String userId;
+	private int userId;
 	private String username;
 	private String password;
 	private String firstname;
 	private String lastname;
 	private String email;
-	private int role_id;
+	private int roleId;
 	
-	public ErsUser(String userId, String username, String password, String firstname, String lastname, String email,
-			int role_id) {
+	public ErsUser() {
+		
+	}
+	public ErsUser(int userId, String username, String password, String firstname, String lastname, String email,
+			int roleId) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -18,14 +21,26 @@ public class ErsUser {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
-		this.role_id = role_id;
+		this.roleId = roleId;
+	}
+	
+	public ErsUser(String username, String password, String firstname, String lastname, String email,
+			int roleId) {
+		super();
+		this.userId = -1;
+		this.username = username;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.roleId = roleId;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
@@ -69,18 +84,18 @@ public class ErsUser {
 		this.email = email;
 	}
 
-	public int getRole_id() {
-		return role_id;
+	public int getRoleId() {
+		return roleId;
 	}
 
-	public void setRole_id(int role_id) {
-		this.role_id = role_id;
+	public void setRole_id(int roleId) {
+		this.roleId = roleId;
 	}
 
 	@Override
 	public String toString() {
 		return "ErsUser [userId=" + userId + ", username=" + username + ", password=" + password + ", firstname="
-				+ firstname + ", lastname=" + lastname + ", email=" + email + ", role_id=" + role_id + "]";
+				+ firstname + ", lastname=" + lastname + ", email=" + email + ", role_id=" + roleId + "]";
 	}
 	
 }

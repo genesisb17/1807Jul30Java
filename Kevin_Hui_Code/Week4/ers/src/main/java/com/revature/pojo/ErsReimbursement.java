@@ -5,18 +5,18 @@ import java.sql.Timestamp;
 
 public class ErsReimbursement {
 	private int reimbId;
-	private int amount;
+	private double amount;
 	private Timestamp submitted;
 	private Timestamp resolved;
 	private String description;
 	private Blob reciept;
-	private int author;
-	private int resolver;
-	private int statusId;
-	private int typeId;
-
-	public ErsReimbursement(int reimbId, int amount, Timestamp submitted, Timestamp resolved, String description,
-			Blob reciept, int author, int resolver, int statusId, int typeId) {
+	private String author;
+	private String resolver;
+	private String status;
+	private String type;
+	
+	public ErsReimbursement(int reimbId, double amount, Timestamp submitted, Timestamp resolved, String description,
+			Blob reciept, String author, String resolver, String status, String type) {
 		super();
 		this.reimbId = reimbId;
 		this.amount = amount;
@@ -26,13 +26,8 @@ public class ErsReimbursement {
 		this.reciept = reciept;
 		this.author = author;
 		this.resolver = resolver;
-		this.statusId = statusId;
-		this.typeId = typeId;
-	}
-
-	public ErsReimbursement(int amount, Timestamp submitted, Timestamp resolved, String description, Blob reciept,
-			int author, int resolver, int statusId, int typeId) {
-		this(-1, amount, submitted, resolved, description, reciept, author, resolver, statusId, typeId);
+		this.status = status;
+		this.type = type;
 	}
 
 	public int getReimbId() {
@@ -43,11 +38,11 @@ public class ErsReimbursement {
 		this.reimbId = reimbId;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -83,42 +78,46 @@ public class ErsReimbursement {
 		this.reciept = reciept;
 	}
 
-	public int getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(int author) {
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 
-	public int getResolver() {
+	public String getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(int resolver) {
+	public void setResolver(String resolver) {
 		this.resolver = resolver;
 	}
 
-	public int getStatusId() {
-		return statusId;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setStatusId(int statusId) {
-		this.statusId = statusId;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public int getTypeId() {
-		return typeId;
+	public String getType() {
+		return type;
 	}
 
-	public void setTypeId(int typeId) {
-		this.typeId = typeId;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
 		return "ErsReimbursement [reimbId=" + reimbId + ", amount=" + amount + ", submitted=" + submitted
-				+ ", resolved=" + resolved + ", description=" + description + "]";
+				+ ", resolved=" + resolved + ", description=" + description + ", reciept=" + reciept + ", author="
+				+ author + ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
 	}
+	
+	
+	
 
 }
