@@ -134,11 +134,11 @@ export class AddUserModalComponent implements OnInit {
     return this.userService.getByUsername(this.username).pipe(
       catchError(_ => of('Valid input.')),
       switchMap(data => {
-        if (data instanceof User) {
+        if (typeof data === 'string') {
+          return of(data);
+        } else {
           this.usernameError = 'Username is already taken.';
           return throwError(this.usernameError);
-        } else {
-          return of(data);
         }
       })
     );
