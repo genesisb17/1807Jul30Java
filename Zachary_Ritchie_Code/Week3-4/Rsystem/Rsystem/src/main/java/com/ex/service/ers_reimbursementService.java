@@ -11,25 +11,35 @@ public class ers_reimbursementService
 {
 	static DAO<ers_reimbursement, Integer> aDao = new ers_reimbursementDAO();
 
-	private static List<ers_reimbursement> formatTime(List<ers_reimbursement> objList)
+	private static String formatTime(String objList)
 	{
-		for (ers_reimbursement obj : objList)
+		//System.out.println(objList);
+		String nightDay = "am";
+		String[] dateTime =  objList.split(" ");		  
+		String[] time = dateTime[1].split(":");
+		
+		int hour = Integer.parseInt(time[0]);
+		int min = Integer.parseInt(time[1]);
+		
+		if(hour >= 12)
 		{
-			String nightDay = "am";
-			String[] dateTime =  obj.getReimb_submitted().split(" ");		  
-			String[] time = dateTime[1].split(":");
-			
-			int hour = Integer.parseInt(time[0]);
-			int min = Integer.parseInt(time[1]);
-			
-			if(hour >= 12)
+			nightDay = "pm";
+			if(hour > 12)
 			{
-				nightDay = "pm";
 				hour=hour-12;
 			}
-			
-			obj.setReimb_submitted(dateTime[0] + ",  " + hour + ":" + min + " " + nightDay);
+		}	
+		
+		if(min > 10)
+		{
+			objList = (dateTime[0] + ",  " + hour + ":" + min + " " + nightDay);
 		}
+		else
+		{
+			objList = (dateTime[0] + ",  " + hour + ":" + "0" + min + " " + nightDay);
+		}
+		
+	
 		
 		return objList;
 	}
@@ -38,9 +48,17 @@ public class ers_reimbursementService
 	{
 		List<ers_reimbursement> temp = new ArrayList<ers_reimbursement>();
 		
-		temp = aDao.getAll();
+		temp = aDao.getAll();		
 		
-		temp = formatTime(temp);
+		for(ers_reimbursement ers : temp)
+		{
+			ers.setReimb_submitted(formatTime(ers.getReimb_submitted()));
+			
+			if(ers.getReimb_resolved() != null)
+			{
+				ers.setReimb_resolved(formatTime(ers.getReimb_resolved()));
+			}			
+		}
 		
 		return temp;
 	}
@@ -52,7 +70,6 @@ public class ers_reimbursementService
 		List<ers_reimbursement> unfiltered = aDao.getAll();
 		
 		List<ers_reimbursement> filtered = new ArrayList<ers_reimbursement>();
-		
 		for(ers_reimbursement ers: unfiltered)
 		{
 			if (ers.getReimb_author() == id)
@@ -61,7 +78,15 @@ public class ers_reimbursementService
 			}
 		}
 		
-		filtered = formatTime(filtered);
+		for(ers_reimbursement ers : filtered)
+		{
+			ers.setReimb_submitted(formatTime(ers.getReimb_submitted()));
+			
+			if(ers.getReimb_resolved() != null)
+			{
+				ers.setReimb_resolved(formatTime(ers.getReimb_resolved()));
+			}			
+		}
 		
 		return filtered;
 	}
@@ -74,7 +99,7 @@ public class ers_reimbursementService
 		//String reimb_receipt = userInformation[2];
 		String author = userInformation[2];
 		String typeId = userInformation[3];
-		
+		System.out.println(newReim.toString());
 		if(!amount.equals("") && !description.equals("") && !author.equals("") && !typeId.equals(""))
 		{
 			//System.out.println(amount + " " + description + " " + author + " " + typeId);

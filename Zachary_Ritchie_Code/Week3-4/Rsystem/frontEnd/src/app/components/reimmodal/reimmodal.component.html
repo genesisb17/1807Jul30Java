@@ -7,19 +7,25 @@
   </div>
   <div class="modal-body">
     <p>
-      <span *ngIf="authService.temp">{{authService.temp.ers_first_name}} {{authService.temp.ers_last_name}}</span>
+      <label>Name:</label> <span *ngIf="authService.temp">{{authService.temp.ers_first_name}} {{authService.temp.ers_last_name}}</span>
       <br>
-      {{reimburse.reimb_amount | currency}}
+      <label>Amount:</label> {{reimburse.reimb_amount | currency}}
       <br>
-      {{reimburse.reimb_submitted}}
+      <label>Date Submitted:</label>{{reimburse.reimb_submitted}}
       <br>
-      {{reimburse.reimb_description}}
+      <label>Date Resolved:</label>{{reimburse.reimb_resolved}}
+      <br>
+      <label>Description:</label>{{reimburse.reimb_description}}
+      <br>
+      <label>Status:</label>{{statusTemp}}
+      <br>
+      <label>Type:</label>{{typeTemp}}
       <!-- {{reimburse.reimb_resolved}} -->
     </p>
   </div>
   <div class="modal-footer">
     <!-- (click)="c('Close click')" -->
-    <div *ngIf="authService.servletData.user_role_id == 2">
+    <div *ngIf="authService.servletData.user_role_id == 2 && reimburse.reimb_status_id == 2">
       <button type="button" class="btn btn-success" (click)="approved()" (click)="c('Close click')">Approved</button>
     <button type="button" class="btn btn-warning" (click)="denied()" (click)="c('Close click')">Denied</button>
     </div>

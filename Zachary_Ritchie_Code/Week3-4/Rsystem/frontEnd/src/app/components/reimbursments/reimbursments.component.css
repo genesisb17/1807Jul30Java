@@ -1,0 +1,15 @@
+input 
+{
+    border-radius: 5px 5px 5px 5px;
+}
+
+label
+{
+   padding-right:5px;
+}
+
+textarea
+{
+    border-radius: 5px 5px 5px 5px;
+}
+

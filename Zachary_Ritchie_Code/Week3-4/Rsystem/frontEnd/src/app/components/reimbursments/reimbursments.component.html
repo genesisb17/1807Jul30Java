@@ -1,22 +1,27 @@
-<form (submit)="createReimbursement()">
-  <label>Amount:</label>
-  <input type="number" name="amount" step="1" required [(ngModel)] = "amount">
-  <br><br>
-  <label>Description:</label>
-  <input type="text" name="description" required [(ngModel)] = "description">
-  <br><br>
-  <label>Type</label>
-  <br>
-  <!--                value = what typeVal variable on ts side is equal too
-                                name = group of radio buttons
-                                            name of the variable on the ts side-->
-  <input type="radio" value="1" name="type" required [(ngModel)] = "typeVal"><label>Lodging</label>
-  <br>
-  <input type="radio" value="2" name="type" required [(ngModel)] = "typeVal"><label>Travel</label>
-  <br>
-  <input type="radio" value="3" name="type" required [(ngModel)] = "typeVal"><label>Food</label>
-  <br>
-  <input type="radio" value="4" name="type" required [(ngModel)] = "typeVal"><label>Other</label>
-  <br><br>
-  <button type="submit" class="btn btn-success">Submit</button>
-</form>
+<p style="padding-top: .75cm"></p>
+<div>
+    <div class="form-group row">   
+      <div class="col-1"></div>
+        <div class="col-4">
+          <label>Amount:</label><br>
+          <input type="number" name="amount" step="1" min="0" required [(ngModel)] = "amount">
+          <br><br>
+          <label>Description:</label><br>
+          <textarea type="text" name="description" style="height:800px" style="width:300px" required [(ngModel)] = "description"></textarea>
+          <br><br>
+          <label>Type:</label>
+          <br>
+         <div class="form-group">
+              <label for="exampleFormControlSelect1">Example select</label>
+              <select [(ngModel)]="typeVal" class="form-control" id="exampleFormControlSelect1">
+                <option value="1">Lodging</option>
+                <option value="2">Travel</option>
+                <option value="3">Food</option>
+                <option value="4">Other</option>
+              </select>
+            </div> 
+          <br>
+          <button type="submit" class="btn btn-success" (click)="createReimbursement()"><a>Submit</a></button>
+    </div>
+  </div>
+</div>

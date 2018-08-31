@@ -27,6 +27,7 @@ create table ers_reimbursement
 );
 
 delete from ers_reimbursement;
+commit;
 
 create table ers_users
 (

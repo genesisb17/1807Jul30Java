@@ -37,12 +37,16 @@ export class CreateuserComponent implements OnInit {
         {
           this.message = "(Email is not unique)";
         }
+        else
+        {
+          this.username = null;
+          this.password = null;
+          this.firstname = null;
+          this.lastname = null;
+          this.email = null;
+        }
       });
     //.subscribe(data => {this.authService.servletData = data;})
-    this.username = null;
-    this.password = null;
-    this.firstname = null;
-    this.lastname = null;
-    this.email = null;
+    
   }
 }

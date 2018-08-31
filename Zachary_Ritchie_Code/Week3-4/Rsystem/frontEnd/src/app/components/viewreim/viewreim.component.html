@@ -1,18 +1,22 @@
 <form ><!-- (submit)="loadReim()" -->
-<h3>List of Reimbursements:</h3>
+<h2>List of Reimbursements:</h2>
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Employee</th>
+      <th scope="col">ID</th>
       <th scope="col">Amount</th>
       <th scope="col">Submitted</th>
+      <th scope="col">Resolved</th>
+      <th scope="col">Status</th>
     </tr>
   </thead>
  <tbody>
     <tr *ngFor="let r of reimb" (click)="openModal(r)">
-      <td>{{r.reimb_author}}</td>      
+      <td>{{r.reimb_id}}</td>      
       <td>{{r.reimb_amount | currency}}</td>
       <td>{{r.reimb_submitted}}</td>
+      <td>{{r.reimb_resolved}}</td>
+      <td>{{getStatus(r.reimb_status_id)}}</td>
     </tr>
   </tbody>
 
@@ -23,4 +27,4 @@
 <button type="submit" class="btn btn-success" value="Login">Submit</button> -->
 </form>
 
-<app-reimmodal></app-reimmodal>
+<app-reimmodal (close)="reload()"></app-reimmodal>

@@ -15,6 +15,8 @@ export class AuthService
   public reimSingle: Reim;
   public reimData : Reim[] = [];
   public temp: User;
+  public tempTypeString: string;
+  public tempStatusString: string;
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +42,7 @@ export class AuthService
 
   getEmployee(id: number): Observable<User> 
   {
-    return this.http.post<User>("http://localhost:8085/Rsystem/getEmployee", [id]).pipe(tap( data => {this.temp = data; console.log(this.temp)}))
+    return this.http.post<User>("http://localhost:8085/Rsystem/getEmployee", [id]).pipe(tap( data => {this.temp = data;}))
   }
 
   managerGetReim() : Observable<Reim[]> 
@@ -51,5 +53,40 @@ export class AuthService
   managerUpdateReim(id: number, resolver: number, status: number)
   {
     return this.http.put<User>("http://localhost:8085/Rsystem/managerUpdateReim", [id, resolver, status])
+  }
+
+  status(id: number): string
+  {
+    switch(id)
+    {
+      case 2:
+        this.tempStatusString = "Pending";
+        return this.tempStatusString;
+      case 4:
+        this.tempStatusString = "Approved";
+        return this.tempStatusString;
+      case 6:
+        this.tempStatusString = "Denied";
+        return this.tempStatusString;
+    }    
+  }
+
+  typeReim(id: number): string
+  {
+    switch(id)
+    {
+      case 1:
+        this.tempTypeString = "Lodging";
+        return this.tempTypeString;
+      case 2:
+        this.tempTypeString = "Travel";
+        return this.tempTypeString;
+      case 3:
+        this.tempTypeString = "Food";
+        return this.tempTypeString;
+      case 4:
+        this.tempTypeString = "Other";
+        return this.tempTypeString;
+    }    
   }
 }

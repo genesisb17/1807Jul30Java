@@ -14,7 +14,7 @@
       <li class="nav-item" *ngIf="authService.servletData && authService.servletData.user_role_id == 2">
           <a class="nav-link" routerLink="/createuser">Create Account</a>
       </li>
-      <li class="nav-item" *ngIf="authService.servletData && authService.servletData.user_role_id == 1" >
+      <li class="nav-item" *ngIf="authService.servletData" >
         <a class="nav-link" routerLink="/createReimbursements">Create Reimbursement</a>
       </li>
       <li class="nav-item" *ngIf="authService.servletData" >
