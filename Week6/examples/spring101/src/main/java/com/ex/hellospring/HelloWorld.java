@@ -5,7 +5,7 @@ public class HelloWorld {
 	private String message;
 	
 	public HelloWorld() {
-		System.out.println("IN NO ARGS CONSTRUCTOR");
+	//	System.out.println("IN NO ARGS CONSTRUCTOR");
 	}
 
 	public HelloWorld(String message) {
