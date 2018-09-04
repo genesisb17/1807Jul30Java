@@ -61,21 +61,10 @@ export class ReimbViewComponent implements OnInit {
     }
 
     getReimbursementsByUser() {
-      console.log(this.username);
+      //console.log(this.username);
       this.authService.getReimbursementsByUser(this.username).subscribe(
         data => {
           console.log(data);
-          this.rbarray = data
-          this.rbID = data.rbID;
-          this.amount = data.amount;
-          this.submitted = data.submitted;
-          this.resolved = data.resolved;
-          this.description = data.description;
-          this.receipt = data.receipt;
-          this.author = data.author;
-          this.resolver = data.resolver;
-          this.status = data.statusID;
-          this.type = data.typeID;
 
 
           

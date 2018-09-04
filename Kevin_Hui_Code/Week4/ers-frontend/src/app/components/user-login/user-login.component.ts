@@ -34,16 +34,9 @@ export class UserLoginComponent implements OnInit {
       data => {
         console.log(data);
         if (data) {
-          this.servletFirst = data.firstname;
-          this.servletLast = data.lastname;
-          this.servletUsername = data.username;
-          this.servletEmail = data.email;
-          this.servletUserID = data.userId;
-          this.servletRoleID = data.roleId;
-
-          if (this.servletRoleID > 0) {
-            this.router.navigate(['/reimbView', this.servletUsername]);
-          }
+          
+          this.router.navigateByUrl('/reimbView');
+          
           // else if (this.servletroleID == 2 || this.servletroleID == 1) {
           //   this.router.navigate(['/table', this.servletEmpID]);
           // }

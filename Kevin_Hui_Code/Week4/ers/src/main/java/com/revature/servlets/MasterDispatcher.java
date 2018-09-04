@@ -2,7 +2,9 @@ package com.revature.servlets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.revature.pojo.ErsUser;
 import com.revature.service.ErsReimbursementService;
 import com.revature.service.ErsUserService;
 
@@ -12,9 +14,13 @@ public class MasterDispatcher {
 
 	public static Object process(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpSession session = request.getSession();
+		
 		switch (request.getRequestURI()) {
 		case "/ers/login.ng":
-			return ErsUserService.login(request, response);
+			ErsUser user = ErsUserService.login(request, response);
+			session.setAttribute("user", user);
+			return user;
 		case "/ers/logout.ng":
 			return ErsUserService.logout(request, response);
 		case "/ers/getReimbursementsByUser.ng":

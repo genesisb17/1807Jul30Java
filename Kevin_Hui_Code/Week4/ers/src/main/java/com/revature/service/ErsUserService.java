@@ -27,9 +27,10 @@ public class ErsUserService {
 		try {
 			if (user.getPassword().equals(authorized.getPassword())) {
 
-				HttpSession session = request.getSession();
-				session.setAttribute("user", authorized);
-				System.out.println(session.getAttribute("user"));
+//				HttpSession session = request.getSession();
+//				session.setAttribute("user", authorized);
+//				System.out.println("On login: " + session.getAttribute("user"));
+//				
 				return authorized;
 			}
 		} catch (NullPointerException e) {

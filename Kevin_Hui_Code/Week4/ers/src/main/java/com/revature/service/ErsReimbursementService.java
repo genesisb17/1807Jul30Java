@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.ErsReimbursementDao;
@@ -19,11 +20,23 @@ public class ErsReimbursementService {
 		return rd.insert(r);
 	}
 
-	public static List<ErsReimbursement> getReimbursementsByUser(HttpServletRequest request, HttpServletResponse response) {
+	public static List<ErsReimbursement> getReimbursementsByUser(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		HttpSession httpSession = request.getSession(false);
+		// False because we do not want it to create a new session if it does not exist.
+		ErsUser user = null;
+		if (httpSession != null) {
+			user = (ErsUser) httpSession.getAttribute("user");
+		}
+
+		if (user == null) {
+			System.out.println("user still missing");
+			return null;
+		}
 
 		ObjectMapper mapper = new ObjectMapper();
-		ErsUser user = (ErsUser) request.getSession().getAttribute("user");
-		System.out.println(request.getSession().getAttribute("user"));
+		System.out.println("getting user in reimb_service: " + user);
 		try {
 			user = mapper.readValue(request.getReader(), ErsUser.class);
 		} catch (IOException e) {
@@ -33,7 +46,8 @@ public class ErsReimbursementService {
 
 	}
 
-	public static List<ErsReimbursement> getAllReimbursements(HttpServletRequest request, HttpServletResponse response) {
+	public static List<ErsReimbursement> getAllReimbursements(HttpServletRequest request,
+			HttpServletResponse response) {
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
