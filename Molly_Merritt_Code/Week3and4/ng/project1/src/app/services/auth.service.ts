@@ -16,7 +16,7 @@ const httpOptions = {
 export class AuthService {
   private username: string;
   private password: string;
-  private emp: Employee;
+  emp: Employee;
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +36,11 @@ export class AuthService {
 
   public getReimbursements() {
     return this.http.get<Reimbursement[]>('http://localhost:8085/project1v1/reimbursements');
+  }
+
+  public addReimbursement(amount: number, description: String, author: number, type_id: number) {
+    return this.http.post<Reimbursement>('http://localhost:8085/project1v1/reimbursements',
+      JSON.stringify([amount, description, author, type_id]), httpOptions);
   }
 
   public getEmployee(username: String): Observable<Employee> {

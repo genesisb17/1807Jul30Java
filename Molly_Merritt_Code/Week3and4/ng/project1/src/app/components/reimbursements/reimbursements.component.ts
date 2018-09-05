@@ -3,6 +3,7 @@ import { Timestamp } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Reimbursement } from '../../model/reimbursement.model';
+import { Employee } from '../../model/employee.model';
 
 @Component({
   selector: 'app-reimbursements',
@@ -12,19 +13,29 @@ import { Reimbursement } from '../../model/reimbursement.model';
 export class ReimbursementsComponent implements OnInit {
 
   reimbursements: Reimbursement[] = [];
+  employees: Employee[] = [];
 
-  private username: string;
-  private password: string;
+  // private username: string;
+  // private password: string;
 
-  private reimbId: string;
-  private reimbAuthor: string; // number;
-  private reimbAmount: string; // number;
-  private reimbSubmitted: string; // Timestamp<Date>;
-  private reimbResolved: string; // Timestamp<Date>;
-  private reimbDescription: string;
-  // private reimbReceipt: Blob;
-  private reimbResolver: string; // number;
-  private reimbType: string; // number;
+  // private reimbId: string;
+  // private reimbAuthor: string; // number;
+  // private reimbAmount: string; // number;
+  // private reimbSubmitted: string; // Timestamp<Date>;
+  // private reimbResolved: string; // Timestamp<Date>;
+  // private reimbDescription: string;
+  // // private reimbReceipt: Blob;
+  // private reimbResolver: string; // number;
+  // private reimbType: string; // number;
+
+
+  // new reimbursement
+  private amount: number;
+  private description: string;
+  private type_id: string;
+  message: string;
+  types: String[] = ['Lodging', 'Travel', 'Food', 'Other'];
+  statuses: String[] = ['Pending', 'Approved', 'Denied'];
 
   constructor(private route: ActivatedRoute, private http: AuthService) { }
 
@@ -38,47 +49,28 @@ export class ReimbursementsComponent implements OnInit {
       t => {
         if (t != null) {
           this.reimbursements = t;
-          // console.log('loaded reimbursements');
           console.log(this.reimbursements);
-        } else {
-          // console.error('Error loading Reimbursements');
-        }
-        // console.log(t);
+        } else {}
       }
     );
   }
 
-  // populateReimbursementTable() {
-  //   const row = document.createElement('tr');
-  //   const cell1 = document.createElement('td'); // id
-  //   const cell2 = document.createElement('td'); // author
-  //   const cell3 = document.createElement('td'); // amount
-  //   const cell4 = document.createElement('td'); // submitted
-  //   const cell5 = document.createElement('td'); // resolved
-  //   const cell6 = document.createElement('td'); // description
-  //   // const cell7 = document.createElement('td'); // receipt
-  //   const cell7 = document.createElement('td'); // resolver
-  //   const cell8 = document.createElement('td'); // type
+  addNewReimbursement() {
+    if (this.amount <= 0) {
+      this.message = 'Please enter a positive amount';
+    } else {
+      this.http.addReimbursement(this.amount, this.description, this.http.emp.employee_id,
+        this.typeConvert(this.type_id)).subscribe();
+    }
+  }
 
-  //   cell1.innerHTML = this.reimbId;
-  //   cell2.innerHTML = this.reimbAuthor;
-  //   cell3.innerHTML = this.reimbAmount;
-  //   cell4.innerHTML = this.reimbSubmitted;
-  //   cell5.innerHTML = this.reimbResolved;
-  //   cell6.innerHTML = this.reimbDescription;
-  //   cell7.innerHTML = this.reimbResolver;
-  //   cell8.innerHTML = this.reimbType;
-
-  //   row.appendChild(cell1);
-  //   row.appendChild(cell2);
-  //   row.appendChild(cell3);
-  //   row.appendChild(cell4);
-  //   row.appendChild(cell5);
-  //   row.appendChild(cell6);
-  //   row.appendChild(cell7);
-  //   row.appendChild(cell8);
-
-  //   document.getElementById('userTable').appendChild(row);
-  // }
-
+  typeConvert(type: string) {
+    console.log('in type convert');
+    switch (type) {
+      case 'Lodging': { return 1; }
+      case 'Travel': { return 2; }
+      case 'Food': { return 3; }
+      default: { return 4; }
+    }
+  }
 }
