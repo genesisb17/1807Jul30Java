@@ -65,21 +65,4 @@ export class AuthService {
 
   }
 
-  // askForSomething() {
-  //   return this.http.get<any>('http://localhost:8080/project1v1/users?pol=val');
-  // }
-
-  // getUser() {
-  //   const user = {
-  //     username: this.username,
-  //     password: this.password
-  //   };
-  //   return this.http.post<any>('http://localhost:8085/project1v1/user', JSON.stringify(user));
-  // }
-
-  // logout() {
-  //   this.username = null;
-  //   this.password = null;
-  // }
-
 }

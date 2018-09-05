@@ -40,28 +40,29 @@ export class AccountComponent implements OnInit {
     // call filter
   }
 
-  populateUserTable() {
-    const row = document.createElement('tr');
-    const cell1 = document.createElement('td');
-    const cell2 = document.createElement('td');
-    const cell3 = document.createElement('td');
-    const cell4 = document.createElement('td');
+  // javascript - GET RID OF THIS
+  // populateUserTable() {
+  //   const row = document.createElement('tr');
+  //   const cell1 = document.createElement('td');
+  //   const cell2 = document.createElement('td');
+  //   const cell3 = document.createElement('td');
+  //   const cell4 = document.createElement('td');
 
-    cell1.innerHTML = this.loggedUsername;
-    cell2.innerHTML = this.loggedFirstname;
-    cell3.innerHTML = this.loggedLastname;
-    cell4.innerHTML = this.loggedEmail;
+  //   cell1.innerHTML = this.loggedUsername;
+  //   cell2.innerHTML = this.loggedFirstname;
+  //   cell3.innerHTML = this.loggedLastname;
+  //   cell4.innerHTML = this.loggedEmail;
 
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
-    row.appendChild(cell4);
+  //   row.appendChild(cell1);
+  //   row.appendChild(cell2);
+  //   row.appendChild(cell3);
+  //   row.appendChild(cell4);
 
-    document.getElementById('userTable').appendChild(row);
-  }
+  //   document.getElementById('userTable').appendChild(row);
+  // }
 
-  getUser() {
+  // getUser() {
 
-  }
+  // }
 
 }

@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
     console.log(this.loggedIn);
   }
 
-  isLoggedIn(): boolean {
-    return this.loggedIn;
-  }
+  // isLoggedIn(): boolean {
+  //   return this.loggedIn;
+  // }
 
   login() {
     console.log(`Value of username: ${this.username}`);
@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
         this.servletLast = data.lastname;
         this.servletUsername = data.username;
         this.servletEmail = data.email;
-        this.loggedIn = true;
-        console.log(this.loggedIn);
+        // this.loggedIn = true;
+        // console.log(this.loggedIn);
 
         this.router.navigate(['/account', {
           loggedUsername: this.servletUsername,

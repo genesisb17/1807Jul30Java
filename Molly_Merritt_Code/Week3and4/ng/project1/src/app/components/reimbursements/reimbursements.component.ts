@@ -15,20 +15,6 @@ export class ReimbursementsComponent implements OnInit {
   reimbursements: Reimbursement[] = [];
   employees: Employee[] = [];
 
-  // private username: string;
-  // private password: string;
-
-  // private reimbId: string;
-  // private reimbAuthor: string; // number;
-  // private reimbAmount: string; // number;
-  // private reimbSubmitted: string; // Timestamp<Date>;
-  // private reimbResolved: string; // Timestamp<Date>;
-  // private reimbDescription: string;
-  // // private reimbReceipt: Blob;
-  // private reimbResolver: string; // number;
-  // private reimbType: string; // number;
-
-
   // new reimbursement
   private amount: number;
   private description: string;
