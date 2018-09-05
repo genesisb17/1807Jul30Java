@@ -48,37 +48,37 @@ export class ReimbursementsComponent implements OnInit {
     );
   }
 
-  populateReimbursementTable() {
-    const row = document.createElement('tr');
-    const cell1 = document.createElement('td'); // id
-    const cell2 = document.createElement('td'); // author
-    const cell3 = document.createElement('td'); // amount
-    const cell4 = document.createElement('td'); // submitted
-    const cell5 = document.createElement('td'); // resolved
-    const cell6 = document.createElement('td'); // description
-    // const cell7 = document.createElement('td'); // receipt
-    const cell7 = document.createElement('td'); // resolver
-    const cell8 = document.createElement('td'); // type
+  // populateReimbursementTable() {
+  //   const row = document.createElement('tr');
+  //   const cell1 = document.createElement('td'); // id
+  //   const cell2 = document.createElement('td'); // author
+  //   const cell3 = document.createElement('td'); // amount
+  //   const cell4 = document.createElement('td'); // submitted
+  //   const cell5 = document.createElement('td'); // resolved
+  //   const cell6 = document.createElement('td'); // description
+  //   // const cell7 = document.createElement('td'); // receipt
+  //   const cell7 = document.createElement('td'); // resolver
+  //   const cell8 = document.createElement('td'); // type
 
-    cell1.innerHTML = this.reimbId;
-    cell2.innerHTML = this.reimbAuthor;
-    cell3.innerHTML = this.reimbAmount;
-    cell4.innerHTML = this.reimbSubmitted;
-    cell5.innerHTML = this.reimbResolved;
-    cell6.innerHTML = this.reimbDescription;
-    cell7.innerHTML = this.reimbResolver;
-    cell8.innerHTML = this.reimbType;
+  //   cell1.innerHTML = this.reimbId;
+  //   cell2.innerHTML = this.reimbAuthor;
+  //   cell3.innerHTML = this.reimbAmount;
+  //   cell4.innerHTML = this.reimbSubmitted;
+  //   cell5.innerHTML = this.reimbResolved;
+  //   cell6.innerHTML = this.reimbDescription;
+  //   cell7.innerHTML = this.reimbResolver;
+  //   cell8.innerHTML = this.reimbType;
 
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
-    row.appendChild(cell4);
-    row.appendChild(cell5);
-    row.appendChild(cell6);
-    row.appendChild(cell7);
-    row.appendChild(cell8);
+  //   row.appendChild(cell1);
+  //   row.appendChild(cell2);
+  //   row.appendChild(cell3);
+  //   row.appendChild(cell4);
+  //   row.appendChild(cell5);
+  //   row.appendChild(cell6);
+  //   row.appendChild(cell7);
+  //   row.appendChild(cell8);
 
-    document.getElementById('userTable').appendChild(row);
-  }
+  //   document.getElementById('userTable').appendChild(row);
+  // }
 
 }
