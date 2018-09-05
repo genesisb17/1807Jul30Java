@@ -36,6 +36,18 @@ export class AuthService {
 
     // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
     // this.emp = this.validate(name, pw);
+
+    // validate and use the result to assign values to user
+    // let myUser = new Observable<User>();
+    // myUser = this.validate(name, pw);
+    // myUser = this.getUser(name);
+    // this.user = {
+    //   this.username = myUser.username
+    // };
+    // this.user = JSON.parse(JSON.stringify(myUser));
+    // myUser.pipe(map(data => { this.user = data; }));
+    // console.log(myUser);
+    // console.log(this.user);
     return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(u)); // pipe
 
   }
@@ -51,7 +63,7 @@ export class AuthService {
 
   public addReimbursement(amount: number, description: String, author: number, type_id: number) {
     return this.http.post<Reimbursement>('http://localhost:8085/project1v1/reimbursements',
-      JSON.stringify([amount, description, author, type_id]), httpOptions);
+      JSON.stringify([amount, description, author, type_id]));
   }
 
   public getUser(username: String): Observable<User> {
