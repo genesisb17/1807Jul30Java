@@ -288,8 +288,6 @@ function addUserToTable(b){
     var row = document.createElement("tr");
     
 //    var cellTest = document.createElement("td");
-    
-    var cell0 = document.createElement("td");
     var cell1 = document.createElement("td");
     var cell2 = document.createElement("td");
     var cell3 = document.createElement("td");
@@ -301,7 +299,6 @@ function addUserToTable(b){
 //    cellTest.innerHTML = b.userId;
 //    cellTest.innerHTML = globalObject.userId
 
-    cell0.innerHTML = b.ticketId + "" + b.userId;
     cell1.innerHTML = b.firstName;
     cell2.innerHTML = b.lastName;
     cell3.innerHTML = b.cash;
@@ -311,7 +308,6 @@ function addUserToTable(b){
     cell7.innerHTML = b.status;
     
 //    row.appendChild(cellTest);
-    row.appendChild(cell0);
     row.appendChild(cell1);
     row.appendChild(cell2);
     row.appendChild(cell3);
