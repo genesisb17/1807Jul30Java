@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- Configure Spring Container in beans.xml -->
+	<bean id="thisIsABean" class="com.ex.hellospring.HelloWorld"
+		scope="prototype">
+		<!-- SETTER INJECTION -->
+		<!-- <property name="message" value="Welcome to Spring! This is
+			Setter Injection! Cool stuff."/> -->
+			
+		<!-- CONSTRUCTOR INJECTION -->
+		<constructor-arg name="message" value="Welcome to Spring! This is
+			Constructor Injection! Cool stuff."/>
+	</bean>
+	
+	<bean id="dependent" class="com.ex.hellospring.DependentBean">
+		<!-- we will perform setter injection to inject our HelloWorld bean into this bean -->
+		<property name="hello" ref="thisIsABean"/>
+	</bean>
+	
+	
+	<!--  AUTOWIRING WITH XML 
+	<bean id="employee" class="com.ex.autowire.Employee" autowire="byName">
+		<constructor-arg name="name" value="Gen"/>
+		<property name="salary" value="1000000"/>
+	</bean> -->
+	
+	<!-- <bean id="department" class="com.ex.autowire.Department">  -->
+	<!-- if we renamed "department" to "dept" it wouldn't work because there's
+		no field in Employee called "dept". but if we changed autowire to
+		"byType" and kept "dept" it would work (as long as we called it "dept"
+		when we called getBean in the main method-->
+		
+	<!-- </bean> -->
+	
+	<bean id="life" class="com.ex.lifecycle.Life"
+		init-method="customInitMethod"
+		destroy-method="customDestroyMethod">
+	</bean>
+	
+	<context:annotation-config />
+	<context:component-scan base-package="com.ex"/>
+
+</beans>

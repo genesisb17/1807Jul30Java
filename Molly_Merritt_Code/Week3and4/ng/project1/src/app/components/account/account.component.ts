@@ -20,7 +20,7 @@ export class AccountComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit() {  // use the service - subscribe and then parse user
     console.log('account view');
     // this.isLoggedIn = LoginComponent.isLoggedIn();
     // console.log(this.isLoggedIn);

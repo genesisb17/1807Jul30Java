@@ -30,7 +30,7 @@ export class AuthService {
     this.password = pw;
 
     // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
-    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(user));
+    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(user)); // pipe
 
   }
 

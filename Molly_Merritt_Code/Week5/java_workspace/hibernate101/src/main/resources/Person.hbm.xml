@@ -8,7 +8,7 @@
 	<!-- The generator element is used to generate PKs automatically. The
 	class attribute is set to native to let hibernate pick its generation
 	strategy depending upon capabilies of the underlying database -->
-	<id name="id' type="int" column="P_ID">
+	<id name="id" type="int" column="P_ID">
 		<generator class="native"/>
 	</id>
 	

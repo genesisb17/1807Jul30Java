@@ -17,7 +17,7 @@
 		<property name="hibernate.connection.password">myp4ssw0rd</property>
 		
 		<property name="show_sql">true</property>	<!-- shows you the SQL code in console -->
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>	<!-- creates a schema automatically -->
 		
 		<mapping class="com.ex.pojos.Bear"/>
 		<mapping class="com.ex.pojos.Cave"/>
