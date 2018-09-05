@@ -34,7 +34,7 @@ export class AuthService {
     // this.emp.emp_password = pw;
     // console.log('emp_username = ' + this.emp.emp_username);
 
-    // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
+    // return this.http.post<any>('http://localhost:8085/project1v1/users', {username: username, password: password});
     // this.emp = this.validate(name, pw);
 
     // validate and use the result to assign values to user

@@ -1,4 +1,5 @@
 <div id="accountView">
+	<h2>Welcome, {{http.user.firstname}}</h2>
 	<table class="table table-sm table-hover table-bordered thead-light">
 		<thead>
 			<tr>
@@ -9,10 +10,6 @@
 			</tr>
 		</thead>
 		<tbody id="userTable">
-				<!-- <td>{{emp.emp_username}}</td>
-				<td>{{emp.first_name}}}</td>
-				<td>{{emp.last_name}}</td>
-				<td>{{emp.email}}</td> -->
 				<td>{{http.user.username}}</td>
 				<td>{{http.user.firstname}}</td>
 				<td>{{http.user.lastname}}</td>

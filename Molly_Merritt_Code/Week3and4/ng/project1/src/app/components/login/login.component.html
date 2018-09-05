@@ -1,22 +1,10 @@
 <div id="loginDiv">
   <h2>Login</h2>
-  <!-- <form id="loginForm" (submit)="login()" >
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required [(ngModel)]='username' /> <br>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required [(ngModel)]='password' ><br>
-    <input type="submit" id="loginButton" value="Log In">
-  </form> -->
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required [(ngModel)]='username' /> <br>
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required [(ngModel)]='password' ><br>
-      <!-- <input type="submit" id="loginButton" value="Log In"> -->
       <button (click)="login()" class="btn btn-primary">Login</button>
+      <br><br>Don't have an account?<br>
+      <button (click)="signup()" class="btn btn-primary">Sign Up</button>
 </div>
-
-<br><br>
-<!-- {{ servletUsername }}
-{{ servletFirst }}
-{{ servletLast }}
-{{ servletEmail }} -->

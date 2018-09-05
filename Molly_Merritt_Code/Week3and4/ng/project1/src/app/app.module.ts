@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AccountComponent } from './components/account/account.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReimbursementsComponent } from './components/reimbursements/reimbursements.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReimbursementsComponent } from './components/reimbursements/reimburseme
     LoginComponent,
     NavbarComponent,
     AccountComponent,
-    ReimbursementsComponent
+    ReimbursementsComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
