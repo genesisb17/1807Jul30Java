@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from '../../../node_modules/rxjs';
 import { switchMap } from 'rxjs/operators';
-import { Employee } from '../model/employee.model';
+import { User } from '../model/user.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Reimbursement } from '../model/reimbursement.model';
@@ -16,23 +16,34 @@ const httpOptions = {
 export class AuthService {
   private username: string;
   private password: string;
-  emp: Employee;
+  user: User;
+  public currentId: number;
 
   constructor(private http: HttpClient) { }
 
   login(name: string, pw: string): Observable<any> {
     console.log('calling login method');
-    const user = {
+    const u = {
       username: name,
       password: pw
     };
-    this.username = name;
-    this.password = pw;
+    // this.username = name;
+    // this.password = pw;
+    // console.log(JSON.stringify(this.emp));
+    // this.emp.emp_username = name;
+    // this.emp.emp_password = pw;
+    // console.log('emp_username = ' + this.emp.emp_username);
 
     // return this.http.post<any>('http://localhost:8080/project1v1/users', {username: username, password: password});
-    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(user)); // pipe
+    // this.emp = this.validate(name, pw);
+    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(u)); // pipe
 
   }
+
+  // login(username: string, password: string): Observable<any> {
+  //   return this.http.post<any>('http://localhost:8080/project1v1/login',
+  //   {username: username, password: password});
+  // }
 
   public getReimbursements() {
     return this.http.get<Reimbursement[]>('http://localhost:8085/project1v1/reimbursements');
@@ -43,19 +54,19 @@ export class AuthService {
       JSON.stringify([amount, description, author, type_id]), httpOptions);
   }
 
-  public getEmployee(username: String): Observable<Employee> {
-    return this.http.post<Employee>('http://localhost:4200/project1v1/users',
-      JSON.stringify(username), httpOptions).pipe(tap(data => { this.emp = data; }));
+  public getUser(username: String): Observable<User> {
+    return this.http.post<User>('http://localhost:4200/project1v1/users',
+      JSON.stringify(username), httpOptions).pipe(tap(data => { this.user = data; }));
   }
 
-  validate(username: string, password: string): Observable<Employee> {
+  validate(username: string, password: string): Observable<User> {
     // console.log("in login service 'validate' with " + username)
 
-    return this.getEmployee(username).pipe(switchMap(temp => {
-      if (temp.employee_id === 0) {
+    return this.getUser(username).pipe(switchMap(temp => {
+      if (temp.user_id === 0) {
         return of(null); // creates new observable that does nothing except sent 1 null values
       } else {
-        if (temp.emp_password === password) {
+        if (temp.password === password) {
           return of(temp); // returning user object of the newly logged in user
         } else {
           return of(null);
@@ -64,5 +75,17 @@ export class AuthService {
     })); // returning an observable
 
   }
+
+  // registerUser(user: Employee) {
+  //   const body: Employee = {
+  //     username: user.username,
+  //     password: user.password,
+  //     email:  user.email,
+  //     firstname: user.firstname,
+  //     lastname: user.lastname,
+  //     user_id: user.user_id
+  //   };
+  //   return this.http.post(this.baseUrl, body);
+  // }
 
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../../model/employee.model';
+import { User } from '../../model/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -11,7 +12,7 @@ import { Employee } from '../../model/employee.model';
 
 export class AccountComponent implements OnInit {
 
-  emp: Employee;
+  // user: User;
 
   private loginComp: LoginComponent;
   private isLoggedIn: boolean;
@@ -21,7 +22,7 @@ export class AccountComponent implements OnInit {
   private loggedUsername: string;
   private loggedEmail: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private http: AuthService) { }
 
   ngOnInit() {  // use the service - subscribe and then parse user
     console.log('account view');
@@ -33,36 +34,14 @@ export class AccountComponent implements OnInit {
         this.loggedFirstname = params['loggedFirstname'];
         this.loggedLastname = params['loggedLastname'];
         this.loggedEmail = params['loggedEmail'];
+        // this.emp.emp_username = params['loggedUsername'];
+        // this.loggedFirstname = params['loggedFirstname'];
+        // this.loggedLastname = params['loggedLastname'];
+        // this.loggedEmail = params['loggedEmail'];
       });
     console.log('loggedFirstname -> ' + this.loggedFirstname);
     console.log('loggedUsername -> ' + this.loggedUsername);
-    // this.populateUserTable();
     // call filter
   }
-
-  // javascript - GET RID OF THIS
-  // populateUserTable() {
-  //   const row = document.createElement('tr');
-  //   const cell1 = document.createElement('td');
-  //   const cell2 = document.createElement('td');
-  //   const cell3 = document.createElement('td');
-  //   const cell4 = document.createElement('td');
-
-  //   cell1.innerHTML = this.loggedUsername;
-  //   cell2.innerHTML = this.loggedFirstname;
-  //   cell3.innerHTML = this.loggedLastname;
-  //   cell4.innerHTML = this.loggedEmail;
-
-  //   row.appendChild(cell1);
-  //   row.appendChild(cell2);
-  //   row.appendChild(cell3);
-  //   row.appendChild(cell4);
-
-  //   document.getElementById('userTable').appendChild(row);
-  // }
-
-  // getUser() {
-
-  // }
 
 }

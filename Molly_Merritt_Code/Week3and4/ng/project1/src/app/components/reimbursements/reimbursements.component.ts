@@ -3,7 +3,7 @@ import { Timestamp } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Reimbursement } from '../../model/reimbursement.model';
-import { Employee } from '../../model/employee.model';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-reimbursements',
@@ -13,7 +13,7 @@ import { Employee } from '../../model/employee.model';
 export class ReimbursementsComponent implements OnInit {
 
   reimbursements: Reimbursement[] = [];
-  employees: Employee[] = [];
+  users: User[] = [];
 
   // new reimbursement
   private amount: number;
@@ -45,7 +45,7 @@ export class ReimbursementsComponent implements OnInit {
     if (this.amount <= 0) {
       this.message = 'Please enter a positive amount';
     } else {
-      this.http.addReimbursement(this.amount, this.description, this.http.emp.employee_id,
+      this.http.addReimbursement(this.amount, this.description, this.http.user.user_id,
         this.typeConvert(this.type_id)).subscribe();
     }
   }
