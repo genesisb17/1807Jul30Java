@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { ActivatedRoute } from '@angular/router';
+import { Employee } from '../../model/employee.model';
 
 @Component({
   selector: 'app-account',
@@ -9,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class AccountComponent implements OnInit {
+
+  emp: Employee;
 
   private loginComp: LoginComponent;
   private isLoggedIn: boolean;
@@ -33,7 +36,7 @@ export class AccountComponent implements OnInit {
       });
     console.log('loggedFirstname -> ' + this.loggedFirstname);
     console.log('loggedUsername -> ' + this.loggedUsername);
-    this.populateUserTable();
+    // this.populateUserTable();
     // call filter
   }
 

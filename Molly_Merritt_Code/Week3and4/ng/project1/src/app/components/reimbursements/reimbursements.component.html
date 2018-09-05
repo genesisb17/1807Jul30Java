@@ -1,33 +1,18 @@
 <div id="reimbDiv">
-	<!-- <input id="reimbAmount" placeholder="Amount"><br>
-	<input id="reimbDescription" placeholder="Description"><br>
-	<select>
-			<option value="lodging">Lodging</option>
-			<option value="travel">Travel</option>
-			<option value="food">Food</option>
-			<option value="education">Education</option>
-		</select><br>
-	<button id="newReimb">New Reimbursement</button> -->
-	</div>
+</div>
 
 
 	<div class="jumbotron">
-			<!-- <div (submit)="createReimbursement()"> -->
 			<div>
-				<label>Amount:</label>
-				<input type="number" [(ngModel)]="amount" name="amount" class="col-4 form-control" placeholder="$ Amount">
-				
-				<label>Description:</label> 
-				<input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Brief Description">
-				
-				<label>Type:</label>
-				<select [(ngModel)]="type_id" name="type_id" class="form-control col-4">
+				<input type="number" [(ngModel)]="amount" name="amount" class="col-4 form-control" placeholder="Amount">
+				<input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Description">
+				<select class="form-control col-4">
+					<option value="" hidden>- Select a Type -</option> 
 					<option>Lodging</option>
 					<option>Travel</option>
 					<option>Food</option>
 					<option>Other</option>
 				</select>
-				<!-- <button type="submit" class="btn btn-submit">Add Reimbursement!</button> -->
 				<button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
 			
 			</div>
