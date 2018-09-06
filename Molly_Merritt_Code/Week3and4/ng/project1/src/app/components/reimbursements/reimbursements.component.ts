@@ -169,4 +169,8 @@ export class ReimbursementsComponent implements OnInit {
       loggedUserRoleId: this.http.user.roleId
     }]);
   }
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }
