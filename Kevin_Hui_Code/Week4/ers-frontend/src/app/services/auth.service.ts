@@ -39,11 +39,11 @@ export class AuthService {
   addReimbursement(amount: number, description: string, typeId: number, authorId: number): Observable<any> {
     return this.http.post<any>("http://localhost:8085/ers/addReimbursement.ng", {amount: amount, description: description, typeId: typeId, authorId: authorId});
   }
-  approveReimbursement(rbID: number, resolver: number): Observable<any> {
-    return this.http.post<any>("http://localhost:8085/ers/aproveReimbursement.ng", {rbID: rbID, resolver: resolver });
+  approveReimbursement(reimbId: number, resolverId: number): Observable<any> {
+    return this.http.post<any>("http://localhost:8085/ers/approveReimbursement.ng", {reimbId: reimbId, resolverId: resolverId});
   }
-  denyReimbursement(rbID: number, resolver: number): Observable<any> {
-    return this.http.post<any>("http://localhost:8085/ers/denyReimbursement.ng", {rbID: rbID, resolver: resolver });
+  denyReimbursement(reimbId: number, resolverId: number): Observable<any> {
+    return this.http.post<any>("http://localhost:8085/ers/denyReimbursement.ng", {reimbId: reimbId, resolverId: resolverId});
   }
   getAllReimbType(): Observable<any> {
     return this.http.post<any>("http://localhost:8085/ers/getAllReimbType.ng", {});

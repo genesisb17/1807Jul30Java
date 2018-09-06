@@ -69,12 +69,12 @@ export class ReimbViewComponent implements OnInit {
     )
   }
 
-  addReimbursement(){
+  addReimbursement() {
     this.authService.addReimbursement(this.amount, this.description, this.typeId, this.authService.getUserData()[0]).subscribe(
       data => {
         console.log(data);
         if (data) {
-          this.getReimbursementsByUserId();
+          this.refresh();
         } else {
           alert("Fields required!");
         }
@@ -82,8 +82,26 @@ export class ReimbViewComponent implements OnInit {
     )
   }
 
+  approveReimbursement(reimbId: number) {
+    console.log("Approve " + reimbId);
+    this.authService.approveReimbursement(reimbId, this.authService.getUserData()[0]).subscribe(
+      data => {
+        this.refresh();
+      }
+    );
+  }
+
+  denyReimbursement(reimbId: number) {
+    console.log("Deny " + reimbId);
+    this.authService.denyReimbursement(reimbId, this.authService.getUserData()[0]).subscribe(
+      data => {
+        this.refresh();
+      }
+    );
+  }
+
   refresh() {
-    if(this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2) {
+    if (this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2) {
       this.getAllReimbursements();
     } else {
       this.getReimbursementsByUserId();

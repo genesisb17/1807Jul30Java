@@ -35,8 +35,12 @@
         <td>{{ stat.resolver }}</td>
         <td>{{ stat.type }}</td>
         <td>{{ stat.status }}</td>
-        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">testapprove</td>
-        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">testdeny</td>
+        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">
+            <button class="btn btn-success" (click)="approveReimbursement(stat.reimbId)">Approve</button>
+        </td>
+        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">
+            <button class="btn btn-danger" (click)="denyReimbursement(stat.reimbId)">Deny</button>
+        </td>
       </tr>
     </table>
   </div>
