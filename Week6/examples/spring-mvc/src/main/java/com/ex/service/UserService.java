@@ -1,10 +1,13 @@
 package com.ex.service;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.ex.beans.User;
 
+@Service
 public class UserService {
 
 	//mock service layer. would talk to DAO
