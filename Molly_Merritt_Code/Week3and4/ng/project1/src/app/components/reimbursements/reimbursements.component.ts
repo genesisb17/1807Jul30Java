@@ -20,7 +20,7 @@ export class ReimbursementsComponent implements OnInit {
   // new reimbursement
   private amount: number;
   private description: string;
-  private type_id: string;
+  private type_id: number;
   private admin_id: number;
   message: string;
   types: String[] = ['Lodging', 'Travel', 'Food', 'Other'];
@@ -76,7 +76,13 @@ export class ReimbursementsComponent implements OnInit {
       this.message = 'Please enter a positive amount';
     } else {
       this.http.addReimbursement(this.amount, this.description, this.http.user.id,
-        this.typeConvert(this.type_id)).subscribe();
+        parseInt(this.type_id)).subscribe(
+          d => {
+            // console.log(d);
+            this.reimbursements = d;
+            // console.log(this.reimbursements);
+          }
+        );
         console.log('user id = ' + this.http.user.id);
     }
     if (this.http.user.roleId < 2) {
@@ -84,6 +90,11 @@ export class ReimbursementsComponent implements OnInit {
     } else if (this.http.user.roleId > 1) {
       this.getAllReimbursements();
     }
+  }
+
+  updateReimbStatus(event: any) {
+    console.log(event.target.value);
+    this.type_id = parseInt(event.target.value);
   }
 
   setApproved(reimbId: number) {
@@ -123,7 +134,7 @@ export class ReimbursementsComponent implements OnInit {
     }
   }
 
-  num2str(type: string) {
+  str2num(type: string) {
     console.log('in num2str');
     switch (type) {
       case '1': { return 1; }
