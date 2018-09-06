@@ -9,10 +9,12 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { AppRoutingModule } from './/app-routing.module';
 import { AuthService } from './services/auth.service';
 import { ReimbViewComponent } from './components/reimb-view/reimb-view.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { InternalViewComponent } from './components/internal-view/internal-view.component';
 
 
 @NgModule({
-  declarations: [AppComponent, UserLoginComponent, ReimbViewComponent],
+  declarations: [AppComponent, UserLoginComponent, ReimbViewComponent, NavbarComponent, InternalViewComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

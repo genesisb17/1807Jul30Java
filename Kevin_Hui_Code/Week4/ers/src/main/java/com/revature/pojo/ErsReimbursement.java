@@ -11,12 +11,30 @@ public class ErsReimbursement {
 	private String description;
 	private Blob reciept;
 	private String author;
+	private int authorId;
 	private String resolver;
+	private int resolverId;
 	private String status;
 	private String type;
+	private int typeId;
+	
+	public ErsReimbursement() {	}
+	
+	public ErsReimbursement(int reimbId, int resolverId) {
+		this.reimbId = reimbId;
+		this.resolverId = resolverId;
+	}
+	
+	public ErsReimbursement(double amount, String description, int typeId, int authorId) {
+		super();
+		this.amount = amount;
+		this.description = description;
+		this.authorId = authorId;
+		this.typeId = typeId;
+	}
 	
 	public ErsReimbursement(int reimbId, double amount, Timestamp submitted, Timestamp resolved, String description,
-			Blob reciept, String author, String resolver, String status, String type) {
+			Blob reciept, String author, String resolver, String type, String status) {
 		super();
 		this.reimbId = reimbId;
 		this.amount = amount;
@@ -115,6 +133,30 @@ public class ErsReimbursement {
 		return "ErsReimbursement [reimbId=" + reimbId + ", amount=" + amount + ", submitted=" + submitted
 				+ ", resolved=" + resolved + ", description=" + description + ", reciept=" + reciept + ", author="
 				+ author + ", resolver=" + resolver + ", status=" + status + ", type=" + type + "]";
+	}
+
+	public int getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
+	}
+
+	public int getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
+	}
+
+	public int getResolverId() {
+		return resolverId;
+	}
+
+	public void setResolverId(int resolverId) {
+		this.resolverId = resolverId;
 	}
 	
 	

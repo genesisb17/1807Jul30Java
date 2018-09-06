@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.ErsReimbursementDao;
@@ -20,29 +19,18 @@ public class ErsReimbursementService {
 		return rd.insert(r);
 	}
 
-	public static List<ErsReimbursement> getReimbursementsByUser(HttpServletRequest request,
+	public static List<ErsReimbursement> getReimbursementsByUsername(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		HttpSession httpSession = request.getSession(false);
-		// False because we do not want it to create a new session if it does not exist.
 		ErsUser user = null;
-		if (httpSession != null) {
-			user = (ErsUser) httpSession.getAttribute("user");
-		}
-
-		if (user == null) {
-			System.out.println("user still missing");
-			return null;
-		}
-
 		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("getting user in reimb_service: " + user);
+
 		try {
 			user = mapper.readValue(request.getReader(), ErsUser.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return (rd.findByUserId(user.getUsername()));
+		return (rd.findByUsername(user.getUsername()));
 
 	}
 
@@ -59,7 +47,7 @@ public class ErsReimbursementService {
 
 	}
 
-	public static ErsReimbursement submitErsReimbursement(HttpServletRequest request, HttpServletResponse response) {
+	public static ErsReimbursement addReimbursement(HttpServletRequest request, HttpServletResponse response) {
 		ObjectMapper mapper = new ObjectMapper();
 		ErsReimbursement reimb = null;
 		try {
@@ -68,8 +56,47 @@ public class ErsReimbursementService {
 			e.printStackTrace();
 		}
 
-		rd.insert(reimb);
-		return reimb;
+		return rd.insert(reimb);
 
+	}
+	
+	public static void approveReimbursement(HttpServletRequest request, HttpServletResponse response) {
+		ObjectMapper mapper = new ObjectMapper();
+		ErsReimbursement reimb = null;
+		try {
+			reimb = mapper.readValue(request.getReader(), ErsReimbursement.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		rd.approveReimbursement(reimb);
+
+	}
+	
+	public static void denyReimbursement(HttpServletRequest request, HttpServletResponse response) {
+		ObjectMapper mapper = new ObjectMapper();
+		ErsReimbursement reimb = null;
+		try {
+			reimb = mapper.readValue(request.getReader(), ErsReimbursement.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		rd.denyReimbursement(reimb);
+
+	}
+
+	public static Object getReimbursementsByUserId(HttpServletRequest request, HttpServletResponse response) {
+		ErsUser user = null;
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			user = mapper.readValue(request.getReader(), ErsUser.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(user);
+		return (rd.findByUserId(user.getUserId()));
 	}
 }

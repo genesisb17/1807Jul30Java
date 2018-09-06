@@ -32,16 +32,10 @@ export class UserLoginComponent implements OnInit {
 
     this.authService.login(this.username, this.password).subscribe(
       data => {
-        console.log(data);
         if (data) {
-          
+          this.authService.setUserData(data.userId, data.roleId);
           this.router.navigateByUrl('/reimbView');
-          
-          // else if (this.servletroleID == 2 || this.servletroleID == 1) {
-          //   this.router.navigate(['/table', this.servletEmpID]);
-          // }
         } else {
-          console.log("Nothing");
           this.router.navigateByUrl('/login');
         }
       }

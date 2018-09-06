@@ -1,76 +1,76 @@
 <div class="container">
-
-  <h2 style="display:flex;flex-direction:row;justify-content: space-between;">
-    <span style="float: center;"><button class="btn " (click)="logout()">Logout</button></span>
-  </h2>
-
-  <div style="text-align:center;">
-    <table name="table" id="table" class="table table-bordered table-striped table-hover table-responsive">
-      <thead class="table-secondary">
+  <div class="m-2">
+  </div>
+  <div class="m-2">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+      File Claim
+    </button>
+    <button class="btn" (click)="refresh()">Refresh</button>
+    <button class="btn" (click)="logout()">Logout</button>
+  </div>
+  <div class="table-responsive">
+    <table name="table" id="table" class="table table-bordered table-striped table-hover">
+      <thead>
         <tr>
-          <th>ReimbursementID</th>
+          <th>ID</th>
           <th>Amount</th>
-          <th>Submitted Date </th>
+          <th>Submitted Date</th>
           <th>Resolved Date</th>
-          <th>Description </th>
-          <th>Receipt</th>
-          <th>ResolverID</th>
+          <th>Description</th>
+          <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Author</th>
+          <th>Resolver</th>
           <th>Type</th>
           <th>Status</th>
+          <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Approve</th>
+          <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Deny</th>
         </tr>
       </thead>
       <tr *ngFor="let stat of rbarray">
-        <td>{{ stat.rbID }}</td>
+        <td>{{ stat.reimbId }}</td>
         <td>{{ stat.amount | currency }}</td>
-        <td>{{ stat.submitted | date: 'medium' }}
-          <td>{{ stat.resolved | date: 'medium' }}</td>
-          <td id="desc">{{ stat.description }}</td>
-          <td>{{ stat.receipt }}</td>
-          <td>{{ stat.resolver }}</td>
-          <td>{{ stat.typeID }}</td>
-          <td>{{ stat.statusID }}</td>
+        <td>{{ stat.submitted | date: 'medium' }}</td>
+        <td>{{ stat.resolved | date: 'medium' }}</td>
+        <td>{{ stat.description }}</td>
+        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">{{stat.author}}</td>
+        <td>{{ stat.resolver }}</td>
+        <td>{{ stat.type }}</td>
+        <td>{{ stat.status }}</td>
+        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">testapprove</td>
+        <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">testdeny</td>
       </tr>
     </table>
   </div>
 
 
-<!-- 
-  <div style="margin-left:500px;margin-bottom: 30px">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCart">Submit New Reimbursement </button>
-  </div>
-  <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 300px" role="document">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Reimbursement Submit Form</h4>
+          <h5 class="modal-title" id="exampleModalLabel">New Reimbursement Form</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <form (submit)="submitReimbursement()">
+        <form (submit)="addReimbursement()">
+          <div class="modal-body">
             <div class="form-group">
-              <label for="sel1">Select type of reimbursement:</label>
-              <select style="height:30px" class="custom-select" placeholder="type of reimbursement" class="form-control" id="sel1" required
-                [(ngModel)]='type' name='type'>
-                <option>Lodging</option>
-                <option>Travel</option>
-                <option>Food</option>
-                <option>Certification</option>
-                <option>Maternity Leave</option>
+              <label for="sel1 ">Select Reimbursement Type:</label>
+              <select class="custom-select" placeholder="type of reimbursement " class="form-control" id="sel1" [(ngModel)]='typeId' name='typeId'
+                required>
+                <option *ngFor="let opt of rtypes" [ngValue]="opt.typeId">{{opt.type}}</option>
               </select>
             </div>
-            <label for="amount">Enter Amount:</label>
-            <input type="number" placeholder="$0.00" class="form-control" id="amount" name="amount" required="" autofocus="" [(ngModel)]='amount'>
+            <label for="amount ">Amount:</label>
+            <input type="number " placeholder="$0.00 " class="form-control " id="amount " name="amount " [(ngModel)]='amount' required>
             <br>
-            <label for="description">Enter Description:</label>
-            <input placeholder="(Optional)" class="form-control" type="text" id="description" name="description" autofocus="" [(ngModel)]='description'>
-            <br>
-            <button class="btn btn-primary " type="submit" value="Submit Reimbursement!">Submit</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </form>
-        </div>
-
+            <label for="description ">Description:</label>
+            <input placeholder="(Optional)" class="form-control " type="text " id="description " name="description" autofocus=" " [(ngModel)]='description'>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit " value="Submit Request">Submit Request</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
       </div>
     </div>
-  </div> -->
+  </div>

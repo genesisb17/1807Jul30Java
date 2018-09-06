@@ -28,9 +28,10 @@ public class ErsUserService {
 			if (user.getPassword().equals(authorized.getPassword())) {
 
 //				HttpSession session = request.getSession();
+//				System.out.println("session obj from userserv: " + session);
 //				session.setAttribute("user", authorized);
 //				System.out.println("On login: " + session.getAttribute("user"));
-//				
+				
 				return authorized;
 			}
 		} catch (NullPointerException e) {
@@ -39,11 +40,11 @@ public class ErsUserService {
 		return null;
 	}
 	
-	public static boolean logout(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		return true;
-	}
+//	public static boolean logout(HttpServletRequest request, HttpServletResponse response) {
+//		HttpSession session = request.getSession();
+//		session.invalidate();
+//		return true;
+//	}
 	
 	public static List<ErsUser> getAll() {
 		return uDao.findAll();
