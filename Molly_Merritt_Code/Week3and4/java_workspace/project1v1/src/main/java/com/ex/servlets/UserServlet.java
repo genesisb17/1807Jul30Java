@@ -27,13 +27,9 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//		PrintWriter pw = resp.getWriter();
-//		System.out.println("in doGet method");
 		
 		List<User> users = uService.findAllUsers();
 		if(users.size()>0) {
-			// return books
 			
 			// JACKSON API
 			ObjectMapper mapper = new ObjectMapper();

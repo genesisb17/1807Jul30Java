@@ -27,35 +27,21 @@ export class AuthService {
       username: name,
       password: pw
     };
-    // this.username = name;
-    // this.password = pw;
-    // console.log(JSON.stringify(this.emp));
-    // this.emp.emp_username = name;
-    // this.emp.emp_password = pw;
-    // console.log('emp_username = ' + this.emp.emp_username);
-
-    // return this.http.post<any>('http://localhost:8085/project1v1/users', {username: username, password: password});
-    // this.emp = this.validate(name, pw);
-
-    // validate and use the result to assign values to user
-    // let myUser = new Observable<User>();
-    // myUser = this.validate(name, pw);
-    // myUser = this.getUser(name);
-    // this.user = {
-    //   this.username = myUser.username
-    // };
-    // this.user = JSON.parse(JSON.stringify(myUser));
-    // myUser.pipe(map(data => { this.user = data; }));
-    // console.log(myUser);
-    // console.log(this.user);
-    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(u)); // pipe
-
+    return this.http.post<any>('http://localhost:8085/project1v1/login', JSON.stringify(u));
   }
 
-  // login(username: string, password: string): Observable<any> {
-  //   return this.http.post<any>('http://localhost:8080/project1v1/login',
-  //   {username: username, password: password});
-  // }
+  signup(un: string, pw: string, fn: string, ln: string, em: string, rid: number): Observable<any> {
+    console.log('calling signup method');
+    const u = {
+      username: un,
+      password: pw,
+      firstname: fn,
+      lastname: ln,
+      email: em,
+      role_id: rid
+    };
+    return this.http.post<any>('http://localhost:8085/project1v1/signup', JSON.stringify(u));
+  }
 
   public getReimbursements() {
     return this.http.get<Reimbursement[]>('http://localhost:8085/project1v1/reimbursements');
@@ -63,7 +49,8 @@ export class AuthService {
 
   public addReimbursement(amount: number, description: String, author: number, type_id: number) {
     return this.http.post<Reimbursement>('http://localhost:8085/project1v1/reimbursements',
-      JSON.stringify([amount, description, author, type_id]));
+      // JSON.stringify([amount, description, author, type_id]));
+      {amount: amount, description: description, author: author, typeId: type_id});
   }
 
   public getUser(username: String): Observable<User> {
@@ -87,17 +74,5 @@ export class AuthService {
     })); // returning an observable
 
   }
-
-  // registerUser(user: Employee) {
-  //   const body: Employee = {
-  //     username: user.username,
-  //     password: user.password,
-  //     email:  user.email,
-  //     firstname: user.firstname,
-  //     lastname: user.lastname,
-  //     user_id: user.user_id
-  //   };
-  //   return this.http.post(this.baseUrl, body);
-  // }
 
 }

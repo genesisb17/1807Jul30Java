@@ -54,5 +54,19 @@ public class UserService {
 		}
 		return null;
 	}
+	
+	public static User signup(HttpServletRequest req, HttpServletResponse resp) {
+		System.out.println("signing up");
+		ObjectMapper mapper = new ObjectMapper(); // take json and marshall it into a pojo
+		User user = null;
+		try {
+			user = mapper.readValue(req.getReader(), User.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		uDao.save(user);
+		return user;
+	}
 
 }

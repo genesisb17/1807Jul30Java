@@ -1,0 +1,28 @@
+#signupDiv {
+    text-align: center;
+    margin: 50px;
+}
+#username {
+    margin: 10px;
+}
+#password {
+    margin: 10px;
+}
+#firstname {
+    margin: 10px;
+}
+#lastname {
+    margin: 10px;
+}
+#email {
+    margin: 10px;
+}
+#roleId {
+    margin: 10px;
+}
+#signupButton {
+    margin: 10px;
+}
+#loginButton {
+    margin: 10px;
+}

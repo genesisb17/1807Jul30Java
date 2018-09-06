@@ -21,21 +21,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebServlet("/reimbursements")
 public class ReimbServlet extends HttpServlet {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	static ReimbService rService = new ReimbService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-//		PrintWriter pw = resp.getWriter();
-//		System.out.println("in doGet method");
 		
 		List<Reimbursement> reimbs = rService.findAllReimbursements();
 		if(reimbs.size()>0) {
-			// return books
 			
 			// JACKSON API
 			ObjectMapper mapper = new ObjectMapper();
@@ -55,29 +48,33 @@ public class ReimbServlet extends HttpServlet {
 
 		System.out.println("This is post data!");
         
-//        String json = "";
-//        ObjectMapper mapper = null;
-//        BufferedReader br = new BufferedReader(new InputStreamReader( req.getInputStream() ));
-//        
-//        if (br != null) {
-//            json = br.readLine();
-//        }
-//        
-//        System.out.println(json);
-//        
-//        mapper = new ObjectMapper();
-//        
-//        Reimbursement reimbObj = mapper.readValue(json, Reimbursement.class);	// json must be all on one line
-//        
-//        System.out.println(reimbObj.toString());
-//        
-//        rService.addReimbursement(reimbObj);
+        String json = "";
+        ObjectMapper mapper = null;
+        BufferedReader br = new BufferedReader(new InputStreamReader( req.getInputStream() ));
+        
+        if (br != null) {
+            json = br.readLine();
+        }
+        
+        System.out.println(json);
+        
+        mapper = new ObjectMapper();
+        
+        Reimbursement reimbObj = mapper.readValue(json, Reimbursement.class);	// json must be all on one line
+        
+        System.out.println(reimbObj.toString());
+        
+        rService.addReimbursement(reimbObj);
 		
-		List<Reimbursement> r = rService.findAllReimbursements();
-        ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(r);
-		PrintWriter writer = resp.getWriter();
-		writer.write(json);
+		
+//		List<Reimbursement> r = rService.findAllReimbursements();
+//        ObjectMapper mapper = new ObjectMapper();
+//		String json = mapper.writeValueAsString(r);
+//		PrintWriter writer = resp.getWriter();
+//		writer.write(json);
+		
+		
+		// add a new reimbursement
 		
 	}
 	

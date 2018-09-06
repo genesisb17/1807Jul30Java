@@ -1,3 +1,21 @@
-<p>
-  signup works!
-</p>
+<div id="signupDiv">
+    <h2>Sign Up</h2>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required [(ngModel)]='username' /> <br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required [(ngModel)]='password' ><br>
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" required [(ngModel)]='firstname' ><br>
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastname" required [(ngModel)]='lastname' ><br>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" required [(ngModel)]='email' ><br>
+        <select id="roleId" required [(ngModel)]='roleId'>
+                <option value="" hidden>- Select your Role -</option> 
+                <option id="employee">Employee</option>
+                <option id="admin">Administrator</option>
+        </select><br>
+        <button id="signupButton" (click)="signup()" class="btn btn-primary">Sign Up</button>
+        <br><br>Already have an account?<br>
+        <button id="loginButton" (click)="loginNavigate()" class="btn btn-primary">Login</button>
+  </div>

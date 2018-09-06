@@ -15,9 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	UserService uService = new UserService();
 	
@@ -31,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		writer.write(json);
         
-		
 	}
 
 }

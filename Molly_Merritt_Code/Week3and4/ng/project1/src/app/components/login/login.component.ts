@@ -28,8 +28,10 @@ export class LoginComponent implements OnInit {
       data => {
         this.http.user = data;
         console.log(this.http.user);
+        console.log(this.http.user.id);
 
         this.router.navigate(['/account', {
+          loggeduserId: this.http.user.id,
           loggedUsername: this.http.user.username,
           loggedFirstname: this.http.user.firstname,
           loggedLastname: this.http.user.lastname,
