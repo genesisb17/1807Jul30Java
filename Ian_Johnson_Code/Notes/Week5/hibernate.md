@@ -16,7 +16,8 @@ dialect-agnostic.
   `get()`, `merge()`, `update()`, `delete()`, `beginTransaction()`, etc.
 - `SessionFactory`: used to create session objects (only need one of these).
 - `Configuration`: used to create session factory for a DB, specify location
-  of configuration file (`hibernate.cfg.xml`).
+  of configuration file (`hibernate.cfg.xml`). This is actually a class, not
+  an interface.
 - `Transaction`: used for managing ACID-compliant transactions.
 - `Query`: used to carry out complex queries with HQL.
 - `Criteria`: used to create complex queries programmatically. Uses builders
