@@ -23,4 +23,8 @@ public class AuthorService {
 	public List<Author> getAll(){
 		return authorRepo.getAll();
 	}
+	
+	public Author getById(int id) {
+		return authorRepo.getById(id);
+	}
 }
