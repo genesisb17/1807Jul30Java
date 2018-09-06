@@ -1,22 +1,19 @@
 <div class="container">
-    <div class="wrapper m-5">
-      <form (submit)="login()" name="Login_Form" class="form-signin">
+  <div class="row align-items-center justify-content-center m-5">
+    <form (submit)="login()" name="Login_Form" class="form-signin">
+      <br>
+      <p class="text-center"><b>ERS LOGIN</b></p>
+      
+      <div class="input-group">
         <br>
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-user"></i>
-          </span>
-          <input type="text" [(ngModel)]='username' class="form-control" name="Username" placeholder="Username" required="" autofocus=""
-          />
-        </div>
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="glyphicon glyphicon-lock"></i>
-          </span>
-          <input type="password" [(ngModel)]='password' class="form-control" name="Password" placeholder="Password" required="" />
-        </div>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" id="submit" type="submit">Login</button>
-      </form>
-    </div>
+        <input type="text" [(ngModel)]='username' class="form-control" name="Username" placeholder="Username" required="" autofocus=""
+        />
+      </div>
+      <div class="input-group">
+        <input type="password" [(ngModel)]='password' class="form-control" name="Password" placeholder="Password" required="" />
+      </div>
+      <br>
+      <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" id="submit" type="submit">Login</button>
+    </form>
   </div>
+</div>

@@ -12,13 +12,6 @@ export class UserLoginComponent implements OnInit {
   private username: string;
   private password: string;
 
-  private servletUserID: number;
-  private servletUsername: string;
-  private servletFirst: string;
-  private servletLast: string;
-  private servletEmail: string;
-  private servletRoleID: number;
-
   servletData: any;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -33,7 +26,7 @@ export class UserLoginComponent implements OnInit {
     this.authService.login(this.username, this.password).subscribe(
       data => {
         if (data) {
-          this.authService.setUserData(data.userId, data.roleId);
+          this.authService.setUserData(data.userId, data.roleId, data.firstname + " " + data.lastname);
           this.router.navigateByUrl('/reimbView');
         } else {
           this.router.navigateByUrl('/login');

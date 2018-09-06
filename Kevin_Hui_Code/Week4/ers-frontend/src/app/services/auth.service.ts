@@ -9,16 +9,18 @@ export class AuthService {
 
   private userId: number;
   private roleId: number;
+  private name: string;
 
   constructor(private http: HttpClient) {}
 
-  setUserData(userId: number, roleId: number){
+  setUserData(userId: number, roleId: number, name: string){
     this.userId = userId;
     this.roleId = roleId;
+    this.name = name;
   }
 
-  getUserData(): number[] {
-    let temp: number[] = [this.userId, this.roleId];
+  getUserData(): any[] {
+    let temp: any[] = [this.userId, this.roleId, this.name];
     return temp;
   }
 
