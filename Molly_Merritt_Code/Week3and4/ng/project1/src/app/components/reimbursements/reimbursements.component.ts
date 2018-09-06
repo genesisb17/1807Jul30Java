@@ -24,7 +24,7 @@ export class ReimbursementsComponent implements OnInit {
   types: String[] = ['Lodging', 'Travel', 'Food', 'Other'];
   statuses: String[] = ['Pending', 'Approved', 'Denied'];
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: AuthService) { }
+  constructor(private route: ActivatedRoute, private router: Router, public http: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -48,7 +48,7 @@ export class ReimbursementsComponent implements OnInit {
     }
   }
 
-  getAllReimbursements() {
+  public getAllReimbursements() {
     console.log('getting all reimbursements');
     this.http.getReimbursements().subscribe(
       t => {
@@ -88,11 +88,29 @@ export class ReimbursementsComponent implements OnInit {
   }
 
   setApproved(reimbId: number) {
-
+    this.http.updateReimbursement(reimbId, this.http.user.id, 2).subscribe(
+      // function(data) {
+        // if (this.http.user.roleId < 2) {
+          // this.getReimbursementsByUser();
+        // } else if (this.http.user.roleId > 1) {
+          // this.getAllReimbursements();
+        // }
+      // }
+    );
+    if (this.http.user.roleId < 2) {
+      this.getReimbursementsByUser();
+    } else if (this.http.user.roleId > 1) {
+      this.getAllReimbursements();
+    }
   }
 
   setDenied(reimbId: number) {
-
+    this.http.updateReimbursement(reimbId, this.http.user.id, 3).subscribe();
+    if (this.http.user.roleId < 2) {
+      this.getReimbursementsByUser();
+    } else if (this.http.user.roleId > 1) {
+      this.getAllReimbursements();
+    }
   }
 
   typeConvert(type: string) {

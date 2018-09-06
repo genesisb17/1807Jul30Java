@@ -21,6 +21,10 @@ public class ReimbService {
 		return rDao.findAll(id);
 	}
 	
+	public Reimbursement updateReimbursement(Reimbursement r) {
+		return rDao.update(r);
+	}
+	
 	public static void main(String[] args) {
 		ReimbService rService = new ReimbService();
 //		List<Reimbursement> reimbs = rService.findAllReimbursements();

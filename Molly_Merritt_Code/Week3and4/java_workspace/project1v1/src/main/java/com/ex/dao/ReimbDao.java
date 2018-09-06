@@ -57,23 +57,6 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 		}
 		return reimbs;
 	}
-	
-//	public List<Reimbursement> findAll(){
-//        List<Reimbursement> full = new ArrayList<Reimbursement>();
-//        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
-//            String sql = "select ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount, " +
-//                    "ers_reimbursement.reimb_submitted, ers_reimbursement.reimb_resolved, " +
-//                    "ers_reimbursement.reimb_description, b.USER_FIRST_NAME, a.USER_FIRST_NAME, ers_reimbursement_status.reimb_status, " +
-//                    "ers_reimbursement_type.reimb_type " +
-//                    "FROM ((((ers_reimbursement " +
-//                    "full outer JOIN ers_users a ON ers_reimbursement.reimb_resolver = a.ers_users_id) " +
-//                    "full outer JOIN ers_reimbursement_type ON ers_reimbursement.reimb_type_id = ers_reimbursement_type.reimb_type_id) " +
-//                    "full outer JOIN ers_reimbursement_status ON ers_reimbursement.reimb_status_id = ers_reimbursement_status.reimb_status_id) " +
-//                    "INNER JOIN ers_users b ON ers_reimbursement.reimb_author = b.ers_users_id) order by ers_reimbursement_status.REIMB_STATUS_ID asc";
-//        } catch (SQLException e) {
-//        	e.printStackTrace();
-//        }
-//	}
 
 
 	public List<Reimbursement> findAll(int id) {
@@ -166,8 +149,31 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 
 	@Override
 	public Reimbursement update(Reimbursement obj) {
-		// TODO Auto-generated method stub
-		return null;
+		try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+			String query = "update ers_reimbursement set reimb_resolver=?, "
+					+ "reimb_status_id=? where reimb_id=?";
+			
+			String[] keys = new String[1];
+			keys[0] = "ERS_USERS_ID";
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			
+			ps.setInt(1, obj.getResolverId());
+			ps.setInt(2, obj.getStatusId());
+			ps.setInt(3, obj.getReimbId());
+			
+			int rows = ps.executeUpdate();
+			
+			if(rows != 0) {
+				ResultSet pk = ps.getGeneratedKeys();
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		return findAll(obj.id);
+		return obj;
 	}
 
 	@Override

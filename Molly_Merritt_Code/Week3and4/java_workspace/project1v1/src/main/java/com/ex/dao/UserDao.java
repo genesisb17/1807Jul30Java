@@ -138,7 +138,6 @@ public class UserDao implements Dao<User, Integer>{
 
 	@Override
 	public User update(User obj) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -57,6 +57,11 @@ export class AuthService {
       {amount: amount, description: description, authorId: authorId, typeId: type_id});
   }
 
+  public updateReimbursement(reimbId: number, resolverId: number, statusId: number) {
+    return this.http.post<Reimbursement>('http://localhost:8085/project1v1/updatereimb',
+      {reimbId: reimbId, resolverId: resolverId, statusId: statusId});
+  }
+
   public getUser(username: String): Observable<User> {
     return this.http.post<User>('http://localhost:4200/project1v1/users',
       JSON.stringify(username), httpOptions).pipe(tap(data => { this.user = data; }));
