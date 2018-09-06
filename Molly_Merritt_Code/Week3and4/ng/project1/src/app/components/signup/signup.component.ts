@@ -34,6 +34,11 @@ export class SignupComponent implements OnInit {
     );
   }
 
+  updateRoleId() {
+    console.log(event.target.value);
+    this.roleId = parseInt(event.target.value);
+  }
+
   loginNavigate() {
     this.router.navigate(['/login']);
   }

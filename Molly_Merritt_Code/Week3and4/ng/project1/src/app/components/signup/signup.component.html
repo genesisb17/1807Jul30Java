@@ -10,10 +10,10 @@
         <input type="text" id="lastname" name="lastname" required [(ngModel)]='lastname' ><br>
         <label for="email">Email</label>
         <input type="text" id="email" name="email" required [(ngModel)]='email' ><br>
-        <select id="roleId" required [(ngModel)]='roleId'>
+        <select id="roleId" required [(ngModel)]='roleId' (change)="updateRoleId($event)">
                 <option value="" hidden>- Select your Role -</option> 
-                <option id="employee">Employee</option>
-                <option id="admin">Administrator</option>
+                <option value="1" id="employee">Employee</option>
+                <option value="2" id="admin">Administrator</option>
         </select><br>
         <button id="signupButton" (click)="signup()" class="btn btn-primary">Sign Up</button>
         <br><br>Already have an account?<br>

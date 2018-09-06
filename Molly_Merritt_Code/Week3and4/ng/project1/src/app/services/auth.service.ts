@@ -38,7 +38,7 @@ export class AuthService {
       firstname: fn,
       lastname: ln,
       email: em,
-      role_id: rid
+      roleId: rid
     };
     return this.http.post<any>('http://localhost:8085/project1v1/signup', JSON.stringify(u));
   }

@@ -64,8 +64,10 @@ public class UserService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		uDao.save(user);
+//		if (uDao.isUnique(user)) {
+		System.out.println("saving user");
+			uDao.save(user);
+//		}
 		return user;
 	}
 
