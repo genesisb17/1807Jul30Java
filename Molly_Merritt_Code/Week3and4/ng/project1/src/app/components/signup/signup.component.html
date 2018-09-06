@@ -10,6 +10,7 @@
         <input type="text" id="lastname" name="lastname" required [(ngModel)]='lastname' ><br>
         <label for="email">Email</label>
         <input type="text" id="email" name="email" required [(ngModel)]='email' ><br>
+        Select Your Role:
         <select id="roleId" required [(ngModel)]='roleId' (change)="updateRoleId($event)">
                 <option value="" hidden>- Select your Role -</option> 
                 <option value="1" id="employee">Employee</option>
