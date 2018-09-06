@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ex.beans.User;
 import com.ex.service.UserService;
 
-@RestController("/users")
+//@RestController("/users")
 public class UserController {
 	
 	@Autowired
