@@ -41,6 +41,19 @@ public class UpdateReimbServlet extends HttpServlet {
         System.out.println(reimbObj.toString());
         
         rService.updateReimbursement(reimbObj);
+        
+        List<Reimbursement> _reimbs = rService.findAllReimbursements();
+		if(_reimbs.size()>0) {
+			
+			// JACKSON API
+			ObjectMapper _mapper = new ObjectMapper();
+			String _json = _mapper.writeValueAsString(_reimbs);
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("application/json");
+			out.write(_json);
+		} else {
+			resp.setStatus(404);
+		}
 		
 	}
 

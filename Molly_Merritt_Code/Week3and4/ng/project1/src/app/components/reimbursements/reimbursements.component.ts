@@ -78,9 +78,7 @@ export class ReimbursementsComponent implements OnInit {
       this.http.addReimbursement(this.amount, this.description, this.http.user.id,
         parseInt(this.type_id)).subscribe(
           d => {
-            // console.log(d);
             this.reimbursements = d;
-            // console.log(this.reimbursements);
           }
         );
         console.log('user id = ' + this.http.user.id);
@@ -98,7 +96,11 @@ export class ReimbursementsComponent implements OnInit {
   }
 
   setApproved(reimbId: number) {
-    this.http.updateReimbursement(reimbId, this.http.user.id, 2).subscribe();
+    this.http.updateReimbursement(reimbId, this.http.user.id, 2).subscribe(
+      d => {
+        this.reimbursements = d;
+      }
+    );
       // function(data) {
         // if (this.http.user.roleId < 2) {
           // this.getReimbursementsByUser();
@@ -116,7 +118,11 @@ export class ReimbursementsComponent implements OnInit {
   }
 
   setDenied(reimbId: number) {
-    this.http.updateReimbursement(reimbId, this.http.user.id, 3).subscribe();
+    this.http.updateReimbursement(reimbId, this.http.user.id, 3).subscribe(
+      d => {
+        this.reimbursements = d;
+      }
+    );
     if (this.http.user.roleId < 2) {
       this.getReimbursementsByUser();
     } else if (this.http.user.roleId > 1) {
