@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+		
+	<!-- Enable annotations in this context -->
+	<context:annotation-config/>
+
+	<!--  Where to look for annotations -->
+	<context:component-scan base-package="com.ex"/>
+
+	<!--  Enable @Transactional -->
+	<tx:annotation-driven/>
+	
+	<!-- Contextual Sessions! Configure Hibernate with spring -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<!-- Will use Hibernate101 schema just to make things quicker -->
+		<property name="url" value="jdbc:oracle:thin:@dbabenjaminm.cq3sqeqvnl0n.us-east-1.rds.amazonaws.com:1521/orcl"/>
+		<property name="username" value="hibernateexample"/>
+		<property name="password" value="p4ssw0rd"/>
+	</bean>
+	
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="packagesToScan" value="com.ex"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+				org.hibernate.dialect.Oracle10gDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	
+	
+	
+	</bean>
+
+
+
+
+</beans>
