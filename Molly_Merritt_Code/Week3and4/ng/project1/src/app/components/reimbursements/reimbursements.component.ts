@@ -15,11 +15,13 @@ export class ReimbursementsComponent implements OnInit {
 
   reimbursements: Reimbursement[] = [];
   users: User[] = [];
+  // myUser: User;
 
   // new reimbursement
   private amount: number;
   private description: string;
   private type_id: string;
+  private admin_id: number;
   message: string;
   types: String[] = ['Lodging', 'Travel', 'Food', 'Other'];
   statuses: String[] = ['Pending', 'Approved', 'Denied'];
@@ -36,10 +38,7 @@ export class ReimbursementsComponent implements OnInit {
         this.http.user.email = params['loggedEmail'];
         this.http.user.roleId = params['loggedUserRoleId'];
       });
-    // console.log('loggedUserId -> ' + this.http.user.id);
-    // console.log('loggedFirstname -> ' + this.http.user.firstname);
-    // console.log('loggedUsername -> ' + this.http.user.username);
-    // console.log('loggedEmail -> ' + this.http.user.email);
+    this.admin_id = this.http.user.roleId;
     console.log('loggedUserRoleId -> ' + this.http.user.roleId);
     if (this.http.user.roleId < 2) {
       this.getReimbursementsByUser();
@@ -88,19 +87,20 @@ export class ReimbursementsComponent implements OnInit {
   }
 
   setApproved(reimbId: number) {
-    this.http.updateReimbursement(reimbId, this.http.user.id, 2).subscribe(
+    this.http.updateReimbursement(reimbId, this.http.user.id, 2).subscribe();
       // function(data) {
         // if (this.http.user.roleId < 2) {
           // this.getReimbursementsByUser();
         // } else if (this.http.user.roleId > 1) {
           // this.getAllReimbursements();
         // }
-      // }
-    );
+      // });
     if (this.http.user.roleId < 2) {
+      console.log('getting reimbursements by user');
       this.getReimbursementsByUser();
     } else if (this.http.user.roleId > 1) {
       this.getAllReimbursements();
+      console.log('getting all reimbursements');
     }
   }
 

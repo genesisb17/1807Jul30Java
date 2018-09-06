@@ -47,8 +47,8 @@
 			<td>{{b.resolver}}</td>
 			<td>
 				{{b.status}}
-				<button *ngIf="b.status=='Pending'" (click)="setApproved(b.reimbId)" class="btn btn-success">Approve</button>
-				<button *ngIf="b.status=='Pending'" (click)="setDenied(b.reimbId)" class="btn btn-danger">Deny</button>
+				<button *ngIf="b.status=='Pending' && admin_id==2" (click)="setApproved(b.reimbId)" class="btn btn-success">Approve</button>
+				<button *ngIf="b.status=='Pending' && admin_id==2" (click)="setDenied(b.reimbId)" class="btn btn-danger">Deny</button>
 			</td>
 			<td>{{b.type}}</td>
 		</tr>
