@@ -168,6 +168,13 @@ CREATE OR REPLACE TRIGGER submitted_time
  END;
  /
 
+CREATE OR REPLACE TRIGGER resolved_time
+   BEFORE UPDATE ON ERS_REIMBURSEMENT FOR EACH ROW
+ BEGIN
+   :new.reimb_resolved := current_timestamp();
+ END;
+ /
+
 CREATE OR REPLACE TRIGGER set_default_status
    BEFORE INSERT ON ers_reimbursement FOR EACH ROW
  BEGIN

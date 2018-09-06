@@ -29,12 +29,12 @@ public class ReimbService {
 //			System.out.println(reimbs.get(i));
 //		}
 		
-		Reimbursement r = new Reimbursement();
-		r.setAmount(1000);;
-		r.setDescription("Atlantis Lodge");
-		r.setTypeId(1);
-		r.setAuthor(41);
-		rService.addReimbursement(r);
+//		Reimbursement r = new Reimbursement();
+//		r.setAmount(1000);;
+//		r.setDescription("Atlantis Lodge");
+//		r.setTypeId(1);
+//		r.setAuthor(41);
+//		rService.addReimbursement(r);
 		
 	}
 

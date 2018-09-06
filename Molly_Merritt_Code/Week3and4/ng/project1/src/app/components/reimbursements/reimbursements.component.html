@@ -3,57 +3,54 @@
 
 <button id="accButton" (click)="accountNavigate()" class="btn btn-primary">View Account Information</button>
 
-	<div class="jumbotron">
-			<div>
-				<input type="number" [(ngModel)]="amount" name="amount" class="col-4 form-control" placeholder="Amount">
-				<input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Description">
-				<select class="form-control col-4">
-					<option value="" hidden>- Select a Type -</option> 
-					<option value="1">Lodging</option>
-					<option value="2">Travel</option>
-					<option value="3">Food</option>
-					<option value="4">Other</option>
-				</select>
-				<button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
-			
-			</div>
-			<div class="jumbotron" *ngIf="message">
-				<label> 
-					{{message}}
-				</label>
-			</div>
+<div class="jumbotron">
+	<div>
+		<input type="number" [(ngModel)]="amount" name="amount" class="col-4 form-control" placeholder="Amount">
+		<input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Description">
+		<select class="form-control col-4">
+			<option value="" hidden>- Select a Type -</option> 
+			<option value="1">Lodging</option>
+			<option value="2">Travel</option>
+			<option value="3">Food</option>
+			<option value="4">Other</option>
+		</select>
+		<button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
+	
+	</div>
+	<div class="jumbotron" *ngIf="message">
+		<label> 
+			{{message}}
+		</label>
+	</div>
 </div>
 	
-	<table class="table table-sm table-hover table-bordered thead-light">
-			<thead>
-					<tr>
-					  <th scope="col">Amount</th>
-					  <th scope="col">Submitted</th>
-					  <th scope="col">Resolved</th>
-					  <th scope="col">Description</th>
-					  <th scope="col">Author</th>
-					  <th scope="col">Resolver</th>
-					  <th scope="col">Status</th>
-					  <th scope="col">Type</th>
-					</tr>
-				  </thead>
-		<tbody id="userTable">
-				<tr *ngFor="let b of reimbursements">
-						<td>{{b.amount | currency}}</td>
-						<td>{{b.submitted | date: 'medium' }}</td>
-						<td>{{b.resolved | date: 'medium'}}</td>
-						<td>{{b.description}}</td>
-						<td>{{b.author}}</td>
-						<td>{{b.resolver}}</td>
-						<td>
-							{{b.status_id}}
-							<!-- <button *ngIf="b.status_id ==1" (click)="setApproved(b.reimb_id)" class="btn btn-primary">Approve</button>
-							<button *ngIf="b.status_id ==1" (click)="setDenied(b.reimb_id)" class="btn btn-warn">Deny</button> -->
-						</td>
-						<td>{{b.typeId}}</td>
-					  </tr>
-		</tbody>
-	</table>
-
-
-
+<table class="table table-sm table-hover table-bordered thead-light">
+	<thead>
+		<tr>
+			<th scope="col">Amount</th>
+			<th scope="col">Submitted</th>
+			<th scope="col">Resolved</th>
+			<th scope="col">Description</th>
+			<th scope="col">Author</th>
+			<th scope="col">Resolver</th>
+			<th scope="col">Status</th>
+			<th scope="col">Type</th>
+		</tr>
+	</thead>
+	<tbody id="userTable">
+		<tr *ngFor="let b of reimbursements">
+			<td>{{b.amount | currency}}</td>
+			<td>{{b.submitted | date: 'medium' }}</td>
+			<td>{{b.resolved | date: 'medium'}}</td>
+			<td>{{b.description}}</td>
+			<td>{{b.author}}</td>
+			<td>{{b.resolver}}</td>
+			<td>
+				{{b.status}}
+				<button *ngIf="b.status=='Pending'" (click)="setApproved(b.reimbId)" class="btn btn-success">Approve</button>
+				<button *ngIf="b.status=='Pending'" (click)="setDenied(b.reimbId)" class="btn btn-danger">Deny</button>
+			</td>
+			<td>{{b.type}}</td>
+		</tr>
+	</tbody>
+</table>

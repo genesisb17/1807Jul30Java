@@ -20,7 +20,15 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 	public List<Reimbursement> findAll() {
 		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
-			String query = "select * from ERS_REIMBURSEMENT";
+//			String query = "select * from ERS_REIMBURSEMENT";
+			String query =
+					"select " + 
+					"  reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description, " + 
+					"  (select ers_username from ers_users u where u.ers_users_id = r.reimb_author) as author, " + 
+					"  (select ers_username from ers_users u where u.ers_users_id = r.reimb_resolver) as resolver, " + 
+					"  (select reimb_status from ers_reimbursement_status s where s.reimb_status_id = r.reimb_status_id) as status_id, " + 
+					"  (select reimb_type from ers_reimbursement_type ty where ty.reimb_type_id = r.reimb_type_id) as type_id " + 
+					"from ERS_REIMBURSEMENT r";
 
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
@@ -32,11 +40,15 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 				temp.setSubmitted(rs.getTimestamp("REIMB_SUBMITTED"));
 				temp.setResolved(rs.getTimestamp("REIMB_RESOLVED"));
 				temp.setDescription(rs.getString("REIMB_DESCRIPTION"));
-				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
-				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
-				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
-				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
-				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
+//				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
+//				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
+//				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
+//				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
+//				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
+				temp.setAuthor(rs.getString("AUTHOR"));
+				temp.setResolver(rs.getString("RESOLVER"));
+				temp.setStatus(rs.getString("STATUS_ID"));
+				temp.setType(rs.getString("TYPE_ID"));
 				reimbs.add(temp);
 			}
 
@@ -46,10 +58,36 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 		return reimbs;
 	}
 	
+//	public List<Reimbursement> findAll(){
+//        List<Reimbursement> full = new ArrayList<Reimbursement>();
+//        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
+//            String sql = "select ers_reimbursement.reimb_id, ers_reimbursement.reimb_amount, " +
+//                    "ers_reimbursement.reimb_submitted, ers_reimbursement.reimb_resolved, " +
+//                    "ers_reimbursement.reimb_description, b.USER_FIRST_NAME, a.USER_FIRST_NAME, ers_reimbursement_status.reimb_status, " +
+//                    "ers_reimbursement_type.reimb_type " +
+//                    "FROM ((((ers_reimbursement " +
+//                    "full outer JOIN ers_users a ON ers_reimbursement.reimb_resolver = a.ers_users_id) " +
+//                    "full outer JOIN ers_reimbursement_type ON ers_reimbursement.reimb_type_id = ers_reimbursement_type.reimb_type_id) " +
+//                    "full outer JOIN ers_reimbursement_status ON ers_reimbursement.reimb_status_id = ers_reimbursement_status.reimb_status_id) " +
+//                    "INNER JOIN ers_users b ON ers_reimbursement.reimb_author = b.ers_users_id) order by ers_reimbursement_status.REIMB_STATUS_ID asc";
+//        } catch (SQLException e) {
+//        	e.printStackTrace();
+//        }
+//	}
+
+
 	public List<Reimbursement> findAll(int id) {
 		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
-			String query = "select * from ERS_REIMBURSEMENT where REIMB_AUTHOR = ?";
+//			String query = "select * from ERS_REIMBURSEMENT where REIMB_AUTHOR = ?";
+			String query =
+					"select " + 
+					"  reimb_id, reimb_amount, reimb_submitted, reimb_resolved, reimb_description, " + 
+					"  (select ers_username from ers_users u where u.ers_users_id = r.reimb_author) as author, " + 
+					"  (select ers_username from ers_users u where u.ers_users_id = r.reimb_resolver) as resolver, " + 
+					"  (select reimb_status from ers_reimbursement_status s where s.reimb_status_id = r.reimb_status_id) as status_id, " + 
+					"  (select reimb_type from ers_reimbursement_type ty where ty.reimb_type_id = r.reimb_type_id) as type_id " + 
+					"from ERS_REIMBURSEMENT r where r.reimb_author = ?";
 
 			String[] keys = new String[1];
 			keys[0] = "REIMB_ID";
@@ -66,11 +104,15 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 				temp.setSubmitted(rs.getTimestamp("REIMB_SUBMITTED"));
 				temp.setResolved(rs.getTimestamp("REIMB_RESOLVED"));
 				temp.setDescription(rs.getString("REIMB_DESCRIPTION"));
-				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
-				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
-				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
-				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
-				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
+//				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
+//				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
+//				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
+//				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
+//				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
+				temp.setAuthor(rs.getString("AUTHOR"));
+				temp.setResolver(rs.getString("RESOLVER"));
+				temp.setStatus(rs.getString("STATUS_ID"));
+				temp.setType(rs.getString("TYPE_ID"));
 				reimbs.add(temp);
 			}
 
@@ -103,7 +145,7 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 			ps.setTimestamp(2, obj.getSubmitted());
 			ps.setString(3, obj.getDescription());
 			ps.setBlob(4, obj.getReceipt());
-			ps.setInt(5, obj.getAuthor());
+			ps.setInt(5, obj.getAuthorId());
 			ps.setInt(6, obj.getStatusId());
 			ps.setInt(7, obj.getTypeId());
 			

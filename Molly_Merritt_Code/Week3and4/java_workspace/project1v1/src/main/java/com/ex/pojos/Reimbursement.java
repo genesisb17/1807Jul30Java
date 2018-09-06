@@ -11,15 +11,20 @@ public class Reimbursement {
 	private Timestamp resolved;
 	private String description;
 	private Blob receipt;
-	private int author;
-	private int resolver;
+	private int authorId;
+	private int resolverId;
 	private int statusId;
 	private int typeId;
+	private String author;
+	private String resolver;
+	private String status;
+	private String type;
 	
 	public Reimbursement() {}
-	
+
 	public Reimbursement(int reimbId, double amount, Timestamp submitted, Timestamp resolved, String description,
-			Blob receipt, int author, int resolver, int statusId, int typeId) {
+			Blob receipt, int authorId, int resolverId, int statusId, int typeId, String author, String resolver,
+			String status, String type) {
 		super();
 		this.reimbId = reimbId;
 		this.amount = amount;
@@ -27,11 +32,17 @@ public class Reimbursement {
 		this.resolved = resolved;
 		this.description = description;
 		this.receipt = receipt;
-		this.author = author;
-		this.resolver = resolver;
+		this.authorId = authorId;
+		this.resolverId = resolverId;
 		this.statusId = statusId;
 		this.typeId = typeId;
+		this.author = author;
+		this.resolver = resolver;
+		this.status = status;
+		this.type = type;
 	}
+
+	
 
 	public int getReimbId() {
 		return reimbId;
@@ -81,20 +92,20 @@ public class Reimbursement {
 		this.receipt = receipt;
 	}
 
-	public int getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthor(int author) {
-		this.author = author;
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 
-	public int getResolver() {
-		return resolver;
+	public int getResolverId() {
+		return resolverId;
 	}
 
-	public void setResolver(int resolver) {
-		this.resolver = resolver;
+	public void setResolverId(int resolverId) {
+		this.resolverId = resolverId;
 	}
 
 	public int getStatusId() {
@@ -111,6 +122,38 @@ public class Reimbursement {
 
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getResolver() {
+		return resolver;
+	}
+
+	public void setResolver(String resolver) {
+		this.resolver = resolver;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override

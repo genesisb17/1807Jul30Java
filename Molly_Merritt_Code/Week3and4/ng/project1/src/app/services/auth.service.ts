@@ -49,12 +49,12 @@ export class AuthService {
 
   public getReimbursementsByUser(id: number) {
     console.log('in getReimbursementsByUser http method');
-    return this.http.post<Reimbursement[]>('http://localhost:8085/project1v1/userreimbs', {author: id});
+    return this.http.post<Reimbursement[]>('http://localhost:8085/project1v1/userreimbs', {authorId: id});
   }
 
-  public addReimbursement(amount: number, description: String, author: number, type_id: number) {
+  public addReimbursement(amount: number, description: String, authorId: number, type_id: number) {
     return this.http.post<Reimbursement>('http://localhost:8085/project1v1/reimbursements',
-      {amount: amount, description: description, author: author, typeId: type_id});
+      {amount: amount, description: description, authorId: authorId, typeId: type_id});
   }
 
   public getUser(username: String): Observable<User> {

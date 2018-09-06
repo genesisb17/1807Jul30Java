@@ -1,12 +1,16 @@
 export class Reimbursement {
-    reimb_id: number;
+    reimbId: number;
     amount: number;
     submitted: string;
     resolved: string;
     description: string;
     // receipt: string;
-    author: number;
-    resolver: number;
-    status_id: number;
-    type_id: number;
+    authorId: number;
+    resolverId: number;
+    statusId: number;
+    typeId: number;
+    author: string;
+    resolver: string;
+    status: string;
+    type: string;
  }

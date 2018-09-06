@@ -80,11 +80,19 @@ export class ReimbursementsComponent implements OnInit {
         this.typeConvert(this.type_id)).subscribe();
         console.log('user id = ' + this.http.user.id);
     }
-    if (this.http.user.id < 2) {
+    if (this.http.user.roleId < 2) {
       this.getReimbursementsByUser();
-    } else if (this.http.user.id > 1) {
+    } else if (this.http.user.roleId > 1) {
       this.getAllReimbursements();
     }
+  }
+
+  setApproved(reimbId: number) {
+
+  }
+
+  setDenied(reimbId: number) {
+
   }
 
   typeConvert(type: string) {

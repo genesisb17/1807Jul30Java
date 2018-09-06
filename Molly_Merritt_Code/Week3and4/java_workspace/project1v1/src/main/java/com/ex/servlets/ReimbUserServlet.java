@@ -44,7 +44,7 @@ public class ReimbUserServlet extends HttpServlet {
 //        
 //        rService.findReimbursementsById(reimbObj.getAuthor());
 		
-		List<Reimbursement> reimbs = rService.findReimbursementsById(reimbObj.getAuthor());
+		List<Reimbursement> reimbs = rService.findReimbursementsById(reimbObj.getAuthorId());
 		if(reimbs.size()>0) {
 			
 			// JACKSON API
