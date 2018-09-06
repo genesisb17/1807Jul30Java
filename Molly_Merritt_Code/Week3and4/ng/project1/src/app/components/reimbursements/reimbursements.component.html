@@ -1,8 +1,7 @@
 <div id="reimbDiv">
 </div>
 
-<button (click)="accountNavigate()" class="btn btn-primary">View Account Information</button>
-
+<button id="accButton" (click)="accountNavigate()" class="btn btn-primary">View Account Information</button>
 
 	<div class="jumbotron">
 			<div>
@@ -10,10 +9,10 @@
 				<input type="text" [(ngModel)]="description" name="description" class="col-6 form-control"  placeholder="Description">
 				<select class="form-control col-4">
 					<option value="" hidden>- Select a Type -</option> 
-					<option>Lodging</option>
-					<option>Travel</option>
-					<option>Food</option>
-					<option>Other</option>
+					<option value="1">Lodging</option>
+					<option value="2">Travel</option>
+					<option value="3">Food</option>
+					<option value="4">Other</option>
 				</select>
 				<button class="btn btn-submit" (click)="addNewReimbursement()">Add Reimbursement!</button>
 			
@@ -23,7 +22,7 @@
 					{{message}}
 				</label>
 			</div>
-
+</div>
 	
 	<table class="table table-sm table-hover table-bordered thead-light">
 			<thead>
@@ -51,7 +50,7 @@
 							<!-- <button *ngIf="b.status_id ==1" (click)="setApproved(b.reimb_id)" class="btn btn-primary">Approve</button>
 							<button *ngIf="b.status_id ==1" (click)="setDenied(b.reimb_id)" class="btn btn-warn">Deny</button> -->
 						</td>
-						<td>{{b.type_id}}</td>
+						<td>{{b.typeId}}</td>
 					  </tr>
 		</tbody>
 	</table>

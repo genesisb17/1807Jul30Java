@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("This is post data!");
 
         User u = UserService.login(request, response);
+        System.out.println(u.toString());
         ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(u);
 		PrintWriter writer = response.getWriter();

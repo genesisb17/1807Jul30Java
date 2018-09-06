@@ -47,9 +47,13 @@ export class AuthService {
     return this.http.get<Reimbursement[]>('http://localhost:8085/project1v1/reimbursements');
   }
 
+  public getReimbursementsByUser(id: number) {
+    console.log('in getReimbursementsByUser http method');
+    return this.http.post<Reimbursement[]>('http://localhost:8085/project1v1/userreimbs', {author: id});
+  }
+
   public addReimbursement(amount: number, description: String, author: number, type_id: number) {
     return this.http.post<Reimbursement>('http://localhost:8085/project1v1/reimbursements',
-      // JSON.stringify([amount, description, author, type_id]));
       {amount: amount, description: description, author: author, typeId: type_id});
   }
 
@@ -62,7 +66,7 @@ export class AuthService {
     // console.log("in login service 'validate' with " + username)
 
     return this.getUser(username).pipe(switchMap(temp => {
-      if (temp.user_id === 0) {
+      if (temp.id === 0) {
         return of(null); // creates new observable that does nothing except sent 1 null values
       } else {
         if (temp.password === password) {

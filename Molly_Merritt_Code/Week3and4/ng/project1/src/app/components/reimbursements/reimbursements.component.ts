@@ -27,11 +27,29 @@ export class ReimbursementsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private http: AuthService) { }
 
   ngOnInit() {
-    console.log('reimbursement view');
-    this.getAllReimbursements();
+    this.route.params.subscribe(
+      params => {
+        this.http.user.id = params['loggedUserId'];
+        this.http.user.username = params['loggedUsername'];
+        this.http.user.firstname = params['loggedFirstname'];
+        this.http.user.lastname = params['loggedLastname'];
+        this.http.user.email = params['loggedEmail'];
+        this.http.user.roleId = params['loggedUserRoleId'];
+      });
+    // console.log('loggedUserId -> ' + this.http.user.id);
+    // console.log('loggedFirstname -> ' + this.http.user.firstname);
+    // console.log('loggedUsername -> ' + this.http.user.username);
+    // console.log('loggedEmail -> ' + this.http.user.email);
+    console.log('loggedUserRoleId -> ' + this.http.user.roleId);
+    if (this.http.user.roleId < 2) {
+      this.getReimbursementsByUser();
+    } else if (this.http.user.roleId > 1) {
+      this.getAllReimbursements();
+    }
   }
 
   getAllReimbursements() {
+    console.log('getting all reimbursements');
     this.http.getReimbursements().subscribe(
       t => {
         if (t != null) {
@@ -43,7 +61,8 @@ export class ReimbursementsComponent implements OnInit {
   }
 
   getReimbursementsByUser() {
-    this.http.getReimbursements().subscribe(
+    console.log('getting reimbursements by user id');
+    this.http.getReimbursementsByUser(this.http.user.id).subscribe(
       t => {
         if (t != null) {
           this.reimbursements = t;
@@ -61,6 +80,11 @@ export class ReimbursementsComponent implements OnInit {
         this.typeConvert(this.type_id)).subscribe();
         console.log('user id = ' + this.http.user.id);
     }
+    if (this.http.user.id < 2) {
+      this.getReimbursementsByUser();
+    } else if (this.http.user.id > 1) {
+      this.getAllReimbursements();
+    }
   }
 
   typeConvert(type: string) {
@@ -73,13 +97,33 @@ export class ReimbursementsComponent implements OnInit {
     }
   }
 
+  num2str(type: string) {
+    console.log('in num2str');
+    switch (type) {
+      case '1': { return 1; }
+      case '2': { return 2; }
+      case '3': { return 3; }
+      default: { return 4; }
+    }
+  }
+
+  num2type(type: number) {
+    switch (type) {
+      case 1: { return 'Lodging'; }
+      case 2: { return 'Travel'; }
+      case 3: { return 'Food'; }
+      default: { return 'Education'; }
+    }
+  }
+
   accountNavigate() {
     this.router.navigate(['/account', {
-      loggeduserId: this.http.user.id,
+      loggedUserId: this.http.user.id,
       loggedUsername: this.http.user.username,
       loggedFirstname: this.http.user.firstname,
       loggedLastname: this.http.user.lastname,
-      loggedEmail: this.http.user.email
+      loggedEmail: this.http.user.email,
+      loggedUserRoleId: this.http.user.roleId
     }]);
   }
 }

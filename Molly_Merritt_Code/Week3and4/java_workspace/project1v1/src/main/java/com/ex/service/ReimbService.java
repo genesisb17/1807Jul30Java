@@ -17,6 +17,10 @@ public class ReimbService {
 		return rDao.save(r);
 	}
 	
+	public List<Reimbursement> findReimbursementsById(int id) {
+		return rDao.findAll(id);
+	}
+	
 	public static void main(String[] args) {
 		ReimbService rService = new ReimbService();
 //		List<Reimbursement> reimbs = rService.findAllReimbursements();

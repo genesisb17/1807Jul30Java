@@ -13,41 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ex.pojos.Reimbursement;
-import com.ex.pojos.User;
 import com.ex.service.ReimbService;
-import com.ex.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/reimbursements")
-public class ReimbServlet extends HttpServlet {
+@WebServlet("/userreimbs")
+public class ReimbUserServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	static ReimbService rService = new ReimbService();
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		List<Reimbursement> reimbs = rService.findAllReimbursements();
-		if(reimbs.size()>0) {
-			
-			// JACKSON API
-			ObjectMapper mapper = new ObjectMapper();
-			String json = mapper.writeValueAsString(reimbs);
-			PrintWriter out = resp.getWriter();
-			resp.setContentType("application/json");
-			out.write(json);
-		} else {
-			resp.setStatus(404);
-		}
-		
-		
-	}
 	
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		System.out.println("This is post data!");
-        
+//		System.out.println("This is post data!");
+//        
         String json = "";
         ObjectMapper mapper = null;
         BufferedReader br = new BufferedReader(new InputStreamReader( req.getInputStream() ));
@@ -56,17 +34,30 @@ public class ReimbServlet extends HttpServlet {
             json = br.readLine();
         }
         
-        System.out.println(json);
-        
+//        System.out.println(json);
+//        
         mapper = new ObjectMapper();
         
-        Reimbursement reimbObj = mapper.readValue(json, Reimbursement.class);	// json must be all on one line
-        
+        Reimbursement reimbObj = mapper.readValue(json, Reimbursement.class);
+//        
         System.out.println(reimbObj.toString());
+//        
+//        rService.findReimbursementsById(reimbObj.getAuthor());
+		
+		List<Reimbursement> reimbs = rService.findReimbursementsById(reimbObj.getAuthor());
+		if(reimbs.size()>0) {
+			
+			// JACKSON API
+//			ObjectMapper mapper = new ObjectMapper();
+			String jsonOut = mapper.writeValueAsString(reimbs);
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("application/json");
+			out.write(jsonOut);
+		} else {
+			resp.setStatus(404);
+		}
         
-        rService.addReimbursement(reimbObj);
 		
 	}
-	
-	
+
 }

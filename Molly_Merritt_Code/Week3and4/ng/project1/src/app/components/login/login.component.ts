@@ -28,14 +28,16 @@ export class LoginComponent implements OnInit {
       data => {
         this.http.user = data;
         console.log(this.http.user);
-        console.log(this.http.user.id);
+        // console.log(this.http.user.id);
+        console.log('user role id = ' + this.http.user.roleId);
 
         this.router.navigate(['/account', {
-          loggeduserId: this.http.user.id,
+          loggedUserId: this.http.user.id,
           loggedUsername: this.http.user.username,
           loggedFirstname: this.http.user.firstname,
           loggedLastname: this.http.user.lastname,
-          loggedEmail: this.http.user.email
+          loggedEmail: this.http.user.email,
+          loggedUserRoleId: this.http.user.roleId
         }]);
       }
     );

@@ -18,45 +18,46 @@ public class ReimbDao implements Dao<Reimbursement, Integer> {
 
 	@Override
 	public List<Reimbursement> findAll() {
-//		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
-//		try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-//			String sql = "{call get_all_reimbursements(?)}";	// must call inside curly braces
-//			
-//			CallableStatement cs = conn.prepareCall(sql);
-//			cs.registerOutParameter(1, OracleTypes.CURSOR);
-//			cs.execute();
-//			
-//			ResultSet rs = (ResultSet) cs.getObject(1);
-//			int i=0;
-//			
-//			while(rs.next()) {
-//				Reimbursement temp = new Reimbursement();
-//				temp.setReimbId(rs.getInt("REIMB_ID"));
-//				temp.setAmount(rs.getDouble("REIMB_AMOUNT"));
-//				temp.setSubmitted(rs.getTimestamp("REIMB_SUBMITTED"));
-//				temp.setResolved(rs.getTimestamp("REIMB_RESOLVED"));
-//				temp.setDescription(rs.getString("REIMB_DESCRIPTION"));
-//				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
-//				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
-//				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
-//				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
-//				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
-//				reimbs.add(temp);
-//				i++;
-//			}
-//			System.out.println("number of reimbursements = " + i);
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return reimbs;
 		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
 		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
 			String query = "select * from ERS_REIMBURSEMENT";
 
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(query);
+			
+			while(rs.next()) {// book_id, isbn, title, price, genre
+				Reimbursement temp = new Reimbursement();
+				temp.setReimbId(rs.getInt("REIMB_ID"));
+				temp.setAmount(rs.getDouble("REIMB_AMOUNT"));
+				temp.setSubmitted(rs.getTimestamp("REIMB_SUBMITTED"));
+				temp.setResolved(rs.getTimestamp("REIMB_RESOLVED"));
+				temp.setDescription(rs.getString("REIMB_DESCRIPTION"));
+				temp.setReceipt(rs.getBlob("REIMB_RECEIPT"));
+				temp.setAuthor(rs.getInt("REIMB_AUTHOR"));
+				temp.setResolver(rs.getInt("REIMB_RESOLVER"));
+				temp.setStatusId(rs.getInt("REIMB_STATUS_ID"));
+				temp.setTypeId(rs.getInt("REIMB_TYPE_ID"));
+				reimbs.add(temp);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reimbs;
+	}
+	
+	public List<Reimbursement> findAll(int id) {
+		List<Reimbursement> reimbs = new ArrayList<Reimbursement>();
+		try(Connection conn = ConnectionFactory.getInstance().getConnection();){
+			String query = "select * from ERS_REIMBURSEMENT where REIMB_AUTHOR = ?";
+
+			String[] keys = new String[1];
+			keys[0] = "REIMB_ID";
+			
+			PreparedStatement ps = conn.prepareStatement(query, keys);
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {// book_id, isbn, title, price, genre
 				Reimbursement temp = new Reimbursement();
