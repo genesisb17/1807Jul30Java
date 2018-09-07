@@ -2,6 +2,7 @@ package com.ex.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,16 @@ public class UserService {
 	
 	public List<User> getAll() {
 		return users;
+	}
+	
+	public User login(String username, String password) {
+		Optional<User> user = users.stream().filter(u ->
+			u.getName().equalsIgnoreCase(username)).findFirst();
+		if(user.isPresent()) {
+			if(user.get().getPassword().equals(password)) {	// get user object from the optional
+				return user.get();
+			}
+		} return null;
 	}
 
 }

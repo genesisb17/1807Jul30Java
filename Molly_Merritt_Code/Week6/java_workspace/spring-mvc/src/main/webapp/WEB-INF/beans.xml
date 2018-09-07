@@ -10,7 +10,12 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="com.ex"/>
 	
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	
+	
+	<!-- the following is only needed if your controllers will return views -->
+	<mvc:resources location="/static" mapping="/**"></mvc:resources>
 	
 	<!-- View Resolver
 	InternalResourceviewResolver
@@ -18,7 +23,7 @@
 	 
 	 <bean id="viewResolver"
 	 	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	 	<property name="prefix" value="/static/"></property>
+	 	<property name="prefix" value="static/"></property>
 	 	<property name="suffix" value=".html"></property>
 	 </bean>
 	
