@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	
+	
+	
+	<!-- Enable annotation in this context -->
+	<context:annotation-config/>
+	
+	<!-- where to look for annotations -->
+	<context:component-scan base-package="com.ex"/>
+	
+	<!-- Enable @transactional -->
+	<tx:annotation-driven/>
+	
+	<!-- Contextual sessions! Configure Hibernate with spring -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="bank"/>
+		<property name="password" value="bank"/>
+	</bean>
+	
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="packagesToScan" value="com.ex"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle10Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- HBM@DDL.AUTO OPTIONS:
+				validate:
+				update:
+				create:
+				create-drop:
+				 -->
+				<prop key="hibernate.hdm2ddl.auto">create</prop>
+			</props>
+		</property>
+				
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
+
+</beans>

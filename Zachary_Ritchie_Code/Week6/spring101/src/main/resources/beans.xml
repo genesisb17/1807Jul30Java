@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- Configuration Spring Container in beans.xml -->
+	
+	<bean id="thisIsABean" class="com.ex.hellospring.HelloWorld" scope="prototype">
+		<!-- SETTER INJECTION -->
+		<!--<property name="message" value="Welcome to Spring! This is setter injection! Cool Stuff."/>-->
+		<!-- CONSTRUCTOR INJECTION -->
+		<constructor-arg name="message" value="Welcome to Spring! This is Constructor injection! Cool Stuff."/>
+	</bean>
+	
+	<bean id="dependent" class="com.ex.hellospring.dependentBean">
+		<property name="hello" ref="thisIsABean"/>
+	</bean>
+	
+	
+	<!--  AUTOWIRING WITH XML 
+	<bean id="employee" class="com.ex.autowire.employee" autowire="byType">
+		<constructor-arg name="name" value="Zac"/>
+		<property name="salary" value="100000"/>		
+	</bean>
+	
+	<bean name="department" class="com.ex.autowire.department">
+		
+	</bean>
+	-->
+	
+	<bean id="life" class="com.ex.lifecycle.Life"
+	init-method="customInitMethod"
+	destroy-method="customDestroyMethod">
+	
+	</bean>
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.ex"/>
+</beans>
