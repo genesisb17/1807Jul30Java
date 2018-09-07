@@ -27,4 +27,12 @@ public class AuthorService {
 	public Author getById(int id) {
 		return authorRepo.getById(id);
 	}
+	
+	public Author update(Author a) {
+		if(a.getId()!=0 && !a.getFirstName().isEmpty() && !a.getLastName().isEmpty() && !a.getBio().isEmpty()) {
+			authorRepo.update(a);
+			return a;
+		}
+		else return null;
+	}
 }

@@ -22,23 +22,7 @@ public class AuthorController {
 	@Autowired
 	private AuthorService authorService;
 	
-	@RequestMapping(method=RequestMethod.GET,
-			produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Author>> getAll() {
-		List<Author> authors = authorService.getAll();
-		if(authors.size() == 0) {
-			authors = null;
-			return new ResponseEntity<List<Author>>(authors, HttpStatus.NOT_FOUND);
-		}else {
-			return new ResponseEntity<List<Author>>(authors, HttpStatus.OK);
-		}
-	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Author> getByID(@PathVariable int id){
-		return new ResponseEntity<Author>(authorService.getById(id), HttpStatus.OK);
-	}
-	
+	//CREATE
 	@RequestMapping(method=RequestMethod.POST, 
 			consumes=MediaType.APPLICATION_JSON_VALUE, //request body content
 			produces=MediaType.APPLICATION_JSON_VALUE) //response body content
@@ -49,6 +33,43 @@ public class AuthorController {
 		}
 		else {
 			return new ResponseEntity<Author>(a, HttpStatus.CREATED); // return w 201 status
+		}
+	}
+	
+	
+	//READ
+	@RequestMapping(method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Author>> getAll() {
+		List<Author> authors = authorService.getAll();
+		return new ResponseEntity<List<Author>>(authors, HttpStatus.OK);
+		//the following code isn't necessary; exists to check whether or not list is empty
+//		if(authors.size() == 0) {
+//			authors = null;
+//			return new ResponseEntity<List<Author>>(authors, HttpStatus.NOT_FOUND);
+//		}else {
+//			return new ResponseEntity<List<Author>>(authors, HttpStatus.OK);
+//		}
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Author> getByID(@PathVariable int id){
+		return new ResponseEntity<Author>(authorService.getById(id), HttpStatus.OK);
+	}
+	
+
+	
+	//UPDATE
+	@RequestMapping(method=RequestMethod.PUT,
+			consumes=MediaType.APPLICATION_JSON_VALUE, 
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Author> update(@RequestBody Author a){
+		a = authorService.update(a);
+		if(a == null) {
+			return new ResponseEntity<Author>(HttpStatus.CONFLICT);
+		}
+		else {
+			return new ResponseEntity<Author>(HttpStatus.OK);
 		}
 	}
 	
