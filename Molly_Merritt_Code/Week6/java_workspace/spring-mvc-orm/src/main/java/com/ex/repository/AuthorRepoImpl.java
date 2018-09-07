@@ -36,8 +36,7 @@ public class AuthorRepoImpl implements AuthorRepository {
 
 	@Override
 	public void update(Author a) {
-		// TODO Auto-generated method stub
-		
+		sf.getCurrentSession().update(a);
 	}
 
 }

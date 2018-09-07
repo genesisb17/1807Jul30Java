@@ -1,11 +1,19 @@
 package com.ex.beans;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+@Table(name="AUTHORS")
 public class Author {
 	
 	@Id
@@ -15,6 +23,9 @@ public class Author {
 	private int id;	// automatically increments by 50 (to change, change allocation size)
 	private String firstName;
 	private String lastName;
+	
+	//@Min(15)	// minimum amount of characters allowed (coming from javax.validation.constraints)
+	@Size(min=15, message="Bio must be at least 15 characters")	// same thing but with a message
 	private String bio;
 	
 	public Author() {}

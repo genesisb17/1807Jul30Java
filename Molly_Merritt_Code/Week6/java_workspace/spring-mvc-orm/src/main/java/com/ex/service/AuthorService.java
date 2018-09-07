@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import com.ex.beans.Author;
 import com.ex.repository.AuthorRepository;
 
-@Service("authorService")
+//@Service("authorService")
+@Service
 public class AuthorService {
 	
 	@Autowired
