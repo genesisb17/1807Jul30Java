@@ -1,4 +1,12 @@
-﻿import { NgModule } from '@angular/core';
+﻿/*
+The app module defines the root module of the application along with metadata about the module. For
+more info about angular modules check out this page on the official docs site.
+
+This is where the fake backend provider is added to the application, to switch to a real backend simply
+remove the providers located below the comment // providers used to create fake backend.
+*/
+
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';

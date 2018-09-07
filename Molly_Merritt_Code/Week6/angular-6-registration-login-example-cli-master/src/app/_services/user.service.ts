@@ -1,4 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+﻿/*
+The user service contains a standard set of CRUD methods for managing users, it acts as the interface
+between the Angular application and the backend api.
+*/
+
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';

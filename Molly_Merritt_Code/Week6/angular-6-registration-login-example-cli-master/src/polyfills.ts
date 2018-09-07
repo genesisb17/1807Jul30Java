@@ -1,3 +1,9 @@
+/*
+Some features used by Angular 6 are not yet supported natively by all major browsers, polyfills are
+used to add support for features where necessary so your Angular 6 application works across all major
+browsers.
+*/
+
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.

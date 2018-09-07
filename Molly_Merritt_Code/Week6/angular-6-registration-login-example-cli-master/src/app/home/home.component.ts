@@ -1,4 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿/*
+The home component gets the current user from local storage and all users from the user service, and
+makes them available to the template.
+*/
+
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { User } from '../_models';
@@ -18,14 +23,14 @@ export class HomeComponent implements OnInit {
     }
 
     deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => { 
-            this.loadAllUsers() 
+        this.userService.delete(id).pipe(first()).subscribe(() => {
+            this.loadAllUsers();
         });
     }
 
     private loadAllUsers() {
-        this.userService.getAll().pipe(first()).subscribe(users => { 
-            this.users = users; 
+        this.userService.getAll().pipe(first()).subscribe(users => {
+            this.users = users;
         });
     }
 }

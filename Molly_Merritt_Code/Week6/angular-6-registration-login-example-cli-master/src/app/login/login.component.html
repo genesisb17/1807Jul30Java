@@ -1,4 +1,11 @@
-﻿<h2>Login</h2>
+﻿<!-- The login component template contains a login form with username and password fields. It displays
+    validation messages for invalid fields when the submit button is clicked. The form submit event is
+    bound to the onSubmit() method of the login component.
+
+    The component uses reactive form validation to validate the input fields, for more information about
+    angular reactive form validation check out Angular 6 - Reactive Forms Validation Example. -->
+
+<h2>Login</h2>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="username">Username</label>

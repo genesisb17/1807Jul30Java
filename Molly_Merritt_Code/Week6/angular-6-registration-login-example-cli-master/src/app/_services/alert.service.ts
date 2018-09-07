@@ -1,4 +1,13 @@
-﻿import { Injectable } from '@angular/core';
+﻿/*
+The alert service enables any component in the application to display alert messages at the top of
+the page via the alert component.
+
+It has methods for displaying success and error messages, and a getMessage() method that returns an
+Observable that is used by the alert component to subscribe to notifications for whenever a message
+should be displayed.
+*/
+
+import { Injectable } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 

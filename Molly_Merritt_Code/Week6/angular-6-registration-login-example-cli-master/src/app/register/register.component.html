@@ -1,4 +1,12 @@
-﻿<h2>Register</h2>
+﻿<!-- The register component template contains a simple registration form with fields for first name,
+    last name, username and password. It displays validation messages for invalid fields when the
+    submit button is clicked. The form submit event is bound to the onSubmit() method of the register
+    component.
+
+    The component uses reactive form validation to validate the input fields, for more information about
+    angular reactive form validation check out Angular 6 - Reactive Forms Validation Example. -->
+
+<h2>Register</h2>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="firstName">First Name</label>

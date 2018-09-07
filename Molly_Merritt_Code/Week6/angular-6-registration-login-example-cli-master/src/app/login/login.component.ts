@@ -1,4 +1,14 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿/*
+The login component uses the authentication service to login and logout of the application. It
+automatically logs the user out when it initializes (ngOnInit) so the login page can also be used
+to logout.
+
+The loginForm: FormGroup object defines the form controls and validators, and is used to access data
+entered into the form. The FormGroup is part of the Angular Reactive Forms module and is bound to the
+login template above with the [formGroup]="loginForm" directive.
+*/
+
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';

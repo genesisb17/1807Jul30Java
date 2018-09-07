@@ -1,4 +1,15 @@
-﻿import { Injectable } from '@angular/core';
+﻿/*
+The fake backend provider enables the example to run without a backend / backendless, it uses HTML5
+local storage for storing registered user data and provides fake implementations for authentication
+and CRUD methods, these would be handled by a real api and database in a production application.
+
+It's implemented using the HttpInterceptor class that was introduced in Angular 4.3 as part of the
+new HttpClientModule. By extending the HttpInterceptor class you can create a custom interceptor to
+modify http requests before they get sent to the server. In this case the FakeBackendInterceptor
+intercepts certain requests based on their URL and provides a fake response instead of going to the server.
+*/
+
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
@@ -42,7 +53,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // get users
             if (request.url.endsWith('/users') && request.method === 'GET') {
-                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                // check for fake auth token in header and return users if valid, this security is
+                // implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     return of(new HttpResponse({ status: 200, body: users }));
                 } else {
@@ -53,7 +65,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // get user by id
             if (request.url.match(/\/users\/\d+$/) && request.method === 'GET') {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
+                // check for fake auth token in header and return user if valid, this security is
+                // implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = request.url.split('/');
@@ -90,7 +103,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // delete user
             if (request.url.match(/\/users\/\d+$/) && request.method === 'DELETE') {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
+                // check for fake auth token in header and return user if valid, this security is
+                // implemented server side in a real application
                 if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = request.url.split('/');
@@ -115,10 +129,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // pass through any requests not handled above
             return next.handle(request);
-            
+
         }))
 
-        // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
+        // call materialize and dematerialize to ensure delay even if an error is thrown
+        // (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .pipe(materialize())
         .pipe(delay(500))
         .pipe(dematerialize());

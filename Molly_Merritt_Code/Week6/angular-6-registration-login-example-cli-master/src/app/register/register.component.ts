@@ -1,4 +1,12 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿/*
+The register component creates a new user with the user service when the register form is submitted.
+
+The registerForm: FormGroup object defines the form controls and validators, and is used to access
+data entered into the form. The FormGroup is part of the Angular Reactive Forms module and is bound
+to the login template above with the [formGroup]="registerForm" directive.
+*/
+
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
