@@ -1,0 +1,91 @@
+<!DOCTYPE html> <!-- must be first line of HTML file. indicates that it is HTML5 -->
+<html lang="en"> <!-- ROOT ELEMENT of html page -->
+<head> <!-- all metadata about page lives here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 101</title>
+    <link rel="stylesheet" href="../css/css101.css">
+    
+    <style>
+        .first{
+            color:blue;
+        }
+    </style>
+
+</head>
+<body> <!-- Where all content to display goes. note* elements can be hidden/removed -->
+    Hello! This is our first HTML page! 
+    <p id="text1">Hello! This is text inside of a paragraph tag </p>
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+<hr>
+    <br>
+<hr>
+    <br>
+    <br>
+    <br><!--  -->
+    <!-- <br> -->
+<hr>
+
+<h3> Lists:</h3>
+<h6>There are two types of lists: Ordered(numbered) and Unordered(bullets)</h6>
+<ul>
+    <li class="first">first
+        <ul>
+        <li>indexed</li>
+        </ul>
+    </li>
+    <li>second</li>
+    <li>third</li>
+</ul>
+
+<ol>
+    <li class="first colorful-class">first</li>
+    <li>second</li>
+</ol>
+
+<div>
+
+</div>
+<hr>
+<h2>Forms</h2>
+<form method="GET" action="test">
+    <input type="text" placeholder="Username" name="username" > <br>
+    <input type="number" max="100" min="0" name="age"> <br>
+    <input type="password" name="password"> <br>
+    <input type="radio" name="role" value="Associate"> Associate <br>
+    <input type="radio" name="role" value="Trainer" checked> Trainer <br>
+    Countries Traveled: <br>
+    <input type="checkbox" name="Cuba" value="cuba"> Cuba <br>
+    <input type="checkbox" name="Mexico" value="mexico"> Mexico <br>
+    <input type="checkbox" name="Australia" value="australia"> Australia <br>
+    <input type="color" name="favcolor">
+    <input type="submit" value="Submit Button">
+</form>
+<!--file:///C:/Users/Genesis/my_git_repos/1807Jul30Java/Weeks3-4/html/test?
+    username=newUser
+    &age=75
+    &password=password
+    &role=Trainer
+    &Cuba=cuba
+    &Mexico=mexico
+    &favcolor=%23808040 -->
+
+    <h6>More on forms... Lets check out <i>outputs</i></h6>
+    <form oninput="y.value=a.value">
+        <input type="range" name="a" min="0" max="100">
+        <output name="y" for="a"></output>
+    </form>
+
+
+<button>This is a button</button>
+<footer>
+    this is a footer
+</footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+
+  <!-- div to add new book. could and likely should be another component but lazy... -->
+  <p *ngIf="!addNewVisible" (click)="addNewView()"><i>Add new Book...</i></p>
+  <div *ngIf="addNewVisible" class="jumbotron">
+    ISBN: <input type="text" [(ngModel)]="newBook.isbn" class="col-4 form-control">
+    TITLE: <input type="text" [(ngModel)]="newBook.title" class="col-4 form-control">
+    PRICE:<input type="number" [(ngModel)]="newBook.price" class="col-4 form-control">
+    GENRE: <select class="form-control col-4" [(ngModel)] = "newBook.genreId">
+      <option class="col-4 form-control" *ngFor="let genre of genres" [value]="genre.id"> {{ genre.name }} </option>
+    </select>
+
+    <button class="btn btn-submit" (click)="addNewBook()">Add Book!</button>
+  </div>
+<h3>Here is your listing of books:</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ISBN</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Genre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let b of books">
+      <td>{{b.isbn}}</td>
+      <td>{{b.title}}</td>
+      <td>{{b.price | currency}}</td>
+      <td>{{getGenreById(b.genreId)}}</td>
+    </tr>
+  </tbody>
+
+</table>

@@ -1,5 +1,7 @@
 package com.revature.threads;
 
+import com.revature.io.Student;
+
 public class Threads101 {
 	/*
 	 * Thread - a single path of execution in your code
@@ -42,7 +44,10 @@ public class Threads101 {
 	 */
 
 	public static void main(String[] args) {
+	
+		System.out.println(Thread.NORM_PRIORITY);
 		ExtendsThread et = new ExtendsThread();
+		
 		ImplementsRunnable ir  = new ImplementsRunnable();
 		Thread isThread = new Thread(ir);
 		
@@ -70,11 +75,17 @@ public class Threads101 {
 			for(int i = 0; i < 50; i++) {
 				System.out.println("Lambda: " + i);
 			}
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		};
 		
 		Thread l = new Thread(lambda);
 		isThread.setPriority(Thread.MAX_PRIORITY);
-		l.setPriority(Thread.MIN_PRIORITY);
+		l.setPriority(4);
 		l.start();
 		System.out.println("STATE OF LAMBDA THREAD" + l.getState());
 		anonThread.start();
@@ -82,6 +93,32 @@ public class Threads101 {
 		isThread.start();
 		System.out.println("STATE OF LAMBDA THREAD" + l.getState());
 		System.out.println("STATE OF IR THREAD" + isThread.getState());
+		
+		String s = new String("test");
+		
+		Object obj = new Object();
+		Student stud;
+		synchronized(obj) {
+			// thread safe code;
+			stud = new Student();
+			stud.setEmail("email");
+			stud.setGrade(100);
+		}
+		
+		try {
+			throw new Exception();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	static synchronized void testSynch() {
+		
+	}
+	
+	synchronized void instanceSync() {
 		
 	}
 }

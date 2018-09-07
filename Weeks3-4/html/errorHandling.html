@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Errors</title>
+</head>
+<body>
+    
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">
+        <h1>Error Handling in JS</h1>
+    </a>
+    <p id="test"></p>
+
+    <script>
+
+        try {
+            aaaaaaalllllllllllllleeeeeeeerrrrrrttttttt("hello!");
+        } catch (error) {
+            document.getElementById("test").innerHTML = "An error occured " + error.message;
+        }
+    
+    </script>
+</body>
+</html>
