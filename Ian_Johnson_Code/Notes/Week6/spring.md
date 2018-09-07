@@ -127,7 +127,7 @@ allows our apps to process requests.
 3. Request reaches controller (`@Controller`/`@RestController`) and is
    processed based on HTTP verbs and URL pattern.
 4. Controller returns view name and (potentially) some model data.
-5. D.S. consults its `ViewResolver`, which finds a view by the name returned
+5. D.S. consults its view resolver, which finds a view by the name returned
    by the controller.
 6. View uses model data to render resource.
 7. Resource is returned to user.
@@ -140,3 +140,5 @@ creating a RESTful API. As a consequence, your controller methods in a
 `@RestController` can return objects, which Spring will serialize to JSON to
 be sent as the response body. The `@RestController` therefore completely
 bypasses the `ViewResolver`.
+
+## Input validation with JSR303
