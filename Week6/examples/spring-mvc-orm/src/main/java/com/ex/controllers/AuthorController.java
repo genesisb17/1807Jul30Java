@@ -2,6 +2,8 @@ package com.ex.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +28,7 @@ public class AuthorController {
 	@RequestMapping(method=RequestMethod.POST, 
 			consumes=MediaType.APPLICATION_JSON_VALUE, //request body content
 			produces=MediaType.APPLICATION_JSON_VALUE) //response body content
-	public ResponseEntity<Author> addAuthor(@RequestBody Author a){ //indicate that the author will be found in the request body
+	public ResponseEntity<Author> addAuthor(@Valid @RequestBody Author a){ //indicate that the author will be found in the request body
 		a = authorService.addAuthor(a);
 		if(a == null) {
 			return new ResponseEntity<Author>(a, HttpStatus.CONFLICT); //if there is issue with adding return with status of conflict
