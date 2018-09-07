@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class AuthorController {
 	public ResponseEntity<List<Author>> getAll() {
 		List<Author> authors = authorService.getAll();
 		if(authors.size() == 0) {
-			authors = null;
+			authors = null;	// whatever you're expecting if you don't have any authors
 			return new ResponseEntity<List<Author>>(authors, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<List<Author>>(authors, HttpStatus.OK);
@@ -36,8 +37,17 @@ public class AuthorController {
 		return new ResponseEntity<Author>(authorService.getById(id), HttpStatus.OK);
 	}
 	
-	public ResponseEntity<Author> addAuthor(Author a) {
-		return null;
+	@RequestMapping(method=RequestMethod.POST, 
+			consumes=MediaType.APPLICATION_JSON_VALUE, //request body content
+			produces=MediaType.APPLICATION_JSON_VALUE) //response body content
+	public ResponseEntity<Author> addAuthor(@RequestBody Author a){ //indicate that the author will be found in the request body
+		a = authorService.addAuthor(a);
+		if(a == null) {
+			return new ResponseEntity<Author>(a, HttpStatus.CONFLICT); //if there is issue with adding return with status of conflict
+		}
+		else {
+			return new ResponseEntity<Author>(a, HttpStatus.CREATED); // return w 201 status
+		}
 	}
 
 }
