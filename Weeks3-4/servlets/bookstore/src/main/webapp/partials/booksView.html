@@ -1,0 +1,26 @@
+<div id="booksView" hidden="true">
+	<div id="newBookForm">
+		ISBN:<input type="text" id="isbn" class="form-control col-4">
+		<br> Title: <input type="text" id="title"
+			class="form-control col-4"> <br> Price: <input
+			type="number" id="price" class="form-control col-4"> Genre: <input type="text"
+			id="genre" class="col-4 form-control">
+		<button class="btn btn-submit" id="addBook">Add</button>
+		<hr>
+	</div>
+</div>
+<p id="toggleAdd">
+	<i>Add new book...</i>
+</p>
+<table class="table table-sm table-hover table-bordered thead-light">
+	<thead>
+		<tr>
+			<th scope="col">ISBN</th>
+			<th scope="col">Title</th>
+			<th scope="col">Price</th>
+			<th scope="col">Genre</th>
+		</tr>
+	</thead>
+	<tbody id="bookTable">
+	</tbody>
+</table>
