@@ -27,6 +27,7 @@ export class AuthService {
   clearData(): void {
     this.userId = undefined;
     this.roleId = undefined;
+    this.name = undefined;
   }
 
   login(username: string, password: string): Observable<any> {
