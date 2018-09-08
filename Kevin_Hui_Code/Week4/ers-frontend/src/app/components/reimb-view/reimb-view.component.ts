@@ -14,26 +14,27 @@ export class ReimbViewComponent implements OnInit {
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) {
   }
 
-  private userId: number;
+  public userId: number;
+  public roleId: number;
 
-  private reimbId: number;
-  private amount: number;
-  private submitted: Time;
-  private resolved: Time;
-  private description: string;
-  private receipt: Blob;
-  private author: string;
-  private resolver: string;
-  private status: string;
-  private type: string;
-  private typeId: number;
+  public amount: number;
+  public submitted: Time;
+  public resolved: Time;
+  public description: string;
+  public receipt: Blob;
+  public author: string;
+  public resolver: string;
+  public status: string;
+  public type: string;
+  public typeId: number;
   public rbarray: any[];
   public employee: any[];
-  private length: number;
+  public length: number;
   public rtypes: any[];
 
   ngOnInit() {
     this.userId = this.authService.getUserData()[0];
+    this.roleId = this.authService.getUserData()[1];
     if (!this.userId) {
       this.router.navigateByUrl('/login');
     }

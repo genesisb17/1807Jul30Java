@@ -16,12 +16,12 @@
         <th>Submitted Date</th>
         <th>Resolved Date</th>
         <th>Description</th>
-        <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Author</th>
+        <th *ngIf="this.roleId == 1 || this.roleId == 2">Author</th>
         <th>Resolver</th>
         <th>Type</th>
         <th>Status</th>
-        <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Approve</th>
-        <th *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">Deny</th>
+        <th *ngIf="this.roleId == 1 || this.roleId == 2">Approve</th>
+        <th *ngIf="this.roleId == 1 || this.roleId == 2">Deny</th>
       </tr>
     </thead>
     <tr *ngFor="let stat of rbarray">
@@ -30,14 +30,14 @@
       <td>{{ stat.submitted | date: 'medium' }}</td>
       <td>{{ stat.resolved | date: 'medium' }}</td>
       <td>{{ stat.description }}</td>
-      <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">{{stat.author}}</td>
+      <td *ngIf="this.roleId == 1 || this.roleId == 2">{{stat.author}}</td>
       <td>{{ stat.resolver }}</td>
       <td>{{ stat.type }}</td>
       <td>{{ stat.status }}</td>
-      <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">
+      <td *ngIf="this.roleId == 1 || this.roleId == 2">
         <button class="btn btn-success" (click)="approveReimbursement(stat.reimbId)">Approve</button>
       </td>
-      <td *ngIf="this.authService.getUserData()[1] == 1 || this.authService.getUserData()[1] == 2">
+      <td *ngIf="this.roleId == 1 || this.roleId == 2">
         <button class="btn btn-danger" (click)="denyReimbursement(stat.reimbId)">Deny</button>
       </td>
     </tr>

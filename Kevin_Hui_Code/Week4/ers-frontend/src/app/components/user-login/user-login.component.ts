@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit {
 
-  private username: string;
-  private password: string;
+  username: string;
+  password: string;
 
   servletData: any;
 
@@ -20,9 +20,6 @@ export class UserLoginComponent implements OnInit {
   }
 
   login() {
-    console.log(`Value of username: ${this.username}`);
-    console.log(`Value of password: ${this.password}`);
-
     this.authService.login(this.username, this.password).subscribe(
       data => {
         if (data) {

@@ -12,7 +12,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
+  currentFullName: string;
+
   ngOnInit() {
+    this.currentFullName = this.authService.getUserData()[2];
   }
 
   logout() {
