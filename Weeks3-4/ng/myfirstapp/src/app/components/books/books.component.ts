@@ -11,7 +11,8 @@ import { Genre } from '../../models/genre.model';
 export class BooksComponent implements OnInit {
   books: Book[] = [];
   genres: Genre[] = [];
-
+  addNewVisible = false;
+  newBook: Book = new Book();
   constructor(private bsService: BookstoreService) {
     console.log('IN BOOK COMPONENT CONSTRUCTOR');
   }
@@ -21,7 +22,13 @@ export class BooksComponent implements OnInit {
     this.getGenres();
     console.log('IN BOOK COMPONENT NG ON INIT');
   }
-
+  addNewBook() {
+    console.log('adding new book');
+    console.log(this.newBook.genreId);
+  }
+  addNewView() {
+    this.addNewVisible = !this.addNewVisible;
+  }
   getGenreById(id: number) {
     return this.genres.filter(g => g.id === id )[0].name;
   }
