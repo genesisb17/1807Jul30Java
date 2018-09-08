@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ public class Author {
 	@Column(nullable = false)
 	private String lastName;
 
+	@Size(min = 15, message = "Bio must be at least 15 characters.")
 	private String bio;
 
 	public Author() {

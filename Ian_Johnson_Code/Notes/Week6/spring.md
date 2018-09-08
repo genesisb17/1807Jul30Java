@@ -142,3 +142,32 @@ be sent as the response body. The `@RestController` therefore completely
 bypasses the `ViewResolver`.
 
 ## Input validation with JSR303
+
+Use the `@Valid` annotation on a `@RequestBody` parameter to validate it and
+send back a 400 (bad request) if invalid data is sent with the request.
+
+## Spring AOP
+
+Aspect-oriented programming focuses on functionality (aspects) as the basic
+building block of an application. It allows you to inject functionality into
+other classes and methods, providing _loose coupling_ between the
+functionality and the classes into which it is injected. For example, we
+could create a logging aspect and inject it into every method, so that
+invocations are logged.
+
+Aspects in Spring AOP are annotated with `@Aspect`. Aspects apply _advice_ to
+your code; this advice consists of methods. The annotations applying to
+advice are `@Before`, `@After`, `@AfterThrowing`, `@AfterReturning` and
+`@Around`, which are applied to advice methods.
+
+"Cross-cutting concern" is a term used to refer to functionality that you
+want to define in one place and inject into other places; this therefore
+refers to aspects.
+
+Other important terms:
+
+- Pointcut: the set of join points that you want your advice to apply to.
+  Mnemonic: a line (cut) through all the (join) points.
+- Join point: the particular method to which the advice is being applied at
+  execution. The advice is aware of the join point. Mnemonic: the join point
+  is the method (point) where the advice is being joined.

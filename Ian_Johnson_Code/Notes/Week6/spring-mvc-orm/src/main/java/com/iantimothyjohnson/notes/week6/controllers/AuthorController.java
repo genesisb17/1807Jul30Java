@@ -2,6 +2,8 @@ package com.iantimothyjohnson.notes.week6.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +35,7 @@ public class AuthorController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Author> add(@RequestBody Author a) {
+	public ResponseEntity<Author> add(@Valid @RequestBody Author a) {
 		return new ResponseEntity<>(service.addAuthor(a), HttpStatus.CREATED);
 	}
 }
