@@ -7,10 +7,16 @@ public class Book {
 	private double price;
 	private int genreId;
 	
-	public Book() {
-		
-	}
+	public Book() {}
 	
+	public Book(String isbn, String title, double price, int genreId) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.price = price;
+		this.genreId = genreId;
+	}
+
 	public Book(int id, String isbn, String title, double price, int genreId) {
 		super();
 		this.id = id;
@@ -58,6 +64,12 @@ public class Book {
 
 	public void setGenreId(int genreId) {
 		this.genreId = genreId;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", isbn=" + isbn + ", title=" + title + ", price=" + price + ", genreId=" + genreId
+				+ "]";
 	}
 	
 	

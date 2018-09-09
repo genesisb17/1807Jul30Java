@@ -55,11 +55,5 @@ public class Author {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-
-	@Override
-	public String toString() {
-		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", bio=" + bio + "]";
-	}
-	
 	
 }

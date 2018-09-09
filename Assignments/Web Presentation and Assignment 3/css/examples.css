@@ -1,0 +1,180 @@
+.topnav {
+    border-style:double;
+    border-radius: 4px;
+    background-image: linear-gradient(#a86b32, #d38f50);
+    overflow: hidden;
+    font-family: 'Kreon', serif;
+}
+.topnav a {
+    float: left;
+    border-left: groove;
+    border-right: groove;
+    border-color: #b37740;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 100px;
+    text-decoration: none;
+    margin-left:40px;
+    font-size: 17px;
+    font-family: 'Kreon', serif;
+}
+
+.tiptop h2{
+    text-decoration: underline;
+}
+
+.secondexample h2{
+    text-decoration: underline;
+}
+.topnav a:hover {
+    background-color: #f0b37a;
+    color: white;
+}
+.topnav a.active {
+    background-image: linear-gradient(#da9d65, #f0b37a);
+    color: white;
+}
+
+.orangetest{
+    border-style: groove;
+    border-color: #f0b37a;
+}
+
+.tiptop h2#sub{
+    margin-left: 50px;
+    font-family: 'Cabin Sketch', cursive;
+}
+.descriptionContent, .actualDes p{
+    margin-left:70px;
+    font-family: 'Cabin Sketch', cursive;
+}
+.tiptop, .secondexample{
+    font-family: 'Cabin Sketch', cursive;
+}
+
+.title{
+    text-align:center;
+    text-decoration: underline;
+    font-family: 'Cabin Sketch', cursive;
+    border-style:ridge;
+    border-color: rgb(190, 189, 189);
+    border-width: 3px; 
+    padding-top: 20px;
+    padding-bottom: 20px;  
+}
+.tiptop p#example1, .tiptop p#brace3, .secondexample p#example2
+{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 50px;
+    font-family: 'Kreon', serif;
+}
+
+.tiptop p#example1pt2, .tiptop p#brace2, .secondexample p#example2pt1,
+.secondexample p#brace6{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 75px;
+
+    font-family: 'Kreon', serif;
+}
+
+.tiptop p#example1pt3, .tiptop p#brace1, .secondexample p#example2pt2,
+.secondexample p#brace5{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s;
+    margin-left: 100px;
+
+    font-family: 'Kreon', serif;
+}
+
+.tiptop p#example1pt4, .secondexample p#example2pt3, 
+.secondexample p#brace4{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 10s steps(40, end),
+        blink-caret .75s;
+    margin-left: 125px;
+
+    font-family: 'Kreon', serif;
+}
+
+.secondexample p#example2pt4{
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: 0em;
+    animation:
+        typing 10s steps(40, end),
+        blink-caret .75s;
+    margin-left: 150px;
+
+    font-family: 'Kreon', serif;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+button {
+      border-radius: 20px;
+  }
+
+  #example1But{
+      display:inline-block;
+      background-color:#d38f50;
+      color:white;
+      font-family: 'Cabin Sketch', cursive;
+
+  }
+  #example2But{
+      display:inline-block;
+      background-color:#d38f50;
+      color:white;
+      font-family: 'Cabin Sketch', cursive;
+    
+  }
+  
+  .layer {
+    background-color: rgba(248, 247, 216, 0.7);
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    opacity: .9;
+}
+
+.background {
+    background:url('https://i.imgur.com/zTKssjE.jpg');
+    position: relative;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+footer{
+    background-color: rgba(248, 247, 216, 0.7);
+    display: block;
+    opacity: .9;
+    font-family: 'Cabin Sketch', cursive; 
+    text-align: center;
+}
+  /* The typewriter cursor effect */
+  

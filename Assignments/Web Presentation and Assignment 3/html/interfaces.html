@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/interfaces.css">
+    <link href="https://fonts.googleapis.com/css?family=Kreon" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
+    <title>Keywords Page</title>
+</head>
+<body>
+    <div class="topnav">
+            <a href="../html/presentation.html">Home</a>
+            <a href="../html/examples.html">Examples</a>
+            <a class="active" href="../html/interfaces.html">Interfaces</a>
+    </div>
+    
+    <div class="background">
+    <div class="layer">
+    <div class="title">
+        <h1>Interfaces</h1>
+    </div>
+    <div class="beneathtitle">
+    <div class="description" style="text-align:center; ">
+        <p>
+        These are abstract data types that represent collections. 
+        <br>
+        These interfaces allow collections to be manipulated independently of 
+        <br>
+        the details of their representation
+        </p>
+    </div>
+    <div class="secondbg">
+        <img src="http://www.clipartbest.com/cliparts/9TR/REy/9TRREy55c.jpeg" 
+            alt="roots" style="width:100%";>
+    <div class="popup" onclick="myFunction()">The Collection interface
+            <span class="popuptext" id="myPopup">
+                This enables you to work with groups of objects; 
+                it is at the top of the collections hierarchy.
+            </span>
+        </div>
+    <script>
+            // When the user clicks on <div>, open the popup
+            function myFunction() {
+                var popup = document.getElementById("myPopup");
+                popup.classList.toggle("show");
+            }
+    </script>
+
+    <br>
+    <br>
+    <div class="popup1" onclick="myFunction1()">The List interface
+            <span class="popuptext1" id="myPopup1">
+                This extends Collection and an instance of List 
+                stores an ordered collection of elements.
+            </span>
+    </div>
+    <script>
+            // When the user clicks on <div>, open the popup
+            function myFunction1() {
+                var popup = document.getElementById("myPopup1");
+                popup.classList.toggle("show1");
+            }
+    </script>
+
+    <br>
+    <br>
+    <div class="popup2" onclick="myFunction2()">The Set
+            <span class="popuptext2" id="myPopup2">
+                    This extends Collection to handle sets,
+                     which must contain unique elements.
+            </span>
+    </div>
+    <script> 
+            // When the user clicks on <div>, open the popup
+            function myFunction2() {
+                var popup = document.getElementById("myPopup2");
+                popup.classList.toggle("show2");
+            }
+    </script>
+
+    <br>
+    <br>
+    <div class="popup3" onclick="myFunction3()">The SortedSet
+            <span class="popuptext3" id="myPopup3">
+                    This extends Set to handle sorted sets.
+            </span>
+    </div>
+    <script>
+            // When the user clicks on <div>, open the popup
+            function myFunction3() {
+                var popup = document.getElementById("myPopup3");
+                popup.classList.toggle("show3");
+            }
+    </script>
+
+    <br>
+    <br>
+    
+    </script>
+    </div>
+    </div>
+</div>
+<footer>
+        <p>© Kenneth Chea</p>
+        <p>Contact information: <a href="skennethchea@gmail.com">
+        skennethchea@gmail.com</a>.</p>
+</footer>
+</div>
+</div>
+
+<script type="text/javascript" src="../js/interfaces.js"></script>
+
+</body>
+</html>

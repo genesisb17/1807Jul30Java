@@ -8,14 +8,14 @@ import com.rev.pojos.Genre;
 
 public class GenreService {
 	
-	/*
-	 * We have servers and daos separately
-	 */
-	 				
-	static Dao<Genre, Integer> gDao = new GenreDAO();
+	static Dao<Genre, Integer> dao = new GenreDAO();
 	
+	public Genre findById(int id) {
+		return dao.findOne(id);
+	}
+
 	public List<Genre> getAll(){
-		return gDao.findAll();
+		return dao.getAll();
 	}
 	
 }

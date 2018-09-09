@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>AJAX Request to Servlet</title>
+</head>
+<body>
+	<button id="doStuff">
+		AJAX to Servlet
+	</button>
+	
+	<div id="things"></div>
+	
+	<script>
+	//Goal: get text from servlet asynchronously via AJAX
+	document.getElementById("doStuff").
+		addEventListener("click", function() {
+			//send AJAX request!
+			var xhr = new XMLHttpRequest();
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState==4 && xhr.status==200){
+					document.getElementById("things")
+					.innerHTML = xhr.responseText;
+				}
+			}
+			xhr.open("GET", "doStuff", true);
+			xhr.send();
+	}, true);
+	</script>
+</body>
+</html>

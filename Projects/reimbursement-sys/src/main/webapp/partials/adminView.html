@@ -1,0 +1,33 @@
+<p id="welcome">Welcome, 
+</p>
+<button type="button" id="confirm" hidden="true">Confirm</button>
+<div id="adminView" hidden="true">
+    <div id="newUserForm">
+        Username:<input type="text" id="userName" class="form-control col-2"><br> 
+        Password:<input type="text" id="password" class="form-control col-2"><br>
+        First Name: <input type="text" id="firstname" class="form-control col-2"> <br> 
+        Last Name: <input type="text" id="lastname" class="form-control col-2"><br> 
+        Email: <input type="text" id="userEmail" class="form-control col-2"><br> 
+        Role ID: <input type="number" id="userRoleId" class="form-control col-2"><br>
+        USER_ID: <input type="number" id="userId" class="form-control col-2">
+
+        <button class="btn btn-submit" id="addUser">Add</button>
+        <hr>
+    </div>
+<p id="toggleAdd">
+    <i>Add New User</i>
+</p>
+<table class="table table-sm table-hover table-bordered thead-light" id="entireTab">
+    <thead>
+        <tr>
+            <th scope="col">User</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">UserRoleId</th>
+        </tr>
+    </thead>
+    <tbody id="userTable">
+    </tbody>
+</table>
+</div>

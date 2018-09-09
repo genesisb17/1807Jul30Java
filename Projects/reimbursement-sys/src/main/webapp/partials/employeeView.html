@@ -1,0 +1,97 @@
+<p id="welcome">Welcome, 
+</p>
+<button type="button" id="confirm" hidden="true">Confirm</button>
+<div id="employeeV" hidden="true">
+<button type="button" id="submitBut">Submit a new ticket</button><br>	
+<div id="tixForm" hidden="true"><br>
+Reimbursement Type:<br>
+<select id="reimb">
+	  <option value="1" id="food">Food</option>
+	  <option value="2" id="travel">Travels</option>
+	  <option value="3" id="medical">Medical</option>
+</select><br>
+	Amount: 
+	<br><input type="number" id="amount" name="amount"><br>
+	Description(less than 250 char):
+	<br><input type="text" id="descrip" name="descrip"><br>
+	<br><button type="button" id="sendBut">Send</button>
+<br>
+</div>
+<hr>
+<button type="button" id="viewTix">View pending tickets</button><br>
+<table class="table table-sm table-hover table-bordered thead-light" id="tickHead" hidden = "true">
+    <thead>
+        <tr>
+            <th scope="col">Ticket</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Resolver</th>
+            <th scope="col">Date of Submission</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody id="eTickTable">
+    </tbody>
+</table>
+<hr>
+<button type="button" id="viewPast">Past Tickets</button><br>
+<table class="table table-sm table-hover table-bordered thead-light" id="pastHead" hidden = "true">
+    <thead>
+        <tr>
+        	<th scope="col">Reimbursement ID</th>
+        	<th scope="col">Status</th>
+            <th scope="col">Ticket</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date Resolved</th>
+            <th scope="col">Resolver</th>
+        </tr>
+    </thead>
+    <tbody id="ePastTable">
+    </tbody>
+</table>
+</div>
+<div id="fnManager">
+<p>
+Currently Pending Tickets
+</p>
+<hr>
+<table class="table table-sm table-hover table-bordered thead-light" id="fnhead">
+	<thead>
+		<tr>
+			<th scope="col">reimb_id</th>
+			<th scope="col">reimb_type</th>
+			<th scope="col">status</th>
+			<th scope="col">amt</th>
+			<th scope="col">date</th>
+			<th scope="col">description</th>
+			<th scope="col">first name</th>
+			<th scope="col">last name</th>
+	<tbody id="fnManTab">
+	</tbody>
+</table>
+Accept or Deny Tickets:<br>
+<select id="reimBurse" size="1">
+	<option value=0 id="defa">Ticket List</option>
+</select>
+<select id="acceptDeny">
+	<option value=1 id="accept">Accept</option>
+	<option value=2 id="deny">Deny</option>
+</select>
+<button type="button" id="adConfirm">Confirm</button><br><br>		
+<button type="button" id="viewHis">View All Ticket History</button><hr>
+<table class="table table-sm table-hover table-bordered thead-light" id="hisHead" hidden="true">
+	<thead>
+		<tr>
+			<th scope="col">reimb_id</th>
+			<th scope="col">reimb_type</th>
+			<th scope="col">status</th>
+			<th scope="col">amt</th>
+			<th scope="col">date</th>
+			<th scope="col">description</th>
+			<th scope="col">first name</th>
+			<th scope="col">last name</th>
+	<tbody id="hisTab">
+	</tbody>
+</table>
+</div>

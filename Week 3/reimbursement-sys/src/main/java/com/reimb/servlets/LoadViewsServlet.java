@@ -1,0 +1,52 @@
+package com.reimb.servlets;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
+public class LoadViewsServlet extends HttpServlet{
+
+	private static Logger log = 
+			Logger.getLogger(LoadViewsServlet.class);
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		log.trace("Initializing LoadViewsServlet");
+	}
+	
+	@Override 	
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String resource = "partials/" + process(req, resp) + ".html";	
+		resp.addHeader("Access-Control-Allow-Origin", "*");
+	
+		req.getRequestDispatcher(resource).forward(req, resp);
+	}
+	
+	
+	static String process(HttpServletRequest req, HttpServletResponse resp) {
+		log.info("REQUEST SENT TO: " + req.getRequestURI());
+		log.info("PATH: " + req.getPathInfo());
+		switch(req.getRequestURI()) {
+		case "/reimbursement-sys/user.view":
+			return "userView";
+		case "/reimbursement-sys/home.view":
+			return "homeView";
+		case "/reimbursement-sys/login.view":
+			return "loginView";
+		case "/reimbursement-sys/employee.view":
+			return "employeeView";
+		case "/reimbursement-sys/admin.view":
+			return "adminView";
+		default:
+			return "errorView";
+		}
+		
+	}
+}

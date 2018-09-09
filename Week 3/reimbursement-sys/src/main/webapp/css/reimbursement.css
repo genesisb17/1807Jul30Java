@@ -1,0 +1,125 @@
+div{
+	font-family: 'Prompt', sans-serif;
+}
+
+body{
+	background-image: url("https://i.imgur.com/vR7a7ct.png");
+}
+
+button #confirm{
+	margin-left: 200px;
+	text-align: center;	
+}
+
+button{
+	border:solid;
+	border-color:white;
+	border-radius:3px;	
+	background-color: white;
+}
+
+input{
+	border-radius:4px;
+	background-color: white;
+}
+
+#welcome{
+	text-align: center;
+}
+
+#navigationBar{
+	position: absolute;
+}
+
+#loginView{
+	 background-image: linear-gradient(to right, #8CD780, #8CD750);
+}
+
+#view{
+	border-radius: 2px;
+	border: solid;
+	border-color: black;
+	border-width: 2px;
+	color: white;
+	width: 64%;
+	margin-left: 220px;
+	background-image: linear-gradient(to right, #8CD780, #8CD750);
+	
+}
+
+#homeNav, #loginNav, #currentUserNav, #logoutNav, #userNav, #title{
+	padding-left:10px;
+	color: white;
+	cursor: pointer;
+	border:	solid;
+	border-color: black;
+	border-width: 1px;
+	
+}
+
+#logo p{
+	height: 100%;
+	width:50%;
+	margin-left: 230px;
+	border-color: black;
+	color: white;	
+	font-size: 30px;
+}
+
+#logo{
+	border-radius: 10px;
+	background-image: linear-gradient(to right, #8CD780, #8CD750);
+	width:70%;
+	margin-left: 150px;
+	font-size: 20px;
+	font-family: 'Prompt', sans-serif;
+	border: solid;
+	color: black;
+	text-align: center;
+	
+}
+
+ul {
+	border-radius: 20px;
+	background-color: #8CD780;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+
+li a {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #8CD785;
+    color: white;
+    opacity: .7;
+}
+
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #6cbf71;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
