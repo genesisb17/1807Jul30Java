@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<!-- 	<bean id="thisIsABean" class="com.ex.hellospring.HelloWord"
+	scope="prototype">
+	<property name="message" value="welcome to spring"/>
+	<constructor-arg name="message" value="similar to the last example"/>
+	
+	</bean>
+	<bean id="dependent" class="com.ex.hellospring.DependentBean">
+		<property name="hello" ref="thisIsABean"/>
+	</bean>
+	<bean id="employee" class="com.ex.autowire.Employee" autowire="byType">
+		<constructor-arg name="name" value="dylan"/>
+		<property name="salary" value="100000"/>
+	</bean>
+	<bean id="department" class="com.ex.autowire.Department">
+	
+	</bean>
+	-->
+	
+	<bean id="life" class="com.ex.lifecycle.Life"
+		init-method="customInitMethod" destroy-method="customDestroyMethod">
+	</bean>
+	<context:annotation-config/>
+	<context:component-scan base-package="com.ex"/>
+</beans>
