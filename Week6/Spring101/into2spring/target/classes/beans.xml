@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+<!-- Configure Spring Container in beans.xml -->
+
+	<bean id="Bean1" class="com.ex.hellospring.HelloWorld">
+		<!-- Setter Injection -->
+		<!-- <property name="message" value="Welcome to Spring! This is dependency injection! Neato!"></property>  -->
+		
+		<constructor-arg name="message" value="Welcome to Spring! This is constructor injection! Neato2!"></constructor-arg>
+	</bean>
+	
+	<bean id="Bean2" class="com.ex.hellospring.DependentBean">
+		<property name="hello" ref="Bean1"/>
+	</bean>
+	
+	<!-- Auto Wiring with XML -->
+	<!-- 
+	<bean id="employee" class="com.ex.autowire.Employee" autowire="byType">
+		<constructor-arg name="name" value="Sam"/>
+		<property name="salary" value="55000"/>
+	</bean>
+	
+	<bean id="dept" class="com.ex.autowire.Department"></bean>
+	-->
+	
+	<bean id="life" class="com.ex.lifecycle.Life" init-method="cstmInit" destroy0-method="cstmDestroy">
+		<property name="col" value="I'm feeling alive"/>
+	</bean>
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.ex"/>
+</beans>
