@@ -51,8 +51,8 @@
       <td>{{ reimb.date_submitted | date}} {{ reimb.date_submitted | date: 'shortTime'}}</td>
       <td>{{ reimb.date_resolved | date}} {{ reimb.date_resolved | date: 'shortTime'}}</td>
       <td>{{ reimb.reimb_description }}</td>
-      <td>{{ reimb.author_id }}</td>
-      <td>{{ reimb.resolver_id }}</td>
+      <td>{{ findEmpName(reimb.author_id) }}</td>
+      <td>{{ findEmpName(reimb.resolver_id) }}</td>
       <td>{{ getType(reimb.reimb_type_id) }}</td>
       <td>{{ getStatus(reimb.reimb_status_id) }}</td>
     </tr>
@@ -61,9 +61,6 @@
 
 <br>
 <br>
-
-<!-- <button type="button" label="Click" (click)="toggleReimbAddView()">Add New Reimbursement</button>
-<div><app-reimb-add [showMePartially]="showVar"></app-reimb-add></div> -->
 
 <h2> Submit New Reimbursement </h2>
 <h4> Fill in the fields then click 'Submit' </h4>

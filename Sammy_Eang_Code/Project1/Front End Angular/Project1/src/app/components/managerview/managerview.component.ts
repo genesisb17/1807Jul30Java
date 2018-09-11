@@ -3,7 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Reimbursement } from '../../objects/reimbursement.model';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { Employee } from '../../objects/employee.model';
 
 @Component({
   selector: 'app-managerview',
@@ -17,6 +18,7 @@ export class ManagerviewComponent implements OnInit {
   reimb_id: number;
 
   reimbs: Reimbursement[];
+  emps: Employee[];
 
   constructor(private aroute: ActivatedRoute,
               private location: Location,
@@ -24,7 +26,7 @@ export class ManagerviewComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() { this.emp_id = this.getEmployeeId();
-               this.reimbs = [new Reimbursement(1, 2, 3, 4, 'hello', 1, 1, 1, 1)];
+               this.getAllEmp();
                this.returnReimb();
   }
 
@@ -56,6 +58,25 @@ export class ManagerviewComponent implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/login');
+  }
+
+  getAllEmp() {
+    this.authService.getAllEmp().subscribe(
+      data => {
+        this.emps = data;
+      }
+    );
+  }
+
+  findEmpName(id: number): string {
+    if (this.emps.filter(g => g.emp_id === id).length === 0) {
+      return '';
+    }
+    let fn = this.emps.filter(g => g.emp_id === id )[0].first_name;
+    let ln = this.emps.filter(g => g.emp_id === id )[0].last_name;
+    if (fn && ln) {
+      return `${fn} ${ln}`;
+    }
   }
 
   getType(id: number) {
