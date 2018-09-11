@@ -25,9 +25,6 @@ export class LoginComponent implements OnInit {
 
   servletData: any;
 
-  jwthead = new jwtheader('JWT', 'sha512');
-  jwtpayl = new jwtpayload(this.username, this.password, 'come and get some recipes!');
-
   constructor(private authService: AuthService,
               private dataService: DataService,
               private router: Router) { }
@@ -37,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.jwthead.typ, this.jwthead.alg, this.username, this.password, this.jwtpayl.secret).subscribe(
+    this.authService.login(this.username, this.password).subscribe(
       data => {
         this.servletEmpId = data.emp_id;
         this.servletUsername = data.username;
