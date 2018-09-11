@@ -7,8 +7,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>('http://localhost:8081/Project1/login.ng', {username: username, pw: password});
+  sendHeaderLogin(type: string, algorithm: string): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/loginJwtHeader.ng', {typ: type, alg: algorithm});
+  }
+
+  sendPayloadLogin(username: string, password: string, sec: string): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/loginJwtPayload.ng', {username: username, pw: password, secret: sec});
+  }
+
+  login(): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/login.ng', {});
   }
 
   getReimbById(id: number): Observable<any> {
@@ -35,5 +43,9 @@ export class AuthService {
 
   sortEmpReimb(eid: number, sid: number) {
     return this.http.post<any>('http://localhost:8081/Project1/findReimbByIdSort.ng', {emp_id: eid, user_role_id: sid});
+  }
+
+  getAllEmp(): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/Project1/getAllEmp.ng', {});
   }
 }

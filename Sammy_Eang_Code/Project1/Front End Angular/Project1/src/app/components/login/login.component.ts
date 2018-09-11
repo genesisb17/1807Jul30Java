@@ -25,16 +25,23 @@ export class LoginComponent implements OnInit {
 
   servletData: any;
 
+  jwthead = new jwtheader('JWT', 'sha512');
+  jwtpayl = new jwtpayload(this.username, this.password, 'come and get some recipes!');
+
   constructor(private authService: AuthService,
               private dataService: DataService,
               private router: Router) { }
 
   ngOnInit() {
     console.log(this.jwthead.typ);
+    console.log(this.jwthead.alg);
+    console.log(this.jwtpayl.secret);
   }
 
   login() {
-    this.authService.login(this.username, this.password).subscribe(
+    this.authService.sendHeaderLogin(this.jwthead.typ, this.jwthead.alg).subscribe();
+    this.authService.sendPayloadLogin(this.username, this.password, this.jwtpayl.secret).subscribe();
+    this.authService.login().subscribe(
       data => {
         this.servletEmpId = data.emp_id;
         this.servletUsername = data.username;
