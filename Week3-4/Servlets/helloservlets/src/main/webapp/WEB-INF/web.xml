@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>helloservlets</display-name>
+  
+  <!-- WEB.XML aka Deployment Descriptor
+  is the file with which we configure our web apps 
+  Here, we indicate which url-patterns (endpoints) 
+  will send requests to respective servlets and 
+  configure other details like parameters and 
+  when to initialize our servlets-->
+  
+  <!-- SERVLET CONTEXT -->
+  <context-param>
+  	<param-name>Bio</param-name>
+  	<param-value>Genesis Bonds is cool. She is a trainer
+   		here at Revature.</param-value>
+  </context-param>
+  
+  <servlet>
+  	<servlet-name>HS</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>HS</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<servlet-class>com.ex.servlets.HelloHttpServlet</servlet-class>
+  	<init-param>
+  		<param-name>info</param-name>
+  		<param-value>Servlets are awesome</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>HelloHttp</servlet-name>
+  	<url-pattern>/hellohttp</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

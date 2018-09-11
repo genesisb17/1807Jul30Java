@@ -1,0 +1,27 @@
+<b>{{ currentTime | date:'medium' | uppercase}}</b>
+<h3><i>Binding Types: </i></h3>
+<button [ngClass]="buttonClass" (click)="testBinding()">Click Me!</button>
+<input type="text" class="form-control" [(ngModel)]="color">
+
+<div [style.background-color]="color">
+  {{text}}
+</div>
+
+<hr>
+
+<h3><i>Pipes</i></h3>
+<input type="text" [(ngModel)]="pipeText">
+{{ pipeTest | uppercase}}
+
+{{ 100 | sqt }}
+
+<hr>
+<h3><i>To Do List: Exploring Structural Directives</i></h3>
+<input type="text" [(ngModel)]="newItem">
+<button [ngClass]="buttonClass" (click)="addItem()">Add To List...</button>
+<ul>
+  <li *ngFor="let todo of todoList" (click)="stike()" [ngStyle]="listStyle">
+    {{ todo }}
+  </li>
+</ul>
+
