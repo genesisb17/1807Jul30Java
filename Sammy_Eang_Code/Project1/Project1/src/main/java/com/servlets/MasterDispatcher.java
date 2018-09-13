@@ -15,6 +15,10 @@ private MasterDispatcher() {}
 		
 		case "/Project1/login.ng":
 			return EmployeeService.login(request, response);
+		case "/Project1/loginJwtHeader.ng":
+			return EmployeeService.loginJwtHeader(request, response);
+		case "/Project1/loginJwtPayload.ng":
+			return EmployeeService.loginJwtPayload(request, response);
 		case "/Project1/findBySome.ng":
 			return ReimbursementService.findBySome(request, response);
 		case "/Project1/submitNew.ng":
