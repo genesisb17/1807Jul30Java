@@ -12,7 +12,7 @@ import com.ex.repository.AuthorRepository;
 public class AuthorService {
 	
 	@Autowired
-	private AuthorRepository authorRepo;
+	private AuthorRepository authorRepo;// = new AuthorRepoImpl();
 
 	public Author addAuthor(Author a) {
 		//do some validation to make sure author isnt in db

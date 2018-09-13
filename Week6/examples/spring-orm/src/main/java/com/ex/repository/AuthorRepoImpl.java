@@ -31,8 +31,7 @@ public class AuthorRepoImpl implements AuthorRepository{
 	}
 
 	public void update(Author a) {
-		// TODO Auto-generated method stub
-		
+		sf.getCurrentSession().update(a);
 	}
 
 }
