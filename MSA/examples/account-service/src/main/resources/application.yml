@@ -1,0 +1,14 @@
+server:
+  port: 8888
+  
+spring:
+  application:
+    name: account-service 
+  h2:
+    console:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+      
