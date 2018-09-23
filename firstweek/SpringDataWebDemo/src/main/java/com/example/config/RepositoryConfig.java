@@ -8,24 +8,28 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories("com.example.repository")
 public class RepositoryConfig {
 	
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		Properties prop = getHibernateProperties();
-		dataSource.setUsername(prop.getProperty("hibernate.connection.username"));
-		dataSource.setPassword(prop.getProperty("hibernate.connection.password"));
-		dataSource.setUsername(prop.getProperty("hibernate.connection.url"));
-		dataSource.setDriverClassName(prop.getProperty("hibernate.connection.driver-class"));
+		Properties props = getHibernateProperties();
+		dataSource.setUrl(props.getProperty("hibernate.connection.url"));
+		dataSource.setUsername(props.getProperty("hibernate.connection.username"));
+		dataSource.setPassword(props.getProperty("hibernate.connection.password"));
+		dataSource.setDriverClassName(props.getProperty("hibernate.connection.driver-class"));
 		return dataSource;
 	}
 	
@@ -35,6 +39,7 @@ public class RepositoryConfig {
 		emf.setPackagesToScan(new String[] {"com.example.model"});
 		emf.setDataSource(dataSource());
 		JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		emf.setJpaVendorAdapter(adapter);
 		emf.setJpaProperties(getHibernateProperties());
 		return emf;
 	}
