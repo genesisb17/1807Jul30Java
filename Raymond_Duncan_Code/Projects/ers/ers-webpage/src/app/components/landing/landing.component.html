@@ -1,0 +1,9 @@
+<div>
+    <div class="container">
+        <app-navbar (viewEvent)="updateView($event)"></app-navbar>
+        <router-outlet></router-outlet>
+        <app-reimb *ngIf="activeView === 'reimb'"></app-reimb>
+        <app-account *ngIf="activeView === 'account'"></app-account>
+        <app-create-account *ngIf="activeView === 'create'"></app-create-account>
+    </div>
+</div>

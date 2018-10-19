@@ -1,0 +1,12 @@
+<div class="border rounded col-4 mx-auto">
+  <br>
+  <h1>RaysBank ERS</h1>
+  <br>
+  <div class="form-group" (keyup.enter)="login()">
+    <span><input type="text" name="username" [(ngModel)]="this.username" placeholder="Username" class="form-control"></span>
+    <span><input type="password" name="password" [(ngModel)]="this.password" placeholder="Password" class="form-control"></span>
+    <span class="alert-danger form-control" *ngIf="invalidCredentials">Invalid credentials.</span>
+    <input type="submit" value="Log In" (click)="login()">
+  </div>
+  <br>
+</div>

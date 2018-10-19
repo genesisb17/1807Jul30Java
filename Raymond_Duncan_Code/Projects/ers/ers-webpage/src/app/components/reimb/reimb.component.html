@@ -1,0 +1,150 @@
+<div class="border rounded col-10 mx-auto">
+  <br>
+  <div>
+    <!-- This is for buttons and search -->
+    <input class="btn btn-primary" type="button" value="New Ticket" data-toggle="modal" data-target="#reimbCreateModal">
+  </div>
+  <table class="table table-hover border rounded">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th *ngIf="su">Author</th>
+        <th *ngIf="su">Resolver</th>
+        <th>Submit Date</th>
+        <th>Resolve Date</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+      </tr>
+
+      <!-- <th>Description</th>  Make this hideable-->
+    </thead>
+    <tbody>
+      <tr *ngFor="let rt of reimbTickets.reverse()" data-toggle="modal" data-target="#reimbDetailModal" (click)="updateModal(rt)">
+        <td>{{rt.reimbType | reimbType }}</td>
+        <td>{{rt.reimbAmount | currency:'USD'}}</td>
+        <td *ngIf="su">{{rt.reimbAuthor}}</td>
+        <td *ngIf="su">{{rt.reimbResolver}}</td>
+        <td>{{rt.reimbSubmitted | date }}</td>
+        <td>{{rt.reimbResolved | date }}</td>
+        <td>{{rt.reimbStatus | reimbStatus}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+<!-- View Reimbursement Modal -->
+<div class="modal fade" id="reimbDetailModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header col-12">
+        <h5 class="modal-title col-11" id="reimbDetailCenterTitle">
+          <span class="form-row">
+            <span class="col-9">Ticket from {{modalReimbSubmitted | date}}</span>
+            <span class="col-3"><b>[{{modalReimbStatus | reimbStatus}}]</b></span>
+          </span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <span class="col-6">Type: {{modalReimbType | reimbType}}</span>
+          <span class="col-6">Amount: {{modalReimbAmount | currency:'USD'}}</span>
+        </div>
+        <hr>
+        <span class="form-row">
+          <label class="col col-6">Date Submitted:</label>
+          <span class="col col-6">{{modalReimbSubmitted | date:'medium' }}</span>
+        </span>
+        <span class="form-row">
+          <label class="col col-5">Date Resolved:</label>
+          <span class="col col-7">{{modalReimbResolved | date:'medium' }}</span>
+        </span>
+        <span *ngIf="su" class="form-row">
+          <label class="col col-5">Author:</label>
+          <span class="col col-7">{{modalReimbAuthor}}</span>
+        </span> <br>
+        <span *ngIf="su">
+          <label class="col col-5">Resolver:</label>
+          <span class="col col-7">{{modalReimbResolver}}</span>
+        </span> <br *ngIf="!su">
+        <hr>
+        <span>
+          <label>Description:</label>
+          <div class="card" style="height: 10em;">
+            <div class="cardbody"> 
+              {{modalReimbDescription}}
+            </div>
+          </div>
+        </span> <br *ngIf="!su">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button *ngIf="modalReimbStatus === 0 && activeUser.id == modalReimbAuthor" type="button" class="btn btn-primary" (click)="rescindTicket()">Cancel
+          Request
+        </button>
+        <div *ngIf="su && modalReimbStatus === 0" class="btn-group btn-group">
+          <input class="btn btn-success" type="button" value="Approve" data-dismiss="modal" (click)="approveTicket()">
+          <input class="btn btn-danger" type="button" value="Deny" data-dismiss="modal" (click)="denyTicket()">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Create Reimbursement Modal -->
+<div class="modal fade" id="reimbCreateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header col-12">
+        <h5 class="modal-title col-11" id="reimbDetailCenterTitle">
+          <span class="form-row">
+            <span class="col-12">New Ticket</span>
+          </span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <span class="col-6">
+            <label for="reimbType">Type: </label>
+            <form [formGroup]="reimbType">
+              <select class="custom-select" formControlName="reimbTypeControl" id="test">
+                <option *ngIf="reimbType.value.reimbTypeControl === 'Choose...'">Choose...</option>
+                <option [ngValue]="t.key" *ngFor="let t of reimbTypes">{{t.value}}</option>
+              </select>
+            </form>
+          </span>
+          <span class="col-6">
+            <label for="reimbAmount">Amount: </label>
+            <input class="form-control" type="number" min="0.01" step="0.01" placeholder="0" id="reimbAmount">
+          </span>
+        </div>
+        <span>
+          <label for="reimbDescription">Description:</label>
+          <div class="cardbody">
+            <textarea class="form-control" style="height: 10em; resize: none;" id="reimbDescription"></textarea>
+          </div>
+        </span> <br *ngIf="!su">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createTicket()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

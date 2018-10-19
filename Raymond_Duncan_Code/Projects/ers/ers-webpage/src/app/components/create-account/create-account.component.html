@@ -1,0 +1,24 @@
+<br>
+<br>
+<br>
+<br>
+<div class="border rounded col-4 mx-auto" (keyup.enter)="createAccount()">
+  <h2>Create Account</h2>
+  <br>
+  <div class="border rounded formgroup">
+    <div>
+      <span><input type="text" name="username" [(ngModel)]="this.username" placeholder="Enter Username" class="form-control"></span>
+      <span><input type="password" name="password" [(ngModel)]="this.password" placeholder="Password" class="form-control"></span>
+      <span><input type="text" name="firstname" [(ngModel)]="this.firstname" placeholder="Firstname" class="form-control"></span>
+      <span><input type="text" name="lastname" [(ngModel)]="this.lastname" placeholder="Lastname" class="form-control"></span>
+      <span><input type="text" name="email" [(ngModel)]="this.email" placeholder="Email" class="form-control"></span>
+      <form [formGroup]="companyRole">
+        <select class="custom-select" formControlName="companyRoleControl" id="test">
+          <option *ngIf="companyRole.value.companyRoleControl === 'Choose...'">Choose...</option>
+          <option [ngValue]="t.value" *ngFor="let t of companyRoles">{{t.value}}</option>
+        </select>
+      </form>
+      <input type="submit" value="Create Account" (click)="createAccount()" class="btn btn-primary">
+    </div>
+  </div>
+</div>
