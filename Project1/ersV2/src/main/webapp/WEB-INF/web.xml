@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>ERS Application</display-name>
+<servlet>
+	<servlet-name>FrontController</servlet-name>
+	<servlet-class>com.revature.servlets.LoadViewsServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+	<servlet-name>FrontController</servlet-name>
+	<url-pattern>*.view</url-pattern>
+</servlet-mapping>
+</web-app>

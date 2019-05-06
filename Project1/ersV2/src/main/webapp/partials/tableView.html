@@ -1,0 +1,109 @@
+<div style="border:1px solid black;margin:20px;padding:10px;box-shadow: 3px 4px 8px -2px #333;
+   	 		border-radius: 6px;" id="ticketsForm">
+    
+	<div class="form-group">
+		<div class="col-lg-6">
+			<div class="input-group">
+	
+				<div class="input-group-btn">
+					
+					<button type="button" class="btn btn-default" tabindex="-1">
+						Type of Expense
+					</button>
+	
+					<button type="button" class="btn btn-default dropdown-toggle"
+							data-toggle="dropdown" tabindex="-1">
+						<span class="caret"></span> 
+						<span class="sr-only">
+							Toggle Dropdown
+						</span>
+					</button>
+	
+					<ul class="dropdown-menu">
+						<li><a href="#">Lodging</a></li>
+						<li><a href="#">Food</a></li>
+						<li><a href="#">Travel</a></li>
+					</ul>
+	
+				</div>
+				
+				<input type="text" class="form-control" id="expenseTypeTxt" placeholder="">
+	
+			</div>
+		</div>
+	</div>
+	
+	<br>
+	
+	<div class="input-group">
+	
+		<div class="input-group-prepend">
+			<span class="input-group-text">Description</span>
+		</div>
+		
+		<textarea class="form-control" aria-label="With textarea"
+			id="descriptionText"></textarea>
+			
+	</div>
+	
+	<br>
+	
+	<div class="input-group">
+	
+		<span class="input-group-addon">$</span> <input type="text"
+			class="form-control" placeholder="price" id='cashMoneyYall'>
+			
+	</div>
+	
+	<button type="button" class="btn btn-primary btn-lg" id="newTicketButton">
+		Submit
+	</button>
+	
+	<br>
+	
+</div>
+
+<div id="ticketsManagerForm">
+	
+	<select id="allTicketsList">
+		<option value=""> - Select a Ticket - </option>
+	</select>
+
+	<select id="ticketStatus">
+		<option value="1">Pending</option>
+		<option value="2">Approved</option>
+		<option value="3">Denied</option>
+	</select>
+	
+	<br>
+	Ticket created by: <span id="ticketAuthor"></span>
+	<br>
+	Ticket amount: <span id="ticketAmount"></span>
+	<br>
+	Ticket description: <span id="ticketDescription"></span>
+	
+</div>
+
+	<br>
+	<p>
+		<i>Here are your statements</i>
+	</p>
+	
+	<span id="spnText"></span>
+	
+	<table class="table table-sm table-hover table-bordered thead-light" id="entireTab">
+		<thead>
+			<tr>
+				<!-- <th scope="col">tstCell</th> -->
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Cash</th>
+				<th scope="col">Submitted Date</th>
+				<th scope="col">Resolution Date</th>
+				<th scope="col">Description</th>
+				<th scope="col">Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
